@@ -1,2 +1,13 @@
-//start coding by removing this file and adding yours ;)
-@import "wcs";
+#main-container {
+    margin-left: 140px;
+    height: calc(100vh - 110px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-bloc {
+    height: 822px;
+    width: 1244px;
+    background-color: red;
+}

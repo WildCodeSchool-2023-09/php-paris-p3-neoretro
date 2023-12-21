@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\GamePictureRepository;
+use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: GamePictureRepository::class)]
-class GamePicture
+#[ORM\Entity(repositoryClass: PictureRepository::class)]
+class Picture
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -14,9 +14,9 @@ class GamePicture
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $picture = null;
+    private ?string $fileName = null;
 
-    #[ORM\ManyToOne(inversedBy: 'gamePictures')]
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Game $game = null;
 
@@ -25,14 +25,14 @@ class GamePicture
         return $this->id;
     }
 
-    public function getPicture(): ?string
+    public function getFileName(): ?string
     {
-        return $this->picture;
+        return $this->fileName;
     }
 
-    public function setPicture(string $picture): static
+    public function setFileName(string $fileName): static
     {
-        $this->picture = $picture;
+        $this->fileName = $fileName;
 
         return $this;
     }

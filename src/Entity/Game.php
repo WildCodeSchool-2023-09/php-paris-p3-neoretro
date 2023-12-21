@@ -28,15 +28,15 @@ class Game
     #[ORM\Column]
     private ?bool $isVirtual = null;
 
-    #[ORM\OneToMany(mappedBy: 'game', targetEntity: GamePicture::class, orphanRemoval: true)]
-    private Collection $gamePictures;
+    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Picture::class, orphanRemoval: true)]
+    private Collection $pictures;
 
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'games')]
     private Collection $categories;
 
     public function __construct()
     {
-        $this->gamePictures = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
         $this->categories = new ArrayCollection();
     }
 
@@ -94,29 +94,29 @@ class Game
     }
 
     /**
-     * @return Collection<int, GamePicture>
+     * @return Collection<int, Picture>
      */
-    public function getGamePictures(): Collection
+    public function getPictures(): Collection
     {
-        return $this->gamePictures;
+        return $this->pictures;
     }
 
-    public function addGamePicture(GamePicture $gamePicture): static
+    public function addPicture(Picture $picture): static
     {
-        if (!$this->gamePictures->contains($gamePicture)) {
-            $this->gamePictures->add($gamePicture);
-            $gamePicture->setGame($this);
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setGame($this);
         }
 
         return $this;
     }
 
-    public function removeGamePicture(GamePicture $gamePicture): static
+    public function removePicture(Picture $picture): static
     {
-        if ($this->gamePictures->removeElement($gamePicture)) {
+        if ($this->pictures->removeElement($picture)) {
             // set the owning side to null (unless already changed)
-            if ($gamePicture->getGame() === $this) {
-                $gamePicture->setGame(null);
+            if ($picture->getGame() === $this) {
+                $picture->setGame(null);
             }
         }
 

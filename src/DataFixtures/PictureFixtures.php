@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\GamePicture;
+use App\Entity\Picture;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -10,7 +10,7 @@ use Faker\Factory as Faker;
 
 use function Symfony\Component\String\u;
 
-class GamePictureFixtures extends Fixture implements DependentFixtureInterface
+class PictureFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -18,10 +18,10 @@ class GamePictureFixtures extends Fixture implements DependentFixtureInterface
 
         foreach (GameFixtures::DATAS as $game) {
             for ($i = 0; $i < 4; $i++) {
-                $gamePicture = new GamePicture();
-                $gamePicture->setPicture($faker->imageUrl(787, 740, 'nightlife'));
-                $gamePicture->setGame($this->getReference('game_' . u($game)->replace(' ', '_')));
-                $manager->persist($gamePicture);
+                $picture = new Picture();
+                $picture->setFileName($faker->imageUrl(787, 740, 'nightlife'));
+                $picture->setGame($this->getReference('game_' . u($game)->replace(' ', '_')));
+                $manager->persist($picture);
             }
         }
 

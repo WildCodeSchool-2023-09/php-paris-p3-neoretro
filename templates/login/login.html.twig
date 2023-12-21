@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{# ... #}
-
 {% block body %}
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
+    {% if is_granted('ROLE_USER') %}
+        <p>{{ last_username }}</p>
+    {% endif %}
     <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
+        <label for="username">Pseudo:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}">
 
         <label for="password">Password:</label>
@@ -19,4 +20,9 @@
 
         <button type="submit">login</button>
     </form>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('app_logout') }}">Déconnexion</a>
+    {% else %}
+        <a href="{{ path('app_login') }}">Déconnexion</a>
+    {% endif %}
 {% endblock %}

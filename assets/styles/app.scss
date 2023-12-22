@@ -63,8 +63,8 @@ body {
 }
 
 h2, h3, h4, h5, h6,
-p, ol, ul, label, input, select,
-.text, .content
+p, ul, label, input, select,
+.text
 {
     background: $colorGradient5;
     -webkit-background-clip: text;

@@ -1,8 +1,68 @@
-nav#main-nav {
-    height: calc(100% - 110px);
-    position: absolute;
-    left: 0;
-    width: 140px;
+@import "_variables";
 
-    border: 2px solid black;
+nav#main-nav {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+
+    width: 100%;
+    height: 100px;
+
+    border: 2px #0000;
+    border-style: solid none none;
+    border-radius: 20px 20px 0 0;
+
+    background:
+        $colorGradient3 padding-box,
+        $colorGradient4 border-box;
+    
+    box-shadow: $shadow;
+
+    ul {
+        height: 100%;
+
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        img {
+            height: 50px;
+        }
+
+        .active {
+            display: none;
+        }
+    }
+}
+
+// DESKTOP
+
+@media screen and (min-width: 1200px) {
+
+    nav#main-nav {
+        width: 120px;
+        height: calc(100% - 100px + 2px);
+
+        z-index: 2;
+        left: 0;
+        top: calc(100px - 2px);
+
+        border: 2px #0000;
+        border-style: none solid none none;
+        border-radius: 0 0 20px 0;
+    
+        background:
+            $colorGradientNavDesktop padding-box,
+            $colorGradient4 border-box;
+        
+        ul {
+            height: clamp(300px, 50%, 1000px);
+            margin-top: 10vh;
+
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 64px;
+        }
+    }
 }

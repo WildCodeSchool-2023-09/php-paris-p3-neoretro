@@ -3,23 +3,40 @@
 header {
     position: fixed;
     top: 0;
+    z-index: 2;
 
     height: 80px;
     width: 100%;
 
-    border: 2px #0000;
+    border: 2px solid #06CCF8;
     border-style: none none solid;
     border-radius: 0px 0px 20px 20px;
 
     background:
-      $colorGradient3 padding-box,
-      $colorGradient4 border-box;
+        $colorGradient3;
     
     box-shadow: $shadow;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    // Adding gradient to bottom border
+    &::before {
+        content: '';
+        display: block;
+
+        height: calc(100% + 2*2px);
+        width: calc(100% - 2*$borderRadiusLarge);
+
+        position: absolute;
+        z-index: -1;
+        left: $borderRadiusLarge;
+
+        border-width: 2px;
+        border-style: none none solid none;
+        border-image: $colorGradient4 1;
+    }
 
     img#main-logo {
         position: absolute;
@@ -40,7 +57,7 @@ header {
 
 // DESKTOP
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: $desktopWidth) {
 
     header {
         height: 100px;

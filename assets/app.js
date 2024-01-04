@@ -12,6 +12,7 @@ import './styles/desktop.scss';
 import './styles/header.scss';
 import './styles/navbar.scss';
 import './styles/dashboard.scss';
+import './styles/games.scss';
 
 // start the Stimulus application
 import './bootstrap';

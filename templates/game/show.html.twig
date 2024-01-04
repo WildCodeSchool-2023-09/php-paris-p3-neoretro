@@ -1,38 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Game{% endblock %}
+{% block title %}{{ game.title }}{% endblock %}
 
 {% block content %}
-    <h1>Game</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ game.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ game.title }}</td>
-            </tr>
-            <tr>
-                <th>Poster</th>
-                <td>{{ game.poster }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ game.description }}</td>
-            </tr>
-            <tr>
-                <th>IsVirtual</th>
-                <td>{{ game.isVirtual ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <section id="part-one" class="main-block">
+        <div id="game-resume"></div>
+        <div id="game-pictures"></div>
+        <div id="game-scores"></div>
+    </section>
+    <section id="part-two" class="main-block">
+        <div id="game-achievements"></div>
+        <div id="game-comments"></div>
+    </section>
 
-    <a href="{{ path('app_game_index') }}">back to list</a>
-
-    <a href="{{ path('app_game_edit', {'slug': game.slug}) }}">edit</a>
-
-    {{ include('game/_delete_form.html.twig') }}
 {% endblock %}

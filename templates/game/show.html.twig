@@ -31,7 +31,6 @@
             </div>
         </div>
     </section>
-
     <section class="card cell-game-picture">
         <div class="content">
             <h2>Pictures</h2>
@@ -43,9 +42,7 @@
             </div>
         </div>
     </section>
-
-    <section class="card cell-game-scores">
-            
+    <section class="card cell-game-scores">         
         <div class="content">
             <h2>Scores</h2>
                 <p>32. JanJack • 1 023 498 <img src="{{ asset('build/images/icons/user.png') }}"  alt="user-icon"></p>
@@ -55,36 +52,12 @@
                 <p><img src="{{ asset('build/images/icons/trophy-solid-3.png') }}" alt="trophy-solid-3">1 276 378: michel</p>
                 <p>4. 1 276 378: JanJack</p>
                 <p>5. 1 276 378: JanJack</p>
-            </div>
-                
+            </div>            
         </div>
     </section>
-
-    {# <table class="table">
-        <tbody>
-            <tr>
-                <th>Title</th>
-                <td>{{ game.title }}</td>
-            </tr>
-            <tr>
-                <th>Poster</th>
-                <td>{{ game.poster }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ game.description }}</td>
-            </tr>
-            <tr>
-                <th>IsVirtual</th>
-                <td>{{ game.isVirtual ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table> #}
+    <div>
+        <img src="{{ asset('build/images/icons/elipse-game-detail1-white.png') }}" alt="elipse-game-detail1-white">
+        <img src="{{ asset('build/images/icons/elipse-game-detail1-blue.png') }}" alt="elipse-game-detail1-blue">
+    </div>
 </div>
-
-    {# <a href="{{ path('app_game_index') }}">back to list</a>
-
-    <a href="{{ path('app_game_edit', {'slug': game.slug}) }}">edit</a>
-
-    {{ include('game/_delete_form.html.twig') }} #}
 {% endblock %}

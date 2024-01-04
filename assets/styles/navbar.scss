@@ -1,7 +1,94 @@
+@import "_variables";
+
 nav#main-nav {
-    height: calc(100% - 110px);
-    position: absolute;
-    left: 0;
-    width: 140px;
-    background-color: rgba($color: #002fff, $alpha: 0.5);
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+
+    width: 100%;
+    height: 100px;
+
+    border: 2px solid #06CCF8;
+    border-style: solid none none;
+    border-radius: 20px 20px 0 0;
+
+    background:
+        $colorGradient3;
+    
+    box-shadow: $shadow;
+
+    // Adding gradient to top border
+    &::before {
+        content: '';
+        display: block;
+
+        height: calc(100% + 2*2px);
+        width: calc(100% - 2*$borderRadiusLarge);
+
+        position: absolute;
+        z-index: -1;
+        top: -2px;
+        left: $borderRadiusLarge;
+
+        border-width: 2px;
+        border-style: solid none none none;
+        border-image: $colorGradient4 1;
+    }
+
+    ul {
+        height: 100%;
+
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        img {
+            height: 50px;
+        }
+
+        .active {
+            display: none;
+        }
+    }
+}
+
+// DESKTOP
+
+@media screen and (min-width: $desktopWidth) {
+
+    nav#main-nav {
+        width: 120px;
+        height: calc(100% - 100px + 2px);
+
+        left: 0;
+        top: calc(100px - 2px);
+
+        border-style: none solid none none;
+        border-radius: 0 0 20px 0;
+    
+        background:
+            $colorGradientNavDesktop;
+            
+        // Adding gradient to right border
+        &::before {
+            height: calc(100% - 20px);
+            width: calc(100% + 2px);
+
+            top: 0;
+            left: 0;
+
+            border-style: none solid none none;
+            border-image: $colorGradient4-vertical 1;
+        }
+        
+        ul {
+            height: clamp(300px, 50%, 1000px);
+            margin-top: 10vh;
+
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 64px;
+        }
+    }
 }

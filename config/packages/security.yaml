@@ -17,11 +17,11 @@ security:
             lazy: false
             provider: app_user_provider
             form_login:
-                login_path: app_login
-                check_path: app_login
-                default_target_path: app_login
+                login_path: dashboard
+                check_path: dashboard
+                default_target_path: dashboard
             logout:
-                path: app_logout
+                path: logout
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 

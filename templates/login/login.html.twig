@@ -1,28 +1,25 @@
-{% extends 'base.html.twig' %}
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
 
-{% block content %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+{% if is_granted('ROLE_USER') %}
+    <p>{{ last_username }}</p>
+    <a href="{{ path('logout') }}">Déconnexion</a>
+{% else %}
+    <form action="{{ path('dashboard') }}" method="post">
+        <div>
+            <input type="text" id="username" name="_username" placeholder="username">
+            <input type="password" id="password" name="_password" placeholder="password">
+        </div>
 
-    {% if is_granted('ROLE_USER') %}
-        <p>{{ last_username }}</p>
-    {% endif %}
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Pseudo:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password">
+        <a href="">Forgot password ?</a><br>
 
         {# If you want to control the URL the user is redirected to on success
         <input type="hidden" name="_target_path" value="/account"> #}
 
-        <button type="submit">login</button>
+        <button type="submit">LOG IN</button>
     </form>
-    {% if is_granted('ROLE_USER') %}
-        <a href="{{ path('app_logout') }}">Déconnexion</a>
-    {% else %}
-        <a href="{{ path('app_login') }}">Déconnexion</a>
-    {% endif %}
-{% endblock %}
+
+    <a href="{{ path('register') }}">New player ?</a>
+    <a href="{{ path('register') }}">Sign Up</a>
+{% endif %}

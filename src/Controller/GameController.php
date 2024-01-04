@@ -20,6 +20,7 @@ class GameController extends AbstractController
     {
         return $this->render('game/index.html.twig', [
             'games' => $gameRepository->findAll(),
+            'pageTitle' => 'game',
         ]);
     }
 
@@ -42,6 +43,7 @@ class GameController extends AbstractController
         return $this->render('game/new.html.twig', [
             'game' => $game,
             'form' => $form,
+            'pageTitle' => 'game',
         ]);
     }
 
@@ -50,6 +52,7 @@ class GameController extends AbstractController
     {
         return $this->render('game/show.html.twig', [
             'game' => $game,
+            'pageTitle' => 'game',
         ]);
     }
 
@@ -74,6 +77,7 @@ class GameController extends AbstractController
         return $this->render('game/edit.html.twig', [
             'game' => $game,
             'form' => $form,
+            'pageTitle' => 'game',
         ]);
     }
 

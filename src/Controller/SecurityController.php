@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 class SecurityController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
@@ -33,19 +34,19 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-    
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
             $entityManager->persist($user);
             $entityManager->flush();
-
             $this->addFlash('success', 'Inscription réussie. Vous pouvez maintenant vous connecter.');
-    
             return $this->redirectToRoute('app_login');
         }
         return $this->render('registration/register.html.twig', [

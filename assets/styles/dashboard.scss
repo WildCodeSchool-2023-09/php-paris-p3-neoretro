@@ -129,4 +129,15 @@
             grid-area: 3 / 7 / span 2 / span 3;
         }
     }
+
+    #the-room {
+        display: grid;
+        grid-template-columns: 0.5fr 3fr 2fr 0.5fr;
+        grid-template-rows: repeat(2, 0.5fr);
+        grid-column-gap: 15px;
+        grid-row-gap: 15px;
+        align-items: center;
+        justify-items: center;
+        margin:0;
+    }
 }

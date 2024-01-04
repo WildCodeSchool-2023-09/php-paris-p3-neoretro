@@ -31,6 +31,21 @@ class UserFixtures extends Fixture
         $user->setPassword($this->userPasswordHasher->hashPassword($user, '1234'));
         $manager->persist($user);
 
+        $admin = new User();
+        $admin->setUsername('eli');
+        $admin->setFirstname('elib');
+        $admin->setLastname('bandier');
+        $admin->setEmail('test@gmail.com');
+        $admin->setPhonenumber('0101030405');
+        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setToken(7);
+        $admin->setZipcode('76190');
+        $admin->setAdress('danslsrrthuit');
+        $admin->setCity('cuty');
+        $admin->setExperience(6);
+        $admin->setPassword($this->userPasswordHasher->hashPassword($user, '5678'));
+        $manager->persist($user);
+
         $manager->flush();
     }
 }

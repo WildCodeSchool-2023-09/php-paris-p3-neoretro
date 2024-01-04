@@ -6,9 +6,21 @@
     justify-content: center;
     align-items: center;
 
+    #error-container {
+        // position: absolute;
+        // top: 15%;
+        margin: 14px auto 22px;
+        height: 3rem;
+        padding: 1rem 2rem;
+        background: $colorGradient3;
+        border-radius: 1rem;
+        z-index: 2;
+    }
+
+
     #user-login-icon {
         height: 3rem;
-        margin: 22px auto;
+        margin: 14px auto 22px;
     }
 
     form {

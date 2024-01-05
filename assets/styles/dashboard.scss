@@ -7,8 +7,6 @@
     align-items: center;
 
     #error-container {
-        // position: absolute;
-        // top: 15%;
         margin: 14px auto 22px;
         height: 3rem;
         padding: 1rem 2rem;
@@ -102,8 +100,6 @@
     #dashboard {
         grid-template-columns: repeat(9, 120px);
         grid-template-rows: repeat(4, 190px);
-
-        // grid-area : y / x / y / x
 
         .cell-sign-in, .cell-profile, .cell-admin {
             grid-area: 1 / 1 / span 2 / span 3;

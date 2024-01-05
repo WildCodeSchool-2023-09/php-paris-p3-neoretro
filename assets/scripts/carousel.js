@@ -1,22 +1,17 @@
-console.log("init");
-
 const slideHeight = document.querySelector(".games").clientHeight + 50;
 const carousel = document.querySelector("#carousel");
 
 // SLIDER BTN
 
 const sliderBtns = document.querySelectorAll('#slider .slider-btn');
-let clicked = false;
 
 for (let i = 0 ; i < sliderBtns.length ; i++) {
-    sliderBtns[i].addEventListener("click", (e) => {
-        e.preventDefault();
+    sliderBtns[i].addEventListener("click", () => {
         carousel.scrollTo({
             top: slideHeight * i
         });
         document.querySelector('.current-slide').classList.toggle('current-slide');
         sliderBtns[i].classList.toggle('current-slide');
-        clicked = true;
     });
 }
 

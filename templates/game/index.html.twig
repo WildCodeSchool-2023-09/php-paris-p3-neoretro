@@ -45,7 +45,7 @@
     </ul>
 
     <nav id="slider">
-        <div class="slider-btn current-slide slider-btn-1"></div>
+        <div class="slider-btn slider-btn-1 current-slide"></div>
         {% for i in 1..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
             <div class="slider-btn slider-btn-{{i+1}}"></div>
         {% endfor %}

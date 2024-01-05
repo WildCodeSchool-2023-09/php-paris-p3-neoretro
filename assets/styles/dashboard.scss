@@ -81,8 +81,30 @@
             
         }
     }
-
+    
 }
+
+    #the-room {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+        margin: 10px;
+        padding-top: 10px;
+    }
+
+    #the-room #the-room-flex {
+        display: flex;
+        align-items: center;
+    }
+
+    #the-room #the-room-flex p {
+        padding: 10px;
+    }
+
+    #the-room #the-room-flex #the-room-text-end {
+        text-align: end;
+    }
 
 
 @media screen and (min-width: $desktopWidth) {
@@ -132,12 +154,26 @@
 
     #the-room {
         display: grid;
-        grid-template-columns: 0.5fr 3fr 2fr 0.5fr;
+        grid-template-columns: 1.5fr 1fr;
         grid-template-rows: repeat(2, 0.5fr);
-        grid-column-gap: 15px;
-        grid-row-gap: 15px;
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
         align-items: center;
         justify-items: center;
-        margin:0;
+        margin:10px;
+        padding: 5px;
+    }
+
+    #the-room #the-room-flex {
+        display: flex;
+        align-items: center;
+    }
+
+    #the-room #the-room-flex p {
+        padding: 9px;
+    }
+
+    #the-room #the-room-flex #the-room-text-end {
+        text-align: end;
     }
 }

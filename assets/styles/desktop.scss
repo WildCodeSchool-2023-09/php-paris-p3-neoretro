@@ -6,6 +6,7 @@
     #main-container {
         margin-left: 120px;
         margin-top: 100px;
+        padding-top: 0;
 
         width: calc(100vw - 120px);
         height: calc(100vh - 100px);
@@ -17,7 +18,7 @@
         overflow: hidden;
     }
 
-    // COMPONENTS
+    // COMPONENTS - LAYOUT
 
     .card {
         // height: 400px;
@@ -30,8 +31,6 @@
         margin: 0;
     }
 
-    // LAYOUT
-
     .grid {
         display: grid;
         gap: 20px;
@@ -42,92 +41,49 @@
         height: 820px;
     }
 
-    #games {
-        grid-template-columns: repeat(2, 610px);
-        grid-template-rows: repeat(2, 400px);
-
-        // grid-area : y / x / y / x
-
-        .cell-game {
-            grid-area: 1 / 1 / span 1 / 3;
-        }
-        .cell-game-picture {
-            grid-area: 2 / 1 / 2 / 1;
-        }
-        .cell-game-scores {
-            grid-area: 2 / 2 / 2 / 2;
-        }
-    }
-
-    .game-title {
-        font-size: 2.5rem;
-    }
-
-    .game-box {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        flex-direction: row;
-        padding-left: 350px;
-    }
-
-    .game-stars {
-        font-size: 1,50rem;
-    }
-    
-    .category-title {
-        // text-align: center;
+    ul#carousel {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        font-size: 1.75rem;
+        gap: 50px;
+
+        width: 1240px;
+        height: calc(820px + 80px);
+        padding: 40px 0;
+
+        list-style: none;
+
+        overflow: scroll;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 95%, transparent 100%);
+
     }
 
-    .game-container-card {
-        width: 500px;
-        height: 240px;
-        border-radius: 10px;
-        border: 1px solid;
-        border-color: #fdfdfd;
-        padding: 25px;
-    }
-
-    .game-container {
+    #slider {
+        position: absolute;
+        right: 2vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
-    }
-    .game-container-elements {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 25px;
+        gap: 1rem;
     }
 
-    .game-container-scores {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 320px;
-        height: 240px;
-        border-radius: 10px;
-        border: 1px solid;
-        border-color: #fdfdfd;
-        padding: 25px;
+    .slider-btn {
+        border-radius: 24px;
+        background: $colorGradient1;
+        box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25);
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
     }
 
-    .div-picture {
-        display: grid;
-        justify-items: center;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 20px;
-        margin: 30px;
+    .current-slide {
+        background: $colorGradient5;
     }
-
-    .div-picture-size {
-        width: 187px;
-        height: 140px;
-    }
-
 }

@@ -4,72 +4,51 @@
 
 {% block content %}
 
-        <ul id="carousel">
-
-            {% for i in 0..(games|length / 6) %}
-            {# {% for i in 0..0 %} #}
-    
-                <ul class="games grid">
-                    {% for y in 1..6 %}
+    <ul id="carousel">
+        {% for i in 0..(games|length / 6) %}
+            <li class="games grid full-size">
+                {% for y in 1..6 %}
+                    {% if games[y + (6*i)] is defined %}
                         <section class="card">
                             <div class="content">
-                                {% if games[y + (6*i)] is defined %}
+                                <a href="{{ path('game_show', {slug: games[y + 6*i].slug}) }}">
                                     <img class="game-poster" src="{{ games[y + (6*i)].poster }}" alt="">
                                     <h2>{{ games[y + (6*i)].title }}</h2>
+                                </a>
 
-                                    <div class="game-infos">
-                                        <div class="game-category-container">
-                                            {% for category in games[y + 6*i].categories %}
-                                                <p class="game-category">
-                                                    {{category.label}}
-                                                </p>
-                                            {% endfor %}
-                                        </div>
-    
-                                        <div class="game-stats">
-                                            <div class="game-highest-score">
-                                                <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
-                                                <p>1 276 378</p>
-                                            </div>
-                                            <div class="game-time-spent">
-                                                <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
-                                                <p>0:34</p>
-                                            </div>
-                                        </div>
+                                <div class="game-infos">
+                                    <div class="game-category-container">
+                                        {% for category in games[y + 6*i].categories %}
+                                            <p class="game-category">
+                                                {{category.label}}
+                                            </p>
+                                        {% endfor %}
                                     </div>
 
-                                {% else %}
-                                    <h2>...</h2>
-                                {% endif %}
+                                    <div class="game-stats">
+                                        <div class="game-highest-score">
+                                            <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
+                                            <p>1 276 378</p>
+                                        </div>
+                                        <div class="game-time-spent">
+                                            <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
+                                            <p>0:34</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </section>
-                    {% endfor %}
-                </ul>
-    
-            {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </li>
+        {% endfor %}
+    </ul>
 
-        </ul>
-
-
-        {# {% for game in games %}
-            <div class="card">
-                <div class="content">
-                    <td>{{ game.id }}</td>
-                    <td>{{ game.title }}</td>
-                    <td><img src="{{ game.poster }}" alt=""></td>
-                    <td>{{ game.description }}</td>
-                    <td>{{ game.isVirtual ? 'Yes' : 'No' }}</td>
-                    <td>
-                        <a href="{{ path('app_game_show', {'slug': game.slug}) }}">show</a>
-                    </td>
-                </div>
-            </div>
-        {% else %}
-            <div class="card full-size">
-                <div class="content">
-                    No games yet
-                </div>
-            </div>
-        {% endfor %} #}
+    <nav id="slider">
+        <div class="slider-btn current-slide slider-btn-1"></div>
+        {% for i in 1..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+            <div class="slider-btn slider-btn-{{i+1}}"></div>
+        {% endfor %}
+    </nav>
 
 {% endblock %}

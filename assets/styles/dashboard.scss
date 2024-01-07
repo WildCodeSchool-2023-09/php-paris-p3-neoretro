@@ -6,9 +6,19 @@
     justify-content: center;
     align-items: center;
 
+    #error-container {
+        margin: 14px auto 22px;
+        height: 3rem;
+        padding: 1rem 2rem;
+        background: $colorGradient3;
+        border-radius: 1rem;
+        z-index: 2;
+    }
+
+
     #user-login-icon {
         height: 3rem;
-        margin: 22px auto;
+        margin: 14px auto 22px;
     }
 
     form {
@@ -112,8 +122,6 @@
     #dashboard {
         grid-template-columns: repeat(9, 120px);
         grid-template-rows: repeat(4, 190px);
-
-        // grid-area : y / x / y / x
 
         .cell-sign-in, .cell-profile, .cell-admin {
             grid-area: 1 / 1 / span 2 / span 3;

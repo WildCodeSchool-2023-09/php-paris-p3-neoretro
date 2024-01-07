@@ -35,7 +35,7 @@ class DashboardController extends AbstractController
     #[Route('/logout', name: 'logout', methods: ['GET'])]
     public function logout(): never
     {
-        throw new Exception('re');
+        throw new Exception();
     }
 
     #[Route('/register', name: 'register')]
@@ -44,40 +44,22 @@ class DashboardController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager
     ): Response {
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
             $entityManager->persist($user);
             $entityManager->flush();
+
             $this->addFlash('success', 'Inscription réussie. Vous pouvez maintenant vous connecter.');
+
             return $this->redirectToRoute('app_login');
         }
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
-
-    // #[Route('user/', name: 'user')]
-    // public function user(AuthenticationUtils $authenticationUtils): Response
-    // {
-    //     $lastUsername = $authenticationUtils->getLastUsername();
-    //     $error = $authenticationUtils->getLastAuthenticationError();
-
-    //     return $this->render('dashboard/user.html.twig', [
-    //         'last_username' => $lastUsername,
-    //         'error' => $error,
-    //         'pageTitle' => 'Dashboard',
-    //     ]);
-    // }
-
-    // #[Route('admin/', name: 'admin')]
-    // public function admin(): Response
-    // {
-    //     return $this->render('dashboard/admin.html.twig', [
-    //         'pageTitle' => 'Dashboard',
-    //         'admin' => true
-    //     ]);
-    // }
 }

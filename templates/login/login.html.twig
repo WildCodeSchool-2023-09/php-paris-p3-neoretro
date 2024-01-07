@@ -1,12 +1,14 @@
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
-
 {% if is_granted('ROLE_USER') %}
     <p>{{ last_username }}</p>
     <a href="{{ path('logout') }}">Déconnexion</a>
 {% else %}
-    <img id="user-login-icon" src="{{ asset('build/images/icons/user-login.png') }}" alt="User icon">
+    {% if error %}
+    <div id="error-container">
+        <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+    </div>
+    {% else %}
+        <img id="user-login-icon" src="{{ asset('build/images/icons/user-login.png') }}" alt="User icon">
+    {% endif %}
 
     <form action="{{ path('dashboard') }}" method="post">
         <input type="text" id="username" name="_username" placeholder="username">

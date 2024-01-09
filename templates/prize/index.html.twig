@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prizes{% endblock %}
+
+{% block content %}
+        {% for prize in prizes %}
+            <div id="prizes" class="grid">
+                <div class="cell-prize">
+                    {{ prize.prizeLabel }}
+                    {{ prize.description }}
+                    {{ prize.picture }}
+                    {{ prize.value }}
+                    {{ prize.quantity }}
+                </div>
+            </div>
+                {# <td>
+                    <a href="{{ path('prize_show', {'slug': prize.slug}) }}">show</a>
+                    <a href="{{ path('prize_edit', {'slug': prize.slug}) }}">edit</a>
+                </td> #}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# <a href="{{ path('prize_new') }}">Create new</a> #}
+{% endblock %}

@@ -40,8 +40,8 @@ class PrizeFixtures extends Fixture implements DependentFixtureInterface
             $prize->setPrizeLabel($data);
             $prize->setDescription($faker->text());
             $prize->setPicture($faker->imageUrl(365, 240, 'nightlife'));
-            $prize->setValue($faker->numerify);
-            $prize->setQuantity($faker->numerify);
+            $prize->setValue(100);
+            $prize->setQuantity(10);
             $prize->setSlug($this->slugger->slug($prize->getPrizeLabel()));
             $manager->persist($prize);
         }

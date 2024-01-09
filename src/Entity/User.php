@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -55,6 +57,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $experience = null;
+
+    #[ORM\ManyToMany(targetEntity: Prize::class, mappedBy: 'winners')]
+    private Collection $prizes;
+
+    public function __construct()
+    {
+        $this->prizes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -229,6 +239,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setExperience(int $experience): static
     {
         $this->experience = $experience;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Prize>
+     */
+    public function getPrizes(): Collection
+    {
+        return $this->prizes;
+    }
+
+    public function addPrize(Prize $prize): static
+    {
+        if (!$this->prizes->contains($prize)) {
+            $this->prizes->add($prize);
+            $prize->addWinner($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrize(Prize $prize): static
+    {
+        if ($this->prizes->removeElement($prize)) {
+            $prize->removeUser($this);
+        }
 
         return $this;
     }

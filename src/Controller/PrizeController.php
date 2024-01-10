@@ -55,11 +55,11 @@ class PrizeController extends AbstractController
 
     #[Route('/{slug}/edit', name: 'prize_edit', methods: ['GET', 'POST'])]
     public function edit(
-        Request $request, 
-        Prize $prize, 
-        EntityManagerInterface $entityManager, 
+        Request $request,
+        Prize $prize,
+        EntityManagerInterface $entityManager,
         SluggerInterface $slugger
-        ): Response {
+    ): Response {
         $form = $this->createForm(PrizeType::class, $prize);
         $form->handleRequest($request);
 
@@ -81,7 +81,7 @@ class PrizeController extends AbstractController
     #[Route('/{slug}', name: 'prize_delete', methods: ['POST'])]
     public function delete(Request $request, Prize $prize, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$prize->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $prize->getId(), $request->request->get('_token'))) {
             $entityManager->remove($prize);
             $entityManager->flush();
         }

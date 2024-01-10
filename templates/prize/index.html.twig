@@ -3,26 +3,32 @@
 {% block title %}Prizes{% endblock %}
 
 {% block content %}
-        {% for prize in prizes %}
-            <div id="prizes" class="grid">
-                <div class="cell-prize">
-                    {{ prize.prizeLabel }}
-                    {{ prize.description }}
-                    {{ prize.picture }}
-                    {{ prize.value }}
-                    {{ prize.quantity }}
-                </div>
-            </div>
+    <div id="prizes" class="grid full-size">
+        <section class="card cell-prize">
+            <div class="content">
+                <h2>Prizes</h2>
+                    {% for prize in prizes %}
+                    <div>
+                        {{ prize.prizeLabel }}
+                        <img src="{{ prize.picture }}" alt="Image aléatoire">
+                        {{ prize.value }}
+                        {{ prize.quantity }}
+                    </div>
+            
+                    {% else %}
+                            <tr>
+                                <td colspan="8">no records found</td>
+                            </tr>
+                    {% endfor %}  
+            </div>     
+    </div>
+</section>
+</div>
                 {# <td>
                     <a href="{{ path('prize_show', {'slug': prize.slug}) }}">show</a>
                     <a href="{{ path('prize_edit', {'slug': prize.slug}) }}">edit</a>
                 </td> #}
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
+      
         </tbody>
     </table>
 

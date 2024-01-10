@@ -1,15 +1,18 @@
 @import "_variables";
 
+
+
+
 @media screen and (min-width: $desktopWidth) {
 
     #prizes {
-        grid-template-columns: repeat(9, 120px);
-        grid-template-rows: repeat(4, 190px);
+        grid-template-columns: repeat(3, 400px);
+        grid-template-rows: repeat(3, 400px);
 
         // grid-area : y / x / y / x
 
         .cell-prize {
-            grid-area: 1 / 1 / span 2 / span 3;
+            grid-area: 1 / 1 / 2 / 1;
         }
     }
 }

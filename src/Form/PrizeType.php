@@ -21,9 +21,9 @@ class PrizeType extends AbstractType
             ->add('quantity')
             ->add('slug')
             ->add('winners', EntityType::class, [
-                'class' => User::class,
-'choice_label' => 'id',
-'multiple' => true,
+            'class' => User::class,
+            'choice_label' => 'id',
+            'multiple' => true,
             ])
         ;
     }

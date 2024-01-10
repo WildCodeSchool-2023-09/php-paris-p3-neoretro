@@ -40,6 +40,14 @@ class RegistrationFormType extends AbstractType
                     'max' => 100,
                     'minMessage' => 'Your last name should be at least {{ limit }} characters',
                     'maxMessage' => 'Your last name should not be longer than {{ limit }} characters',]),],])
+        ->add('PhoneNumber', TelType::class, [
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Please enter your phone number',
+                ]),
+                new Regex([
+                    'pattern' => '/^[0-9]{10}$/',
+                    'message' => 'Please enter a valid phone number (10 digits)',]),],])
         ->add('Email', EmailType::class, [
             'constraints' => [
                 new NotBlank([
@@ -47,6 +55,34 @@ class RegistrationFormType extends AbstractType
                 ]),
                 new Email([
                     'message' => 'Please enter a valid email address',]),],])
+        ->add('Adress', TextType::class, [
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Please enter your address',
+                ]),
+                new Length([
+                    'min' => 2,
+                    'max' => 20,
+                    'minMessage' => 'Your address should be at least {{ limit }} characters',
+                    'maxMessage' => 'Your address should not be longer than {{ limit }} characters',]),],])
+        ->add('City', TextType::class, [
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Please enter your city',
+                ]),
+                new Length([
+                    'min' => 2,
+                    'max' => 5,
+                    'minMessage' => 'Your city name should be at least {{ limit }} characters',
+                    'maxMessage' => 'Your city name should not be longer than {{ limit }} characters',]),],])
+        ->add('ZipCode', TextType::class, [
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Please enter your ZIP code',
+                ]),
+                new Regex([
+                    'pattern' => '/^[0-9]{5}$/',
+                    'message' => 'Please enter a valid ZIP code (5 digits)',]),],])
         ->add('username', TextType::class, [
             'constraints' => [
                 new NotBlank([

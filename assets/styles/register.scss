@@ -1,0 +1,33 @@
+@import "_variables";
+
+
+#register_button_submit {
+    border-radius: $borderRadiusMedium;
+    border: 0.5px $colorGradient1;
+    background: $colorGradient5;
+    color : #020051;
+	width: 302px;
+	height: 50px;
+}
+
+@media screen and (min-width: $desktopWidth) {
+
+	form {
+		width: 730px;
+		margin: 0 auto;
+
+		& > div {
+			height: 100%;
+			
+			label, input {
+				display: block;
+			}
+			label {
+				text-align: center;
+			}
+			input {
+				width: 100%;
+			}
+		}
+	}
+}

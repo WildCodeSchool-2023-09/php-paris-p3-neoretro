@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
             $user->setFirstname($this->faker->firstName);
             $user->setLastname($this->faker->lastName);
             $user->setEmail($this->faker->text(20));
-            $user->setPhoneNumber($this->faker->numberBetween(1000000000, 9999999999));;
+            $user->setPhoneNumber($this->faker->text(10));
             $user->setRoles([]);
             $user->setToken($this->faker->numberBetween(1000, 9999));
             $zipcode = $this->faker->regexify('[0-9]{5}'); // Génère un code postal de 5 chiffres.
@@ -44,7 +44,7 @@ class UserFixtures extends Fixture
             $admin->setFirstname($this->faker->firstName);
             $admin->setLastname($this->faker->lastName);
             $admin->setEmail($this->faker->text(20));
-            $admin->setPhonenumber($this->faker->numberBetween(1000000000, 9999999999));
+            $admin->setPhonenumber($this->faker->text(10));
             $admin->setRoles(['ROLE_ADMIN']);
             $admin->setToken($this->faker->numberBetween(1000, 9999));
             $zipcode = $this->faker->regexify('[0-9]{5}'); // Génère un code postal de 5 chiffres.

@@ -35,7 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $lastname = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $token = null;
 
     #[ORM\Column(length: 10)]
@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 30)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $experience = null;
     public const ROLE_USER = 'ROLE_USER';
     public const ROLE_ADMIN = 'ROLE_ADMIN';

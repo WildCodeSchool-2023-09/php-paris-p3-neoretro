@@ -56,10 +56,11 @@ class DashboardController extends AbstractController
 
             $this->addFlash('success', 'Inscription réussie. Vous pouvez maintenant vous connecter.');
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('dashboard');
         }
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'pageTitle' => 'Neoretro',
         ]);
     }
 }

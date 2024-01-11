@@ -13,6 +13,7 @@ import './styles/header.scss';
 import './styles/gameShow.scss';
 import './styles/navbar.scss';
 import './styles/dashboard.scss';
+import './styles/register.scss';
 
 // start the Stimulus application
 import './bootstrap';

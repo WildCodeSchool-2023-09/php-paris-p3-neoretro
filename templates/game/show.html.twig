@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Game{% endblock %}
+
+{% block content %}
+<div id="game" class="grid">
+    <section class="card cell-game">   
+        <div class="content">
+            <div class="game-container">
+                <div class="game-box">
+                    <h2 class="game-title">{{ game.title }}</h2>
+                    <p class="game-stars">
+                    <img src="{{ asset('build/images/icons/star-solid.svg') }}">
+                    <img src="{{ asset('build/images/icons/star-solid.svg') }}">
+                    <img src="{{ asset('build/images/icons/star-solid.svg') }}">
+                    <img src="{{ asset('build/images/icons/star-solid.svg') }}">
+                    <img src="{{ asset('build/images/icons/star-half-stroke-regular-1.svg') }}">4,5</p>
+                </div>
+                <div class="game-container-elements">
+                    <div class="category-title">
+                        <p>
+                            {% for category in game.categories %}
+                                {{ category.label }}
+                            {% endfor %}
+                        <p><img src="{{ asset('build/images/icons/clock-1.svg') }}">0:34</p>
+                        </p>
+                    </div>
+                        <p class="game-container-card">{{ game.description }}</p>
+                        <p><img src="{{ game.poster }}" alt="Image aléatoire"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="card cell-game-picture">
+        <div class="content">
+            <h2>Pictures</h2>
+            <div class="div-picture">
+                <p class="div-picture-size"><img src="{{ game.poster }}" alt="Image aléatoire"></p>
+                <p class="div-picture-size"><img src="{{ game.poster }}" alt="Image aléatoire"></p>
+                <p class="div-picture-size"><img src="{{ game.poster }}" alt="Image aléatoire"></p>
+                <p class="div-picture-size"><img src="{{ game.poster }}" alt="Image aléatoire"></p>
+            </div>
+        </div>
+    </section>
+    <section class="card cell-game-scores">         
+        <div class="content">
+            <h2>Scores</h2>
+                <p>32. JanJack • 1 023 498 <img src="{{ asset('build/images/icons/user.png') }}"  alt="user-icon"></p>
+            <div class="game-container-scores">
+                <p><img src="{{ asset('build/images/icons/trophy-solid-1.png') }}" alt="trophy-solid-1">1 276 378: alfredos</p>
+                <p><img src="{{ asset('build/images/icons/trophy-solid-2.png') }}" alt="trophy-solid-2">1 276 378: michel</p>
+                <p><img src="{{ asset('build/images/icons/trophy-solid-3.png') }}" alt="trophy-solid-3">1 276 378: michel</p>
+                <p>4. 1 276 378: JanJack</p>
+                <p>5. 1 276 378: JanJack</p>
+            </div>            
+        </div>
+    </section>
+    <div>
+        <img src="{{ asset('build/images/icons/elipse-game-detail1-white.png') }}" alt="elipse-game-detail1-white">
+        <img src="{{ asset('build/images/icons/elipse-game-detail1-blue.png') }}" alt="elipse-game-detail1-blue">
+    </div>
+</div>
+{% endblock %}

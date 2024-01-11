@@ -1,0 +1,29 @@
+{% if is_granted('ROLE_USER') %}
+    <p>{{ last_username }}</p>
+    <a href="{{ path('logout') }}">Déconnexion</a>
+{% else %}
+    {% if error %}
+    <div id="error-container">
+        <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+    </div>
+    {% else %}
+        <img id="user-login-icon" src="{{ asset('build/images/icons/user-login.png') }}" alt="User icon">
+    {% endif %}
+
+    <form action="{{ path('dashboard') }}" method="post">
+        <input type="text" id="username" name="_username" placeholder="username">
+        <input type="password" id="password" name="_password" placeholder="password">
+
+        <a id="lost-password" href="">Forgot password ?</a>
+
+        {# If you want to control the URL the user is redirected to on success
+        <input type="hidden" name="_target_path" value="/account"> #}
+
+        <button type="submit">LOG IN</button>
+    </form>
+
+    <div id="sign-up">
+        <a href="{{ path('register') }}">New player ?</a>
+        <a href="{{ path('register') }}">Sign Up</a>
+    </div>
+{% endif %}

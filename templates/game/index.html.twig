@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Games{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('searchbar') }}
+{% endblock javascript %}
+
+{% block content %}
+    {% include 'components/_searchbar.html.twig' %}
+
+    <div id="dump">
+        {{ dump(games) }}
+    </div>
+
+    {% if games is not empty %}
+        <ul id="carousel" class="carousel-games">
+            {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                <li class="games grid full-size">
+                    {% for y in 0..5 %}
+                        {% if games[y + (6*i)] is defined %}
+                            <section class="card">
+                                <div class="content">
+                                    <a href="{{ path('game_show', {slug: games[y + 6*i].slug}) }}">
+                                        <img class="game-poster" src="{{ games[y + (6*i)].poster }}" alt="">
+                                        <h2>{{ games[y + (6*i)].title }}</h2>
+                                    </a>
+
+                                    <div class="game-infos">
+                                        <div class="game-category-container">
+                                            {% for category in games[y + 6*i].categories %}
+                                                <p class="game-category">
+                                                    {{category.label}}
+                                                </p>
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="game-stats">
+                                            <div class="game-highest-score">
+                                                <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
+                                                <p>1 276 378</p>
+                                            </div>
+                                            <div class="game-time-spent">
+                                                <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
+                                                <p>0:34</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <nav id="slider">
+            {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                {% if i == 0 %}
+                    <div class="slider-btn current-slide"></div>
+                {% else %}
+                    <div class="slider-btn"></div>
+                {% endif %}
+            {% endfor %}
+        </nav>
+    {% else %}
+    <ul class="flex full-size">
+        <li>
+            <section class="card small-card">
+                <div class="content">
+                    <h2>No results...</h2>
+                    <p>🔍 Try something else!</p>
+                </div>
+            </section>
+        </li>
+    </ul>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+<form method="GET" action="" id="searchbar">
+
+    <div id="search-primary">
+        {# <img src="{{ asset('build/images/icons/search.svg') }}" alt="Search"> #}
+        <input type="submit" class="btn search" value="">
+        <input id="search-field" type="text" name="title" placeholder="Search" value="{{title}}">
+        <img src="{{ asset('build/images/icons/settings.svg') }}" alt="Settings" class="btn settings">
+    </div>
+
+    <div id="search-modal" class="hidden">
+        <div class="filter category">
+            <label for="category">category</label>
+            <div class="params hidden" id="category">
+                {% for category in categories %}
+                    <div>
+                        <input type="checkbox" name="category[]" id="{{category.label}}" value="{{category.label}}">
+                        <label for="{{category.label}}">{{category.label}}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="sort title">Title<img src="/assets/images/search/icon-sort-down.svg" alt="Sort up/down"></div>
+        <div class="sort score">Score<img src="/assets/images/search/icon-sort-down.svg" alt="Sort updown"></div>
+        <div class="sort time">Time<img src="/assets/images/search/icon-sort-down.svg" alt="Sort up/down"></div>
+
+        <input id="sort-criteria" type="hidden" name="sort-by" value="">
+        <input id="sort-order" type="hidden" name="sort-order" value="">
+    </div>
+
+</form>

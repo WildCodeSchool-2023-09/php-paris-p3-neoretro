@@ -18,13 +18,13 @@
 
     #user-login-icon {
         height: 3rem;
-        margin: 14px auto 22px;
     }
 
-    form {
+    .form-login {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top: 2.5rem;
         gap: 10px;
     
         width: 80%;

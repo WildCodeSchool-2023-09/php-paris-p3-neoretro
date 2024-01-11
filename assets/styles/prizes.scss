@@ -1,18 +1,59 @@
 @import "_variables";
 
 
-
-
 @media screen and (min-width: $desktopWidth) {
 
-    #prizes {
-        grid-template-columns: repeat(3, 400px);
-        grid-template-rows: repeat(3, 400px);
+  .prizes {
+    grid-template-columns: repeat(3, 400px);
+    grid-template-rows: repeat(2, 400px);
 
-        // grid-area : y / x / y / x
+    flex: 1 0 100%;
+    scroll-snap-align: center;
+    
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      
+      img:first-of-type {
+        width: 140px;
+        height: 140px;
+      }
 
-        .cell-prize {
-            grid-area: 1 / 1 / 2 / 1;
+      .price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.8rem;
+
+        img {
+            width: 48px;
+            height: 48px;
         }
+      }
+
+      .buy-button {
+        font-size: 24px;
+            border-radius: 1.25rem;
+            border: 0.5px solid black;
+            background: $colorGradient5;
+            box-shadow: $shadow;
+
+            color: #020051;
+            
+            width: 124px;
+            font-size: 1.125rem;
+            padding: 5px 0;
+
+            text-align: center;
+
+            cursor: pointer;
+      }
+
     }
+  }
+
+    
 }

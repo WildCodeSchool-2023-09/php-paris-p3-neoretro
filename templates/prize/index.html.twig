@@ -3,34 +3,35 @@
 {% block title %}Prizes{% endblock %}
 
 {% block content %}
-    <div id="prizes" class="grid full-size">
-        <section class="card cell-prize">
-            <div class="content">
-                <h2>Prizes</h2>
-                    {% for prize in prizes %}
-                    <div>
-                        {{ prize.prizeLabel }}
-                        <img src="{{ prize.picture }}" alt="Image aléatoire">
-                        {{ prize.value }}
-                        {{ prize.quantity }}
-                    </div>
-            
-                    {% else %}
-                            <tr>
-                                <td colspan="8">no records found</td>
-                            </tr>
-                    {% endfor %}  
-            </div>     
-    </div>
-</section>
-</div>
-                {# <td>
-                    <a href="{{ path('prize_show', {'slug': prize.slug}) }}">show</a>
-                    <a href="{{ path('prize_edit', {'slug': prize.slug}) }}">edit</a>
-                </td> #}
-      
-        </tbody>
-    </table>
-
-    {# <a href="{{ path('prize_new') }}">Create new</a> #}
+     
+    <ul id="carousel">
+        {% for i in 0..(prizes|length /6)| format_number({ rounding_mode: 'floor' , fraction_digit: 0 }) %}
+        <li class="prizes grid full-size">
+            {% for y in 0..5 %}
+                {% if prizes[y+(6*i)] is defined %}
+                    <section class="card">
+                        <div class="content">
+                            <h2>{{ prizes[y+(6*i)].prizeLabel }}</h2>
+                            <img src="{{ prizes[y+(6*i)].picture }}" alt="Image aléatoire">
+                            <div class="price">
+                                <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
+                                <p>{{ prizes[y+(6*i)].value }}</p>
+                            </div>
+                            <a href="" class="buy-button">BUY</a>
+                        </div>
+                    </section>
+                {% endif %}
+            {% endfor %}
+        </li>
+        {% endfor %}
+    </ul>
+    <nav id="slider">
+        {% for i in 0..(prizes|length /6)| format_number({ rounding_mode: 'floor' , fraction_digit: 0 }) %}
+            {% if i==0 %}
+                <div class="slider-btn current-slide"></div>
+            {% else %}
+                <div class="slider-btn"></div>
+            {% endif %}
+        {% endfor %}
+    </nav>
 {% endblock %}

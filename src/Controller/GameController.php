@@ -12,18 +12,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/game')]
+#[Route('/game', 'game_')]
 class GameController extends AbstractController
 {
-    #[Route('/', name: 'app_game_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(GameRepository $gameRepository): Response
     {
         return $this->render('game/index.html.twig', [
             'games' => $gameRepository->findAll(),
+            'pageTitle' => 'game',
         ]);
     }
 
-    #[Route('/new', name: 'app_game_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $game = new Game();
@@ -36,24 +37,26 @@ class GameController extends AbstractController
             $entityManager->persist($game);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('game_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('game/new.html.twig', [
             'game' => $game,
             'form' => $form,
+            'pageTitle' => 'game',
         ]);
     }
 
-    #[Route('/{slug}', name: 'app_game_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Game $game): Response
     {
         return $this->render('game/show.html.twig', [
             'game' => $game,
+            'pageTitle' => 'game',
         ]);
     }
 
-    #[Route('/{slug}/edit', name: 'app_game_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
         Game $game,
@@ -68,16 +71,17 @@ class GameController extends AbstractController
             $game->setSlug($slug);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('game_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('game/edit.html.twig', [
             'game' => $game,
             'form' => $form,
+            'pageTitle' => 'game',
         ]);
     }
 
-    #[Route('/{slug}', name: 'app_game_delete', methods: ['POST'])]
+    #[Route('/{slug}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Game $game, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $game->getId(), $request->request->get('_token'))) {
@@ -85,6 +89,6 @@ class GameController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('game_index', [], Response::HTTP_SEE_OTHER);
     }
 }

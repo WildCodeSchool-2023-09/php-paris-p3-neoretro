@@ -1,25 +1,85 @@
-$backgroundNavbar: linear-gradient (178deg, rgba(84, 17, 225, 0.80) 10.57%, rgba(37, 179, 241, 0.80) 115,1%);
-$colorGradient1: linear-gradient (180deg, #020051 0%, rgba(0, 0, 0, 0.66) 100%);
-$colorGradient2: conic-gradient (from 180deg at 50% 48.5%, #C10BEE 52.49999821186066deg, #7711F8 125.62500357627869deg, #1D71D4 275.625deg);
-$colorGradient3: linear-gradient (180deg, rgba(37, 179, 241, 0.80) 0%, rgba(84, 17, 225, 0.80) 100%);
-$colorGradient4: linear-gradient (90deg, #06CCF8 11.41%, #B906F8 67.86%, #06CCF8 98.11%);
-$colorGradient5: linear-gradient (180deg, rgba(194, 145, 255, 0.66) 0%, rgba(255, 255, 255, 0.66) 0.01%, rgba(183, 128, 217, 0.86) 100%);
-$colorGradient6: linear-gradient (180deg, #E585ED 0%, #FFF 48.96%, rgba(240, 240, 225, 0.50) 100%);
+@import "_variables";
 
-$borderRadius: 10px;
-$borderRadiusHeaderNav:0px 0px 20px 0px;
-$borderRadiusHeaderPhone: 0px 0px 20px 20px;
-$borderRadiusNavPhone: 20px 20px 0px 0px;
+// BODY
 
-#main-container {
-    margin-left: 140px;
-    height: calc(100vh - 110px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+body {
+    background: url('/assets/images/bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    overflow: hidden;
 }
 
-.main-block {
-    height: 822px;
-    width: 1244px;
+#main-container {
+    margin-top: calc(80px);
+    margin-bottom: calc(100px);
+    padding-top: calc(10px);
+    height: calc(100vh - 80px - 100px);
+    overflow: scroll;
+    flex-direction: column;
+}
+
+// COMPONENTS
+
+.card {
+    min-height: 160px;
+
+    position: relative;
+
+    margin: 0 10px 10px;
+    padding: 10px 14px;
+
+    border: 2px solid #06CCF8;
+    border-radius: $borderRadiusLarge;
+
+    background: $colorGradient1;
+    box-shadow: $shadow;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
+    }
+
+    // Adding gradient to top and bottom borders
+    &::before {
+        content: '';
+        display: block;
+
+        height: calc(100% + 2*2px);
+        width: calc(100% - 2*$borderRadiusLarge);
+
+        position: absolute;
+        top: -2px;
+        left: $borderRadiusLarge;
+
+        border-width: 2px;
+        border-style: solid none solid none;
+        border-image: $colorGradient4 1;
+    }
+}
+
+h2, h3, h4, h5, h6,
+p, ul, label, input, select,
+.text
+{
+    background: $colorGradient5;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Orbitron';
+}
+
+.michroma {
+    background: $colorGradient6;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    
+    font-family: 'Michroma';
 }

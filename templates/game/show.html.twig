@@ -4,14 +4,220 @@
 
 {% block content %}
 
-    <section id="part-one" class="main-block">
-        <div id="game-resume"></div>
-        <div id="game-pictures"></div>
-        <div id="game-scores"></div>
-    </section>
-    <section id="part-two" class="main-block">
-        <div id="game-achievements"></div>
-        <div id="game-comments"></div>
-    </section>
+    <ul class="carousel">
 
+        <li id="detailed-game-one" class="grid">
+
+            <section class="card cell-resume">
+                <div class="content">
+                    <div class="information">
+                        <h1 class="text">{{ game.title }}</h1>
+
+                        <div class="rating">
+                            <img src="{{ asset('build/images/icons/star-solid.svg') }}">
+                            <img src="{{ asset('build/images/icons/star-solid.svg') }}">
+                            <img src="{{ asset('build/images/icons/star-solid.svg') }}">
+                            <img src="{{ asset('build/images/icons/star-solid.svg') }}">
+                            <img src="{{ asset('build/images/icons/star-half-stroke-regular-1.svg') }}">
+                            <p>4.5</p>
+                        </div>
+
+                        <div class="category">
+
+                            {% for category in game.categories %}
+
+                                <p>{{ category.label }}</p>
+
+                            {% endfor %}
+
+                            <div class="game-time">
+                                <img src="{{ asset('build/images/icons/clock-1.svg') }}">
+                                <p>0:34</p>
+                            </div>
+                        </div>
+
+                        <div class="resume">
+                            <p>{{ game.description }}</p>
+                        </div>
+
+                        <div class="poster">
+                            <img src="{{ game.poster }}" alt="Image aléatoire">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card cell-pictures">
+                <div class="content">
+                    <h2>Pictures</h2>
+                    <ul id="carousel-pictures">
+
+                    {% for i in 0..(game.pictures|length / 4) %}
+
+                        {% if game.pictures[i*4] is defined %}
+
+                            <li class="pictures">
+
+                            {% for y in 0..3 %}
+
+                                {% if game.pictures[y + (4*i)] is defined %}
+
+                                    <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                            </li>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                    </ul>
+
+                    <nav id="slider-pictures">
+                        <div class="slider-picture-btn current-slide-picture"></div>
+                        {% for i in 1..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                            <div class="slider-picture-btn"></div>
+                        {% endfor %}
+                    </nav>
+                </div>
+            </section>
+
+            <section class="card cell-scores">
+                <div class="content">
+                    <h2>Scores</h2>
+
+                    {% if app.user %}
+
+                        <div class="own-score">
+                            <p>32.</p>
+                            <p>Michel -</p>
+                            <p>587 321</p>
+                            <img  src="{{ asset('build/images/icons/user.png') }}"  alt="user-icon">
+                        </div>
+
+                    {% else %}
+
+                        <div class="blank"></div>
+
+                    {% endif %}
+
+                    <table class="first-scores">
+                        <tbody>
+                            <tr>
+                                <td><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="trophy-solid-1"></td>
+                                <td class="text score-point">1 276 378</td>
+                                <td class="text">-</td>
+                                <td class="text">Alfredos</td>
+                            </tr>
+                            <tr>
+                                <td><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="trophy-solid-2"></td>
+                                <td class="text score-point">1 001 090</td>
+                                <td class="text">-</td>
+                                <td class="text">Carlos</td>
+                            </tr>
+                            <tr>
+                                <td><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="trophy-solid-3"></td>
+                                <td class="text score-point">976 378</td>
+                                <td class="text">-</td>
+                                <td class="text">Juanitos</td>
+                            </tr>
+                            <tr>
+                                <td class="text score-ranking">4.</td>
+                                <td class="text score-point">796 378</td>
+                                <td class="text">-</td>
+                                <td class="text">Michelos</td>
+                            </tr>
+                            <tr>
+                                <td class="text score-ranking">5.</td>
+                                <td class="text score-point">743 972</td>
+                                <td class="text">-</td>
+                                <td class="text">Michel-Angelo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="link-scores"><a href="">All scores</a></p>
+                </div>
+            </section>
+
+        </li>
+
+        <li id="detailed-game-two" class="grid">
+
+            <section class="card cell-achievements">
+                <div class="content">
+                    <h1 class="text">Achievements</h1>
+                    <div id="achievements-game">
+
+                    {% for i in 1..6 %}
+
+                        <div class="cell-achievement-game">
+                            <img src="{{ asset('build/images/icons/medal-solid.svg') }}">
+                            <h2>Expert Michel</h2>
+                        </div>
+
+                    {% endfor %}
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="card cell-comments">
+                <div class="content">
+                    <h1 class="text">Comments</h1>
+                    <img class="add-comment" aria-haspopup="dialog" aria-controls="modal-comment" src="{{ asset('build/images/icons/comment-add-solid.svg') }}">
+                    <div class="comment-carousel">
+
+                    {% for i in 1..6 %}
+
+                        <div class="comment">
+                            <h2>Micheldu75020</h2>
+                            <div class="comment-rating">
+                                <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
+                                <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
+                                <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
+                                <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
+                                <img src="{{ asset('build/images/icons/star-half-stroke-regular-mini.svg') }}">
+                                <p>4.5</p>
+                            </div>
+                            <p class="comment-title">Trop bien !</p>
+                            <p class="comment-text">Super jeu, sinon j’ai besoin d’un joint d’étanchéité pour climatiseur de morgue, le mien est fissuré.</p>
+                            <p class="comment-date">16/12/2023 19:32</p>
+                        </div>
+
+                    {% endfor %}
+
+                    </div>
+                </div>
+            </section>
+
+        </li>
+
+    </ul>
+
+    <nav id="slider">
+        <div class="slider-btn current-slide"></div>
+        <div class="slider-btn"></div>
+    </nav>
+
+    <div id="picture-modal" class="modal">
+        <span class="close">&times;</span>
+        <img id="img-modal" class="modal-content">
+    </div>
+
+    <div id="modal-comment" role="dialog" aria-labelledby="comment-title" aria-modal="true" aria-hidden="true" class="dialog-comment">
+        <span aria-label="Close" title="Close comment modal" data-dismiss="modal-comment" class="close">&times;</span>
+        <div role="document" class="card comment-box">
+            <h2 id="comment-title">Add a comment</h2>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ encore_entry_script_tags('pictureModal') }}
+    {{ encore_entry_script_tags('commentModal') }}
+    {{ encore_entry_script_tags('carouselDetailedGame') }}
 {% endblock %}

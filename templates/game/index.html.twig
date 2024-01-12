@@ -4,6 +4,7 @@
 
 {% block javascript %}
     {{ parent() }}
+    {{ encore_entry_script_tags('carousel') }}
     {{ encore_entry_script_tags('searchbar') }}
 {% endblock javascript %}
 
@@ -15,6 +16,7 @@
     </div>
 
     {% if games is not empty %}
+
         <ul id="carousel" class="carousel-games">
             {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
                 <li class="games grid full-size">
@@ -65,16 +67,15 @@
             {% endfor %}
         </nav>
     {% else %}
-    <ul class="flex full-size">
-        <li>
-            <section class="card small-card">
-                <div class="content">
-                    <h2>No results...</h2>
-                    <p>🔍 Try something else!</p>
-                </div>
-            </section>
-        </li>
-    </ul>
+        <ul class="flex full-size">
+            <li>
+                <section class="card small-card">
+                    <div class="content">
+                        <h2>No results...</h2>
+                        <p>🔍 Try something else!</p>
+                    </div>
+                </section>
+            </li>
+        </ul>
     {% endif %}
-
 {% endblock %}

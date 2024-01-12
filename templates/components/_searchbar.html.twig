@@ -2,29 +2,33 @@
 
     <div id="search-primary">
         {# <img src="{{ asset('build/images/icons/search.svg') }}" alt="Search"> #}
-        <input type="submit" class="btn search" value="">
+        {# <input type="submit" class="btn search" value=""> #}
+        <div class="btn search" type="submit"></div>
         <input id="search-field" type="text" name="title" placeholder="Search" value="{{title}}">
-        <img src="{{ asset('build/images/icons/settings.svg') }}" alt="Settings" class="btn settings">
+        {# <img src="{{ asset('build/images/icons/settings.svg') }}" alt="Settings" class="btn settings"> #}
+        <div class="btn settings"></div>
     </div>
 
     <div id="search-modal" class="hidden">
-        <div class="filter category">
-            <label for="category">category</label>
-            <div class="params hidden" id="category">
-                {% for category in categories %}
-                    <div>
-                        <input type="checkbox" name="category[]" id="{{category.label}}" value="{{category.label}}">
-                        <label for="{{category.label}}">{{category.label}}</label>
-                    </div>
-                {% endfor %}
+        <div class="filter">
+            <p>Category</p>
+            <div class="card params hidden" id="category">
+                <div class="content">
+                    {% for category in categories %}
+                        <div>
+                            <input type="checkbox" name="category" id="{{category.label}}" value="{{category.label}}">
+                            <label for="{{category.label}}">{{category.label}}</label>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
-        <div class="sort title">Title<img src="/assets/images/search/icon-sort-down.svg" alt="Sort up/down"></div>
-        <div class="sort score">Score<img src="/assets/images/search/icon-sort-down.svg" alt="Sort updown"></div>
-        <div class="sort time">Time<img src="/assets/images/search/icon-sort-down.svg" alt="Sort up/down"></div>
+        <div class="sort title text">Title<img src="{{ asset('build/images/icons/sort-down.svg') }}" alt="Sort up/down"></div>
+        <div class="sort score text">Score<img src="{{ asset('build/images/icons/sort-down.svg') }}" alt="Sort updown"></div>
+        <div class="sort time text">Time<img src="{{ asset('build/images/icons/sort-down.svg') }}" alt="Sort up/down"></div>
 
-        <input id="sort-criteria" type="hidden" name="sort-by" value="">
+        <input id="sort-by" type="hidden" name="sort-by" value="">
         <input id="sort-order" type="hidden" name="sort-order" value="">
     </div>
 

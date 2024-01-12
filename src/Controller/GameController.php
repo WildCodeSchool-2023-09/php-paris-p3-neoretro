@@ -31,7 +31,7 @@ class GameController extends AbstractController
                 ]]),
             'pageTitle' => 'Games',
             'title' => $title,
-            'categories' => $categoryRepository->findAll()
+            'categories' => $categoryRepository->findBy([], ['label' => 'ASC'])
         ]);
     }
 

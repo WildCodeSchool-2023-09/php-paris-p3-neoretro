@@ -1,4 +1,4 @@
-const slideHeight = document.querySelector(".games").clientHeight + 50;
+const slideHeight = document.querySelector(".full-size").clientHeight + 50;
 const carousel = document.querySelector("#carousel");
 
 // SLIDER BTN

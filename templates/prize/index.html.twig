@@ -3,7 +3,13 @@
 {% block title %}Prizes{% endblock %}
 
 {% block content %}
-     
+<div class="card card-balance">
+    <h2>Balance</h2>
+    <div class="token-balance-value">
+        <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
+        <p>30</p>
+    </div>
+</div>
     <ul id="carousel">
         {% for i in 0..(prizes|length /6)| format_number({ rounding_mode: 'floor' , fraction_digit: 0 }) %}
         <li class="prizes grid full-size">

@@ -53,12 +53,22 @@
   flex-direction: column;
   background: $colorGradient3;
   align-items: center;
+  min-height: 100px;
 
+  h2 {
+    color: #f5f5f5d7;
+  }
+  
   .token-balance-value {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     font-size: 1.2rem;
+
+    .token-value {
+      padding-left: 25px;
+      color: #f5f5f5d7;
+    }
 
     img {
         width: 32px;
@@ -71,11 +81,11 @@
 @media screen and (min-width: $desktopWidth) {
 
   .card-balance {
+    min-height: 100px;
     width: 200px;
     height: 100px;
     background: $colorGradient3;
     position: absolute;
-    height: auto;
     left: 10%;
 
     .token-balance-value {
@@ -83,6 +93,10 @@
       justify-content: space-evenly;
       align-items: center;
       font-size: 1.2rem;
+
+      .token-value {
+        padding-left: 25px;
+      }
 
       img {
           width: 32px;

@@ -62,10 +62,8 @@ body {
     }
 }
 
-// TEXT
-
-h2, h3, h4, h5, h6, span,
-p, ul, label, input, input::placeholder, select, a, button, img[alt],
+h2, h3, h4, h5, h6,
+p, ul, label, input, input::placeholder, select, a, button,
 .text
 {
     background: $colorGradient5;

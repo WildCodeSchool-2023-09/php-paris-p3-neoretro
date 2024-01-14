@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Form\GameType;
+use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,15 +17,25 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class GameController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(GameRepository $gameRepository): Response
+    public function index(GameRepository $gameRepository, CategoryRepository $categoryRepository): Response
     {
+        $title = '';
+
         return $this->render('game/index.html.twig', [
-            'games' => $gameRepository->findAll(),
-            'pageTitle' => 'Game',
+            'games' => $gameRepository->search([
+                'title' => $title,
+                'category' => [],
+                'sort' => [
+                    'criteria' => 'g.title',
+                    'order' => 'DESC'
+                ]]),
+            'pageTitle' => 'Games',
+            'title' => $title,
+            'categories' => $categoryRepository->findBy([], ['label' => 'ASC'])
         ]);
     }
 
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'game_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $game = new Game();

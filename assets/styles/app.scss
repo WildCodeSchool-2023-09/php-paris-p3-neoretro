@@ -11,12 +11,29 @@ body {
 }
 
 #main-container {
-    margin-top: calc(80px);
-    margin-bottom: calc(100px);
-    padding-top: calc(10px);
+    margin-top: 80px;
+    margin-bottom: 100px;
+    padding-top: 10px;
     height: calc(100vh - 80px - 100px);
     overflow: scroll;
     flex-direction: column;
+    position: relative;
+}
+
+//
+
+#dump {
+    position: fixed;
+    z-index: 3;
+    top: 1rem;
+    right: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+.reversed {
+    transform: scaleY(-1);
 }
 
 // COMPONENTS
@@ -63,8 +80,10 @@ body {
     }
 }
 
-h2, h3, h4, h5, h6,
-p, ul, label, input, input::placeholder, select, a, button,
+// TEXT
+
+h2, h3, h4, h5, h6, span,
+p, ul, label, input, input::placeholder, select, a, button, img[alt],
 .text
 {
     background: $colorGradient5;

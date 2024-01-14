@@ -6,18 +6,20 @@
     #main-container {
         margin-left: 120px;
         margin-top: 100px;
+        padding-top: 0;
 
         width: calc(100vw - 120px);
         height: calc(100vh - 100px);
 
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
 
         overflow: hidden;
     }
 
-    // COMPONENTS
+    // COMPONENTS - LAYOUT
 
     .card {
         // height: 400px;
@@ -30,16 +32,50 @@
         margin: 0;
     }
 
-    // LAYOUT
-
     .grid {
         display: grid;
         gap: 20px;
     }
 
+    .flex {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+
     .full-size {
         width: 1240px;
         height: 820px;
+    }
+
+    .small-card {
+        width: 400px;
+        height: 400px;
+    }
+
+    ul#carousel {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+
+        width: 1240px;
+        height: calc(820px + 80px);
+        padding: 40px 0;
+
+        list-style: none;
+
+        overflow: scroll;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 95%, transparent 100%);
+
     }
 
     #slider {

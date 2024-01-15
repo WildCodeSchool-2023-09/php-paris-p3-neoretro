@@ -60,7 +60,7 @@ class DashboardController extends AbstractController
         }
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            'pageTitle' => 'Neoretro',
+            'pageTitle' => 'NeoRetro',
         ]);
     }
 }

@@ -21,6 +21,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
         ->add('Firstname', TextType::class, [
+            'attr' => ['placeholder'=> 'firstname'],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your first name',
@@ -31,6 +32,7 @@ class RegistrationFormType extends AbstractType
                     'minMessage' => 'Your first name should be at least {{ limit }} characters',
                     'maxMessage' => 'Your first name should not be longer than {{ limit }} characters',]),],])
         ->add('Lastname', TextType::class, [
+            'attr' => ['placeholder'=> 'lastname'],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your last name',
@@ -41,6 +43,7 @@ class RegistrationFormType extends AbstractType
                     'minMessage' => 'Your last name should be at least {{ limit }} characters',
                     'maxMessage' => 'Your last name should not be longer than {{ limit }} characters',]),],])
         ->add('Email', EmailType::class, [
+            'attr' => ['placeholder'=> 'email'],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your email address',
@@ -48,6 +51,7 @@ class RegistrationFormType extends AbstractType
                 new Email([
                     'message' => 'Please enter a valid email address',]),],])
         ->add('username', TextType::class, [
+            'attr' => ['placeholder'=> 'username'],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter a username',
@@ -57,21 +61,25 @@ class RegistrationFormType extends AbstractType
                     'max' => 180,
                     'minMessage' => 'Your username should be at least {{ limit }} characters',
                     'maxMessage' => 'Your username should not be longer than {{ limit }} characters',]),],])
-            ->add('plainPassword', PasswordType::class, [
-                                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,]),],]);
-    }
+        ->add('plainPassword', PasswordType::class, [
+                        'mapped' => false,
+                        'attr' => ['autocomplete' => 'new-password'],
+                        'constraints' => [
+                            new NotBlank([
+                                'message' => 'Please enter a password',
+                            ]),
+                            new Length([
+                                'min' => 8,
+                                'minMessage' => 'Your password should be at least {{ limit }} characters',
+                                'max' => 4096,
+                            ]),
+                            new Regex([
+                                'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/',
+                                'message' => 'Your password must contain at least one lowercase letter, one uppercase letter, and one digit.',
+                            ]),
+                        ],
+                    ]);
+            }
 
     public function configureOptions(OptionsResolver $resolver): void
     {

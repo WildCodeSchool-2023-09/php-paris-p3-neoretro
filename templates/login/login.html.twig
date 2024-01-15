@@ -1,15 +1,18 @@
-{% if is_granted('ROLE_USER') %}
-    <p>{{ last_username }}</p>
-    <a href="{{ path('logout') }}">Déconnexion</a>
+{% if app.user %}
+    <h2>{{ last_username }}</h2>
+    <p><a href="{{ path('logout') }}">Déconnexion</a>
 {% else %}
+
+
+
     {% if error %}
     <div id="error-container">
         <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
     </div>
     {% else %}
+     <h2>Sign In</h2>
         <img id="user-login-icon" src="{{ asset('build/images/icons/user-login.png') }}" alt="User icon">
     {% endif %}
-
     <form class="form-login" action="{{ path('dashboard') }}" method="post">
         <input type="text" id="username" name="_username" placeholder="username">
         <input type="password" id="password" name="_password" placeholder="password">

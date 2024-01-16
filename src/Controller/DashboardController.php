@@ -66,8 +66,8 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/newgame', name: 'new_game')]
-    public function game(EntityManagerInterface $entityManager): Response {
-
+    public function game(EntityManagerInterface $entityManager): Response
+    {
         $game = new Game();
         $form = $this->createForm(RegistrationFormType::class, $game);
 
@@ -82,5 +82,4 @@ class DashboardController extends AbstractController
             'pageTitle' => 'Admin.Add Game',
         ]);
     }
-
 }

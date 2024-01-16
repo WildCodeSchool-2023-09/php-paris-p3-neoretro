@@ -22,22 +22,17 @@ class RegistrationFormType extends AbstractType
     {
         $builder
         ->add('Firstname', TextType::class, [
-            'attr' => [
-                'placeholder' => 'firstname'
-                ],
+            'attr' => ['placeholder' => 'firstname'],
             'constraints' => [
                 new NotBlank([
-                    'message' => 'Please enter your first name',
-                ]),
+                    'message' => 'Please enter your first name',]),
                 new Length([
                     'min' => 2,
                     'max' => 100,
                     'minMessage' => 'Your first name should be at least {{ limit }} characters',
                     'maxMessage' => 'Your first name should not be longer than {{ limit }} characters',]),],])
         ->add('Lastname', TextType::class, [
-            'attr' => [
-                'placeholder' => 'lastname'
-                ],
+            'attr' => ['placeholder' => 'lastname'],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your last name',
@@ -48,9 +43,7 @@ class RegistrationFormType extends AbstractType
                     'minMessage' => 'Your last name should be at least {{ limit }} characters',
                     'maxMessage' => 'Your last name should not be longer than {{ limit }} characters',]),],])
         ->add('Email', EmailType::class, [
-            'attr' => [
-                'placeholder' => 'email'
-                ],
+            'attr' => ['placeholder' => 'email'],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your email address',
@@ -58,13 +51,9 @@ class RegistrationFormType extends AbstractType
                 new Email([
                     'message' => 'Please enter a valid email address',]),],])
         ->add('username', TextType::class, [
-            'attr' => [
-                'placeholder' => 'username'
-                ],
+            'attr' => ['placeholder' => 'username'],
             'constraints' => [
-                new NotBlank([
-                    'message' => 'Please enter a username',
-                ]),
+                new NotBlank(['message' => 'Please enter a username',]),
                 new Length([
                     'min' => 3,
                     'max' => 180,
@@ -72,9 +61,7 @@ class RegistrationFormType extends AbstractType
                     'maxMessage' => 'Your username should not be longer than {{ limit }} characters',]),],])
         ->add('plainPassword', PasswordType::class, [
                         'mapped' => false,
-                        'attr' => [
-                            'autocomplete' => 'new-password'
-                            ],
+                        'attr' => ['autocomplete' => 'new-password'],
                         'constraints' => [
                             new NotBlank([
                                 'message' => 'Please enter a password',
@@ -87,9 +74,7 @@ class RegistrationFormType extends AbstractType
                             new Regex([
                                 'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/',
                                 'message' => 'Your password must contain at least one lowercase letter, 
-                                one uppercase letter, and one digit.',
-                            ]),
-                        ],
+                                one uppercase letter, and one digit.',]),],
                 ])
                 ->add('Title', TextType::class, [
                     'attr' => [
@@ -108,8 +93,7 @@ class RegistrationFormType extends AbstractType
                         ],
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter the description',
-                        ]),
+                            'message' => 'Please enter the description',]),
                         new Length([
                             'min' => 2,
                             'max' => 200,
@@ -117,8 +101,7 @@ class RegistrationFormType extends AbstractType
                             'maxMessage' => 'Your description should not be longer than {{ limit }} characters',]),],])
                 ->add('Poster', EmailType::class, [
                     'attr' => [
-                        'placeholder' => 'poster'
-                        ],
+                        'placeholder' => 'poster'],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter your poster',
@@ -126,15 +109,13 @@ class RegistrationFormType extends AbstractType
                 ->add('Virtual', TextType::class, [
                     'attr' => [
                         'placeholder' => 'virtual'
-                        ],
-                        ]);
+                        ],]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
-            'data_class' => Game::class,
+            'data_class' => User::class, Game::class
         ]);
     }
 }

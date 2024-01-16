@@ -92,15 +92,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->roles;
     }
-    
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-    
         return $this;
     }
-    
-
     /**
      * @see PasswordAuthenticatedUserInterface
      */

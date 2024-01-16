@@ -39,14 +39,14 @@ toggleSorting('.sort.title', '.sort.title img', 'title');
 toggleSorting('.sort.score', '.sort.score img', 'score');
 toggleSorting('.sort.time', '.sort.time img', 'time');
 
-const searchField = document.querySelector("#search-field");
+const searchField = document.querySelector("input#search-field");
 
-searchField.addEventListener('focusin', function() {
-    searchField.setAttribute('placeholder', '//');
-});
-searchField.addEventListener('focusout', function(){
-    searchField.setAttribute('placeholder', 'Search');
-});
+// searchField.addEventListener('focusin', function() {
+//     searchField.setAttribute('placeholder', '//');
+// });
+// searchField.addEventListener('focusout', function(){
+//     searchField.setAttribute('placeholder', '{{ field_label(searchForm.title) }}');
+// });
 
 document.querySelector('.btn.search').addEventListener('click', function() {
     document.querySelector('form#searchbar').submit();

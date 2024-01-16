@@ -1,23 +1,22 @@
+{# {{ form_start(searchForm) }} #}
+
 <form method="GET" action="" id="searchbar">
 
     <div id="search-primary">
-        {# <img src="{{ asset('build/images/icons/search.svg') }}" alt="Search"> #}
-        {# <input type="submit" class="btn search" value=""> #}
         <div class="btn search" type="submit"></div>
-        <input id="search-field" type="text" name="title" placeholder="Search" value="{{title}}">
-        {# <img src="{{ asset('build/images/icons/settings.svg') }}" alt="Settings" class="btn settings"> #}
+        <input id="search-field" type="text" name="title" placeholder="{{ field_label(searchForm.attr.placeholder) }}" value="{{title}}">
         <div class="btn settings"></div>
     </div>
 
     <div id="search-modal" class="hidden">
         <div class="filter">
-            <p>Category</p>
+            <p>{{ field_label(searchForm.categories) }}</p>
             <div class="card params hidden" id="category">
                 <div class="content">
-                    {% for category in categories %}
+                    {% for label, value in field_choices(searchForm.categories) %}
                         <div>
-                            <input type="checkbox" name="category" id="{{category.label}}" value="{{category.label}}">
-                            <label for="{{category.label}}">{{category.label}}</label>
+                            <input type="checkbox" name="category" id="{{label}}" value="{{label}}">
+                            <label for="{{label}}">{{label}}</label>
                         </div>
                     {% endfor %}
                 </div>
@@ -33,3 +32,5 @@
     </div>
 
 </form>
+
+{# {{ form_end(searchForm) }} #}

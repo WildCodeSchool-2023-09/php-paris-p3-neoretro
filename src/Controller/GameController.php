@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Game;
+use App\Form\GameSearchType;
 use App\Form\GameType;
 use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
@@ -20,6 +21,7 @@ class GameController extends AbstractController
     public function index(GameRepository $gameRepository, CategoryRepository $categoryRepository): Response
     {
         $title = '';
+        $searchForm = $this->createForm(GameSearchType::class);
 
         return $this->render('game/index.html.twig', [
             'games' => $gameRepository->search([
@@ -31,7 +33,8 @@ class GameController extends AbstractController
                 ]]),
             'pageTitle' => 'Games',
             'title' => $title,
-            'categories' => $categoryRepository->findBy([], ['label' => 'ASC'])
+            'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
+            'searchForm' => $searchForm,
         ]);
     }
 

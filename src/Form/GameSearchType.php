@@ -3,30 +3,39 @@
 namespace App\Form;
 
 use App\Entity\Category;
-use App\Entity\Game;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GameSearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->setMethod('GET')
+            ->add('title', SearchType::class, [
+            'required' => false,
+            'label'    => false,
+            'attr'     => [
+                'placeholder' => 'Search',
+            ],
+        ])
             ->add('categories', EntityType::class, [
+                'label' => 'Category',
+                'required' => false,
                 'class' => Category::class,
-                'choice_label' => 'id',
+                'choice_label' => 'label',
                 'multiple' => true,
+                'expanded' => true
+            ])
+            ->add('sort_by', HiddenType::class, [
+                'attr' => [
+                ]
+            ])
+            ->add('sort_order', HiddenType::class, [
             ])
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Game::class,
-        ]);
     }
 }

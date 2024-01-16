@@ -9,11 +9,11 @@
 {% endblock javascript %}
 
 {% block content %}
-    {% include 'components/_searchbar.html.twig' %}
+<div id="dump">
+    {{ dump(games) }}
+</div>
 
-    <div id="dump">
-        {{ dump(games) }}
-    </div>
+    {% include 'components/_searchbar.html.twig' %}
 
     {% if games is not empty %}
 

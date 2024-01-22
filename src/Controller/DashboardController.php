@@ -79,7 +79,7 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('new_game');
         }
         return $this->render('admin/new_game.html.twig', [
-            'GameFrom' => $form->createView(),
+            'registrationGameForm' => $form->createView(),
             'pageTitle' => 'Admin.Add Game',
         ]);
     }

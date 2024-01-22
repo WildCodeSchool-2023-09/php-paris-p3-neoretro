@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Form;
+
 use App\Entity\Game;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -48,10 +49,8 @@ class RegistrationGameFormType extends AbstractType
                 // ->add('Virtual', TextType::class, [
                 //     'attr' => [
                 //         'placeholder' => 'virtual'
-                //         ],]);
-    
+              //         ],]);
     }
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {

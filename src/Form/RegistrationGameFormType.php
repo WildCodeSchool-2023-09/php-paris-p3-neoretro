@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Game;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,11 +46,14 @@ class RegistrationGameFormType extends AbstractType
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter your poster',
-                        ]),],]);
-                // ->add('Virtual', TextType::class, [
-                //     'attr' => [
-                //         'placeholder' => 'virtual'
-              //         ],]);
+                        ]),],])
+                ->add('isVirtual', CheckboxType::class, [
+                    'attr' => [
+                        'placeholder' => 'Virtual'
+                        ],
+                        'label' => 'Virtual',
+                        'required' => false,
+                        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

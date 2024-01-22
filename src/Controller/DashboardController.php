@@ -67,18 +67,24 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/newgame', name: 'new_game')]
-    public function game(EntityManagerInterface $entityManager): Response
+    public function game(EntityManagerInterface $entityManager, Request $request): Response
     {
         $game = new Game();
         $form = $this->createForm(RegistrationGameFormType::class, $game);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($game);
             $entityManager->flush();
-
-            return $this->redirectToRoute('new_game');
+    
+            $games = $entityManager->getRepository(Game::class)->findAll();
+    
+            return $this->render('admin/new_game.html.twig', [
+                'registrationGameForm' => $form->createView(),
+                'pageTitle' => 'Admin.Add Game',
+                'games' => $games,
+            ]);
         }
-        return $this->render('admin/new_game.html.twig', [
+            return $this->render('admin/new_game.html.twig', [
             'registrationGameForm' => $form->createView(),
             'pageTitle' => 'Admin.Add Game',
         ]);

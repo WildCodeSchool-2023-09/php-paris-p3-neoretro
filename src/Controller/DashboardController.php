@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
+use App\Form\RegistrationGameFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\User;
+use App\Entity\Game;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -61,6 +63,24 @@ class DashboardController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
             'pageTitle' => 'NeoRetro',
+        ]);
+    }
+
+    #[Route('/newgame', name: 'new_game')]
+    public function game(EntityManagerInterface $entityManager): Response
+    {
+        $game = new Game();
+        $form = $this->createForm(RegistrationGameFormType::class, $game);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($game);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('new_game');
+        }
+        return $this->render('admin/new_game.html.twig', [
+            'registrationGameForm' => $form->createView(),
+            'pageTitle' => 'Admin.Add Game',
         ]);
     }
 }

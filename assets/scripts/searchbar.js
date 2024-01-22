@@ -1,5 +1,5 @@
 // SEARCH BAR
-console.log('coucou');
+console.log('searchbar.js loaded');
 
 function toggleDisplay(buttonSelector, targetSelector, defaultDisplay) {
     const button = document.querySelector(buttonSelector);
@@ -32,6 +32,8 @@ function toggleSorting(buttonSelector, targetSelector, inputValue) {
     });
 }
 
+//
+
 toggleDisplay('.btn.settings', '#search-modal', 'flex');
 toggleDisplay('.filter p', '.filter .params#category', 'block');
 
@@ -39,14 +41,16 @@ toggleSorting('.sort.title', '.sort.title img', 'title');
 toggleSorting('.sort.score', '.sort.score img', 'score');
 toggleSorting('.sort.time', '.sort.time img', 'time');
 
+//
+
 const searchField = document.querySelector("input#search-field");
 
-// searchField.addEventListener('focusin', function() {
-//     searchField.setAttribute('placeholder', '//');
-// });
-// searchField.addEventListener('focusout', function(){
-//     searchField.setAttribute('placeholder', '{{ field_label(searchForm.title) }}');
-// });
+searchField.addEventListener('focusin', function() {
+    searchField.setAttribute('placeholder', '//');
+});
+searchField.addEventListener('focusout', function(){
+    searchField.setAttribute('placeholder', 'Search');
+});
 
 document.querySelector('.btn.search').addEventListener('click', function() {
     document.querySelector('form#searchbar').submit();

@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class GameSearchType extends AbstractType
@@ -15,10 +16,10 @@ class GameSearchType extends AbstractType
     {
         $builder
             ->setMethod('GET')
-            ->add('title', SearchType::class, [
-            'required' => false,
-            'label'    => false,
-            'attr'     => [
+            ->add('title', TextType::class, [
+            'required'  => false,
+            'label'     => false,
+            'attr'      => [
                 'placeholder' => 'Search',
             ],
         ])
@@ -30,12 +31,8 @@ class GameSearchType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-            ->add('sort_by', HiddenType::class, [
-                'attr' => [
-                ]
-            ])
-            ->add('sort_order', HiddenType::class, [
-            ])
+            ->add('sort_by', HiddenType::class, [])
+            ->add('sort_order', HiddenType::class, [])
         ;
     }
 }

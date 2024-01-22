@@ -23,6 +23,11 @@ class GameController extends AbstractController
         $title = '';
         $searchForm = $this->createForm(GameSearchType::class);
 
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            // die(var_dump($searchForm->getData()));
+            // return $this->redirectToRoute('game_index', []);
+        }
+
         return $this->render('game/index.html.twig', [
             'games' => $gameRepository->search([
                 'title' => $title,

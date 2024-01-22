@@ -10,7 +10,7 @@
         <img id="user-login-icon" src="{{ asset('build/images/icons/user-login.png') }}" alt="User icon">
     {% endif %}
 
-    <form action="{{ path('dashboard') }}" method="post">
+    <form class="form-login" action="{{ path('dashboard') }}" method="post">
         <input type="text" id="username" name="_username" placeholder="username">
         <input type="password" id="password" name="_password" placeholder="password">
 

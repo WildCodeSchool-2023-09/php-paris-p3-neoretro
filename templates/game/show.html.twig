@@ -52,7 +52,7 @@
                     <h2>Pictures</h2>
                     <ul id="carousel-pictures">
 
-                    {% for i in 0..(game.pictures|length / 4) %}
+                    {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
 
                         {% if game.pictures[i*4] is defined %}
 
@@ -77,9 +77,12 @@
                     </ul>
 
                     <nav id="slider-pictures">
-                        <div class="slider-picture-btn current-slide-picture"></div>
-                        {% for i in 1..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
-                            <div class="slider-picture-btn"></div>
+                        {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                            {% if i == 0 %}
+                                <div class="slider-picture-btn current-slide-picture"></div>
+                            {% else %}
+                                <div class="slider-picture-btn"></div>
+                            {% endif %}
                         {% endfor %}
                     </nav>
                 </div>

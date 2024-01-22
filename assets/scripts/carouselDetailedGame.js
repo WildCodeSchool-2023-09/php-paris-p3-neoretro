@@ -6,7 +6,7 @@ const slideHeight = document.querySelector("#detailed-game-one").clientHeight + 
 const carousel = document.querySelector(".carousel");
 const sliderBtns = document.querySelectorAll('.slider .slider-btn');
 
-setVerticalCarousel(slideHeight, carousel, sliderBtns, 'current-slide', '.current-slide', 380);
+setVerticalCarousel(slideHeight, carousel, sliderBtns, 'current-slide', 380);
 
 // SLIDER BTN PICTURE
 
@@ -18,12 +18,12 @@ if (window.matchMedia("(min-width: 1366px)").matches) {
     // DESKTOP - NORMAL SLIDER (VERTICAL)
     const slidePictureHeight = document.querySelector("li.pictures").clientHeight + 24;
 
-    setVerticalCarousel(slidePictureHeight, carouselPicture, sliderPictureBtns, "current-slide-picture", ".current-slide-picture", 180);
+    setVerticalCarousel(slidePictureHeight, carouselPicture, sliderPictureBtns, "current-slide-picture", 180);
 
 } else {
 
     // MOBILE - HORIZONTAL SLIDER
     const slidePictureWidth = document.querySelector("li.pictures").clientWidth + 24;
 
-    setHorizontalCarousel(slidePictureWidth, carouselPicture, sliderPictureBtns, "current-slide-picture", ".current-slide-picture", 180);
+    setHorizontalCarousel(slidePictureWidth, carouselPicture, sliderPictureBtns, "current-slide-picture", 180);
 }

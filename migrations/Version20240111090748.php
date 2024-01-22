@@ -7,14 +7,7 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
-<<<<<<<< HEAD:migrations/Version20240111090748.php
-final class Version20240111090748 extends AbstractMigration
-========
 final class Version20240111132218 extends AbstractMigration
->>>>>>>> S2_US05_game_detail_part_two:migrations/Version20240111132218.php
 {
     public function getDescription(): string
     {

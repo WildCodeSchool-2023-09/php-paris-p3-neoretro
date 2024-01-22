@@ -48,8 +48,8 @@ class RegistrationFormType extends AbstractType
                 new Email([
                     'message' => 'Please enter a valid email address',]),],])
         ->add('username', TextType::class, [
-            'attr' => ['placeholder'=> 'username'],
-            'constraints' => [
+                    'attr' => ['placeholder' => 'username'],
+                    'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter a username',
                 ]),
@@ -72,11 +72,13 @@ class RegistrationFormType extends AbstractType
                             ]),
                             new Regex([
                                 'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/',
-                                'message' => 'Your password must contain at least one lowercase letter, one uppercase letter, and one digit.',
+                                'message' =>
+                                'Your password must contain at least one lowercase letter, 
+                                one uppercase letter, and one digit.',
                             ]),
                         ],
                     ]);
-            }
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {

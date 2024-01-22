@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 #[Route('/game', 'game_')]
 class GameController extends AbstractController
 {
@@ -22,5 +21,3 @@ class GameController extends AbstractController
         ]);
     }
 }
-
-

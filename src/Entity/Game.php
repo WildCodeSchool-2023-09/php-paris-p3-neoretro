@@ -37,10 +37,14 @@ class Game
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\OneToMany(mappedBy: 'game', targetEntity: GamePlayed::class)]
+    private Collection $gamesPlayed;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->gamesPlayed = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +165,36 @@ class Game
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GamePlayed>
+     */
+    public function getGamesPlayed(): Collection
+    {
+        return $this->gamesPlayed;
+    }
+
+    public function addGamesPlayed(GamePlayed $gamesPlayed): static
+    {
+        if (!$this->gamesPlayed->contains($gamesPlayed)) {
+            $this->gamesPlayed->add($gamesPlayed);
+            $gamesPlayed->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGamesPlayed(GamePlayed $gamesPlayed): static
+    {
+        if ($this->gamesPlayed->removeElement($gamesPlayed)) {
+            // set the owning side to null (unless already changed)
+            if ($gamesPlayed->getGame() === $this) {
+                $gamesPlayed->setGame(null);
+            }
+        }
 
         return $this;
     }

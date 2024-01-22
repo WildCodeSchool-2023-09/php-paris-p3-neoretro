@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -55,6 +57,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?int $experience = null;
+
+    #[ORM\ManyToMany(targetEntity: GamePlayed::class, mappedBy: 'players')]
+    private Collection $gamesPlayed;
+
+    public function __construct()
+    {
+        $this->gamesPlayed = new ArrayCollection();
+    }
     public const ROLE_USER = 'ROLE_USER';
     public const ROLE_ADMIN = 'ROLE_ADMIN';
 
@@ -231,6 +241,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setExperience(int $experience): static
     {
         $this->experience = $experience;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GamePlayed>
+     */
+    public function getGamesPlayed(): Collection
+    {
+        return $this->gamesPlayed;
+    }
+
+    public function addGamesPlayed(GamePlayed $gamesPlayed): static
+    {
+        if (!$this->gamesPlayed->contains($gamesPlayed)) {
+            $this->gamesPlayed->add($gamesPlayed);
+            $gamesPlayed->addPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGamesPlayed(GamePlayed $gamesPlayed): static
+    {
+        if ($this->gamesPlayed->removeElement($gamesPlayed)) {
+            $gamesPlayed->removePlayer($this);
+        }
 
         return $this;
     }

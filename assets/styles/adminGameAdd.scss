@@ -1,9 +1,49 @@
-.form-game-add {
+@import "_variables";
 
-    .description {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 499px;
+@media screen and (min-width: $desktopWidth) {
+
+    .form-add-game {
+
+        label {
+            display: none;
+        }
+        
+        .description {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 499px;
+        }
+
+        .poster-file {
+            display: flex;
+            width: 13.37844rem;
+            height: 17.87113rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-savegame-flex {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .btn-savegame {
+            margin-top: 1rem;
+                border-radius: 1.25rem;
+                border: 0.5px solid black;
+                background: $colorGradient5;
+                box-shadow: $shadow;
+    
+                color: #020051;
+                
+                height: 2.8rem;
+                width: 18.875rem;
+                font-size: 1.125rem;
+    
+                cursor: pointer;
+        }
     }
 }

@@ -10,13 +10,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class RegistrationGameFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-                ->add('Title', TextType::class, [
+                ->add('title', TextType::class, [
                     'attr' => [
                         'placeholder' => 'Title'
                         ],
@@ -27,7 +28,12 @@ class RegistrationGameFormType extends AbstractType
                         new Length([
                             'min' => 2,
                             'max' => 100,]),],])
-                ->add('Description', TextType::class, [
+                ->add('posterFile', VichFileType::class, [
+                        'required' => false,
+                //         // 'allow_delete' => true,
+                //         // 'download_uri' => true,
+                ])
+                ->add('description', TextType::class, [
                     'attr' => [
                         'placeholder' => 'Description'
                         ],
@@ -38,14 +44,14 @@ class RegistrationGameFormType extends AbstractType
                             'min' => 2,
                             'max' => 200,
                             'minMessage' => 'Your description should be at least {{ limit }} characters',
-                            'maxMessage' => 'Your description should not be longer than {{ limit }} characters',]),],])
-                ->add('Poster', EmailType::class, [
-                    'attr' => [
-                        'placeholder' => 'Poster'],
-                    'constraints' => [
-                        new NotBlank([
-                            'message' => 'Please enter your poster',
-                        ]),],]);
+                            'maxMessage' => 'Your description should not be longer than {{ limit }} characters',]),],]);
+                // ->add('Poster', EmailType::class, [
+                //     'attr' => [
+                //         'placeholder' => 'Poster'],
+                //     'constraints' => [
+                //         new NotBlank([
+                //             'message' => 'Please enter your poster',
+                //         ]),],]);
                 // ->add('Virtual', TextType::class, [
                 //     'attr' => [
                 //         'placeholder' => 'virtual'

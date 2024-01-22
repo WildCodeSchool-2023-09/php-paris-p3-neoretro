@@ -1,0 +1,14 @@
+<div class="form-add-game">
+{{ form_errors(registrationGameForm) }}
+{{ form_start(registrationGameForm) }}
+{# {{ form_widget(registrationGameForm) }} #}
+{{ form_row(registrationGameForm.title) }}
+{{ form_row(registrationGameForm.posterFile) }}
+        {# {{ form_row(registrationGameForm.poster) }} #}
+{{ form_row(registrationGameForm.description, {'attr': {'class': 'description'}}) }}
+        {# {{ form_row(registrationForm.virtual) }} #}   
+<div class="btn-savegame-flex">
+    <button type="submit" class="btn-savegame">Save Game</button>
+</div>        
+{{ form_end(registrationGameForm) }}
+</div>

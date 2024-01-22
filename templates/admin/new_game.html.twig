@@ -6,18 +6,7 @@
     <div class="card full-size">
         <div class="content">
             <h2>Add New Game</h2>
-            <div class="form-game-add">
-                {{ form_errors(registrationGameForm) }}
-                {{ form_start(registrationGameForm) }}
-                    {{ form_row(registrationGameForm.Title) }}
-                    {{ form_row(registrationGameForm.Poster) }}
-                    {{ form_row(registrationGameForm.Description, {'attr': {'class': 'description'}}) }}
-                    {# {{ form_row(registrationForm.Virtual) }} #}
-                    <div>
-                        <button type="submit" class="btn-register">Save Game</button>
-                    </div>
-                {{ form_end(registrationGameForm) }}
-            </div>
+                {{ include('admin/_form.html.twig') }}
         </div>
     </div>
 {% endblock %}

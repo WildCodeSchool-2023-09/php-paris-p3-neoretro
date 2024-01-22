@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
+use App\Form\RegistrationGameFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,7 +70,7 @@ class DashboardController extends AbstractController
     public function game(EntityManagerInterface $entityManager): Response
     {
         $game = new Game();
-        $form = $this->createForm(RegistrationFormType::class, $game);
+        $form = $this->createForm(RegistrationGameFormType::class, $game);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($game);

@@ -75,41 +75,7 @@ class RegistrationFormType extends AbstractType
                                 'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/',
                                 'message' => 'Your password must contain at least one lowercase letter, 
                                 one uppercase letter, and one digit.',]),],
-                ])
-                ->add('Title', TextType::class, [
-                    'attr' => [
-                        'placeholder' => 'title'
-                        ],
-                    'constraints' => [
-                        new NotBlank([
-                            'message' => 'Please enter the title',
-                        ]),
-                        new Length([
-                            'min' => 2,
-                            'max' => 100,]),],])
-                ->add('Description', TextType::class, [
-                    'attr' => [
-                        'placeholder' => 'description'
-                        ],
-                    'constraints' => [
-                        new NotBlank([
-                            'message' => 'Please enter the description',]),
-                        new Length([
-                            'min' => 2,
-                            'max' => 200,
-                            'minMessage' => 'Your description should be at least {{ limit }} characters',
-                            'maxMessage' => 'Your description should not be longer than {{ limit }} characters',]),],])
-                ->add('Poster', EmailType::class, [
-                    'attr' => [
-                        'placeholder' => 'poster'],
-                    'constraints' => [
-                        new NotBlank([
-                            'message' => 'Please enter your poster',
-                        ]),],])
-                ->add('Virtual', TextType::class, [
-                    'attr' => [
-                        'placeholder' => 'virtual'
-                        ],]);
+                            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

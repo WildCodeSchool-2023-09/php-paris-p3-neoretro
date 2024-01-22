@@ -1,27 +1,47 @@
-const slideHeight = document.querySelector(".full-size").clientHeight + 50;
-const carousel = document.querySelector("#carousel");
+// CAROUSEL FUNCTIONS
 
-// SLIDER BTN
-
-const sliderBtns = document.querySelectorAll('.slider .slider-btn');
-
-for (let i = 0 ; i < sliderBtns.length ; i++) {
-    sliderBtns[i].addEventListener("click", () => {
-        carousel.scrollTo({
-            top: slideHeight * i
+export function setVerticalCarousel(slideHeight, carousel, sliderBtns, currentSlide, classCurrentSlide, responseTime) {
+    for (let i = 0 ; i < sliderBtns.length ; i++) {
+        sliderBtns[i].addEventListener("click", () => {
+            carousel.scrollTo({
+                top: slideHeight * i
+            });
+            document.querySelector(classCurrentSlide).classList.toggle(currentSlide);
+            sliderBtns[i].classList.toggle(currentSlide);
         });
-        document.querySelector('.current-slide').classList.toggle('current-slide');
-        sliderBtns[i].classList.toggle('current-slide');
+    }
+    
+    carousel.addEventListener("scroll", function(e) {
+        setTimeout(function() {
+            for (let i = 0 ; i < sliderBtns.length ; i++) {
+                if (carousel.scrollTop == slideHeight * i) {
+                    document.querySelector(classCurrentSlide).classList.toggle(currentSlide);
+                    sliderBtns[i].classList.toggle(currentSlide);
+                }
+            }
+        }, responseTime);
     });
 }
 
-carousel.addEventListener("scroll", function(e) {
-    setTimeout(function() {
-        for (let i = 0 ; i < sliderBtns.length ; i++) {
-            if (carousel.scrollTop == slideHeight * i) {
-                document.querySelector('.current-slide').classList.toggle('current-slide');
-                sliderBtns[i].classList.toggle('current-slide');
+export function setHorizontalCarousel(slideWidth, carousel, sliderBtns, currentSlide, classCurrentSlide, responseTime) {
+    for (let i = 0 ; i < sliderBtns.length ; i++) {
+        sliderBtns[i].addEventListener("click", () => {
+            carousel.scrollTo({
+                left: slideWidth * i
+            });
+            document.querySelector(classCurrentSlide).classList.toggle(currentSlide);
+            sliderBtns[i].classList.toggle(currentSlide);
+        });
+    }
+
+    carousel.addEventListener("scroll", function(e) {
+        setTimeout(function() {
+            for (let i = (sliderBtns.length - 1) ; i >= 0 ; i--) {
+                if (carousel.scrollLeft == slideWidth * i) {
+                    document.querySelector(classCurrentSlide).classList.toggle(currentSlide);
+                    sliderBtns[i].classList.toggle(currentSlide);
+                }
             }
-        }
-    }, 380);
-});
+        }, responseTime);
+    });
+}

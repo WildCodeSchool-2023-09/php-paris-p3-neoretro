@@ -1,23 +1,20 @@
 {{ form_start(searchForm, {'attr': {'id': 'searchbar'}}) }}
-{# <form method="GET" action="" id="searchbar"> #}
 
     <div id="search-primary">
         <div class="btn search" type="submit"></div>
         {{ form_widget(searchForm.title, {'attr': {'value': title}}) }}
-        {# <input id="search-field" type="text" name="title" placeholder="Search" value="{{title}}"> #}
         <div class="btn settings"></div>
     </div>
 
     <div id="search-modal" class="hidden">
         <div class="filter">
-            <p>{{ field_label(searchForm.categories) }}</p>
+            <p>Category</p>
             <div class="card params hidden" id="category">
-                <div class="content">
-                    {{ form_widget(searchForm.categories, {'attr': {'style': 'display: none'}}) }}
-                    {% for label, value in field_choices(searchForm.categories) %}
+                <div class="content" id="game_search_categories">
+                    {% for child in searchForm.categories %}
                         <div>
-                            <input type="checkbox" name="category" id="{{label}}" value="{{label}}">
-                            <label for="{{label}}">{{label}}</label>
+                            {{ form_widget(child) }}
+                            {{ form_label(child) }}
                         </div>
                     {% endfor %}
                 </div>
@@ -28,12 +25,8 @@
         <div class="sort score text">Score<img src="{{ asset('build/images/icons/sort-down.svg') }}" alt="Sort updown"></div>
         <div class="sort time text">Time<img src="{{ asset('build/images/icons/sort-down.svg') }}" alt="Sort up/down"></div>
 
-        {# <input id="sort-by" type="hidden" name="sort-by" value="">
-        <input id="sort-order" type="hidden" name="sort-order" value=""> #}
-
         {{ form_row(searchForm.sort_by) }}
         {{ form_row(searchForm.sort_order) }}
     </div>
 
-{# </form> #}
 {{ form_end(searchForm) }}

@@ -1,4 +1,5 @@
 // SEARCH BAR
+
 console.log('searchbar.js loaded');
 
 function toggleDisplay(buttonSelector, targetSelector, defaultDisplay) {
@@ -15,11 +16,11 @@ function toggleDisplay(buttonSelector, targetSelector, defaultDisplay) {
     });
 }
 
-function toggleSorting(buttonSelector, targetSelector, inputValue) {
+function toggleSorting(buttonSelector, targetSelector = buttonSelector + ' img', inputValue) {
     const button = document.querySelector(buttonSelector);
     const target = document.querySelector(targetSelector);
-    const sortBy = document.querySelector('input#sort-by');
-    const sortOrder = document.querySelector('input#sort-order');
+    const sortBy = document.querySelector('input#game_search_sort_by');
+    const sortOrder = document.querySelector('input#game_search_sort_order');
     button.addEventListener('click', function(){
         target.classList.toggle('reversed');
         sortBy.setAttribute('value', inputValue);
@@ -27,7 +28,7 @@ function toggleSorting(buttonSelector, targetSelector, inputValue) {
             sortOrder.setAttribute('value', 'ASC');
         }
         else {
-            sortOrder.setAttribute('value', 'DESC');   
+            sortOrder.setAttribute('value', 'DESC');
         }
     });
 }
@@ -43,7 +44,7 @@ toggleSorting('.sort.time', '.sort.time img', 'time');
 
 //
 
-const searchField = document.querySelector("input#search-field");
+const searchField = document.querySelector("input#game_search_title");
 
 searchField.addEventListener('focusin', function() {
     searchField.setAttribute('placeholder', '//');

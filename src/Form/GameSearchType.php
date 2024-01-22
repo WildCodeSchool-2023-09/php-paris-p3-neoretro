@@ -15,7 +15,7 @@ class GameSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->setMethod('GET')
+            // ->setMethod('GET')
             ->add('title', TextType::class, [
             'required'  => false,
             'label'     => false,
@@ -29,10 +29,17 @@ class GameSearchType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'label',
                 'multiple' => true,
-                'expanded' => true
+                'expanded' => true,
+                'constraints' => [
+
+                ]
             ])
-            ->add('sort_by', HiddenType::class, [])
-            ->add('sort_order', HiddenType::class, [])
+            ->add('sort_by', HiddenType::class, [
+                'constraints' => []
+            ])
+            ->add('sort_order', HiddenType::class, [
+                'constraints' => []
+            ])
         ;
     }
 }

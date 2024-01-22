@@ -30,7 +30,7 @@
 
 @media screen and (min-width: $desktopWidth) {
 
-	form {
+	form#registerForm {
 		width: 730px;
 		margin: 0 auto;
 		margin-top: 4rem;
@@ -64,5 +64,5 @@
 				font-size: large;
 			}
 		}
-	}	
+	}
 }

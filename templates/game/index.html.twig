@@ -9,9 +9,10 @@
 {% endblock javascript %}
 
 {% block content %}
-<div id="dump">
-    {{ dump(games) }}
-</div>
+
+    <div id="dump">
+        {# {{ dump(games) }} #}
+    </div>
 
     {% include 'components/_searchbar.html.twig' %}
 
@@ -66,7 +67,9 @@
                 {% endif %}
             {% endfor %}
         </nav>
+        
     {% else %}
+
         <ul class="flex full-size">
             <li>
                 <section class="card small-card">
@@ -77,5 +80,7 @@
                 </section>
             </li>
         </ul>
+
     {% endif %}
+
 {% endblock %}

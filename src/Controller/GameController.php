@@ -17,27 +17,36 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/game')]
 class GameController extends AbstractController
 {
-    #[Route('/', name: 'game_index', methods: ['GET'])]
-    public function index(GameRepository $gameRepository, CategoryRepository $categoryRepository): Response
-    {
-        $title = '';
+    #[Route('/', name: 'game_index', methods: ['GET', 'POST'])]
+    public function index(
+        GameRepository $gameRepository,
+        CategoryRepository $categoryRepository,
+        Request $request
+    ): Response {
         $searchForm = $this->createForm(GameSearchType::class);
+        $searchForm->handleRequest($request);
+
+        $params = [];
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            // die(var_dump($searchForm->getData()));
-            // return $this->redirectToRoute('game_index', []);
+            $data = $searchForm->getData();
+
+            $params['title'] = $data['title'] ?: '';
+
+            foreach ($data['categories'] as $category) {
+                $params['categories'][] = $category->getLabel();
+            }
+
+            $params['sort'] = ($data['sort_by'] && $data['sort_order']) ? [
+                'by' => $data['sort_by'],
+                'order' => $data['sort_order'],
+            ] : [];
         }
 
         return $this->render('game/index.html.twig', [
-            'games' => $gameRepository->search([
-                'title' => $title,
-                'category' => [],
-                'sort' => [
-                    'criteria' => 'g.title',
-                    'order' => 'DESC'
-                ]]),
+            'games' => $gameRepository->search($params),
             'pageTitle' => 'Games',
-            'title' => $title,
+            'title' => $params['title'] ?? '',
             'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
         ]);

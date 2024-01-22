@@ -1,7 +1,5 @@
 // SEARCH BAR
 
-console.log('searchbar.js loaded');
-
 function toggleDisplay(buttonSelector, targetSelector, defaultDisplay) {
     const button = document.querySelector(buttonSelector);
     const target = document.querySelector(targetSelector);

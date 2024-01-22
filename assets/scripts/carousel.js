@@ -3,7 +3,7 @@ const carousel = document.querySelector("#carousel");
 
 // SLIDER BTN
 
-const sliderBtns = document.querySelectorAll('#slider .slider-btn');
+const sliderBtns = document.querySelectorAll('.slider .slider-btn');
 
 for (let i = 0 ; i < sliderBtns.length ; i++) {
     sliderBtns[i].addEventListener("click", () => {

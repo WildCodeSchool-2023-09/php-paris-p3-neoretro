@@ -58,7 +58,7 @@
             {% endfor %}
         </ul>
 
-        <nav id="slider">
+        <nav class="slider" id="slider-games">
             {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
                 {% if i == 0 %}
                     <div class="slider-btn current-slide"></div>
@@ -67,7 +67,7 @@
                 {% endif %}
             {% endfor %}
         </nav>
-        
+
     {% else %}
 
         <ul class="flex full-size">

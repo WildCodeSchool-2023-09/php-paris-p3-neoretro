@@ -20,7 +20,7 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('Firstname', TextType::class, [
+        ->add('firstname', TextType::class, [
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your first name',
@@ -30,7 +30,7 @@ class RegistrationFormType extends AbstractType
                     'max' => 100,
                     'minMessage' => 'Your first name should be at least {{ limit }} characters',
                     'maxMessage' => 'Your first name should not be longer than {{ limit }} characters',]),],])
-        ->add('Lastname', TextType::class, [
+        ->add('lastname', TextType::class, [
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your last name',
@@ -40,7 +40,7 @@ class RegistrationFormType extends AbstractType
                     'max' => 100,
                     'minMessage' => 'Your last name should be at least {{ limit }} characters',
                     'maxMessage' => 'Your last name should not be longer than {{ limit }} characters',]),],])
-        ->add('Email', EmailType::class, [
+        ->add('email', EmailType::class, [
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your email address',

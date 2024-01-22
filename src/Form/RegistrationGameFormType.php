@@ -18,7 +18,7 @@ class RegistrationGameFormType extends AbstractType
         $builder
                 ->add('Title', TextType::class, [
                     'attr' => [
-                        'placeholder' => 'title'
+                        'placeholder' => 'Title'
                         ],
                     'constraints' => [
                         new NotBlank([
@@ -29,7 +29,7 @@ class RegistrationGameFormType extends AbstractType
                             'max' => 100,]),],])
                 ->add('Description', TextType::class, [
                     'attr' => [
-                        'placeholder' => 'description'
+                        'placeholder' => 'Description'
                         ],
                     'constraints' => [
                         new NotBlank([
@@ -41,7 +41,7 @@ class RegistrationGameFormType extends AbstractType
                             'maxMessage' => 'Your description should not be longer than {{ limit }} characters',]),],])
                 ->add('Poster', EmailType::class, [
                     'attr' => [
-                        'placeholder' => 'poster'],
+                        'placeholder' => 'Poster'],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter your poster',

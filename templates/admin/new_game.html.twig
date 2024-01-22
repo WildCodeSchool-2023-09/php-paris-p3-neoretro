@@ -1,21 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sign Up{% endblock %}
+{% block title %}Admin Add game{% endblock %}
 
 {% block content %}
     <div class="card full-size">
         <div class="content">
             <h2>Add New Game</h2>
-            {{ form_errors(registrationGameForm) }}
-            {{ form_start(registrationGameForm) }}
-                {{ form_row(registrationGameForm.Title) }}
-                {{ form_row(registrationGameForm.Description) }}
-                {{ form_row(registrationGameForm.Poster) }}
-                {# {{ form_row(registrationForm.Virtual) }} #}
-                <div>
-                    <button type="submit" class="btn-register">Save Game</button>
-                </div>
-            {{ form_end(registrationGameForm) }}
+            <div class="form-game-add">
+                {{ form_errors(registrationGameForm) }}
+                {{ form_start(registrationGameForm) }}
+                    {{ form_row(registrationGameForm.Title) }}
+                    {{ form_row(registrationGameForm.Poster) }}
+                    {{ form_row(registrationGameForm.Description, {'attr': {'class': 'description'}}) }}
+                    {# {{ form_row(registrationForm.Virtual) }} #}
+                    <div>
+                        <button type="submit" class="btn-register">Save Game</button>
+                    </div>
+                {{ form_end(registrationGameForm) }}
+            </div>
         </div>
     </div>
 {% endblock %}

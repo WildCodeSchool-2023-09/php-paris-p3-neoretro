@@ -14,6 +14,7 @@ import './styles/gameShow.scss';
 import './styles/navbar.scss';
 import './styles/dashboard.scss';
 import './styles/register.scss';
+import './styles/adminGameAdd.scss';
 
 // start the Stimulus application
 import './bootstrap';

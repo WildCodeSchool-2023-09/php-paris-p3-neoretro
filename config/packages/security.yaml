@@ -30,6 +30,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/newgame, roles: ROLE_ADMIN }
+        - { path: ^/edit, roles: ROLE_ADMIN }
 
 when@test:
     security:

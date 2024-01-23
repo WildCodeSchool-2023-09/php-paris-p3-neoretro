@@ -83,6 +83,8 @@ class DashboardController extends AbstractController
             $entityManager->persist($game);
             $entityManager->flush();
 
+            $this->addFlash("Success", "The game has been added");
+
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
             $games = $entityManager->getRepository(Game::class)->findAll();
@@ -91,5 +93,25 @@ class DashboardController extends AbstractController
                 'pageTitle' => 'Admin.Add Game',
                 'games' => $games,
             ]);
+    }
+
+    #[Route('/{id}/edit', name: 'game_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Game $game, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(Game::class, $game);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash("Success", "The game has been edited");
+
+            return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin/edit.html.twig', [
+            'program' => $game,
+            'form' => $form,
+        ]);
     }
 }

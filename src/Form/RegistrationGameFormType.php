@@ -67,7 +67,7 @@ class RegistrationGameFormType extends AbstractType
             //         ]),
             //     ],
             // ])
-            // ->add('Category', EntityType::class, [
+            // ->add('category', EntityType::class, [
             //     'class' => Category::class,
             //     'choice_label' => 'label',
             //     'multiple' => false,

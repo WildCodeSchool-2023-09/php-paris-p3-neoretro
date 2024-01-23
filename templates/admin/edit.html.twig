@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Game{% endblock %}
+
+{% block body %}
+    <h1>Edit Program</h1>
+
+    {{ include('admin/_form.html.twig') }}
+
+    <a href="{{ path('edit_game') }}">back to list</a>
+
+{% endblock %}

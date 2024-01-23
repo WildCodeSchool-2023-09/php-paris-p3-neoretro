@@ -90,15 +90,15 @@ class DashboardController extends AbstractController
             $games = $entityManager->getRepository(Game::class)->findAll();
             return $this->render('admin/new_game.html.twig', [
                 'registrationGameForm' => $form->createView(),
-                'pageTitle' => 'Admin.Add Game',
+                'pageTitle' => 'Admin Add Game',
                 'games' => $games,
             ]);
     }
 
-    #[Route('/{id}/edit', name: 'game_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/editgame', name: 'edit_game', methods: ['GET', 'POST'])]
     public function edit(Request $request, Game $game, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Game::class, $game);
+        $form = $this->createForm(RegistrationGameFormType::class, $game);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -110,8 +110,8 @@ class DashboardController extends AbstractController
         }
 
         return $this->render('admin/edit.html.twig', [
-            'program' => $game,
-            'form' => $form,
+            'registrationGameForm' => $form->createView(),
+            'pageTitle' => 'Admin Edit Game',
         ]);
     }
 }

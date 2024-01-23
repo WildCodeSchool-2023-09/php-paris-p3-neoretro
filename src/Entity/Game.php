@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use App\Repository\GameRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: GameRepository::class)]
@@ -23,7 +25,7 @@ class Game
     #[ORM\Column(length: 100)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
@@ -34,13 +36,16 @@ class Game
     private ?File $posterFile = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $updateAt = null;
+    private ?DateTimeInterface $updateAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column]
     private ?bool $isVirtual = null;
+
+    #[ORM\Column]
+    private ?bool $isVisual = null;
 
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Picture::class, orphanRemoval: true)]
     private Collection $pictures;
@@ -106,6 +111,18 @@ class Game
     public function setIsVirtual(bool $isVirtual): static
     {
         $this->isVirtual = $isVirtual;
+
+        return $this;
+    }
+
+    public function isIsVisual(): ?bool
+    {
+        return $this->isVisual;
+    }
+
+    public function setIsVisual(bool $isVisual): static
+    {
+        $this->isVisual = $isVisual;
 
         return $this;
     }
@@ -187,15 +204,18 @@ class Game
     public function setPosterFile(File $image = null): Game
     {
         $this->posterFile = $image;
+        if ($image) {
+            $this->updateAt = new DateTime('now');
+        }
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdateAt(): ?DateTimeInterface
     {
         return $this->updateAt;
     }
 
-    public function setUpdateAt(?\DateTimeInterface $updateAt): static
+    public function setUpdateAt(?DateTimeInterface $updateAt): static
     {
         $this->updateAt = $updateAt;
 

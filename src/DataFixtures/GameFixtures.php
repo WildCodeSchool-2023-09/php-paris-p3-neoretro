@@ -23,7 +23,13 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
         'Renegade',
         'Tetris',
         'Space Invaders',
-        'Kung-fu Master'
+        'Kung-fu Master',
+        'Zizi',
+        'Boudin',
+        'Caca',
+        'Urine',
+        "WESH",
+        "Ok LOL"
     ];
 
     private SluggerInterface $slugger;
@@ -43,6 +49,7 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
             $game->setDescription($faker->text());
             $game->setPoster($faker->imageUrl(365, 240, 'nightlife'));
             $game->setIsVirtual(false);
+            $game->setIsVisual(true);
             $game->setSlug($this->slugger->slug($game->getTitle()));
             for ($i = 0; $i < 2; $i++) {
                 $game->addCategory(

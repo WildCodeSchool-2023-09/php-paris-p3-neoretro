@@ -11,12 +11,17 @@
         .title {
             background: rgba(222, 232, 244, 0.65);  
         }
+
+        .checked {
+            margin-left: 25px;
+            border: 1px solid blue;
+        }
         
         .description {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 499px;
+            height: 400px;
             color: var($colorGradient6);
         }
 

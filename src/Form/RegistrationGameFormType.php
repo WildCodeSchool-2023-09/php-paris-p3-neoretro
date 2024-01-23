@@ -37,9 +37,6 @@ class RegistrationGameFormType extends AbstractType
             ])
             ->add('posterFile', VichFileType::class, [
                 'required' => false,
-                'download_label' => true,
-                // 'allow_delete' => true,
-                // 'download_uri' => true,
             ])
             ->add('description', TextType::class, [
                 'attr' => [
@@ -57,16 +54,6 @@ class RegistrationGameFormType extends AbstractType
                     ]),
                 ],
             ])
-            // ->add('poster', TextType::class, [
-            //     'attr' => [
-            //         'placeholder' => 'Poster',
-            //     ],
-            //     'constraints' => [
-            //         new NotBlank([
-            //             'message' => 'Please enter your poster',
-            //         ]),
-            //     ],
-            // ])
             // ->add('category', EntityType::class, [
             //     'class' => Category::class,
             //     'choice_label' => 'label',
@@ -76,9 +63,16 @@ class RegistrationGameFormType extends AbstractType
             // ])
             ->add('isVirtual', CheckboxType::class, [
                 'attr' => [
-                    'placeholder' => 'Virtual'
+                    'class' => 'form-add-game checked'
                     ],
-                    'label' => 'Virtual',
+                    'label' => 'isVirtual',
+                    'required' => false,
+                    ])
+            ->add('isVisual', CheckboxType::class, [
+                'attr' => [
+                    'class' => 'form-add-game checked'
+                    ],
+                    'label' => 'isVisual',
                     'required' => false,
                     ])
             ;

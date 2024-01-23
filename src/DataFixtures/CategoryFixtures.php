@@ -11,15 +11,15 @@ use function Symfony\Component\String\u;
 class CategoryFixtures extends Fixture
 {
     public const DATAS = [
-        'Jeu vidéo',
         'Flipper',
-        'Machine attrape-peluche',
-        'Jeu de rachat',
+        'Machine',
+        'WTF',
         'Action',
         'Aventure',
         'VR',
-        'Science-fiction',
-        'Fantasy'
+        'Sci-Fi',
+        'Fantasy',
+        'Survival',
     ];
 
     public function load(ObjectManager $manager): void

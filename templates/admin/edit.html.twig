@@ -2,11 +2,12 @@
 
 {% block title %}Edit Game{% endblock %}
 
-{% block body %}
-    <h1>Edit Program</h1>
+{% block content %}
+<div class="card full-size">
+    <div class="content">
+        <h2>Edit Game</h2>
 
-    {{ include('admin/_form.html.twig') }}
-
-    <a href="{{ path('edit_game') }}">back to list</a>
-
+    {{ include('admin/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+</div>  
 {% endblock %}

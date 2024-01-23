@@ -7,21 +7,32 @@
         label {
             display: none;
         }
+
+        form {
+            input[type=file] {
+                display: flex;
+                width: 13.37844rem;
+                height: 17.87113rem;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-radius: 0.9375rem;
+                background: rgba(222, 232, 244, 0.65);
+                }
+            }
+        }
+        
+
+        .title {
+            background: rgba(222, 232, 244, 0.65);  
+        }
         
         .description {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 499px;
-        }
-
-        .poster-file {
-            display: flex;
-            width: 13.37844rem;
-            height: 17.87113rem;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            color: var($colorGradient6);
         }
 
         .btn-savegame-flex {
@@ -32,18 +43,17 @@
     
         .btn-savegame {
             margin-top: 1rem;
-                border-radius: 1.25rem;
-                border: 0.5px solid black;
-                background: $colorGradient5;
-                box-shadow: $shadow;
-    
-                color: #020051;
-                
-                height: 2.8rem;
-                width: 18.875rem;
-                font-size: 1.125rem;
-    
-                cursor: pointer;
+            border: 0.5px solid black;
+            border-radius: 1.25rem;
+            box-shadow: $shadow;
+            background: $colorGradient5;
+            color: #020051;
+
+            width: 18.875rem;
+            height: 2.8rem;
+            font-size: 1.125rem;
+            cursor: pointer;
+            
         }
     }
-}
+

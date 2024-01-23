@@ -75,7 +75,7 @@ class DashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($game->getTitle()) {
+            if ($game->getTitle()) {
                 $slug = $slugger->slug($game->getTitle());
                 $game->setSlug($slug);
             }

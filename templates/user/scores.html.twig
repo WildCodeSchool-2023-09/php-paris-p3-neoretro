@@ -9,17 +9,23 @@
             <h2>My game rankings</h2>
 
             {% if is_granted('ROLE_USER') %}
-                <p>
-                    {{ user.id }} • {{ user.username }}
-                    {{ dump() }}
-                    <ul>
-                        {% for gamePlayed in gamesPlayed %}
-                            <li>
-                                {# {{ dump(gamePlayed) }} #}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </p>
+                <div class="text" id="username">
+                    {{ user.username }}
+                </div>
+
+                <ul>
+                    {% for gamePlayed in gamesPlayed %}
+                        <li>
+                            <ul style="display: flex; justify-content: space-between; max-width: 500px; margin: 0 auto">
+                                <li>{{ gamePlayed.game.title }}</li>
+                                {# <li><img style="height: 50px" src="{{ gamePlayed.game.poster }}" alt="{{ gamePlayed.game.title }} image"></li> #}
+                                <li>{{ gamePlayed.score }}</li>
+                                {# <li>{{ gamePlayed.duration }}</li> #}
+                                {# <li>{{ gamePlayed.date|date('Y-m-d H:i') }}</li> #}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
             {% endif %}
 
         </div>

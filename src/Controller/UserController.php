@@ -23,12 +23,15 @@ class UserController extends AbstractController
     public function scores(Security $security, GamePlayedRepository $gamePlayedRepository): Response
     {
         $user = $security->getUser();
-        // $gamesPlayed = $gamePlayedRepository;
+        $gamesPlayed = $gamePlayedRepository->findBy(
+            ['player' => $user->getId()],
+            ['score' => 'DESC']
+        );
 
         return $this->render('user/scores.html.twig', [
             'pageTitle' => 'My scores',
             'user' => $user,
-            // 'gamesPlayed' => $gamesPlayed,
+            'gamesPlayed' => $gamesPlayed,
         ]);
     }
 }

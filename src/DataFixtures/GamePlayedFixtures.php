@@ -24,14 +24,8 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
             );
 
             $gamePlayed
-                ->addPlayer($this->getReference('user_' . rand(1, 20)))
-                ->setScorePlayerOne(rand(0, 500));
-
-            if (rand(0, 1)) {
-                $gamePlayed
-                    ->addPlayer($this->getReference('user_' . rand(1, 20)))
-                    ->setScorePlayerTwo(rand(0, 500));
-            }
+                ->setPlayer($this->getReference('user_' . rand(1, 20)))
+                ->setScore(rand(0, 500));
 
             $gamePlayed
                 ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))

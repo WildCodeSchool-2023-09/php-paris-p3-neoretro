@@ -16,18 +16,12 @@ class GamePlayed
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'gamesPlayed')]
-    private Collection $players;
-
     #[ORM\ManyToOne(inversedBy: 'gamesPlayed')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Game $game = null;
 
     #[ORM\Column]
-    private ?int $scorePlayerOne = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $scorePlayerTwo = null;
+    private ?int $score = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $date = null;
@@ -35,38 +29,17 @@ class GamePlayed
     #[ORM\Column]
     private ?int $duration = null;
 
+    #[ORM\ManyToOne(inversedBy: 'gamesPlayed')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $player = null;
+
     public function __construct()
     {
-        $this->players = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getPlayers(): Collection
-    {
-        return $this->players;
-    }
-
-    public function addPlayer(User $player): static
-    {
-        if (!$this->players->contains($player)) {
-            $this->players->add($player);
-        }
-
-        return $this;
-    }
-
-    public function removePlayer(User $player): static
-    {
-        $this->players->removeElement($player);
-
-        return $this;
     }
 
     public function getGame(): ?Game
@@ -81,26 +54,14 @@ class GamePlayed
         return $this;
     }
 
-    public function getScorePlayerOne(): ?int
+    public function getScore(): ?int
     {
-        return $this->scorePlayerOne;
+        return $this->score;
     }
 
-    public function setScorePlayerOne(int $scorePlayerOne): static
+    public function setScore(int $score): static
     {
-        $this->scorePlayerOne = $scorePlayerOne;
-
-        return $this;
-    }
-
-    public function getScorePlayerTwo(): ?int
-    {
-        return $this->scorePlayerTwo;
-    }
-
-    public function setScorePlayerTwo(?int $scorePlayerTwo): static
-    {
-        $this->scorePlayerTwo = $scorePlayerTwo;
+        $this->score = $score;
 
         return $this;
     }
@@ -125,6 +86,18 @@ class GamePlayed
     public function setDuration(int $duration): static
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?User
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?User $player): static
+    {
+        $this->player = $player;
 
         return $this;
     }

@@ -58,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $experience = null;
 
-    #[ORM\ManyToMany(targetEntity: GamePlayed::class, mappedBy: 'players')]
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: GamePlayed::class)]
     private Collection $gamesPlayed;
 
     public function __construct()
@@ -257,7 +257,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->gamesPlayed->contains($gamesPlayed)) {
             $this->gamesPlayed->add($gamesPlayed);
-            $gamesPlayed->addPlayer($this);
+            $gamesPlayed->setPlayer($this);
         }
 
         return $this;
@@ -266,7 +266,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeGamesPlayed(GamePlayed $gamesPlayed): static
     {
         if ($this->gamesPlayed->removeElement($gamesPlayed)) {
-            $gamesPlayed->removePlayer($this);
+            // set the owning side to null (unless already changed)
+            if ($gamesPlayed->getPlayer() === $this) {
+                $gamesPlayed->setPlayer(null);
+            }
         }
 
         return $this;

@@ -15,29 +15,34 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 1000; $i++) {
-            $gamePlayed = new GamePlayed();
-            $faker = Factory::create();
+        $faker = Factory::create();
 
-            $gamePlayed->setGame(
-                $this->getReference('game_' . u(GameFixtures::DATA[array_rand(GameFixtures::DATA)])->replace(' ', '_'))
-            );
-
-            $gamePlayed
-                ->addPlayer($this->getReference('user_' . rand(1, 20)))
-                ->setScorePlayerOne(rand(0, 500));
-
-            if (rand(0, 1)) {
-                $gamePlayed
-                    ->addPlayer($this->getReference('user_' . rand(1, 20)))
-                    ->setScorePlayerTwo(rand(0, 500));
+        for ($i = 1; $i <= 20; $i++) {
+            if ($i === 1) {
+                $player = $this->getReference('user_test');
+            } else {
+                $player = $this->getReference('user_' . $i);
             }
 
-            $gamePlayed
-                ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))
-                ->setDuration(rand(120, 1800));
+            for ($j = 0; $j < rand(10, 50); $j++) {
+                $gamePlayed = new GamePlayed();
 
-            $manager->persist($gamePlayed);
+                $gamePlayed->setGame(
+                    $this->getReference(
+                        'game_' . u(GameFixtures::DATA[array_rand(GameFixtures::DATA)])->replace(' ', '_')
+                    )
+                );
+
+                $gamePlayed
+                    ->setPlayer($player)
+                    ->setScore(rand(0, 500));
+
+                $gamePlayed
+                    ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))
+                    ->setDuration(rand(120, 1800));
+
+                $manager->persist($gamePlayed);
+            }
         }
 
         $manager->flush();

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} • {{ pageTitle }}{% endblock %}
+
+{% block content %}
+
+    <div class="card full-size">
+        <div class="content">
+            <h2>My game rankings</h2>
+
+            {% if is_granted('ROLE_USER') %}
+                <p>
+                    {{ user.id }} • {{ user.username }}
+                    {{ dump() }}
+                    <ul>
+                        {% for gamePlayed in gamesPlayed %}
+                            <li>
+                                {# {{ dump(gamePlayed) }} #}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </p>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}

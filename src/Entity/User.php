@@ -40,25 +40,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $token = null;
 
-    #[ORM\Column(length: 10, nullable: true)]
+    #[ORM\Column(length: 16, nullable: true)]
     private ?string $phonenumber = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $adress = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
+    #[ORM\Column(length: 30, nullable: true)]
     private ?string $city = null;
 
     #[ORM\Column(length: 5, nullable: true)]
     private ?string $zipcode = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 40)]
     private ?string $email = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $experience = null;
 
-    #[ORM\ManyToMany(targetEntity: GamePlayed::class, mappedBy: 'players')]
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: GamePlayed::class)]
     private Collection $gamesPlayed;
 
     public function __construct()
@@ -257,7 +257,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->gamesPlayed->contains($gamesPlayed)) {
             $this->gamesPlayed->add($gamesPlayed);
-            $gamesPlayed->addPlayer($this);
+            $gamesPlayed->setPlayer($this);
         }
 
         return $this;
@@ -266,7 +266,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeGamesPlayed(GamePlayed $gamesPlayed): static
     {
         if ($this->gamesPlayed->removeElement($gamesPlayed)) {
-            $gamesPlayed->removePlayer($this);
+            // set the owning side to null (unless already changed)
+            if ($gamesPlayed->getPlayer() === $this) {
+                $gamesPlayed->setPlayer(null);
+            }
         }
 
         return $this;

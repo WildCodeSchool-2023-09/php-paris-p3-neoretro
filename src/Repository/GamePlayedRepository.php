@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\GamePlayed;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,17 @@ class GamePlayedRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, GamePlayed::class);
+    }
+
+    public function findByPlayer(int $userId): array
+    {
+        // return $this
+        //     ->createQueryBuilder('gp')
+        //     ->where('player = :id')
+        //     ->orderBy('')
+        //     ->getQuery()
+        //     ->getResult();
+        return [];
     }
 
 //    /**

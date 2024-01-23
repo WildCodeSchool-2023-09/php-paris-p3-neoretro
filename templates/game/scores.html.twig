@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{parent()}} • Game scores{% endblock title %}
+
+{% block content %}
+
+    <div class="card full-size">
+        <div class="content">
+            <h2>{{ game.title }}</h2>
+            <p>
+                {{ user.username }}
+            </p>
+
+            {{ dump(game) }}
+
+                {% for gamePlayed in game.gamesPlayed %}
+                    <div class="flex">
+                        {{ dump(gamePlayed.scorePlayerOne) }}
+                        {% if gamePlayed.scorePlayerTwo is defined %}
+                            {{ dump(gamePlayed.scorePlayerTwo) }}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

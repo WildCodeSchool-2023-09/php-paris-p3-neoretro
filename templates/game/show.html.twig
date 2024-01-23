@@ -25,9 +25,7 @@
                         <div class="category">
 
                             {% for category in game.categories %}
-
                                 <p>{{ category.label }}</p>
-
                             {% endfor %}
 
                             <div class="game-time">
@@ -51,29 +49,19 @@
                 <div class="content">
                     <h2>Pictures</h2>
                     <ul id="carousel-pictures">
+                        {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                            {% if game.pictures[i*4] is defined %}
+                                <li class="pictures">
 
-                    {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                                    {% for y in 0..3 %}
+                                        {% if game.pictures[y + (4*i)] is defined %}
+                                            <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
+                                        {% endif %}
+                                    {% endfor %}
 
-                        {% if game.pictures[i*4] is defined %}
-
-                            <li class="pictures">
-
-                            {% for y in 0..3 %}
-
-                                {% if game.pictures[y + (4*i)] is defined %}
-
-                                    <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
-
-                                {% endif %}
-
-                            {% endfor %}
-
-                            </li>
-
-                        {% endif %}
-
-                    {% endfor %}
-
+                                </li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
 
                     <nav id="slider-pictures">
@@ -93,20 +81,15 @@
                     <h2>Scores</h2>
 
                     {% if app.user %}
-
                         <div class="own-score">
                             <p>32.</p>
                             <p>Michel</p>
                             <p>587 321</p>
                             <img  src="{{ asset('build/images/icons/user.png') }}"  alt="user-icon">
                         </div>
-
                     {% else %}
-
                         <div class="blank"></div>
-
                     {% endif %}
-
                     <table class="first-scores">
                         <tbody>
                             <tr>
@@ -136,7 +119,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p class="link-scores"><a href="">All scores</a></p>
+                    <p class="link-scores"><a href="{{ path('game_scores', {slug: game.slug}) }}">All scores</a></p>
                 </div>
             </section>
 
@@ -150,12 +133,10 @@
                     <div id="achievements-game">
 
                     {% for i in 1..6 %}
-
                         <div class="cell-achievement-game">
                             <img src="{{ asset('build/images/icons/medal-solid.svg') }}">
                             <h2>Expert Michel</h2>
                         </div>
-
                     {% endfor %}
 
                     </div>
@@ -169,7 +150,6 @@
                     <div class="comment-carousel">
 
                     {% for i in 1..6 %}
-
                         <div class="comment">
                             <h2>Micheldu75020</h2>
                             <div class="comment-rating">
@@ -184,7 +164,6 @@
                             <p class="comment-text">Super jeu, sinon j’ai besoin d’un joint d’étanchéité pour climatiseur de morgue, le mien est fissuré.</p>
                             <p class="comment-date">16/12/2023 19:32</p>
                         </div>
-
                     {% endfor %}
 
                     </div>
@@ -192,7 +171,6 @@
             </section>
 
         </li>
-
     </ul>
 
     <nav class="slider">

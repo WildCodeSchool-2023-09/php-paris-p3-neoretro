@@ -57,23 +57,31 @@ class RegistrationGameFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('poster', TextType::class, [
+            // ->add('poster', TextType::class, [
+            //     'attr' => [
+            //         'placeholder' => 'Poster',
+            //     ],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Please enter your poster',
+            //         ]),
+            //     ],
+            // ])
+            // ->add('Category', EntityType::class, [
+            //     'class' => Category::class,
+            //     'choice_label' => 'label',
+            //     'multiple' => false,
+            //     'expanded' => true,
+            //     'by_reference' => true,
+            // ])
+            ->add('isVirtual', CheckboxType::class, [
                 'attr' => [
-                    'placeholder' => 'Poster',
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter your poster',
-                    ]),
-                ],
-            ])
-            ->add('isVirtual', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'label',
-                'multiple' => false,
-                'expanded' => true,
-                'by_reference' => true,
-            ]);
+                    'placeholder' => 'Virtual'
+                    ],
+                    'label' => 'Virtual',
+                    'required' => false,
+                    ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -18,6 +18,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DashboardController extends AbstractController
 {
@@ -67,13 +68,18 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/newgame', name: 'new_game')]
-    public function game(Request $request, EntityManagerInterface $entityManager): Response
+    public function game(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $game = new Game();
         $form = $this->createForm(RegistrationGameFormType::class, $game);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($game->getTitle()) {
+                $slug = $slugger->slug($game->getTitle());
+                $game->setSlug($slug);
+            }
+
             $entityManager->persist($game);
             $entityManager->flush();
 

@@ -8,21 +8,6 @@
             display: none;
         }
 
-        form {
-            input[type=file] {
-                display: flex;
-                width: 13.37844rem;
-                height: 17.87113rem;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                border-radius: 0.9375rem;
-                background: rgba(222, 232, 244, 0.65);
-                }
-            }
-        }
-        
-
         .title {
             background: rgba(222, 232, 244, 0.65);  
         }
@@ -56,4 +41,5 @@
             
         }
     }
+}
 

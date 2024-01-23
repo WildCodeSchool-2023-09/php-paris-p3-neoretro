@@ -22,7 +22,8 @@ class GamePlayedController extends AbstractController
         $entityManager->flush();
 
         return $this->render('game_played/index.html.twig', [
-            'gamePlayed' => $gamePlayed
+            'gamePlayed' => $gamePlayed,
+            'pageTitle' => 'Your last game',
         ]);
     }
 }

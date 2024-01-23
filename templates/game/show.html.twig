@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ game.title }}{% endblock %}
+{% block title %}{{ parent() }} • {{ game.title }}{% endblock %}
 
 {% block content %}
 

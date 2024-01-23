@@ -31,7 +31,6 @@ class GameSearchType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'constraints' => [
-
                 ]
             ])
             ->add('sort_by', HiddenType::class, [

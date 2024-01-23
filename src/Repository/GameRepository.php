@@ -32,21 +32,23 @@ class GameRepository extends ServiceEntityRepository
                 ->setParameter('title', '%' . $params['title'] . '%');
         }
 
-        if (!empty($params['categories'])) {
+        if (!empty($params['categories']) && !$params['categories']->isEmpty()) {
             $categoryQueries = [];
+
             foreach ($params['categories'] as $category) {
-                $categoryQueries[] = "(category.label = '" . $category . "')";
+                $categoryQueries[] = "(category.label = '" . $category->getLabel() . "')";
             }
+
             $categoryQuery = implode(' OR ', $categoryQueries);
             $query->andWhere($categoryQuery);
         }
 
-        if (!empty($params['sort'])) {
-            $query->orderBy('g.' . $params['sort']['by'], $params['sort']['order']);
+        if (!empty($params['sort_by']) && !empty($params['sort_order'])) {
+            $query->orderBy('g.' . $params['sort_by'], $params['sort_order']);
         }
+
         $query->addOrderBy('g.id', 'ASC');
 
-        $query = $query->getQuery();
-        return $query->getResult();
+        return $query->getQuery()->getResult();
     }
 }

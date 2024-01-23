@@ -29,24 +29,13 @@ class GameController extends AbstractController
         $params = [];
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $data = $searchForm->getData();
-
-            $params['title'] = $data['title'] ?: '';
-
-            foreach ($data['categories'] as $category) {
-                $params['categories'][] = $category->getLabel();
-            }
-
-            $params['sort'] = ($data['sort_by'] && $data['sort_order']) ? [
-                'by' => $data['sort_by'],
-                'order' => $data['sort_order'],
-            ] : [];
+            $params = $searchForm->getData();
         }
 
         return $this->render('game/index.html.twig', [
             'games' => $gameRepository->search($params),
             'pageTitle' => 'Games',
-            'title' => $params['title'] ?? '',
+            'params' => $params,
             'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
         ]);

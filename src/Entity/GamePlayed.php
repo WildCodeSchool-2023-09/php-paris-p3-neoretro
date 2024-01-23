@@ -32,8 +32,8 @@ class GamePlayed
     #[ORM\Column]
     private ?\DateTimeImmutable $date = null;
 
-    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $duration = null;
+    #[ORM\Column]
+    private ?int $duration = null;
 
     public function __construct()
     {
@@ -117,12 +117,12 @@ class GamePlayed
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeImmutable
+    public function getDuration(): ?int
     {
         return $this->duration;
     }
 
-    public function setDuration(\DateTimeImmutable $duration): static
+    public function setDuration(int $duration): static
     {
         $this->duration = $duration;
 

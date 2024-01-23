@@ -2,7 +2,7 @@
 
     <div id="search-primary">
         <div class="btn search" type="submit"></div>
-        {{ form_widget(searchForm.title, {'attr': {'value': title}}) }}
+        {{ form_widget(searchForm.title, {'attr': {'value': params.title is defined ? params.title : ''}}) }}
         <div class="btn settings"></div>
     </div>
 

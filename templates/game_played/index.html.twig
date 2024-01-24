@@ -1,16 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} • Your last game{% endblock %}
+{% block title %}{{ parent() }} • {{ pageTitle }}{% endblock %}
 
 {% block content %}
 
-<div class="card full-size">
+<div id="game-played" class="card full-size">
     <div class="content">
-        {{ dump(gamePlayed) }}
-        <p>
-            Date : {{gamePlayed.date|date('d-m-Y // H:i')}}<br>
-            Duration : {% if (gamePlayed.duration/60)<10 %}0{% endif %}{{ (gamePlayed.duration/60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}:{% if (gamePlayed.duration%60) < 10 %}0{% endif %}{{ (gamePlayed.duration%60) }}
-        </p>
+        <h2>{{ gamePlayed.game.title }}</h2>
+        <div id="game-played-poster">
+            <img src="{{ gamePlayed.game.poster }}">
+        </div>
+        <div id="players">
+            <p>{{ gamePlayed.players[0].username }}</p>
+            <p class="player-score">{{ gamePlayed.scorePlayerOne }}</p>
+
+            {% if gamePlayed.players[1] is defined %}
+                <p>{{ gamePlayed.players[1].username }}</p>
+                <p class="player-score">{{ gamePlayed.scorePlayerTwo }}</p>
+            {% endif %}
+
+        </div>
+        <div id="player-time">
+            <img src="{{ asset('build/images/icons/clock-1.svg') }}">
+            <p>{% if (gamePlayed.duration/60)<10 %}0{% endif %}{{ (gamePlayed.duration/60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}:{% if (gamePlayed.duration%60) < 10 %}0{% endif %}{{ (gamePlayed.duration%60) }}</p>
+        </div>
+        
+        <p id="player-date">Le {{gamePlayed.date|date('d-m-Y à H:i')}}</p>
+        <a id="button-played-game" href="{{ path('dashboard') }}">HOME</a>
     </div>
 </div>
 

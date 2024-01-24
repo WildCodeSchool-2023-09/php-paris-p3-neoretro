@@ -18,6 +18,7 @@ import './styles/game.scss';
 import './styles/games.scss';
 import './styles/searchbar.scss';
 import './styles/register.scss';
+import './styles/gamePlayed.scss';
 
 // start the Stimulus application
 import './bootstrap';

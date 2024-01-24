@@ -4,7 +4,12 @@
 {{ form_row(registrationGameForm.title) }}
 {{ form_row(registrationGameForm.posterFile) }}
 {{ form_row(registrationGameForm.description, {'attr': {'class': 'description'}}) }}
-{# {{ form_row(registrationGameForm.isVirtual,  {'attr': {'class': 'checked'}}) }} #}
+<div class="checked-flex">
+    <p>isVirtual{{ form_row(registrationGameForm.isVirtual, {'attr': {'class': 'checked'}}) }}</p>
+</div>
+<div class="checked-flex">
+    <p>isVisual{{ form_row(registrationGameForm.isVisual, {'attr': {'class': 'checked'}}) }}</p>
+</div>
 <div class="btn-savegame-flex">
     <button type="submit" class="btn-savegame">Save Game</button>
 </div>        

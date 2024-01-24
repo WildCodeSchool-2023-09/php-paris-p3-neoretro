@@ -12,16 +12,25 @@
             background: rgba(222, 232, 244, 0.65);  
         }
 
+        .checked-flex {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
         .checked {
-            margin-left: 25px;
-            border: 1px solid blue;
+            border: 1px solid var($colorGradient1);
+            width: 20px;
+            height: 20px;
         }
         
         .description {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 400px;
+            height: 350px;
             color: var($colorGradient6);
         }
 

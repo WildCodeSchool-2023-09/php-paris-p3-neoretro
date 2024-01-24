@@ -44,7 +44,7 @@ class Game
     #[ORM\Column]
     private ?bool $isVirtual = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $isVisual = null;
 
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Picture::class, orphanRemoval: true)]
@@ -117,7 +117,7 @@ class Game
 
     public function isIsVisual(): ?bool
     {
-        return $this->isVisual;
+        return $this->isVisual = false;
     }
 
     public function setIsVisual(bool $isVisual): static

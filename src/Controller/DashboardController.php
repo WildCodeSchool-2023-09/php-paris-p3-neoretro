@@ -79,6 +79,11 @@ class DashboardController extends AbstractController
                 $slug = $slugger->slug($game->getTitle());
                 $game->setSlug($slug);
             }
+            // Vérifier la case "isVisual"
+            if (!$game->isIsVisual()) {
+                // Ne pas afficher le jeu si la case "isVisual" est cochée
+                return $this->redirectToRoute('dashboard');
+            }
 
             $entityManager->persist($game);
             $entityManager->flush();

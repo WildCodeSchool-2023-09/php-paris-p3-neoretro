@@ -62,16 +62,10 @@ class RegistrationGameFormType extends AbstractType
             //     'by_reference' => true,
             // ])
             ->add('isVirtual', CheckboxType::class, [
-                'attr' => [
-                    'class' => 'form-add-game checked'
-                    ],
                     'label' => 'isVirtual',
                     'required' => false,
                     ])
             ->add('isVisual', CheckboxType::class, [
-                'attr' => [
-                    'class' => 'form-add-game checked'
-                    ],
                     'label' => 'isVisual',
                     'required' => false,
                     ])

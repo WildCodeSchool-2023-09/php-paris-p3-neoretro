@@ -28,14 +28,8 @@ class GamePlayedService
 
         $players = $this->userRepository->findAll();
         $gamePlayed
-            ->addPlayer($players[array_rand($players)])
-            ->setScorePlayerOne(rand(0, 500));
-
-        if (rand(0, 1)) {
-            $gamePlayed
-                ->addPlayer($players[array_rand($players)])
-                ->setScorePlayerTwo(rand(0, 500));
-        }
+            ->setPlayer($players[array_rand($players)])
+            ->setScore(rand(0, 500));
 
         $gamePlayed
             ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))

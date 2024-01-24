@@ -11,14 +11,8 @@
             <img src="{{ gamePlayed.game.poster }}">
         </div>
         <div id="players">
-            <p>{{ gamePlayed.players[0].username }}</p>
-            <p class="player-score">{{ gamePlayed.scorePlayerOne }}</p>
-
-            {% if gamePlayed.players[1] is defined %}
-                <p>{{ gamePlayed.players[1].username }}</p>
-                <p class="player-score">{{ gamePlayed.scorePlayerTwo }}</p>
-            {% endif %}
-
+            <p>{{ gamePlayed.player.username }}</p>
+            <p class="player-score">{{ gamePlayed.score }}</p>
         </div>
         <div id="player-time">
             <img src="{{ asset('build/images/icons/clock-1.svg') }}">

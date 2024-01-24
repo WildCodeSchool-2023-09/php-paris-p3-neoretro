@@ -6,21 +6,20 @@
 
     <div class="card full-size">
         <div class="content">
-            <h2>{{ game.title }}</h2>
-            <p>
-                {{ user.username }}
-            </p>
+            {% if is_granted('ROLE_USER') %}
+                <h2>{{ game.title }}</h2>
+                <p>
+                    {{ user.username }}
+                </p>
 
-            {{ dump(game) }}
+                {{ dump(game) }}
 
-                {% for gamePlayed in game.gamesPlayed %}
-                    <div class="flex">
-                        {{ dump(gamePlayed.scorePlayerOne) }}
-                        {% if gamePlayed.scorePlayerTwo is defined %}
-                            {{ dump(gamePlayed.scorePlayerTwo) }}
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                    {% for gamePlayed in game.gamesPlayed %}
+                        <div class="flex">
+                            {{ dump(gamePlayed.score) }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
         </div>
     </div>
 

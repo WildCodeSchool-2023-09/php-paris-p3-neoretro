@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\GamePlayedRepository;
+use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,13 +21,13 @@ class UserController extends AbstractController
     }
 
     #[Route('/scores', name: 'scores')]
-    public function scores(Security $security, GamePlayedRepository $gamePlayedRepository): Response
-    {
+    public function scores(
+        Security $security,
+        GamePlayedRepository $gamePlayedRepository,
+        GameRepository $gameRepository
+    ): Response {
         $user = $security->getUser();
-        $gamesPlayed = $gamePlayedRepository->findBy(
-            ['player' => $user->getId()],
-            ['score' => 'DESC']
-        );
+        $gamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());
 
         return $this->render('user/scores.html.twig', [
             'pageTitle' => 'My scores',

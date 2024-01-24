@@ -22,15 +22,27 @@ class GamePlayedRepository extends ServiceEntityRepository
         parent::__construct($registry, GamePlayed::class);
     }
 
-    public function findByPlayer(int $userId): array
+    public function findBestGamesScoresByUser(int $userId): array
     {
-        // return $this
-        //     ->createQueryBuilder('gp')
-        //     ->where('player = :id')
-        //     ->orderBy('')
-        //     ->getQuery()
-        //     ->getResult();
-        return [];
+        $subQuery = $this
+            ->createQueryBuilder('sub')
+            ->select('MAX(sub.score)')
+            ->where('sub.player = gp.player')
+            ->andWhere('sub.game = gp.game')
+            ->getDQL();
+
+        return $this
+            ->createQueryBuilder('gp')
+            ->innerJoin('gp.game', 'g')
+            ->where('gp.player = :userId')
+            ->setParameter('userId', $userId)
+            ->groupBy('gp.game', 'gp.id', 'g.id')
+            ->having('gp.score = (' . $subQuery . ')')
+            ->orderBy('gp.score', 'DESC')
+            // ->orderBy('gp.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

@@ -17,11 +17,15 @@
                     {% for gamePlayed in gamesPlayed %}
                         <li>
                             <ul style="display: flex; justify-content: space-between; max-width: 500px; margin: 0 auto">
-                                <li>{{ gamePlayed.game.title }}</li>
-                                {# <li><img style="height: 50px" src="{{ gamePlayed.game.poster }}" alt="{{ gamePlayed.game.title }} image"></li> #}
+                                <li>
+                                    <a href="{{ path('game_show', {slug: gamePlayed.game.slug}) }}">
+                                        <img style="height: 50px" src="{{ gamePlayed.game.poster }}" alt="{{ gamePlayed.game.title }} image">
+                                        {{ gamePlayed.game.title }}
+                                    </a>
+                                </li>
                                 <li>{{ gamePlayed.score }}</li>
                                 {# <li>{{ gamePlayed.duration }}</li> #}
-                                {# <li>{{ gamePlayed.date|date('Y-m-d H:i') }}</li> #}
+                                {# <li>{{ gamePlayed.date|date('Y m d') }}</li> #}
                             </ul>
                         </li>
                     {% endfor %}

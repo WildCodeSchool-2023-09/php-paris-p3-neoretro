@@ -18,13 +18,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'dashboard')]
-    public function index(AuthenticationUtils $authenticationUtils, EntityManagerInterface  $entityManager): Response
+    public function index(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response
     {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -106,6 +107,7 @@ class DashboardController extends AbstractController
             ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{slug}/editgame', name: 'edit_game', methods: ['GET', 'POST'])]
     public function edit(Request $request, Game $game, EntityManagerInterface $entityManager): Response
     {

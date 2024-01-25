@@ -17,7 +17,7 @@ class GameController extends AbstractController
     public function index(GameRepository $gameRepository): Response
     {
         return $this->render('game/index.html.twig', [
-            'games' => $gameRepository->findAll(),
+            'games' => $gameRepository->findBy(['isVisual' => true]),
             'pageTitle' => 'Games',
         ]);
     }

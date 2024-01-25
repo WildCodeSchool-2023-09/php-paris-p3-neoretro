@@ -117,7 +117,7 @@ class Game
 
     public function isIsVisual(): ?bool
     {
-        return $this->isVisual = false;
+        return $this->isVisual;
     }
 
     public function setIsVisual(bool $isVisual): static

@@ -78,11 +78,11 @@ class DashboardController extends AbstractController
             if ($game->getTitle()) {
                 $slug = $slugger->slug($game->getTitle());
                 $game->setSlug($slug);
-            }
+            // }
             // Vérifier la case "isVisual"
-            if (!$game->isIsVisual()) {
+            // if (!$game->isIsVisual()) {
                 // Ne pas afficher le jeu si la case "isVisual" est cochée
-                return $this->redirectToRoute('dashboard');
+            //     return $this->redirectToRoute('dashboard');
             }
 
             $entityManager->persist($game);
@@ -100,7 +100,7 @@ class DashboardController extends AbstractController
             ]);
     }
 
-    #[Route('/{id}/editgame', name: 'edit_game', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/editgame', name: 'edit_game', methods: ['GET', 'POST'])]
     public function edit(Request $request, Game $game, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RegistrationGameFormType::class, $game);

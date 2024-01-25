@@ -5,16 +5,14 @@
 {% block content %}
 
     <ul id="carousel">
-        {% for i in 0..(games|length / 6) %}
+        {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
             <li class="games grid full-size">
-                {% for y in 1..6 %}
+                {% for y in 0..5 %}
                     {% if games[y + (6*i)] is defined %}
                         <section class="card">
                             <div class="content">
                                 <a href="{{ path('game_show', {slug: games[y + 6*i].slug}) }}">
-                                    <img class="game-poster" src="{{ games[y + (6*i)].poster }}" alt="">
-                                    {# <img class="game-poster" src="{{ vich_uploader_asset(games[y + (6*i)].poster) }}" alt=""> #}
-                                        {# <img src="{{ vich_uploader_asset(game) }}" alt="Image aléatoire"> #}
+                                        <img class="game-poster" src="{{ vich_uploader_asset(games[y + (6*i)]) }}" alt="">
                                     <h2>{{ games[y + (6*i)].title }}</h2>
                                 </a>
 

@@ -12,7 +12,7 @@
                 <div class="content">
                     <div class="information">
                         <h1 class="text">{{ game.title }}</h1>
-
+                        <a href="{{ path("edit_game", { slug: game.slug }) }}"><img src="{{ asset('build/images/icons/edit-icon.png') }}"></a>
                         <div class="rating">
                             <img src="{{ asset('build/images/icons/star-solid.svg') }}">
                             <img src="{{ asset('build/images/icons/star-solid.svg') }}">

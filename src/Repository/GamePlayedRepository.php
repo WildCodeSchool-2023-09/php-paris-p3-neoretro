@@ -62,10 +62,23 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->groupBy('gp.game', 'gp.id', 'g.id')
             ->having('gp.score = (' . $subQuery . ')')
             ->orderBy('gp.score', 'DESC')
-            // ->orderBy('gp.id', 'DESC')
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function findPersonalBestByGame(int $userId, int $gameId): GamePlayed
+    {
+        return $this
+            ->createQueryBuilder('gp')
+            ->andWhere('gp.player = :userId')
+            ->andWhere('gp.game = :gameId')
+            ->setParameter('userId', $userId)
+            ->setParameter('gameId', $gameId)
+            ->orderBy('gp.score', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 //    /**

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
+use App\Repository\GamePlayedRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,23 +12,32 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Security;
 
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'dashboard')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
-    {
+    public function index(
+        AuthenticationUtils $authenticationUtils,
+        Security $security,
+        GamePlayedRepository $gamePlayedRepository
+    ): Response {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
+        $user = $security->getUser();
+
+        if ($this->isGranted('ROLE_USER')) {
+            $gamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());
+        } else {
+            $gamesPlayed = [];
+        }
 
         return $this->render('dashboard/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
+            'user' => $user,
+            'gamesPlayed' => $gamesPlayed,
         ]);
     }
 

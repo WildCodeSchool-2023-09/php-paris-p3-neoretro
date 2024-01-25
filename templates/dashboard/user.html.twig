@@ -61,7 +61,17 @@
     <section class="card cell-scores">
         <div class="content">
             <h2>Scores</h2>
-
+            <table>
+                <tbody>
+                    {% for i in 0..7 %}
+                        <tr>
+                            <td class="text">{{ i+1 }}.</td>
+                            <td class="text"><a href="{{ path('game_show', {slug: gamesPlayed[i].game.slug}) }}">{{ gamesPlayed[i].game.title }}</a></td>
+                            <td class="text">{{ gamesPlayed[i].score }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </section>
 

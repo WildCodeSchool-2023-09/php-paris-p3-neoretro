@@ -82,41 +82,31 @@
 
                     {% if app.user %}
                         <div class="own-score">
-                            <p>32.</p>
-                            <p>Michel</p>
-                            <p>587 321</p>
-                            <img  src="{{ asset('build/images/icons/user.png') }}"  alt="user-icon">
+                            <p>8.</p>
+                            <p>{{ user.username }}</p>
+                            <p>{{ userGamePlayed.score }}</p>
+                            <img src="{{ asset('build/images/icons/user.png') }}" alt="user-icon">
                         </div>
                     {% else %}
                         <div class="blank"></div>
                     {% endif %}
                     <table class="first-scores">
                         <tbody>
-                            <tr>
-                                <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="trophy-solid-1"></td>
-                                <td class="text score-point">1 276 378</td>
-                                <td class="text">Alfredos</td>
-                            </tr>
-                            <tr>
-                                <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="trophy-solid-2"></td>
-                                <td class="text score-point">1 001 090</td>
-                                <td class="text">Carlos</td>
-                            </tr>
-                            <tr>
-                                <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="trophy-solid-3"></td>
-                                <td class="text score-point">976 378</td>
-                                <td class="text">Juanitos</td>
-                            </tr>
-                            <tr>
-                                <td class="text score-ranking">4.</td>
-                                <td class="text score-point">796 378</td>
-                                <td class="text">Michelos</td>
-                            </tr>
-                            <tr>
-                                <td class="text score-ranking">5.</td>
-                                <td class="text score-point">743 972</td>
-                                <td class="text">Michel-Angelo</td>
-                            </tr>
+                            {% for i in 0..4 %}
+                                <tr>
+                                    {% if i == 0 %}
+                                        <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy"></td>
+                                    {% elseif i == 1 %}
+                                        <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy"></td>
+                                    {% elseif i == 2 %}
+                                        <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
+                                    {% else %}
+                                        <td class="text score-ranking">{{i+1}}.</td>
+                                    {% endif %}
+                                    <td class="text score-point">{{ gamesPlayed[i].score }}</td>
+                                    <td class="text"><a href="">{{ gamesPlayed[i].player.username }}</a></td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                     <p class="link-scores"><a href="{{ path('game_scores', {slug: game.slug}) }}">All scores</a></p>

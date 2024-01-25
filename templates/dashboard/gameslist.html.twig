@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Games{% endblock %}
+
+{% block content %}
+
+    <ul id="carousel">
+        {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+            <li class="games grid full-size">
+                {% for y in 0..5 %}
+                    {% if games[y + (6*i)] is defined %}
+                        <section class="card">
+                            <div class="content">
+                                <a href="{{ path('game_show', {slug: games[y + 6*i].slug}) }}">
+                                        <img class="game-poster" src="{{ vich_uploader_asset(games[y + (6*i)]) }}" alt="">
+                                    <h2>{{ games[y + (6*i)].title }}</h2>
+                                </a>
+
+                                <div class="game-infos">
+                                    <div class="game-category-container">
+                                        {% for category in games[y + 6*i].categories %}
+                                            <p class="game-category">
+                                                {{category.label}}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="game-stats">
+                                        <div class="game-highest-score">
+                                            <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
+                                            <p>1 276 378</p>
+                                        </div>
+                                        <div class="game-time-spent">
+                                            <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
+                                            <p>0:34</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    {% endif %}
+                {% endfor %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <nav id="slider">
+        <div class="slider-btn slider-btn-1 current-slide"></div>
+        {% for i in 1..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+            <div class="slider-btn slider-btn-{{i+1}}"></div>
+        {% endfor %}
+    </nav>
+
+{% endblock %}

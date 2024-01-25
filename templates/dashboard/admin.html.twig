@@ -27,10 +27,12 @@
       {% if games is defined and games|length > 0 %}
             <ul>
                 {% for game in games %}
+                    {% if game.IsVisual == false %}
                     <li>
                         <strong>{{ game.title }}</strong>
-                        <img src="{{ game.poster }}" alt="{{ game.title }} poster" />
+                        <img src="{{ vich_uploader_asset (game) }}" alt="{{ game.title }} poster" />
                     </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         {% else %}

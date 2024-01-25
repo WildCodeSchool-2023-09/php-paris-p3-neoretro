@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\RegistrationFormType;
 use App\Form\RegistrationGameFormType;
+use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,15 +24,16 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'dashboard')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    public function index(AuthenticationUtils $authenticationUtils, EntityManagerInterface  $entityManager): Response
     {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
-
+        $games = $entityManager->getRepository(Game::class)->findAll();
         return $this->render('dashboard/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
             'pageTitle' => 'NeoRetro',
+            'games' => $games,
         ]);
     }
 
@@ -67,6 +69,15 @@ class DashboardController extends AbstractController
         ]);
     }
 
+    #[Route('/dashboard/gameslist', name: 'games_list', methods: ['GET'])]
+    public function gameslist(GameRepository $gameRepository): Response
+    {
+        return $this->render('game/index.html.twig', [
+            'games' => $gameRepository->findAll(),
+            'pageTitle' => 'Admin Games List',
+        ]);
+    }
+
     #[Route('/newgame', name: 'new_game')]
     public function game(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
@@ -78,11 +89,6 @@ class DashboardController extends AbstractController
             if ($game->getTitle()) {
                 $slug = $slugger->slug($game->getTitle());
                 $game->setSlug($slug);
-            // }
-            // Vérifier la case "isVisual"
-            // if (!$game->isIsVisual()) {
-                // Ne pas afficher le jeu si la case "isVisual" est cochée
-            //     return $this->redirectToRoute('dashboard');
             }
 
             $entityManager->persist($game);

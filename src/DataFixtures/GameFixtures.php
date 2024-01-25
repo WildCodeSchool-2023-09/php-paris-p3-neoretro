@@ -47,7 +47,7 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
             $game = new Game();
             $game->setTitle($data);
             $game->setDescription($faker->text());
-            $game->setPoster($faker->imageUrl(365, 240, 'nightlife'));
+            $game->setPoster('default-image-game.png');
             $game->setIsVirtual(false);
             $game->setIsVisual(false);
             $game->setSlug($this->slugger->slug($game->getTitle()));

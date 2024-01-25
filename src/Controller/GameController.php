@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Form\GameSearchType;
 use App\Form\GameType;
 use App\Repository\CategoryRepository;
+use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,14 +53,20 @@ class GameController extends AbstractController
     }
 
     #[Route('/{slug}/scores', name:'scores')]
-    public function showScore(Game $game, Security $security): Response
-    {
+    public function showScore(
+        Game $game,
+        Security $security,
+        GamePlayedRepository $gamePlayedRepository
+    ): Response {
         $user = $security->getUser();
+        $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId());
+        // dump($gamesPlayed);die();
 
         return $this->render('game/scores.html.twig', [
             'pageTitle' => 'Scores',
             'game' => $game,
-            'user' => $user
+            'user' => $user,
+            'gamesPlayed' => $gamesPlayed,
         ]);
     }
 }

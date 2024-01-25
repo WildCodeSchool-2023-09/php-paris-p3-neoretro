@@ -24,7 +24,6 @@ class UserController extends AbstractController
     public function scores(
         Security $security,
         GamePlayedRepository $gamePlayedRepository,
-        GameRepository $gameRepository
     ): Response {
         $user = $security->getUser();
         $gamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());

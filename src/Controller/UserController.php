@@ -29,7 +29,7 @@ class UserController extends AbstractController
         $gamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());
 
         return $this->render('user/scores.html.twig', [
-            'pageTitle' => 'My scores',
+            'pageTitle' => 'Leaderboard',
             'user' => $user,
             'gamesPlayed' => $gamesPlayed,
         ]);

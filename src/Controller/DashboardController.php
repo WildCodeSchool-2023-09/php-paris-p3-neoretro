@@ -27,10 +27,9 @@ class DashboardController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $user = $security->getUser();
 
+        $gamesPlayed = [];
         if ($this->isGranted('ROLE_USER')) {
             $gamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());
-        } else {
-            $gamesPlayed = [];
         }
 
         return $this->render('dashboard/index.html.twig', [

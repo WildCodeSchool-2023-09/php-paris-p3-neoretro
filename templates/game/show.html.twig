@@ -80,7 +80,7 @@
                 <div class="content">
                     <h2>Scores</h2>
 
-                    {% if app.user %}
+                    {% if app.user and userGamePlayed is not empty %}
                         <div class="own-score">
                             <p>8.</p>
                             <p>{{ user.username }}</p>
@@ -88,7 +88,9 @@
                             <img src="{{ asset('build/images/icons/user.png') }}" alt="user-icon">
                         </div>
                     {% else %}
-                        <div class="blank"></div>
+                        <p>
+                            Come and try this game!
+                        </p>
                     {% endif %}
                     <table class="first-scores">
                         <tbody>

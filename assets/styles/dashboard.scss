@@ -95,13 +95,19 @@
 
         &.cell-scores .content {
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
             table {
-                height: 90%;
+                height: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                align-items: center;
+                tbody {
+                    height: 90%;
+                    margin: auto 0;
+                }
             }
         }
 

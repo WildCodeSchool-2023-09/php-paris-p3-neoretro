@@ -45,7 +45,7 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findBestGamesScoresByUser(int $userId): array
+    public function findBestGamesScoresByUser(int $userId, int $limit = null): array
     {
         $subQuery = $this
             ->createQueryBuilder('sub')
@@ -54,20 +54,25 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->andWhere('sub.game = gp.game')
             ->getDQL();
 
-        return $this
+        $query = $this
             ->createQueryBuilder('gp')
             ->innerJoin('gp.game', 'g')
             ->where('gp.player = :userId')
             ->setParameter('userId', $userId)
             ->groupBy('gp.game', 'gp.id', 'g.id')
             ->having('gp.score = (' . $subQuery . ')')
-            ->orderBy('gp.score', 'DESC')
+            ->orderBy('gp.score', 'DESC');
 
+            if ($limit) {
+                $query->setMaxResults($limit);
+            }
+
+        return $query
             ->getQuery()
             ->getResult();
     }
 
-    public function findPersonalBestByGame(int $userId, int $gameId): GamePlayed
+    public function findPersonalBestByGame(int $userId, int $gameId)
     {
         return $this
             ->createQueryBuilder('gp')

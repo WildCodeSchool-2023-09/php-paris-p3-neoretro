@@ -63,11 +63,11 @@
             <h2>Scores</h2>
             <table>
                 <tbody>
-                    {% for i in 0..7 %}
+                    {% for gamePlayed in gamesPlayed %}
                         <tr>
-                            <td class="text">{{ i+1 }}.</td>
-                            <td class="text"><a href="{{ path('game_show', {slug: gamesPlayed[i].game.slug}) }}">{{ gamesPlayed[i].game.title }}</a></td>
-                            <td class="text">{{ gamesPlayed[i].score }}</td>
+                            <td class="text">{{ loop.index }}.</td>
+                            <td class="text"><a href="{{ path('game_show', {slug: gamePlayed.game.slug}) }}">{{ gamePlayed.game.title }}</a></td>
+                            <td class="text">{{ gamePlayed.score }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

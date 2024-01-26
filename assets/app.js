@@ -1,3 +1,4 @@
+import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -15,6 +16,7 @@ import './styles/navbar.scss';
 import './styles/dashboard.scss';
 import './styles/game.scss';
 import './styles/games.scss';
+import './styles/searchbar.scss';
 import './styles/register.scss';
 
 // start the Stimulus application

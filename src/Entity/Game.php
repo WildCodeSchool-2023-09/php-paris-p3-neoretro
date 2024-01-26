@@ -30,7 +30,7 @@ class Game
 
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
     #[Assert\File(
-        maxSize: '1M',
+        maxSize: '2M',
         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
     )]
     private ?File $posterFile = null;
@@ -45,7 +45,7 @@ class Game
     private ?bool $isVirtual = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $isVisual = null;
+    private ?bool $isVisible = null;
 
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Picture::class, orphanRemoval: true)]
     private Collection $pictures;
@@ -115,14 +115,14 @@ class Game
         return $this;
     }
 
-    public function isIsVisual(): ?bool
+    public function isIsVisible(): ?bool
     {
-        return $this->isVisual;
+        return $this->isVisible;
     }
 
-    public function setIsVisual(bool $isVisual): static
+    public function setIsVisible(bool $isVisible): static
     {
-        $this->isVisual = $isVisual;
+        $this->isVisible = $isVisible;
 
         return $this;
     }

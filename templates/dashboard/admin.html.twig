@@ -18,42 +18,50 @@
         </div>
     </section>
 
-    <section class="card cell-played">
+    <section class="card cell-played-admin">
         <div class="content">
-            <h2>Arcade room games</h2>
+            <h2>Games Added Unvisible</h2>
             {% if app.user %}
-        <a href="{{ path('new_game') }}">Add New Game</a>
-    {% endif %}
-      {% if games is defined and games|length > 0 %}
-            <ul>
-                {% for game in games %}
-                    {% if game.IsVisual == false %}
-                    <li>
-                        <strong>{{ game.title }}</strong>
-                        <img src="{{ vich_uploader_asset (game) }}" alt="{{ game.title }} poster" />
-                    </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>Aucun jeu ajouté pour le moment.</p>
-        {% endif %}
+        <div class="add-new-game-title">
+            <a class="add-new-game-icon" href="{{ path('new_game') }}">Add New Game <img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
         </div>
-    </section>
+    {% endif %}
 
-    <section class="card cell-high-score">
+    {% if games is defined and games|length > 0 %}
+    <div class="game-played-admin">
+        <ul class="scrollable-list">
+            {% for game in games %}
+
+                {% if game.IsVisible == false %}
+                    <li>
+                        <a href="{{ path("edit_game", { slug: game.slug }) }}"><img src="{{ asset('build/images/icons/edit-icon.png') }}"></a>
+                        <h1 class="fixed-title">{{ game.title }}</h1>
+                        <img class="img-resize" src="{{ vich_uploader_asset(game) }}" alt="{{ game.title }} poster" />
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <p>Aucun jeu ajouté pour le moment.</p>
+{% endif %}
+</div>
+</section>
+
+
+    {# <section class="card cell-high-score">
         <div class="content">
             <h2>High Score</h2>
 
         </div>
-    </section>
+    </section> #}
     
-    <section class="card cell-this-week">
+    {# <section class="card cell-this-week">
         <div class="content">
             <h2>This week</h2>
 
         </div>
-    </section>
+    </section> #}
 
     <section class="card cell-the-room">
         <div class="content">

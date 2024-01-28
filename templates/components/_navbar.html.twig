@@ -1,0 +1,38 @@
+<nav id="main-nav">
+    <ul>
+        <li>
+            <a href="{{ path('user_scores') }}">
+                <img class="inactive" src="{{ asset('build/images/icons/scores.svg') }}" alt="Scores">
+                <img class="active" src="{{ asset('build/images/icons/scores-active.svg') }}" alt="Scores">
+            </a>
+        </li>
+        
+        <li>
+            <a href="">
+                <img class="inactive" src="{{ asset('build/images/icons/tokens.svg') }}" alt="Tokens">
+                <img class="active" src="{{ asset('build/images/icons/tokens-active.svg') }}" alt="Tokens">
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ path('dashboard') }}">
+                <img class="inactive" src="{{ asset('build/images/icons/dashboard.svg') }}" alt="Dashboard">
+                <img class="active" src="{{ asset('build/images/icons/dashboard-active.svg') }}" alt="Dashboard">
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ path('game_index') }}">
+                <img class="inactive" src="{{ asset('build/images/icons/games.svg') }}" alt="Games">
+                <img class="active" src="{{ asset('build/images/icons/games-active.svg') }}" alt="Games">
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ path('user_index') }}">
+                <img class="inactive" src="{{ asset('build/images/icons/user.svg') }}" alt="User">
+                <img class="active" src="{{ asset('build/images/icons/user-active.svg') }}" alt="User">
+            </a>
+        </li>
+    </ul>
+</nav>

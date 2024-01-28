@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} • {{ pageTitle }}{% endblock %}
+
+{% block content %}
+
+<div id="scores-page" class="grid">
+    <section class="card cell-global-scores">
+        <div class="content">
+            <h2>Global scores</h2>
+
+            <table>
+                <tbody>
+                    {% for i in 1..15 %}
+                        <tr>
+                            <td>{{i}}.</td>
+                            <td class="td-player"><a href="">Jackos</a></td>
+                            <td>24'30"</td>
+                            <td class="td-score">14539</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="card cell-my-scores">
+        <div class="content">
+            <h2>My best</h2>
+
+            {% if is_granted('ROLE_USER') %}
+                <table>
+                    <tbody>
+                        {% for gamePlayed in gamesPlayed %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td class="td-game">
+                                    <a href="{{ path('game_show', {slug: gamePlayed.game.slug}) }}">
+                                        {{ gamePlayed.game.title }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {% if (gamePlayed.duration/60)<10 %}0{% endif %}{{ (gamePlayed.duration/60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if (gamePlayed.duration%60) < 10 %}0{% endif %}{{ (gamePlayed.duration%60) }}"
+                                </td>
+                                <td class="td-score">{{ gamePlayed.score }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="card cell-my-friends">
+        <div class="content">
+            <h2>My friends</h2>
+
+            <table>
+                <tbody>
+                    {% for i in 1..6 %}
+                        <tr>
+                            <td>{{i}}.</td>
+                            <td class="td-player"><a href="">Jackos</a></td>
+                            <td>24'30"</td>
+                            <td class="td-score">14539</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+@import "_variables";
+
+// BODY
+
+body {
+    background: url('/assets/images/bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    overflow: hidden;
+}
+
+#main-container {
+    margin-top: 80px;
+    margin-bottom: 100px;
+    padding-top: 10px;
+    height: calc(100vh - 80px - 100px);
+    overflow: scroll;
+    position: relative;
+}
+
+//
+
+#dump {
+    position: fixed;
+    z-index: 3;
+    top: 1rem;
+    right: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+.reversed {
+    transform: scaleY(-1);
+}
+
+// COMPONENTS
+
+.card {
+    min-height: 160px;
+
+    position: relative;
+
+    margin: 0 10px 10px;
+    padding: 10px 14px;
+
+    border: 2px solid #06CCF8;
+    border-radius: $borderRadiusLarge;
+
+    background: $colorGradient1;
+    box-shadow: $shadow;
+
+    // Adding gradient to top and bottom borders
+    &::before {
+        content: '';
+        display: block;
+
+        height: calc(100% + 2*2px);
+        width: calc(100% - 2*$borderRadiusLarge);
+
+        position: absolute;
+        top: -2px;
+        left: $borderRadiusLarge;
+
+        border-width: 2px;
+        border-style: solid none solid none;
+        border-image: $colorGradient4 1;
+    }
+
+    .content {
+        height: 100%;
+        position: relative;
+        z-index: 1;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+// TEXT
+
+h2, h3, h4, h5, h6, span, td,
+p, ul, label, input, input::placeholder, select, a, button, img[alt],
+.text
+{
+    background: $colorGradient5;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Orbitron';
+    text-decoration: none;
+}
+
+h1, h2, h3, p {
+    text-align: center;
+}
+
+h1 {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.michroma {
+    background: $colorGradient6;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    
+    font-family: 'Michroma';
+}

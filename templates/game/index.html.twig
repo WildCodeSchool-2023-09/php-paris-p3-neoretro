@@ -3,6 +3,19 @@
 {% block title %}Games{% endblock %}
 
 {% block content %}
+<section>
+    <div class="nav-admin">
+        <div>
+            <a class="nav-admin" href="{{ path('new_game') }}"><h1>Add New Game</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+        </div>
+        <div>
+            <a class="nav-admin" href="{{ path('new_game') }}"><h1>Add New Prize</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+        </div>
+        <div>
+            <a class="nav-admin" href="{{ path('new_game') }}"><h1>Liste des Lots</h1></a>
+        </div>
+    </div>
+</section>
 
     <ul id="carousel">
         {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}

@@ -108,6 +108,16 @@
             padding-left: 10px;
         }
 
+        .nav-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-admin, h1 {
+            font-size: 2rem;
+        }
+
 
     .game-played-admin {
         

@@ -24,12 +24,6 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
         'Tetris',
         'Space Invaders',
         'Kung-fu Master',
-        'Zizi',
-        'Boudin',
-        'Caca',
-        'Urine',
-        "WESH",
-        "Ok LOL"
     ];
 
     private SluggerInterface $slugger;

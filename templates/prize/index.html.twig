@@ -3,6 +3,7 @@
 {% block title %}Prizes{% endblock %}
 
 {% block content %}
+{% if is_granted('ROLE_USER') %}
 <div class="card card-balance">
     <h2>Balance</h2>
     <div class="token-balance-value">
@@ -10,6 +11,7 @@
         <p class="token-value">30</p>
     </div>
 </div>
+{% endif %}
     <ul id="carousel">
         {% for i in 0..(prizes|length /6)| format_number({ rounding_mode: 'floor' , fraction_digit: 0 }) %}
         <li class="prizes grid full-size">

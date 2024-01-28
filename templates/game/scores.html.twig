@@ -4,27 +4,38 @@
 
 {% block content %}
 
-    <div class="card full-size">
+    <div class="card full-size" id="game-scores">
         <div class="content">
             {% if is_granted('ROLE_USER') %}
-                <h2>{{ game.title }}</h2>
+                <h2><a href="{{ path('game_show', {slug: game.slug}) }}">{{ game.title }}</a></h2>
 
-                <a href="{{ path('user_index') }}">{{ user.username }}</a>
-                <br>
-                <a href="{{ path('game_show', {slug: game.slug}) }}">Back to the game</a>
+                <div>
+                    <a href="{{ path('user_index') }}">{{ user.username }}</a>
+                </div>
 
-                <ul>
-                    {% for gamePlayed in gamesPlayed %}
-                        <li>
-                            <ul style="display: flex; justify-content: space-between; max-width: 500px; margin: 0 auto">
-                                <li>{{loop.index}}. <a href="">{{ gamePlayed.player.username }}</a></li>
-                                <li>{{ gamePlayed.score }}</li>
-                                {# <li>{{ gamePlayed.duration }}</li> #}
-                                {# <li>{{ gamePlayed.date|date('Y m d') }}</li> #}
-                            </ul>
-                        </li>
-                    {% endfor %}
-                </ul>
+                <table>
+                    <tbody>
+                        {% for gamePlayed in gamesPlayed %}
+                            <tr>
+                                {% if loop.index == 1 %}
+                                    <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy"></td>
+                                {% elseif loop.index == 2 %}
+                                    <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy"></td>
+                                {% elseif loop.index == 3 %}
+                                    <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
+                                {% else %}
+                                    <td class="text score-ranking">{{loop.index}}.</td>
+                                {% endif %}
+                                <td><a href="">{{ gamePlayed.player.username }}</a></td>
+                                <td>{{ gamePlayed.score }}</td>
+                                <td>
+                                    {% if ((gamePlayed.duration) / 60) < 10 %}0{% endif %}{{ ((gamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((gamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((gamePlayed.duration) % 60) }}"
+                                </td>
+                                <td>{{ gamePlayed.date|date('Y m d') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
             {% endif %}
         </div>

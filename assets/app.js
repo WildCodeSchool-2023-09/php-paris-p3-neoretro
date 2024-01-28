@@ -19,6 +19,7 @@ import './styles/games.scss';
 import './styles/searchbar.scss';
 import './styles/register.scss';
 import './styles/scores.scss';
+import './styles/game-scores.scss';
 
 // start the Stimulus application
 import './bootstrap';

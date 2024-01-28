@@ -63,8 +63,7 @@ class GameController extends AbstractController
         GamePlayedRepository $gamePlayedRepository
     ): Response {
         $user = $security->getUser();
-        $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId());
-        // dump($gamesPlayed);die();
+        $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId(), 50);
 
         return $this->render('game/scores.html.twig', [
             'pageTitle' => 'Scores',

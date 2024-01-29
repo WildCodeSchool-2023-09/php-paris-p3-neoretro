@@ -21,40 +21,76 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 10; $i++) {
+        $user = new User();
+        $user
+            ->setUsername('testuser')
+            ->setPassword($this->userPasswordHasher->hashPassword($user, 'testuser'))
+
+            ->setFirstname($this->faker->firstName())
+            ->setLastname($this->faker->lastName())
+
+            ->setEmail($this->faker->email())
+            ->setPhoneNumber($this->faker->e164PhoneNumber())
+
+            ->setRoles(['ROLE_USER'])
+            ->setToken($this->faker->numberBetween(0, 200))
+
+            ->setZipcode($this->faker->regexify('[0-9]{5}'))
+            ->setAdress($this->faker->streetAddress())
+            ->setCity($this->faker->city())
+
+            ->setExperience($this->faker->numberBetween(0, 500));
+
+        $this->addReference('user_test', $user);
+        $manager->persist($user);
+
+        for ($i = 1; $i <= 50; $i++) {
             $user = new User();
-            $user->setUsername($this->faker->userName);
-            $user->setFirstname($this->faker->firstName);
-            $user->setLastname($this->faker->lastName);
-            $user->setEmail($this->faker->text(20));
-            $user->setPhoneNumber($this->faker->text(10));
-            $user->setRoles([]);
-            $user->setToken($this->faker->numberBetween(1000, 9999));
-            $zipcode = $this->faker->regexify('[0-9]{5}'); // Génère un code postal de 5 chiffres.
-            $user->setZipcode($zipcode);
-            $user->setAdress($this->faker->streetAddress);
-            $user->setCity($this->faker->city);
-            $user->setExperience($this->faker->numberBetween(1, 10));
-            $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password123'));
+            $user
+                ->setUsername($this->faker->userName())
+                // ->setPassword($this->userPasswordHasher->hashPassword($user, 'pass1234'))
+                ->setPassword('pass1234')
+
+                ->setFirstname($this->faker->firstName())
+                ->setLastname($this->faker->lastName())
+
+                ->setEmail($this->faker->email())
+                ->setPhoneNumber($this->faker->e164PhoneNumber())
+
+                ->setRoles(['ROLE_USER'])
+                ->setToken($this->faker->numberBetween(0, 200))
+
+                ->setZipcode($this->faker->regexify('[0-9]{5}'))
+                ->setAdress($this->faker->streetAddress())
+                ->setCity($this->faker->city())
+
+                ->setExperience($this->faker->numberBetween(0, 500));
+
+            $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
 
-            $admin = new User();
-            $admin->setUsername($this->faker->userName);
-            $admin->setFirstname($this->faker->firstName);
-            $admin->setLastname($this->faker->lastName);
-            $admin->setEmail($this->faker->text(20));
-            $admin->setPhonenumber($this->faker->text(10));
-            $admin->setRoles(['ROLE_ADMIN']);
-            $admin->setToken($this->faker->numberBetween(1000, 9999));
-            $zipcode = $this->faker->regexify('[0-9]{5}'); // Génère un code postal de 5 chiffres.
-            $admin->setZipcode($zipcode);
-            $admin->setAdress($this->faker->streetAddress);
-            $admin->setCity($this->faker->city);
-            $admin->setExperience($this->faker->numberBetween(1, 10));
-            $admin->setPassword($this->userPasswordHasher->hashPassword($admin, 'admin123'));
-            $manager->persist($admin);
+        $admin = new User();
+        $admin
+            ->setUsername('admin')
+            ->setPassword($this->userPasswordHasher->hashPassword($admin, 'admin'))
 
-            $manager->flush();
+            ->setFirstname($this->faker->firstName())
+            ->setLastname($this->faker->lastName())
+
+            ->setEmail($this->faker->email())
+            ->setPhonenumber($this->faker->e164PhoneNumber())
+
+            ->setRoles(['ROLE_ADMIN'])
+            ->setToken($this->faker->numberBetween(0, 200))
+
+            ->setZipcode($this->faker->regexify('[0-9]{5}'))
+            ->setAdress($this->faker->streetAddress())
+            ->setCity($this->faker->city())
+
+            ->setExperience($this->faker->numberBetween(0, 500));
+
+        $manager->persist($admin);
+        $manager->flush();
     }
 }

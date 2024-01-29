@@ -4,16 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Form\GameSearchType;
-use App\Form\GameType;
 use App\Repository\CategoryRepository;
+use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/game', 'game_')]
 class GameController extends AbstractController
@@ -22,46 +20,84 @@ class GameController extends AbstractController
     public function index(
         GameRepository $gameRepository,
         CategoryRepository $categoryRepository,
-        AuthenticationUtils $authenticationUtils,
-        Request $request
+        Request $request,
+        Security $security,
+        GamePlayedRepository $gamePlayedRepository
     ): Response {
-        $lastUsername = $authenticationUtils->getLastUsername();
         $searchForm = $this->createForm(GameSearchType::class);
         $searchForm->handleRequest($request);
 
         $params = [];
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $data = $searchForm->getData();
-
-            $params['title'] = $data['title'] ?: '';
-
-            foreach ($data['categories'] as $category) {
-                $params['categories'][] = $category->getLabel();
-            }
-
-            $params['sort'] = ($data['sort_by'] && $data['sort_order']) ? [
-                'by' => $data['sort_by'],
-                'order' => $data['sort_order'],
-            ] : [];
+            $params = $searchForm->getData();
         }
-        
+
+        $userId = null;
+        if ($this->isGranted('ROLE_USER')) {
+            $userId = $security->getUser()->getId();
+        }
+
+        $games = $gameRepository->search($params, $userId);
+
+        if ($this->isGranted('ROLE_USER')) {
+            foreach ($games as $gameIndex => $game) {
+                $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game[0]->getId());
+                foreach ($gamesPlayed as $rank => $gamePlayed) {
+                    if ($gamePlayed->getPlayer()->getId() === $userId) {
+                        $games[$gameIndex]['userRanking'] = $rank + 1;
+                    }
+                }
+            }
+        }
+
         return $this->render('game/index.html.twig', [
-            // 'games' => $gameRepository->findBy(['isVisible' => true]),
-            'games' => $gameRepository->search($params),
+            'games' => $games,
             'pageTitle' => 'Games',
-            'title' => $params['title'] ?? '',
+            'params' => $params,
             'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
-            'last_username' => $lastUsername,
         ]);
     }
 
-    #[Route('/{slug}', name: 'show', methods: ['GET'])]
-    public function show(Game $game): Response
+    #[Route('/{slug}', name: 'show')]
+    public function show(Game $game, GamePlayedRepository $gamePlayedRepository, Security $security): Response
     {
+        $user = $security->getUser();
+        $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId());
+
+        $userRanking = null;
+        $userGamePlayed = null;
+        if ($this->isGranted('ROLE_USER')) {
+            foreach ($gamesPlayed as $rank => $gamePlayed) {
+                if ($gamePlayed->getPlayer()->getId() === $user->getId()) {
+                    $userRanking = $rank + 1;
+                }
+            }
+            $userGamePlayed = $gamePlayedRepository->findPersonalBestByGame($user->getId(), $game->getId());
+        }
+
         return $this->render('game/show.html.twig', [
-            'game' => $game,
             'pageTitle' => 'Game',
+            'game' => $game,
+            'gamesPlayed' => $gamesPlayed,
+            'userGamePlayed' => $userGamePlayed,
+            'userRanking' => $userRanking,
+        ]);
+    }
+
+    #[Route('/{slug}/scores', name:'scores')]
+    public function showScore(
+        Game $game,
+        Security $security,
+        GamePlayedRepository $gamePlayedRepository
+    ): Response {
+        $user = $security->getUser();
+        $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId(), 50);
+
+        return $this->render('game/scores.html.twig', [
+            'pageTitle' => 'Scores',
+            'game' => $game,
+            'gamesPlayed' => $gamesPlayed,
         ]);
     }
 }

@@ -10,7 +10,7 @@ use function Symfony\Component\String\u;
 
 class CategoryFixtures extends Fixture
 {
-    public const DATAS = [
+    public const DATA = [
         'Flipper',
         'Machine',
         'WTF',
@@ -24,7 +24,7 @@ class CategoryFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::DATAS as $data) {
+        foreach (self::DATA as $data) {
             $category = new Category();
             $category->setLabel($data);
             $manager->persist($category);

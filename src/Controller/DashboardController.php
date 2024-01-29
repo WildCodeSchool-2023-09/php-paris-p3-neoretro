@@ -7,6 +7,7 @@ use App\Form\CategoryFormType;
 use App\Form\GameSearchType;
 use App\Form\RegistrationFormType;
 use App\Form\RegistrationGameFormType;
+use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -24,30 +25,48 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'dashboard')]
     public function index(
         AuthenticationUtils $authenticationUtils,
-        EntityManagerInterface $entityManager,
-        GameSearchType $gameSearchType,
-        Request $request
+        Security $security,
+        GamePlayedRepository $gamePlayedRepository,
+        GameRepository $gameRepository
     ): Response {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
-        $games = $entityManager->getRepository(Game::class)->findAll();
-        $searchForm = $this->createForm(GameSearchType::class);
-        $searchForm->handleRequest($request);
-        $params = [];
+        $user = $security->getUser();
 
-        return $this->render('dashboard/index.html.twig', [
+        $games = $gameRepository->findBy([], ['id' => 'DESC'], 5);
+
+        if ($this->isGranted('ROLE_USER')) {
+            $bestGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 8);
+            $lastGamesPlayed = $gamePlayedRepository->findBy(
+                ['player' => $user->getId()],
+                ['id' => 'DESC'],
+                3
+            );
+        } else {
+            $lastGamesPlayed = [];
+            $bestGamesPlayed = $gamePlayedRepository->findGlobalBestGameScores();
+        }
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->render('dashboard/admin.html.twig', [
+                'last_username' => $lastUsername,
+                'error' => $error,
+            ]);
+        }
+
+        return $this->render('dashboard/dashboard.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
-            'pageTitle' => 'NeoRetro',
-            'games' => $games,
-            'searchForm' => $searchForm,
-            'title' => $params['title'] ?? '',
+            'bestGamesPlayed' => $bestGamesPlayed,
+            'lastGamesPlayed' => $lastGamesPlayed,
+            'games' => $games
         ]);
     }
 
@@ -86,7 +105,7 @@ class DashboardController extends AbstractController
     #[Route('/dashboard/gameslist', name: 'games_list', methods: ['GET'])]
     public function gameslist(GameRepository $gameRepository): Response
     {
-        return $this->render('game/index.html.twig', [
+        return $this->render('dashboard/gameslist.html.twig', [
             'games' => $gameRepository->findAll(),
             'pageTitle' => 'Admin Games List',
         ]);

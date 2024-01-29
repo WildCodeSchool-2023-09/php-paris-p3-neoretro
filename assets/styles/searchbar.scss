@@ -50,18 +50,17 @@
             }
         }
 
-        #search-field,
         #game_search_title {
             border: none;
             text-align: center;
             font-size: 1.25rem;
+            width: 80%;
 
             &:focus-visible {
                 outline: none;
             }
         }
 
-        #search-field, #search-field::placeholder,
         #game_search_title, #game_search_title::placeholder {
             background: $colorGradient1;
             -webkit-background-clip: text;
@@ -108,8 +107,13 @@
             .params {
                 position: absolute;
                 top: 60px;
+                left: 0;
                 width: 150px;
                 height: fit-content;
+
+                label, input {
+                    cursor: pointer;
+                }
             }
         }
     

@@ -44,6 +44,19 @@
         align-items: center;
     }
 
+    .scroll {
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: $colorGradient5;
+            border-radius: 10px;
+        }
+    }
+
     .full-size {
         width: 1240px;
         height: 820px;

@@ -21,10 +21,11 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function search(array $params): array
+    public function search(array $params, int $userId = null): array
     {
         $query = $this->createQueryBuilder('g')
-            ->join('g.categories', 'category');
+            ->join('g.categories', 'c')
+            ->join('g.gamesPlayed', 'gp');
 
         if (!empty($params['title'])) {
             $query
@@ -32,21 +33,35 @@ class GameRepository extends ServiceEntityRepository
                 ->setParameter('title', '%' . $params['title'] . '%');
         }
 
-        if (!empty($params['categories'])) {
+        if (!empty($params['categories']) && !$params['categories']->isEmpty()) {
             $categoryQueries = [];
+
             foreach ($params['categories'] as $category) {
-                $categoryQueries[] = "(category.label = '" . $category . "')";
+                $categoryQueries[] = "(c.label = '" . $category->getLabel() . "')";
             }
+
             $categoryQuery = implode(' OR ', $categoryQueries);
             $query->andWhere($categoryQuery);
         }
 
-        if (!empty($params['sort'])) {
-            $query->orderBy('g.' . $params['sort']['by'], $params['sort']['order']);
+        if (!empty($params['sort_by']) && !empty($params['sort_order'])) {
+            $query->orderBy('g.' . $params['sort_by'], $params['sort_order']);
         }
-        $query->addOrderBy('g.id', 'ASC');
 
-        $query = $query->getQuery();
-        return $query->getResult();
+        $query
+            ->addSelect('SUM(gp.duration) AS totalTimePlayed');
+
+        if ($userId !== null) {
+            $query
+                ->andWhere('gp.player = :userId')
+                ->setParameter('userId', $userId)
+                ->groupBy('gp.player.id');
+        }
+
+        $query
+            ->groupBy('g.id')
+            ->addOrderBy('g.id', 'ASC');
+
+        return $query->getQuery()->getResult();
     }
 }

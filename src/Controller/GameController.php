@@ -15,14 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-
 #[Route('/game', 'game_')]
 class GameController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET', 'POST'])]
     public function index(
         GameRepository $gameRepository,
-        CategoryRepository $categoryRepository, 
+        CategoryRepository $categoryRepository,
         AuthenticationUtils $authenticationUtils,
         Request $request
     ): Response {
@@ -45,7 +44,7 @@ class GameController extends AbstractController
                 'order' => $data['sort_order'],
             ] : [];
         }
-
+        
         return $this->render('game/index.html.twig', [
             // 'games' => $gameRepository->findBy(['isVisible' => true]),
             'games' => $gameRepository->search($params),

@@ -85,7 +85,7 @@ class Game
         return $this->poster;
     }
 
-    public function setPoster(string $poster): static
+    public function setPoster(?string $poster): static
     {
         $this->poster = $poster;
 

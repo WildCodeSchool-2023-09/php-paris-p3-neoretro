@@ -28,15 +28,18 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'dashboard')]
-    public function index(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager, GameSearchType $gameSearchType, Request $request): Response
-    {
+    public function index(
+        AuthenticationUtils $authenticationUtils,
+        EntityManagerInterface $entityManager,
+        GameSearchType $gameSearchType,
+        Request $request
+    ): Response {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
         $games = $entityManager->getRepository(Game::class)->findAll();
         $searchForm = $this->createForm(GameSearchType::class);
         $searchForm->handleRequest($request);
         $params = [];
-        
 
         return $this->render('dashboard/index.html.twig', [
             'last_username' => $lastUsername,
@@ -128,7 +131,7 @@ class DashboardController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            $this->addFlash("Success", "The game has been edited");
+            // $this->addFlash("Success", "The game has been edited");
 
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }

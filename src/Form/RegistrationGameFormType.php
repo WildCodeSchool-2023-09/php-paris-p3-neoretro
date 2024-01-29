@@ -37,15 +37,14 @@ class RegistrationGameFormType extends AbstractType
                 ],
             ])
             ->add('posterFile', VichFileType::class, [
-                
                 'attr' => [
                     'data-controller' => 'mydropzone',
                     'placeholder' => 'Drag & Drop picture',
-            ],
+                ],
                 'required' => true,
             ])
             ->add('category', EntityType::class, [
-                'mapped' => false, 
+                'mapped' => false,
                 'class' => Category::class,
                 'choice_label' => 'label',
                 'multiple' => false,
@@ -76,9 +75,7 @@ class RegistrationGameFormType extends AbstractType
                     'required' => false,
                     ])
             ;
-
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\RegistrationFormType;
 use App\Repository\GamePlayedRepository;
+use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,14 +22,18 @@ class DashboardController extends AbstractController
     public function index(
         AuthenticationUtils $authenticationUtils,
         Security $security,
-        GamePlayedRepository $gamePlayedRepository
+        GamePlayedRepository $gamePlayedRepository,
+        GameRepository $gameRepository
     ): Response {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
         $user = $security->getUser();
 
+        $games = $gameRepository->findBy([], ['id' => 'DESC'], 5);
+
         $bestGamesPlayed = [];
         $lastGamesPlayed = [];
+
         if ($this->isGranted('ROLE_USER')) {
             $bestGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());
             $lastGamesPlayed = $gamePlayedRepository->findBy(
@@ -44,6 +49,7 @@ class DashboardController extends AbstractController
             'user' => $user,
             'bestGamesPlayed' => $bestGamesPlayed,
             'lastGamesPlayed' => $lastGamesPlayed,
+            'games' => $games
         ]);
     }
 

@@ -95,21 +95,6 @@
             }
         }
 
-        &.cell-scores .content {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            table {
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-        }
-
         &.cell-played .content {
             .container {
                 display: grid;
@@ -161,6 +146,37 @@
             }
         }
 
+        &.cell-this-week .content {
+            ul {
+                height: calc(100% - 40px);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: .5rem;
+                list-style: '• ';
+
+                li {
+                    width: 80%;
+                }
+            }
+        }
+
+        &.cell-scores .content {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            table {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
         #the-room {
             display: flex;
             flex-direction: column;
@@ -178,6 +194,28 @@
                 
                 #the-room-text-end {
                     text-align: end;
+                }
+            }
+        }
+
+        &.cell-newest-game .content {
+            img {
+                display: block;
+                width: 8rem;
+                margin: .5rem auto;
+                border-radius: .5rem;
+            }
+        }
+
+        &.cell-arcade-games .content {
+            #games-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                gap: 1rem;
+
+                img {
+                    border-radius: $borderRadiusSmall;
                 }
             }
         }

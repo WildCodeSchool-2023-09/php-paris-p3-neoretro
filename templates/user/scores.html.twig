@@ -5,7 +5,11 @@
 {% block content %}
 
 <div id="scores-page" class="grid">
+    {% if is_granted('ROLE_USER') %}
     <section class="card cell-global-scores">
+    {% else %}
+    <section class="card cell-global-scores full-size">
+    {% endif %}
         <div class="content scroll">
             <h2>Global scores</h2>
             
@@ -33,11 +37,12 @@
         </div>
     </section>
 
-    <section class="card cell-my-scores">
-        <div class="content scroll">
-            <h2>My best</h2>
+    {% if is_granted('ROLE_USER') %}
 
-            {% if is_granted('ROLE_USER') %}
+        <section class="card cell-my-scores">
+            <div class="content scroll">
+                <h2>My best</h2>
+
                 <table>
                     <tbody>
                         {% for gamePlayed in userGamesPlayed %}
@@ -67,37 +72,38 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            {% endif %}
-        </div>
-    </section>
+            </div>
+        </section>
 
-    <section class="card cell-my-friends">
-        <div class="content scroll">
-            <h2>My friends</h2>
+        <section class="card cell-my-friends">
+            <div class="content scroll">
+                <h2>My friends</h2>
 
-            <table>
-                <tbody>
-                    {% for i in 1..10 %}
-                        <tr>
-                            {% if i == 1 %}
-                                <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy"></td>
-                            {% elseif i == 2 %}
-                                <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy"></td>
-                            {% elseif i == 3 %}
-                                <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
-                            {% else %}
-                                <td class="text score-ranking">{{i}}.</td>
-                            {% endif %}
+                <table>
+                    <tbody>
+                        {% for i in 1..10 %}
+                            <tr>
+                                {% if i == 1 %}
+                                    <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy"></td>
+                                {% elseif i == 2 %}
+                                    <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy"></td>
+                                {% elseif i == 3 %}
+                                    <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
+                                {% else %}
+                                    <td class="text score-ranking">{{i}}.</td>
+                                {% endif %}
 
-                            <td class="td-player"><a href="">Jackos</a></td>
-                            <td>24'30"</td>
-                            <td class="td-score">14539</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section>
+                                <td class="td-player"><a href="">Jackos</a></td>
+                                <td>24'30"</td>
+                                <td class="td-score">14539</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    {% endif %}
 </div>
 
 {% endblock %}

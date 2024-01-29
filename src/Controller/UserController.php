@@ -26,7 +26,12 @@ class UserController extends AbstractController
         GamePlayedRepository $gamePlayedRepository,
     ): Response {
         $user = $security->getUser();
-        $userGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 10);
+
+        $userGamesPlayed = [];
+        if ($this->isGranted('ROLE_USER')) {
+            $userGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 10);
+        }
+        
         $globalGamesPlayed = $gamePlayedRepository->findBy([], ['score' => 'DESC'], 50);
 
         return $this->render('user/scores.html.twig', [

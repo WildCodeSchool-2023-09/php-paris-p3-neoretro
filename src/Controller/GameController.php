@@ -34,16 +34,16 @@ class GameController extends AbstractController
         
         $userId = null;
         if ($this->isGranted('ROLE_USER')) {
-            $user = $security->getUser();
+            $userId = $security->getUser()->getId();
         }
 
-        $games = $gameRepository->search($params, $user->getId());
+        $games = $gameRepository->search($params, $userId);
 
         if ($this->isGranted('ROLE_USER')) {
             foreach ($games as $gameIndex => $game) {
                 $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game[0]->getId());
                 foreach ($gamesPlayed as $rank => $gamePlayed) {
-                    if ($gamePlayed->getPlayer()->getId() === $user->getId()) {
+                    if ($gamePlayed->getPlayer()->getId() === $userId) {
                         $games[$gameIndex]['userRanking'] = $rank + 1;
                     }
                 }

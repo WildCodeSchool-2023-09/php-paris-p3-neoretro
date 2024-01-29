@@ -45,6 +45,7 @@ class GamePlayedController extends AbstractController
         return $this->render('game_played/new.html.twig', [
             'gamePlayed' => $gamePlayed,
             'pageTitle' => 'Your last game',
+            'experienceGained' => (int)floor($gamePlayed->getScore() * GamePlayedService::EXPERIENCE_COEFFICIENT),
         ]);
     }
 }

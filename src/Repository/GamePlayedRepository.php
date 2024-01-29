@@ -76,7 +76,7 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findPersonalBestByGame(int $userId, int $gameId): array
+    public function findPersonalBestByGame(int $userId, int $gameId): ?GamePlayed
     {
         return $this
             ->createQueryBuilder('gp')

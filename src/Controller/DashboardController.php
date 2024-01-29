@@ -32,7 +32,7 @@ class DashboardController extends AbstractController
         $games = $gameRepository->findBy([], ['id' => 'DESC'], 5);
 
         if ($this->isGranted('ROLE_USER')) {
-            $bestGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());
+            $bestGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 8);
             $lastGamesPlayed = $gamePlayedRepository->findBy(
                 ['player' => $user->getId()],
                 ['id' => 'DESC'],

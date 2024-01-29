@@ -108,6 +108,12 @@
                 justify-content: space-around;
                 align-items: center;
 
+                a#log-out {
+                    padding: .5rem 1rem;
+                    border-radius: $borderRadiusSmall;
+                    border: 1px #C10BEE solid;
+                }
+
                 ul {
                     width: 66%;
                     display: flex;

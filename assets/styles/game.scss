@@ -2,8 +2,6 @@
     grid-template-columns: repeat(2, 610px);
     grid-template-rows: repeat(2, 400px);
 
-    // grid-area : y / x / y / x
-
     .cell-game {
         grid-area: 1 / 1 / span 1 / 3;
     }

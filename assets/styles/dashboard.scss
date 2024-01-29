@@ -2,6 +2,11 @@
 
 #dashboard {
     .card {
+        img.game-poster {
+            position: relative;
+            border: 1px rgb(204, 0, 255) solid;
+
+        }
 
         &.cell-sign-in .content {
             .container {
@@ -199,7 +204,7 @@
                 justify-content: center;
 
                 tr {
-                    height: 1.5rem;
+                    height: 2.4rem;
                 }
             }
         }
@@ -269,7 +274,6 @@
                         width: 8rem;
                     }
                 }
-
             }
         }
     }

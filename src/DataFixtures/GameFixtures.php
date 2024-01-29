@@ -26,6 +26,12 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
         'Kung-fu Master',
     ];
 
+    public const POSTERS = [
+        '/images/game-posters/metroid.jpeg',
+        '/images/game-posters/racecar.jpeg',
+        '/images/game-posters/space-invaders.png',
+    ];
+
     private SluggerInterface $slugger;
 
     public function __construct(SluggerInterface $slugger)
@@ -41,7 +47,7 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
             $game = new Game();
             $game->setTitle($data);
             $game->setDescription($faker->text());
-            $game->setPoster('/build/images/game-posters/metroid.aab94fe7.jpeg');
+            $game->setPoster(self::POSTERS[array_rand(self::POSTERS)]);
             $game->setIsVirtual(false);
             $game->setSlug($this->slugger->slug($game->getTitle()));
 

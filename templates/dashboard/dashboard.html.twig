@@ -41,7 +41,7 @@
                             {% for lastGamePlayed in lastGamesPlayed %}
                                 <div class="recently-played-game">
                                     <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">
-                                        <img src="{{ lastGamePlayed.game.poster }}" alt="Game poster">
+                                        <img class="game-poster" src="{{ lastGamePlayed.game.poster }}" alt="Game poster">
                                     </a>
 
                                     <ul>
@@ -85,7 +85,7 @@
                             </h3>
 
                             <div>
-                                <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}"><img src="{{ bestGamesPlayed[0].game.poster }}" alt="Game poster"></a>
+                                <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}"><img class="game-poster" src="{{ bestGamesPlayed[0].game.poster }}" alt="Game poster"></a>
                                 <ul>
                                     <li>
                                         {{ bestGamesPlayed[0].score }}
@@ -173,7 +173,7 @@
                 <h2>Newest game</h2>
 
                 <a href="{{ path('game_show', {slug: games[0].slug}) }}">
-                    <img src="{{ games[0].poster }}" alt="{{ games[0].title }}">
+                    <img class="game-poster" src="{{ games[0].poster }}" alt="{{ games[0].title }}">
                     <h3>{{ games[0].title }}</h3>
                 </a>
             </div>
@@ -211,7 +211,7 @@
                 <div id="games-grid">
                     {% for i in 1..4 %}
                         <a href="{{ path('game_show', {slug: games[i].slug}) }}">
-                            <img src="{{ games[i].poster }}" alt="{{ games[i].title }}">
+                            <img class="game-poster" src="{{ games[i].poster }}" alt="{{ games[i].title }}">
                             <h3>{{ games[i].title }}</h3>
                         </a>
                     {% endfor %}

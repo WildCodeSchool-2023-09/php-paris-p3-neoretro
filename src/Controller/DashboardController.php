@@ -40,7 +40,7 @@ class DashboardController extends AbstractController
             );
         } else {
             $lastGamesPlayed = [];
-            $bestGamesPlayed = $gamePlayedRepository->findBy([], ['score' => 'DESC'], 10);
+            $bestGamesPlayed = $gamePlayedRepository->findGlobalBestGameScores();
         }
 
         return $this->render('dashboard/dashboard.html.twig', [

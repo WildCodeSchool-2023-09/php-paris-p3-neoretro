@@ -39,11 +39,11 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->groupBy('gp.player', 'g.id', 'gp.id')
             ->having('gp.score = (' . $subQuery . ')')
             ->orderBy('gp.score', 'DESC');
-        
+
         if ($limit) {
             $query->setMaxResults($limit);
         }
-        
+
         return $query
             ->getQuery()
             ->getResult();
@@ -67,16 +67,16 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->having('gp.score = (' . $subQuery . ')')
             ->orderBy('gp.score', 'DESC');
 
-            if ($limit) {
-                $query->setMaxResults($limit);
-            }
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
 
         return $query
             ->getQuery()
             ->getResult();
     }
 
-    public function findPersonalBestByGame(int $userId, int $gameId)
+    public function findPersonalBestByGame(int $userId, int $gameId): array
     {
         return $this
             ->createQueryBuilder('gp')
@@ -88,6 +88,30 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function findGlobalBestGameScores(int $limit = 8): array
+    {
+        $subQuery = $this
+            ->createQueryBuilder('sub')
+            ->select('MAX(sub.score)')
+            ->andWhere('sub.game = gp.game')
+            ->getDQL();
+
+        $query = $this
+            ->createQueryBuilder('gp')
+            ->innerJoin('gp.game', 'g')
+            ->groupBy('gp.game', 'gp.id', 'g.id')
+            ->having('gp.score = (' . $subQuery . ')')
+            ->orderBy('gp.score', 'DESC');
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

@@ -27,25 +27,33 @@
                 <h2>Recently Played</h2>
 
                 {% if is_granted('ROLE_USER') %}
-                    <div class="container">
-                        {% for lastGamePlayed in lastGamesPlayed %}
-                            <div class="recently-played-game">
-                                <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">
-                                    <img src="{{ lastGamePlayed.game.poster }}" alt="Game poster">
-                                </a>
+                    {% if lastGamesPlayed is not empty %}
+                        <div class="container">
+                            {% for lastGamePlayed in lastGamesPlayed %}
+                                <div class="recently-played-game">
+                                    <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">
+                                        <img src="{{ lastGamePlayed.game.poster }}" alt="Game poster">
+                                    </a>
 
-                                <ul>
-                                    <li>
-                                    <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">{{ lastGamePlayed.game.title }}</a>
-                                    </li>
-                                    <li>{{ lastGamePlayed.score }}</li>
-                                    <li>
-                                        {% if ((lastGamePlayed.duration)/60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((lastGamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) % 60) }}"
-                                    </li>
-                                </ul>
-                            </div>
-                        {% endfor %}
-                    </div>
+                                    <ul>
+                                        <li>
+                                        <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">{{ lastGamePlayed.game.title }}</a>
+                                        </li>
+                                        <li>{{ lastGamePlayed.score }}</li>
+                                        <li>
+                                            {% if ((lastGamePlayed.duration)/60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((lastGamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) % 60) }}"
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div id="no-games-played">
+                            <p>
+                                Come and play our amazing games !
+                            </p>
+                        </div>
+                    {% endif %}
                 {% else %}
                     <p>
                         Come and play our amazing games !
@@ -59,28 +67,40 @@
                 <h2>High Score</h2>
 
                 {% if is_granted('ROLE_USER') %}
-                    <div class="container">
-                        <h3>
-                            <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}">
-                                {{ bestGamesPlayed[0].game.title }}
-                            </a>
-                        </h3>
+                    {% if bestGamesPlayed is not empty %}
+                        <div class="container">
+                            <h3>
+                                <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}">
+                                    {{ bestGamesPlayed[0].game.title }}
+                                </a>
+                            </h3>
 
-                        <div>
-                            <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}"><img src="{{ bestGamesPlayed[0].game.poster }}" alt="Game poster"></a>
-                            <ul>
-                                <li>
-                                    {{ bestGamesPlayed[0].score }}
-                                </li>
-                                
-                                <li>
-                                    {% if ((bestGamesPlayed[0].duration)/60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((bestGamesPlayed[0].duration) % 60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) % 60) }}"
-                                </li>
-                            </ul>
+                            <div>
+                                <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}"><img src="{{ bestGamesPlayed[0].game.poster }}" alt="Game poster"></a>
+                                <ul>
+                                    <li>
+                                        {{ bestGamesPlayed[0].score }}
+                                    </li>
+                                    
+                                    <li>
+                                        {% if ((bestGamesPlayed[0].duration)/60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((bestGamesPlayed[0].duration) % 60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) % 60) }}"
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <div class="container">
+                            <p>
+                                No high score yet!
+                            </p>
+                        </div>
+                    {% endif %}
                 {% else %}
-
+                    <div class="container">
+                        <p>
+                            Come and play our amazing arcade games!
+                        </p>
+                    </div>
                 {% endif %}
             </div>
         </section>
@@ -106,24 +126,27 @@
         <section class="card cell-the-room">
             <div class="content">
                 <h2>The Room</h2>
-                    <div id="the-room">
-                        <div id="the-room-flex">
-                                <img src="{{ asset('build/images/icons/joystick.png') }}" alt="joystick icon">
-                                <p>
-                                    8 classic games revisited 24 NeoRetro™ stations
-                                </p>
+                    <div class="container">
+                        <div class="room-info">
+                            <img src="{{ asset('build/images/icons/joystick.svg') }}" alt="joystick icon">
+                            <p>
+                                8 classic games revisited 24 NeoRetro™ stations
+                            </p>
                         </div>
-                        <div id="the-room-flex">
-                                <p id="the-room-text-end">
-                                    Connect with your QR code!
-                                </p>
-                                <img src="{{ asset('build/images/icons/qr-code-room.png') }}" alt="qr code icon">
+                        <div class="room-info">
+                            <p class="text-end">
+                                Connect with your QR code!
+                            </p>
+                            <img src="{{ asset('build/images/icons/qr-code.svg') }}" alt="qr code icon">
                         </div>
-                        <div id="the-room-flex">
-                                <img src="{{ asset('build/images/icons/portal-enter-1.png') }}" alt="portal enter icon">
-                                <p>
-                                    42 rue du Salusava 93666 Saint-2ni
-                                </p>
+                        <div class="room-info">
+                            <img src="{{ asset('build/images/icons/portal-enter.svg') }}" alt="portal enter icon">
+                            <p>
+                                42 rue du Salusava 93666 Saint-2ni
+                            </p>
+                        </div>
+                        <div class="room-info" id="more-details">
+                            <a href="">More details...</a>
                         </div>
                     </div>
             </div>

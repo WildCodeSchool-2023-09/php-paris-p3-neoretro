@@ -43,10 +43,9 @@ class DashboardController extends AbstractController
             );
         }
 
-        return $this->render('dashboard/index.html.twig', [
+        return $this->render('dashboard/dashboard.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
-            'user' => $user,
             'bestGamesPlayed' => $bestGamesPlayed,
             'lastGamesPlayed' => $lastGamesPlayed,
             'games' => $games

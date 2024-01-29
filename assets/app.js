@@ -12,14 +12,13 @@ import './styles/app.scss';
 import './styles/desktop.scss';
 import './styles/header.scss';
 import './styles/game-show.scss';
-import './styles/navbar.scss';
 import './styles/dashboard.scss';
-import './styles/game.scss';
-import './styles/games.scss';
+import './styles/navbar.scss';
+import './styles/game-index.scss';
+import './styles/game-scores.scss';
 import './styles/searchbar.scss';
 import './styles/register.scss';
-import './styles/scores.scss';
-import './styles/game-scores.scss';
+import './styles/leaderboard.scss';
 
 // start the Stimulus application
 import './bootstrap';

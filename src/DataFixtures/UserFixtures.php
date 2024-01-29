@@ -74,20 +74,20 @@ class UserFixtures extends Fixture
             ->setUsername('admin')
             ->setPassword($this->userPasswordHasher->hashPassword($admin, 'admin'))
 
+            ->setFirstname($this->faker->firstName())
+            ->setLastname($this->faker->lastName())
+
+            ->setEmail($this->faker->email())
+            ->setPhonenumber($this->faker->e164PhoneNumber())
+
             ->setRoles(['ROLE_ADMIN'])
-            ->setToken($this->faker->numberBetween(1000, 9999))
-
-            ->setFirstname($this->faker->firstName)
-            ->setLastname($this->faker->lastName)
-
-            ->setEmail($this->faker->text(20))
-            ->setPhonenumber($this->faker->text(10))
+            ->setToken($this->faker->numberBetween(0, 200))
 
             ->setZipcode($this->faker->regexify('[0-9]{5}'))
-            ->setAdress($this->faker->streetAddress)
-            ->setCity($this->faker->city)
+            ->setAdress($this->faker->streetAddress())
+            ->setCity($this->faker->city())
 
-            ->setExperience($this->faker->numberBetween(1, 10));
+            ->setExperience($this->faker->numberBetween(0, 500));
 
         $manager->persist($admin);
         $manager->flush();

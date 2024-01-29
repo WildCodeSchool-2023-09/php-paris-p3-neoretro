@@ -34,9 +34,8 @@ class UserController extends AbstractController
         
         $globalGamesPlayed = $gamePlayedRepository->findBy([], ['score' => 'DESC'], 50);
 
-        return $this->render('user/scores.html.twig', [
+        return $this->render('leaderboard/index.html.twig', [
             'pageTitle' => 'Leaderboard',
-            'user' => $user,
             'userGamesPlayed' => $userGamesPlayed,
             'globalGamesPlayed' => $globalGamesPlayed,
         ]);

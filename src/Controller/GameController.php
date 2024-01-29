@@ -66,6 +66,7 @@ class GameController extends AbstractController
         $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId());
         $userGamePlayed = $gamePlayedRepository->findPersonalBestByGame($user->getId(), $game->getId());
 
+        $userRanking = null;
         foreach ($gamesPlayed as $rank => $gamePlayed) {
             if ($gamePlayed->getPlayer()->getId() === $user->getId()) {
                 $userRanking = $rank + 1;
@@ -93,7 +94,6 @@ class GameController extends AbstractController
         return $this->render('game/scores.html.twig', [
             'pageTitle' => 'Scores',
             'game' => $game,
-            'user' => $user,
             'gamesPlayed' => $gamesPlayed,
         ]);
     }

@@ -118,6 +118,13 @@
                     }
                 }
             }
+
+            #no-games-played {
+                height: calc(100% - 40px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
         }
 
         &.cell-high-score .content {
@@ -177,23 +184,39 @@
             }
         }
 
-        #the-room {
-            display: flex;
-            flex-direction: column;
-            place-items: center;
-            margin: 10px;
-            padding-top: 10px;
-        
-            #the-room-flex {
+        &.cell-the-room .content {
+            .container {
                 display: flex;
-                align-items: center;
-        
-                p {
-                    padding: 10px;
-                }
-                
-                #the-room-text-end {
-                    text-align: end;
+                flex-direction: column;
+                place-items: center;
+                margin: 10px;
+                padding-top: 10px;
+            
+                .room-info {
+                    display: flex;
+                    align-items: center;
+            
+                    p {
+                        padding: .5rem;
+                        text-align: left;
+
+                        &.text-end {
+                            text-align: end;
+                        }
+                    }
+                    
+                    &#more-details {
+                        height: 100%;
+                        width: 100%;
+                        justify-content: flex-end;
+                        align-items: flex-end;
+
+                        a {
+                            padding: .5rem 1rem;
+                            border-radius: $borderRadiusSmall;
+                            border: 1px #C10BEE solid;
+                        }
+                    }
                 }
             }
         }
@@ -213,10 +236,17 @@
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: 1fr 1fr;
                 gap: 1rem;
+                height: calc(100% - 40px);
 
-                img {
-                    border-radius: $borderRadiusSmall;
+                a {
+                    display: flex;
+                    flex-direction: column;
+                    place-content: center;
+                    img {
+                        border-radius: $borderRadiusSmall;
+                    }
                 }
+
             }
         }
     }
@@ -249,6 +279,17 @@
     
             &.cell-the-room, &.cell-your-friends {
                 grid-area: 3 / 1 / span 1 / span 4;
+
+                .content .container {
+                    display: grid;
+
+                    grid-template-columns: 3fr 2fr;
+                    grid-template-rows: 1fr 1fr;
+
+                    place-content: center;
+                    
+                    padding: .5rem;
+                }
             }
     
             &.cell-newest-game {
@@ -265,31 +306,6 @@
     
             &.cell-arcade-games {
                 grid-area: 3 / 7 / span 2 / span 3;
-            }
-
-            #the-room {
-                display: grid;
-                grid-template-columns: 1.5fr 1fr;
-                grid-template-rows: repeat(2, 0.5fr);
-                grid-column-gap: 10px;
-                grid-row-gap: 10px;
-                align-items: center;
-                justify-items: center;
-                margin:10px;
-                padding: 5px;
-        
-                #the-room-flex {
-                    display: flex;
-                    align-items: center;
-                    
-                    p {
-                        padding: 9px;
-                    }
-                
-                    #the-room-text-end {
-                        text-align: end;
-                    }
-                }
             }
         }
     }

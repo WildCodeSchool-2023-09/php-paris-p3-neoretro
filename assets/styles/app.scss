@@ -39,6 +39,7 @@ body {
 
 .card {
     min-height: 160px;
+    overflow: hidden;
 
     position: relative;
 
@@ -72,6 +73,10 @@ body {
         height: 100%;
         position: relative;
         z-index: 1;
+
+        .container {
+            height: calc(100% - 40px);
+        }
 
         h2 {
             text-align: center;

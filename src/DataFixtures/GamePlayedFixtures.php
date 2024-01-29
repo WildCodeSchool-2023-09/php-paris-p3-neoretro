@@ -17,14 +17,14 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
 
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             if ($i === 1) {
                 $player = $this->getReference('user_test');
             } else {
                 $player = $this->getReference('user_' . $i);
             }
 
-            for ($j = 0; $j < rand(10, 50); $j++) {
+            for ($j = 0; $j < rand(30, 60); $j++) {
                 $gamePlayed = new GamePlayed();
 
                 $gamePlayed->setGame(
@@ -35,11 +35,11 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
 
                 $gamePlayed
                     ->setPlayer($player)
-                    ->setScore(rand(0, 500));
+                    ->setScore(rand(10, 10000));
 
                 $gamePlayed
                     ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))
-                    ->setDuration(rand(120, 1800));
+                    ->setDuration(rand(120, 1200));
 
                 $manager->persist($gamePlayed);
             }

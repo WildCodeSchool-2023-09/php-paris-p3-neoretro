@@ -52,7 +52,7 @@
                 </h3>
 
                 <div>
-                    <img src="{{ bestGamesPlayed[0].game.poster }}" alt="Game poster">
+                    <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}"><img src="{{ bestGamesPlayed[0].game.poster }}" alt="Game poster"></a>
                     <ul>
                         <li>
                             {{ bestGamesPlayed[0].score }}
@@ -64,7 +64,6 @@
                     </ul>
                 </div>
             </div>
-
 
         </div>
     </section>

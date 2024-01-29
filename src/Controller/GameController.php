@@ -20,19 +20,38 @@ class GameController extends AbstractController
     public function index(
         GameRepository $gameRepository,
         CategoryRepository $categoryRepository,
-        Request $request
+        Request $request,
+        Security $security,
+        GamePlayedRepository $gamePlayedRepository
     ): Response {
         $searchForm = $this->createForm(GameSearchType::class);
         $searchForm->handleRequest($request);
 
         $params = [];
-
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
         }
+        
+        $userId = null;
+        if ($this->isGranted('ROLE_USER')) {
+            $user = $security->getUser();
+        }
+
+        $games = $gameRepository->search($params, $user->getId());
+
+        if ($this->isGranted('ROLE_USER')) {
+            foreach ($games as $gameIndex => $game) {
+                $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game[0]->getId());
+                foreach ($gamesPlayed as $rank => $gamePlayed) {
+                    if ($gamePlayed->getPlayer()->getId() === $user->getId()) {
+                        $games[$gameIndex]['userRanking'] = $rank + 1;
+                    }
+                }
+            }
+        }
 
         return $this->render('game/index.html.twig', [
-            'games' => $gameRepository->search($params),
+            'games' => $games,
             'pageTitle' => 'Games',
             'params' => $params,
             'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
@@ -47,12 +66,18 @@ class GameController extends AbstractController
         $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId());
         $userGamePlayed = $gamePlayedRepository->findPersonalBestByGame($user->getId(), $game->getId());
 
+        foreach ($gamesPlayed as $rank => $gamePlayed) {
+            if ($gamePlayed->getPlayer()->getId() === $user->getId()) {
+                $userRanking = $rank + 1;
+            }
+        }
+
         return $this->render('game/show.html.twig', [
             'pageTitle' => 'Game',
-            'user' => $user,
             'game' => $game,
             'gamesPlayed' => $gamesPlayed,
-            'userGamePlayed' => $userGamePlayed
+            'userGamePlayed' => $userGamePlayed,
+            'userRanking' => $userRanking,
         ]);
     }
 

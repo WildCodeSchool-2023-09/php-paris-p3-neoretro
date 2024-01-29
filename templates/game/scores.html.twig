@@ -5,13 +5,9 @@
 {% block content %}
 
     <div class="card full-size" id="game-scores">
-        <div class="content">
+        <div class="content scroll">
             {% if is_granted('ROLE_USER') %}
                 <h2><a href="{{ path('game_show', {slug: game.slug}) }}">{{ game.title }}</a></h2>
-
-                <div>
-                    <a href="{{ path('user_index') }}">{{ user.username }}</a>
-                </div>
 
                 <table>
                     <tbody>

@@ -107,11 +107,6 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-
-                tbody {
-                    height: 90%;
-                    margin: auto 0;
-                }
             }
         }
 
@@ -119,12 +114,18 @@
             .container {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
+                gap: 1rem;
+                padding: 0 .5rem;
 
                 .recently-played-game {
-                    display: flex;
-                    justify-content: left;
-                    align-items: center;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    place-items: center;
                     gap: 1rem;
+
+                    ul {
+                        width: 100%;
+                    }
     
                     img {
                         width: 8rem;
@@ -136,12 +137,22 @@
 
         &.cell-high-score .content {
             .container {
+                display: flex;
                 flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
 
                 div {
                     display: flex;
-                    justify-content: space-around;
+                    gap: 1rem;
+                    
+                    ul {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
                 }
+
                 img {
                     width: 6rem;
                     border-radius: .5rem;
@@ -153,8 +164,7 @@
         #the-room {
             display: flex;
             flex-direction: column;
-            justify-items: center;
-            align-items: center;
+            place-items: center;
             margin: 10px;
             padding-top: 10px;
         

@@ -44,7 +44,7 @@ class UserFixtures extends Fixture
         $this->addReference('user_test', $user);
         $manager->persist($user);
 
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $user = new User();
             $user
                 ->setUsername($this->faker->userName())

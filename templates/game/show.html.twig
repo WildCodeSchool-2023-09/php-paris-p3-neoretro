@@ -82,8 +82,8 @@
 
                     {% if app.user and userGamePlayed is not empty %}
                         <div class="own-score">
-                            <p>8.</p>
-                            <p>{{ user.username }}</p>
+                            <p>{{ userRanking }}.</p>
+                            <p><a href="">{{ userGamePlayed.player.username }}</a></p>
                             <p>{{ userGamePlayed.score }}</p>
                             <img src="{{ asset('build/images/icons/user.png') }}" alt="user-icon">
                         </div>

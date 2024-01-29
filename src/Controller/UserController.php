@@ -26,12 +26,14 @@ class UserController extends AbstractController
         GamePlayedRepository $gamePlayedRepository,
     ): Response {
         $user = $security->getUser();
-        $gamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 6);
+        $userGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 10);
+        $globalGamesPlayed = $gamePlayedRepository->findBy([], ['score' => 'DESC'], 50);
 
         return $this->render('user/scores.html.twig', [
             'pageTitle' => 'Leaderboard',
             'user' => $user,
-            'gamesPlayed' => $gamesPlayed,
+            'userGamesPlayed' => $userGamesPlayed,
+            'globalGamesPlayed' => $globalGamesPlayed,
         ]);
     }
 }

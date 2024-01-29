@@ -11,7 +11,7 @@ import './styles/reset.scss';
 import './styles/app.scss';
 import './styles/desktop.scss';
 import './styles/header.scss';
-import './styles/gameShow.scss';
+import './styles/game-show.scss';
 import './styles/navbar.scss';
 import './styles/dashboard.scss';
 import './styles/game.scss';

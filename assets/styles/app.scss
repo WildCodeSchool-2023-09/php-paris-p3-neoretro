@@ -64,6 +64,8 @@ table {
     background: $colorGradient1;
     box-shadow: $shadow;
 
+    transition: .2s;
+
     // Adding gradient to top and bottom borders
     &::before {
         content: '';
@@ -81,10 +83,15 @@ table {
         border-image: $colorGradient4 1;
     }
 
+    &:hover {
+        background-color: #0982cd;
+    }
+
     .content {
         height: 100%;
         position: relative;
         z-index: 1;
+
 
         .container {
             height: calc(100% - 40px);
@@ -118,6 +125,25 @@ h1, h2, h3, p {
 
 h1 {
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+h1, h2, h3, p, li, td {
+    
+    // &:hover {
+        // background: $colorGradient6;
+        // -webkit-background-clip: text;
+        // background-clip: text;
+
+        // -webkit-transition: background-color 500ms linear;
+        // -ms-transition: background-color 500ms linear;
+        // transition: background-color .5s linear;
+    // }
+}
+
+a:hover {
+    background: $colorGradient4;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .michroma {

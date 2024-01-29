@@ -252,6 +252,14 @@
             }
         }
 
+        &.cell-mini-games .content {
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
         &.cell-newest-game .content {
             img {
                 display: block;

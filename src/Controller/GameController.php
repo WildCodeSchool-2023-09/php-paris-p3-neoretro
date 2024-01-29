@@ -31,7 +31,7 @@ class GameController extends AbstractController
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
         }
-        
+
         $userId = null;
         if ($this->isGranted('ROLE_USER')) {
             $userId = $security->getUser()->getId();
@@ -64,13 +64,16 @@ class GameController extends AbstractController
     {
         $user = $security->getUser();
         $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId());
-        $userGamePlayed = $gamePlayedRepository->findPersonalBestByGame($user->getId(), $game->getId());
 
         $userRanking = null;
-        foreach ($gamesPlayed as $rank => $gamePlayed) {
-            if ($gamePlayed->getPlayer()->getId() === $user->getId()) {
-                $userRanking = $rank + 1;
+        $userGamePlayed = null;
+        if ($this->isGranted('ROLE_USER')) {
+            foreach ($gamesPlayed as $rank => $gamePlayed) {
+                if ($gamePlayed->getPlayer()->getId() === $user->getId()) {
+                    $userRanking = $rank + 1;
+                }
             }
+            $userGamePlayed = $gamePlayedRepository->findPersonalBestByGame($user->getId(), $game->getId());
         }
 
         return $this->render('game/show.html.twig', [

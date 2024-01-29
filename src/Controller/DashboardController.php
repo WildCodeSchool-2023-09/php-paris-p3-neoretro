@@ -31,9 +31,6 @@ class DashboardController extends AbstractController
 
         $games = $gameRepository->findBy([], ['id' => 'DESC'], 5);
 
-        $bestGamesPlayed = [];
-        $lastGamesPlayed = [];
-
         if ($this->isGranted('ROLE_USER')) {
             $bestGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());
             $lastGamesPlayed = $gamePlayedRepository->findBy(
@@ -41,6 +38,9 @@ class DashboardController extends AbstractController
                 ['id' => 'DESC'],
                 3
             );
+        } else {
+            $lastGamesPlayed = [];
+            $bestGamesPlayed = $gamePlayedRepository->findBy([], ['score' => 'DESC'], 10);
         }
 
         return $this->render('dashboard/dashboard.html.twig', [

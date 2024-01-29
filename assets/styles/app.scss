@@ -35,6 +35,18 @@ body {
     transform: scaleY(-1);
 }
 
+table {
+    border-collapse: collapse;
+
+    tr {
+        // border-bottom: 1px cyan solid;
+
+        border-width: 2px;
+        border-style: none none solid none;
+        border-image: $colorGradient3 1;
+    }
+}
+
 // COMPONENTS
 
 .card {

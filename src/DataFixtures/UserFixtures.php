@@ -48,7 +48,8 @@ class UserFixtures extends Fixture
             $user = new User();
             $user
                 ->setUsername($this->faker->userName())
-                ->setPassword($this->userPasswordHasher->hashPassword($user, 'pass1234'))
+                // ->setPassword($this->userPasswordHasher->hashPassword($user, 'pass1234'))
+                ->setPassword('pass1234')
 
                 ->setFirstname($this->faker->firstName())
                 ->setLastname($this->faker->lastName())

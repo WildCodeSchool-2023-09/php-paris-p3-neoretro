@@ -41,14 +41,16 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
             $game = new Game();
             $game->setTitle($data);
             $game->setDescription($faker->text());
-            $game->setPoster($faker->imageUrl(365, 240, 'nightlife'));
+            $game->setPoster('/build/images/game-posters/metroid.aab94fe7.jpeg');
             $game->setIsVirtual(false);
             $game->setSlug($this->slugger->slug($game->getTitle()));
+
             for ($i = 0; $i < 2; $i++) {
                 $game->addCategory(
                     $this->getReference('category_' . u(CategoryFixtures::DATA[rand(0, 8)])->replace(' ', '_'))
                 );
             }
+
             $manager->persist($game);
             $this->addReference('game_' . u($data)->replace(' ', '_'), $game);
         }

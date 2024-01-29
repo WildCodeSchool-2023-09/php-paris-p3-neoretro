@@ -46,6 +46,7 @@
 
     .scroll {
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     
         &::-webkit-scrollbar {
             width: 10px;

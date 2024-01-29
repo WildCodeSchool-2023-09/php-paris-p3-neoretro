@@ -147,38 +147,41 @@ ul.carousel {
         }
 
         .cell-scores {
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+            }
 
             div.own-score {
                 display: none;
             }
 
             table.first-scores {
-                border-radius: 10px;
-                border: 1px solid;
-                border-color: #06CCF8;
-                padding: 15px;
-                margin: auto;
-                width: 100%;
+                width: 80%;
     
                 tbody tr {
-                    height: 2.125rem;
+                    height: 3rem;
     
                     td.text {
                         font-size: 0.8rem;
                         text-align: center;
                     }
     
-                    td.score-trophy {
+                    td.score-trophy, td.score-ranking {
                         display: flex;
-                        justify-content: center;
+                        justify-content: flex-start;
+                        width: 100px;
+                        position: relative;
+                        top: .5rem;
+                    }
+                    td.score-ranking {
+                        padding: 6px;
                     }
 
-                    td.score-ranking {
-                        text-align: center;
-                    }
-    
-                    td.score-point {
-                        text-align: end;
+                    td.player {
+                        text-align: right;
                     }
                 }
             }
@@ -195,9 +198,7 @@ ul.carousel {
     }
 
     #detailed-game-two {
-
         .cell-achievements {
-
             h1 {
                 text-align: center;
                 margin: 20px 0 30px 0;
@@ -230,7 +231,6 @@ ul.carousel {
         }
 
         .cell-comments {
-
             h1 {
                 text-align: center;
                 margin: 20px 0 30px 0;
@@ -336,17 +336,7 @@ div.dialog-comment {
     left: 0;
     display: flex;
     padding: 1rem;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        width: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: $colorGradient5;
-        border-radius: 10px;
-    }
-    -webkit-overflow-scrolling: touch;
+
     background-color: rgba(0,0,0,0.7);
     transition: .2s;
 
@@ -538,10 +528,7 @@ div.dialog-comment {
                 }
 
                 table.first-scores {
-                    padding: 25px;
-
                     tbody tr {
-
                         td.text {
                             font-size: 1.125rem;
                         }
@@ -588,17 +575,6 @@ div.dialog-comment {
                 div.comment-carousel {
                     height: 699px;
                     margin-bottom: 16px;
-                    overflow: scroll;
-                    overflow-x: hidden;
-                    scroll-behavior: smooth;
-                    scrollbar-width: none;
-                    &::-webkit-scrollbar {
-                        width: 10px;
-                    }
-                    &::-webkit-scrollbar-thumb {
-                        background: $colorGradient5;
-                        border-radius: 10px;
-                    }
 
                     div.comment {
                         flex: 1 0;

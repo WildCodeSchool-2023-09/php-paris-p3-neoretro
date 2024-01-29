@@ -9,6 +9,11 @@ use Faker\Factory;
 
 class GamePlayedService
 {
+    public const EXPERIENCE_COEFFICIENT = 0.8;
+    public const LEVEL_EXPERIENCE_TIER = 800;
+    public const TOKEN_PER_LEVEL = 10;
+    private int $nextLevel = 0;
+
     public function generate(Game $game, User $user): GamePlayed
     {
         $gamePlayed = new GamePlayed();
@@ -21,5 +26,19 @@ class GamePlayedService
         $gamePlayed->setDuration(rand(120, 1800));
 
         return $gamePlayed;
+    }
+
+    public function updateExperience(GamePlayed $gamePlayed, User $user): void
+    {
+        $user->setExperience(
+            $user->getExperience() + (int)floor($gamePlayed->getScore() * self::EXPERIENCE_COEFFICIENT)
+        );
+        $this->nextLevel = $user->getLevel() + 1;
+        while ($user->getExperience() >= $this->nextLevel * self::LEVEL_EXPERIENCE_TIER) {
+            $user->setExperience($user->getExperience() - ($this->nextLevel) * self::LEVEL_EXPERIENCE_TIER);
+            $user->setLevel($this->nextLevel);
+            $this->nextLevel = $user->getLevel() + 1;
+            $user->setToken($user->getToken() + self::TOKEN_PER_LEVEL);
+        }
     }
 }

@@ -37,6 +37,9 @@ class GamePlayedController extends AbstractController
 
         $gamePlayed = $gamePlayedService->generate($game, $this->getUser());
         $entityManager->persist($gamePlayed);
+        $gamePlayedService->updateExperience($gamePlayed, $this->getUser());
+        $entityManager->persist($this->getUser());
+
         $entityManager->flush();
 
         return $this->render('game_played/new.html.twig', [

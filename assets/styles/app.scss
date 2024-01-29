@@ -51,7 +51,6 @@ table {
 
 .card {
     min-height: 160px;
-    overflow: hidden;
 
     position: relative;
 
@@ -63,8 +62,6 @@ table {
 
     background: $colorGradient1;
     box-shadow: $shadow;
-
-    transition: .2s;
 
     // Adding gradient to top and bottom borders
     &::before {
@@ -91,7 +88,6 @@ table {
         height: 100%;
         position: relative;
         z-index: 1;
-
 
         .container {
             height: calc(100% - 40px);

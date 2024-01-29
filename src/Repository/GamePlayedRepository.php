@@ -39,11 +39,11 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->groupBy('gp.player', 'g.id', 'gp.id')
             ->having('gp.score = (' . $subQuery . ')')
             ->orderBy('gp.score', 'DESC');
-        
+
         if ($limit) {
             $query->setMaxResults($limit);
         }
-        
+
         return $query
             ->getQuery()
             ->getResult();
@@ -67,16 +67,16 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->having('gp.score = (' . $subQuery . ')')
             ->orderBy('gp.score', 'DESC');
 
-            if ($limit) {
-                $query->setMaxResults($limit);
-            }
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
 
         return $query
             ->getQuery()
             ->getResult();
     }
 
-    public function findPersonalBestByGame(int $userId, int $gameId)
+    public function findPersonalBestByGame(int $userId, int $gameId): array
     {
         return $this
             ->createQueryBuilder('gp')

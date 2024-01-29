@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Form\CategoryFormType;
+use App\Form\GameSearchType;
 use App\Form\RegistrationFormType;
 use App\Form\RegistrationGameFormType;
 use App\Repository\GameRepository;
@@ -25,16 +28,23 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'dashboard')]
-    public function index(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response
+    public function index(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager, GameSearchType $gameSearchType, Request $request): Response
     {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
         $games = $entityManager->getRepository(Game::class)->findAll();
+        $searchForm = $this->createForm(GameSearchType::class);
+        $searchForm->handleRequest($request);
+        $params = [];
+        
+
         return $this->render('dashboard/index.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
             'pageTitle' => 'NeoRetro',
             'games' => $games,
+            'searchForm' => $searchForm,
+            'title' => $params['title'] ?? '',
         ]);
     }
 
@@ -95,7 +105,7 @@ class DashboardController extends AbstractController
             $entityManager->persist($game);
             $entityManager->flush();
 
-            $this->addFlash("Success", "The game has been added");
+            // $this->addFlash("Success", "The game has been added");
 
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
@@ -106,6 +116,7 @@ class DashboardController extends AbstractController
                 'games' => $games,
             ]);
     }
+
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/{slug}/editgame', name: 'edit_game', methods: ['GET', 'POST'])]

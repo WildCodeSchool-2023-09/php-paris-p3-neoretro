@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\UX\Dropzone\Form\DropzoneType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class RegistrationGameFormType extends AbstractType
@@ -36,9 +37,21 @@ class RegistrationGameFormType extends AbstractType
                 ],
             ])
             ->add('posterFile', VichFileType::class, [
-                'required' => false,
+                
+                'attr' => [
+                    'data-controller' => 'mydropzone',
+                    'placeholder' => 'Drag & Drop picture',
+            ],
+                'required' => true,
             ])
-            ->add('description', TextType::class, [
+            ->add('category', EntityType::class, [
+                'mapped' => false, 
+                'class' => Category::class,
+                'choice_label' => 'label',
+                'multiple' => false,
+                'by_reference' => true,
+            ])
+            ->add('description', TextareaType::class, [
                 'attr' => [
                     'placeholder' => 'Description',
                 ],
@@ -54,13 +67,6 @@ class RegistrationGameFormType extends AbstractType
                     ]),
                 ],
             ])
-            // ->add('category', EntityType::class, [
-            //     'class' => Category::class,
-            //     'choice_label' => 'label',
-            //     'multiple' => false,
-            //     'expanded' => true,
-            //     'by_reference' => true,
-            // ])
             ->add('isVirtual', CheckboxType::class, [
                     'label' => 'isVirtual',
                     'required' => false,
@@ -70,12 +76,13 @@ class RegistrationGameFormType extends AbstractType
                     'required' => false,
                     ])
             ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Game::class
+            'data_class' => Game::class,
         ]);
     }
 }

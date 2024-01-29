@@ -15,11 +15,45 @@
         padding-left: 10px;
     }
 
+    .nav-admin {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        flex-direction: column;
+
+        a {
+            text-align: center;
+            border: 2px solid #06CCF8;
+            border-radius: $borderRadiusLarge;
+            background: $colorGradient1;
+
+            min-width: 95%;
+            margin: 0 10px 10px;
+            padding: 10px 14px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        h1, img {
+            padding-left: 20px;
+        }
+
+        h1:hover {
+            color: #008eab;
+        }
+
+    }
+
+
 .game-played-admin {
-        
+    
     ul {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(1, 1fr);
         gap: 10px;
         width: 100%;
@@ -48,6 +82,13 @@
     .scrollable-list li {
         margin-bottom: 10px;
     }
+
+    .fixed-title {
+        color: #a8a5daa9;
+        top: 0;
+        z-index: 100;
+    }
+    
 }
 
 @media screen and (min-width: $desktopWidth) {
@@ -61,7 +102,7 @@
         }
 
         .cell-played-admin {
-            grid-area: 1 / 4 / span 2 / 10;
+            grid-area: 1 / 1 / span 3 / 10;
         }
         
         .cell-high-score {
@@ -98,26 +139,68 @@
             flex-direction: row;
             justify-content: center;
             font-size: 1.625rem;
-        }
-        .add-new-game-icon {
-            display: flex; 
-            align-items: center;
-        }
 
-        .add-new-game-icon img {
-            padding-left: 10px;
+            .add-new-game-icon {
+                display: flex; 
+                align-items: center;
+            }
+
+            .add-new-game-icon img {
+                padding-left: 10px;
+            }
         }
 
         .nav-admin {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-direction: row;
+            margin-top: 10rem;
+
+            a {
+                display: flex;
+                border: 2px solid #06CCF8;
+                border-radius: $borderRadiusLarge;
+                background: $colorGradient1;
+                padding: 10px;
+                margin: 0;
+                min-width: 150px;
+                min-height: 50px;
+
+                margin: 0 10px 10px;
+                padding: 10px 14px;
+            }
+
+            h1 {
+                font-size: 2rem;
+                color: #fff;
+            }
+
+            h1, img {
+                padding-left: 20px;
+            }
+
+            h1:hover {
+                color: #008eab;
+            }
+
         }
 
-        .nav-admin, h1 {
-            font-size: 2rem;
-        }
+        .add-game-index {
 
+            .card-add-game {
+                min-height: 100px;
+                width: 200px;
+                height: 100px;
+                background: $colorGradient3;
+                position: absolute;
+                left: 10%;
+            }
+
+            a {
+                color: #fff;
+            }
+        }
 
     .game-played-admin {
         

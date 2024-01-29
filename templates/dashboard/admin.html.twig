@@ -8,46 +8,39 @@
 
 <div id="dashboard" class="grid">
         
-    <section class="card cell-admin">
+    {# <section class="card cell-admin">
         <div class="content">
         {% if app.user %}
         <h2>{{ last_username }}</h2>
-        <p><a href="{{ path('logout') }}">Déconnexion</a>
+        <p><a href="{{ path('logout') }}">Logout</a>
     {% endif %}
 
         </div>
-    </section>
+    </section> #}
 
     <section class="card cell-played-admin">
         <div class="content">
-            <h2>Games Added Unvisible</h2>
+            {% if is_granted('ROLE_ADMIN') %}
             {% if app.user %}
-        <div class="add-new-game-title">
-            <a class="add-new-game-icon" href="{{ path('new_game') }}">Add New Game <img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
-        </div>
-    {% endif %}
-
-    {% if games is defined and games|length > 0 %}
-    <div class="game-played-admin">
-        <ul class="scrollable-list">
-            {% for game in games %}
-
-                {% if game.IsVisible == false %}
-                    <li>
-                        <a href="{{ path("edit_game", { slug: game.slug }) }}"><img src="{{ asset('build/images/icons/edit-icon.png') }}"></a>
-                        <h1 class="fixed-title">{{ game.title }}</h1>
-                        <img class="img-resize" src="{{ vich_uploader_asset(game) }}" alt="{{ game.title }} poster" />
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
-{% else %}
-    <p>Aucun jeu ajouté pour le moment.</p>
-{% endif %}
+                <div class="admin-logout">
+                        <h2>Connected as: {{ last_username }}</h2>
+                        <p class="admin-logout logout"><a href="{{ path('logout') }}">Logout</a></p>
+                </div>
+            {% endif %}
+            <section>
+                <div class="nav-admin">
+                        <a href="{{ path('new_game') }}"><h1>New Game</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+            
+                        <a href="{{ path('new_game') }}"><h1>New Prize</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+            
+                        <a href="{{ path('new_game') }}"><h1>Prize's List</h1><img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon"></a>
+                </div>
+            </section>
+            {% endif %}
+            
 </div>
 </section>
-
+{# 
 
     {# <section class="card cell-high-score">
         <div class="content">
@@ -62,7 +55,7 @@
 
         </div>
     </section> #}
-
+{# 
     <section class="card cell-the-room">
         <div class="content">
             <h2>The Room</h2>
@@ -96,7 +89,7 @@
             <h2>Arcade Games</h2>
 
         </div>
-    </section>
+    </section> #}
 
 </div>
 

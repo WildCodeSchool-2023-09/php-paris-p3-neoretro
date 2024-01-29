@@ -16,7 +16,23 @@ body {
     padding-top: 10px;
     height: calc(100vh - 80px - 100px);
     overflow: scroll;
-    flex-direction: column;
+    position: relative;
+}
+
+//
+
+#dump {
+    position: fixed;
+    z-index: 3;
+    top: 1rem;
+    right: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+.reversed {
+    transform: scaleY(-1);
 }
 
 // COMPONENTS

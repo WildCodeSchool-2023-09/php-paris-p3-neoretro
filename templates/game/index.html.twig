@@ -2,22 +2,39 @@
 
 {% block title %}Games{% endblock %}
 
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('carouselGames') }}
+    {{ encore_entry_script_tags('searchbar') }}
+{% endblock javascript %}
+
 {% block content %}
+{# <div id="dump">
+    {# {{ dump(games) }} #}
+{# </div> #}
+
+{% include 'components/_searchbar.html.twig' %}
+{% if is_granted('ROLE_ADMIN') %}
+
+<div class="container-toggle">
+    <div class="toggle-flex">
+        <input checked="true" type="checkbox" class="switch">
+        <p>All Games / Only is visible</p>
+    </div>
+</div>
+
 <section>
-    <div class="nav-admin">
-        <div>
-            <a class="nav-admin" href="{{ path('new_game') }}"><h1>Add New Game</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
-        </div>
-        <div>
-            <a class="nav-admin" href="{{ path('new_game') }}"><h1>Add New Prize</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
-        </div>
-        <div>
-            <a class="nav-admin" href="{{ path('new_game') }}"><h1>Liste des Lots</h1></a>
+    <div class="add-game-index">
+        <div class="card card-add-game">
+            <a href="{{ path('new_game') }}"><h1>New Game</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
         </div>
     </div>
 </section>
+{% endif %}
 
-    <ul id="carousel">
+{% if games is not empty %}
+
+    <ul id="carousel" class="carousel-games">
         {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
             <li class="games grid full-size">
                 {% for y in 0..5 %}
@@ -25,7 +42,7 @@
                         <section class="card">
                             <div class="content">
                                 <a href="{{ path('game_show', {slug: games[y + 6*i].slug}) }}">
-                                        <img class="game-poster" src="{{ vich_uploader_asset(games[y + (6*i)]) }}" alt="">
+                                    <img class="game-poster" src="{{ vich_uploader_asset(games[y + (6*i)]) }}" alt="">
                                     <h2>{{ games[y + (6*i)].title }}</h2>
                                 </a>
 
@@ -57,11 +74,29 @@
         {% endfor %}
     </ul>
 
-    <nav id="slider">
-        <div class="slider-btn slider-btn-1 current-slide"></div>
-        {% for i in 1..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
-            <div class="slider-btn slider-btn-{{i+1}}"></div>
+    <nav class="slider" id="slider-games">
+        {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+            {% if i == 0 %}
+                <div class="slider-btn current-slide"></div>
+            {% else %}
+                <div class="slider-btn"></div>
+            {% endif %}
         {% endfor %}
     </nav>
+
+{% else %}
+
+    <ul class="flex full-size">
+        <li>
+            <section class="card small-card">
+                <div class="content">
+                    <h2>No results...</h2>
+                    <p>🔍 Try something else!</p>
+                </div>
+            </section>
+        </li>
+    </ul>
+
+{% endif %}
 
 {% endblock %}

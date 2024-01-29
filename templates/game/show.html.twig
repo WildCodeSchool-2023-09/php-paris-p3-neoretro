@@ -27,9 +27,7 @@
                         <div class="category">
 
                             {% for category in game.categories %}
-
                                 <p>{{ category.label }}</p>
-
                             {% endfor %}
 
                             <div class="game-time">
@@ -54,7 +52,7 @@
                     <h2>Pictures</h2>
                     <ul id="carousel-pictures">
 
-                    {% for i in 0..(game.pictures|length / 4) %}
+                    {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
 
                         {% if game.pictures[i*4] is defined %}
 
@@ -79,9 +77,12 @@
                     </ul>
 
                     <nav id="slider-pictures">
-                        <div class="slider-picture-btn current-slide-picture"></div>
-                        {% for i in 1..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
-                            <div class="slider-picture-btn"></div>
+                        {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                            {% if i == 0 %}
+                                <div class="slider-picture-btn current-slide-picture"></div>
+                            {% else %}
+                                <div class="slider-picture-btn"></div>
+                            {% endif %}
                         {% endfor %}
                     </nav>
                 </div>
@@ -194,7 +195,7 @@
 
     </ul>
 
-    <nav id="slider">
+    <nav class="slider">
         <div class="slider-btn current-slide"></div>
         <div class="slider-btn"></div>
     </nav>

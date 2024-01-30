@@ -13,7 +13,7 @@ use function Symfony\Component\String\u;
 
 class GameFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const DATAS = [
+    public const DATA = [
         'SuperMetroid',
         'Metroid',
         'Out Run',
@@ -37,7 +37,7 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker::create();
 
-        foreach (self::DATAS as $data) {
+        foreach (self::DATA as $data) {
             $game = new Game();
             $game->setTitle($data);
             $game->setDescription($faker->text());
@@ -46,7 +46,7 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
             $game->setSlug($this->slugger->slug($game->getTitle()));
             for ($i = 0; $i < 2; $i++) {
                 $game->addCategory(
-                    $this->getReference('category_' . u(CategoryFixtures::DATAS[rand(0, 8)])->replace(' ', '_'))
+                    $this->getReference('category_' . u(CategoryFixtures::DATA[rand(0, 8)])->replace(' ', '_'))
                 );
             }
             $manager->persist($game);

@@ -1,7 +1,7 @@
 <header>
     <a href="/"><img id="main-logo" src="{{ asset('build/images/icons/icon.png') }}" alt="NeoRetro Logo"></a>
 
-    {% if pageTitle == 'NeoRetro' %}
+    {% if pageTitle is not defined %}
         <h1 id="page-title" class="michroma">NeoRetro</h1>
     {% else %}
         <h1 id="site-name" class="michroma">NeoRetro</h1>

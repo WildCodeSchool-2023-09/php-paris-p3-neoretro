@@ -6,6 +6,10 @@
     {{ parent() }}
     {{ encore_entry_script_tags('carouselGames') }}
     {{ encore_entry_script_tags('searchbar') }}
+    
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ encore_entry_script_tags('toggleGame') }}
+    {% endif %}
 {% endblock javascript %}
 
 {% block content %}
@@ -19,7 +23,7 @@
 {% if is_granted('ROLE_ADMIN') %}
     <div class="container-toggle">
         <div class="toggle-flex">
-            <input checked="true" type="checkbox" class="switch">
+            <input checked="true" type="checkbox" class="switch checked">
             <p>In-Stock / Arcades room</p>
         </div>
     </div>
@@ -29,6 +33,7 @@
             <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
     </div>
 </section>
+
 {% endif %}
 
     {% if games is not empty %}

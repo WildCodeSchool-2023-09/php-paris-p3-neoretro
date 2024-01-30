@@ -25,7 +25,8 @@ class GameRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('g')
             ->join('g.categories', 'c')
-            ->join('g.gamesPlayed', 'gp');
+            ->leftJoin('g.gamesPlayed', 'gp');
+        
         if (empty($params['visibility'])) {
             $query->where('g.isVisible = 1');
         } else {
@@ -66,7 +67,7 @@ class GameRepository extends ServiceEntityRepository
 
         $query
             ->groupBy('g.id')
-            ->addOrderBy('g.id', 'ASC');
+            ->addOrderBy('g.id', 'DESC');
 
         return $query->getQuery()->getResult();
     }

@@ -38,6 +38,7 @@ Encore
     .addEntry('searchbar', './assets/scripts/searchbar.js')
     .addEntry('carouselDetailedGame', './assets/scripts/carouselDetailedGame.js')
     .addEntry('carouselGames', './assets/scripts/carouselGames.js')
+    .addEntry('toggleGame', './assets/scripts/toggleGame.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

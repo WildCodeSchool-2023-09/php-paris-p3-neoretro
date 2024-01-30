@@ -8,6 +8,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,7 +38,11 @@ class GameController extends AbstractController
             $params['userId'] = $security->getUser()->getId();
         }
 
-        $params['visibility'] = 0;
+        // if ($this->isGranted('ROLE_ADMIN')) {
+        //     $searchForm->add('isVisible', HiddenType::class, [
+        //         'data' => 1,
+        //     ]);
+        // }
 
         $games = $gameRepository->search($params);
 

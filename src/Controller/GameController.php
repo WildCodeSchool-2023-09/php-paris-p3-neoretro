@@ -7,6 +7,7 @@ use App\Form\GameSearchType;
 use App\Repository\CategoryRepository;
 use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
+use App\Service\ScoreService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,38 +23,27 @@ class GameController extends AbstractController
         CategoryRepository $categoryRepository,
         Request $request,
         Security $security,
-        GamePlayedRepository $gamePlayedRepository
+        GamePlayedRepository $gamePlayedRepository,
+        ScoreService $scoreService
     ): Response {
         $searchForm = $this->createForm(GameSearchType::class);
         $searchForm->handleRequest($request);
 
         $params = [];
+        $userId = null;
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
         }
-
-        $userId = null;
         if ($this->isGranted('ROLE_USER')) {
             $userId = $security->getUser()->getId();
         }
 
         $games = $gameRepository->search($params, $userId);
-
-        if ($this->isGranted('ROLE_USER')) {
-            foreach ($games as $gameIndex => $game) {
-                $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game[0]->getId());
-                foreach ($gamesPlayed as $rank => $gamePlayed) {
-                    if ($gamePlayed->getPlayer()->getId() === $userId) {
-                        $games[$gameIndex]['userRanking'] = $rank + 1;
-                    }
-                }
-            }
-        }
+        $games = $scoreService->addUserRakings($games, $userId);
 
         return $this->render('game/index.html.twig', [
             'games' => $games,
             'pageTitle' => 'Games',
-            'params' => $params,
             'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
         ]);

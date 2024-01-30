@@ -66,7 +66,6 @@ class GamePlayed
         return $this;
     }
 
-
     public function getDate(): ?\DateTimeImmutable
     {
         return $this->date;

@@ -396,7 +396,7 @@ div.dialog-comment {
 
 /*
 **
-** Media queries for phone
+** Media queries for desktop
 **
 */
 
@@ -408,7 +408,8 @@ div.dialog-comment {
         flex-direction: column;
         gap: 50px;
         width: 1240px;
-        height: 820px;
+        height: 900px;
+        padding: 40px 0;
         list-style: none;
         overflow: scroll;   //hidden
         scroll-behavior: smooth;
@@ -417,6 +418,7 @@ div.dialog-comment {
         &::-webkit-scrollbar {
             display: none;
         }
+        mask-image: linear-gradient(180deg, transparent 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 95%, transparent 100%);
 
         #detailed-game-one {
             grid-template-columns: repeat(2, 610px);

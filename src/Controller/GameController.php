@@ -26,29 +26,27 @@ class GameController extends AbstractController
         GamePlayedRepository $gamePlayedRepository
     ): Response {
         $searchForm = $this->createForm(GameSearchType::class);
-        $searchForm->handleRequest($request);
 
-        $params = [];
+        $searchForm->handleRequest($request);
+        
+        $params = [
+            'isVisible' => 1
+        ];
+        
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
         }
 
-        $userId = null;
         if ($this->isGranted('ROLE_USER')) {
             $params['userId'] = $security->getUser()->getId();
         }
-
-        // if ($this->isGranted('ROLE_ADMIN')) {
-        //     $searchForm->add('isVisible', HiddenType::class, [
-        //         'data' => 1,
-        //     ]);
-        // }
 
         $games = $gameRepository->search($params);
 
         if ($this->isGranted('ROLE_USER')) {
             foreach ($games as $gameIndex => $game) {
                 $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game[0]->getId());
+
                 foreach ($gamesPlayed as $rank => $gamePlayed) {
                     if ($gamePlayed->getPlayer()->getId() === $params['userId']) {
                         $games[$gameIndex]['userRanking'] = $rank + 1;

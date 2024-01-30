@@ -24,20 +24,13 @@ class GameRepository extends ServiceEntityRepository
     public function search(array $params): array
     {
         $query = $this->createQueryBuilder('g')
-            ->join('g.categories', 'c')
-            ->leftJoin('g.gamesPlayed', 'gp');
-        
-        if (empty($params['visibility'])) {
-            $query->where('g.isVisible = 1');
-        } else {
-            $query->where('g.isVisible = :visibility');
-            $query->setParameter('visibility', $params['visibility']);
-        }
+            ->leftJoin('g.gamesPlayed', 'gp')
+            ->where('g.isVisible = :isVisible')
+            ->setParameter('isVisible', $params['isVisible']);
 
         if (!empty($params['title'])) {
-            $query
-                ->where('g.title LIKE :title')
-                ->setParameter('title', '%' . $params['title'] . '%');
+            $query->where('g.title LIKE :title')
+                  ->setParameter('title', '%' . $params['title'] . '%');
         }
 
         if (!empty($params['categories']) && !$params['categories']->isEmpty()) {
@@ -48,6 +41,8 @@ class GameRepository extends ServiceEntityRepository
             }
 
             $categoryQuery = implode(' OR ', $categoryQueries);
+
+            $query->join('g.categories', 'c');
             $query->andWhere($categoryQuery);
         }
 

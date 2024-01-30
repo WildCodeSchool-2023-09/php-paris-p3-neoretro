@@ -1,6 +1,5 @@
 @import "_variables";
 
-@media screen and (max-width: 460px) {
 .switch {
     position: relative;
     height: 1.5rem;
@@ -59,7 +58,7 @@
     color: #fff;
     padding-left: 10px;
   }
-}
+
 
 @media screen and (min-width: $desktopWidth) {
 

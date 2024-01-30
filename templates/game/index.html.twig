@@ -14,25 +14,21 @@
 
 {% block content %}
 
-{# <div id="dump">
-    {# {{ dump(games) }} #}
-{# </div> #}
-
 {% include 'components/_searchbar.html.twig' %}
 
 {% if is_granted('ROLE_ADMIN') %}
     <div class="container-toggle">
         <div class="toggle-flex">
-            <input checked="true" type="checkbox" class="switch checked">
+            <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
             <p>In-Stock / Arcades room</p>
         </div>
     </div>
-<section>
-    <div class="add-game-index">
+    <section>
+        <div class="add-game-index">
             <a href="{{ path('new_game') }}" class="card card-add-game"><h1>New Game</h1>
             <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
-    </div>
-</section>
+        </div>
+    </section>
 
 {% endif %}
 

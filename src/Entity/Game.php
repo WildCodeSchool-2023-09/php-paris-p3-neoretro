@@ -51,7 +51,7 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Picture::class, orphanRemoval: true)]
     private Collection $pictures;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'games')]
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'games')]
     private Collection $categories;
 
     #[ORM\Column(length: 255)]

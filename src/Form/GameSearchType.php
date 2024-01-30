@@ -38,6 +38,9 @@ class GameSearchType extends AbstractType
             ->add('sort_order', HiddenType::class, [
                 'constraints' => []
             ])
+            ->add('isVisible', HiddenType::class, [
+                'data' => '1',
+            ]);
         ;
     }
 }

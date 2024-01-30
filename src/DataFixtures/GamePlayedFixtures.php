@@ -15,23 +15,34 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 1000; $i++) {
-            $gamePlayed = new GamePlayed();
-            $faker = Factory::create();
+        $faker = Factory::create();
 
-            $gamePlayed->setGame(
-                $this->getReference('game_' . u(GameFixtures::DATA[array_rand(GameFixtures::DATA)])->replace(' ', '_'))
-            );
+        for ($i = 1; $i <= 50; $i++) {
+            if ($i === 1) {
+                $player = $this->getReference('user_test');
+            } else {
+                $player = $this->getReference('user_' . $i);
+            }
 
-            $gamePlayed
-                ->setPlayer($this->getReference('user_' . rand(1, 20)))
-                ->setScore(rand(0, 500));
+            for ($j = 0; $j < rand(30, 60); $j++) {
+                $gamePlayed = new GamePlayed();
 
-            $gamePlayed
-                ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))
-                ->setDuration(rand(120, 1800));
+                $gamePlayed->setGame(
+                    $this->getReference(
+                        'game_' . u(GameFixtures::DATA[array_rand(GameFixtures::DATA)])->replace(' ', '_')
+                    )
+                );
 
-            $manager->persist($gamePlayed);
+                $gamePlayed
+                    ->setPlayer($player)
+                    ->setScore(rand(10, 10000));
+
+                $gamePlayed
+                    ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))
+                    ->setDuration(rand(120, 1200));
+
+                $manager->persist($gamePlayed);
+            }
         }
 
         $manager->flush();

@@ -1,6 +1,5 @@
 <?php
 
-/*
 namespace App\Form;
 
 use App\Entity\User;
@@ -16,7 +15,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Email;
 
-class RegistrationFormType extends AbstractType
+class ProfileFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -117,4 +116,3 @@ class RegistrationFormType extends AbstractType
         ]);
     }
 }
-*/

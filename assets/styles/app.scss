@@ -39,6 +39,7 @@ body {
 
 .card {
     min-height: 160px;
+    overflow: hidden;
 
     position: relative;
 
@@ -50,16 +51,6 @@ body {
 
     background: $colorGradient1;
     box-shadow: $shadow;
-
-    h2 {
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .content {
-        position: relative;
-        z-index: 1;
-    }
 
     // Adding gradient to top and bottom borders
     &::before {
@@ -77,12 +68,27 @@ body {
         border-style: solid none solid none;
         border-image: $colorGradient4 1;
     }
+
+    .content {
+        height: 100%;
+        position: relative;
+        z-index: 1;
+
+        .container {
+            height: calc(100% - 40px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    }
 }
 
 // TEXT
 
-h2, h3, h4, h5, h6, span,
-p, ul, label, input, input::placeholder, select, a, button, img[alt],
+h2, h3, h4, h5, h6, span, td, a,
+p, ul, label, input, input::placeholder, select, button, img[alt],
 .text
 {
     background: $colorGradient5;
@@ -92,6 +98,10 @@ p, ul, label, input, input::placeholder, select, a, button, img[alt],
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-family: 'Orbitron';
     text-decoration: none;
+}
+
+h1, h2, h3, p {
+    text-align: center;
 }
 
 h1 {

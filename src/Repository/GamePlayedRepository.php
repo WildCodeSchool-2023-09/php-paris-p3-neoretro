@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\GamePlayed;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,74 @@ class GamePlayedRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, GamePlayed::class);
+    }
+
+    public function findBestScoresByGame(int $gameId, int $limit = null): array
+    {
+        $subQuery = $this
+            ->createQueryBuilder('sub')
+            ->select('MAX(sub.score)')
+            ->andWhere('sub.player = gp.player')
+            ->andWhere('sub.game = :gameId')
+            ->getDQL();
+
+        $query = $this
+            ->createQueryBuilder('gp')
+            ->join('gp.game', 'g')
+            ->where('g.id = :gameId')
+            ->setParameter('gameId', $gameId)
+            ->groupBy('gp.player', 'g.id', 'gp.id')
+            ->having('gp.score = (' . $subQuery . ')')
+            ->orderBy('gp.score', 'DESC');
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findBestGamesScoresByUser(int $userId, int $limit = null): array
+    {
+        $subQuery = $this
+            ->createQueryBuilder('sub')
+            ->select('MAX(sub.score)')
+            ->andWhere('sub.player = :userId')
+            ->andWhere('sub.game = gp.game')
+            ->getDQL();
+
+        $query = $this
+            ->createQueryBuilder('gp')
+            ->innerJoin('gp.game', 'g')
+            ->where('gp.player = :userId')
+            ->setParameter('userId', $userId)
+            ->groupBy('gp.game', 'gp.id', 'g.id')
+            ->having('gp.score = (' . $subQuery . ')')
+            ->orderBy('gp.score', 'DESC');
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findPersonalBestByGame(int $userId, int $gameId): array
+    {
+        return $this
+            ->createQueryBuilder('gp')
+            ->andWhere('gp.player = :userId')
+            ->andWhere('gp.game = :gameId')
+            ->setParameter('userId', $userId)
+            ->setParameter('gameId', $gameId)
+            ->orderBy('gp.score', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 //    /**

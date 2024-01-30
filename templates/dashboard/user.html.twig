@@ -16,16 +16,54 @@
     <section class="card cell-played">
         <div class="content">
             <h2>Recently Played</h2>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus accusantium nobis totam inventore aspernatur corrupti. Consequatur quia, laborum nisi vitae ut,
-                culpa inventore incidunt, sapiente quam aliquam obcaecati iste ratione vel? Vitae, nobis voluptatibus repudiandae obcaecati dignissimos necessitatibus laudantium, aliquam alias ad tempora et id iusto quod explicabo recusandae ea!
-            </p>
+
+            <div class="container">
+                {% for lastGamePlayed in lastGamesPlayed %}
+                    <div class="recently-played-game">
+                        <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">
+                            <img src="{{ lastGamePlayed.game.poster }}" alt="Game poster">
+                        </a>
+
+                        <ul>
+                            <li>
+                               <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">{{ lastGamePlayed.game.title }}</a>
+                            </li>
+                            <li>{{ lastGamePlayed.score }}</li>
+                            <li>
+                                {% if ((lastGamePlayed.duration)/60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((lastGamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) % 60) }}"
+                            </li>
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+
         </div>
     </section>
 
     <section class="card cell-high-score">
         <div class="content">
             <h2>High Score</h2>
+
+            <div class="container">
+                <h3>
+                    <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}">
+                        {{ bestGamesPlayed[0].game.title }}
+                    </a>
+                </h3>
+
+                <div>
+                    <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}"><img src="{{ bestGamesPlayed[0].game.poster }}" alt="Game poster"></a>
+                    <ul>
+                        <li>
+                            {{ bestGamesPlayed[0].score }}
+                        </li>
+                        
+                        <li>
+                            {% if ((bestGamesPlayed[0].duration)/60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((bestGamesPlayed[0].duration) % 60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) % 60) }}"
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
     </section>
@@ -61,7 +99,17 @@
     <section class="card cell-scores">
         <div class="content">
             <h2>Scores</h2>
-
+            <table>
+                <tbody>
+                    {% for bestGamePlayed in bestGamesPlayed %}
+                        <tr>
+                            <td class="text">{{ loop.index }}.</td>
+                            <td class="text"><a href="{{ path('game_show', {slug: bestGamePlayed.game.slug}) }}">{{ bestGamePlayed.game.title }}</a></td>
+                            <td class="text">{{ bestGamePlayed.score }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </section>
 

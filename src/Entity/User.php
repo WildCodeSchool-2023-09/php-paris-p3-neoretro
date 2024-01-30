@@ -40,19 +40,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $token = null;
 
-    #[ORM\Column(length: 10, nullable: true)]
+    #[ORM\Column(length: 16, nullable: true)]
     private ?string $phonenumber = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $adress = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
+    #[ORM\Column(length: 30, nullable: true)]
     private ?string $city = null;
 
     #[ORM\Column(length: 5, nullable: true)]
     private ?string $zipcode = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 40)]
     private ?string $email = null;
 
     #[ORM\Column(nullable: true)]

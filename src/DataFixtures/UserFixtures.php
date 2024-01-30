@@ -21,43 +21,38 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $user = new User();
-        $user
-            ->setUsername('testuser')
-            ->setPassword($this->userPasswordHasher->hashPassword($user, 'testuser'))
-
-            ->setFirstname($this->faker->firstName())
-            ->setLastname($this->faker->lastName())
-
-            ->setEmail($this->faker->email())
-            ->setPhoneNumber($this->faker->e164PhoneNumber())
-
-            ->setRoles(['ROLE_USER'])
-            ->setToken($this->faker->numberBetween(0, 200))
-
-            ->setZipcode($this->faker->regexify('[0-9]{5}'))
-            ->setAdress($this->faker->streetAddress())
-            ->setCity($this->faker->city())
-
-            ->setExperience($this->faker->numberBetween(0, 500));
-
-        $this->addReference('user_test', $user);
-        $manager->persist($user);
-
         for ($i = 1; $i <= 50; $i++) {
             $user = new User();
-            $user
-                ->setUsername($this->faker->userName())
-                // ->setPassword($this->userPasswordHasher->hashPassword($user, 'pass1234'))
-                ->setPassword('pass1234')
 
+            switch ($i) {
+                case 1:
+                    $user
+                        ->setUsername('admin')
+                        ->setPassword($this->userPasswordHasher->hashPassword($user, 'admin'))
+                        ->setRoles(['ROLE_ADMIN']);
+                    break;
+                case 2:
+                    $user
+                        ->setUsername('user')
+                        ->setPassword($this->userPasswordHasher->hashPassword($user, 'user'))
+                        ->setRoles(['ROLE_USER']);
+                    break;
+                default:
+                    $user
+                        ->setUsername($this->faker->userName())
+                        // ->setPassword($this->userPasswordHasher->hashPassword($user, 'pass1234'))
+                        ->setPassword('pass1234')
+                        ->setRoles(['ROLE_USER']);
+                    break;
+            }
+
+            $user
                 ->setFirstname($this->faker->firstName())
                 ->setLastname($this->faker->lastName())
 
                 ->setEmail($this->faker->email())
                 ->setPhoneNumber($this->faker->e164PhoneNumber())
 
-                ->setRoles(['ROLE_USER'])
                 ->setToken($this->faker->numberBetween(0, 200))
 
                 ->setZipcode($this->faker->regexify('[0-9]{5}'))
@@ -70,27 +65,6 @@ class UserFixtures extends Fixture
             $manager->persist($user);
         }
 
-        $admin = new User();
-        $admin
-            ->setUsername('admin')
-            ->setPassword($this->userPasswordHasher->hashPassword($admin, 'admin'))
-
-            ->setFirstname($this->faker->firstName())
-            ->setLastname($this->faker->lastName())
-
-            ->setEmail($this->faker->email())
-            ->setPhonenumber($this->faker->e164PhoneNumber())
-
-            ->setRoles(['ROLE_ADMIN'])
-            ->setToken($this->faker->numberBetween(0, 200))
-
-            ->setZipcode($this->faker->regexify('[0-9]{5}'))
-            ->setAdress($this->faker->streetAddress())
-            ->setCity($this->faker->city())
-
-            ->setExperience($this->faker->numberBetween(0, 500));
-
-        $manager->persist($admin);
         $manager->flush();
     }
 }

@@ -70,10 +70,11 @@
     ul.carousel {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 50px;
 
-        width: 1240px;
-        height: calc(820px + 80px);
+        width: calc(1240px + 16px);
+        height: calc(820px + 2*40px);
         padding: 40px 0;
 
         list-style: none;

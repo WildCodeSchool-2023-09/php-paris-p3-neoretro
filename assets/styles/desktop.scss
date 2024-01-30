@@ -67,7 +67,7 @@
         height: 400px;
     }
 
-    ul#carousel {
+    ul.carousel {
         display: flex;
         flex-direction: column;
         gap: 50px;
@@ -87,7 +87,7 @@
             display: none;
         }
 
-        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 95%, transparent 100%);
+        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 2%, rgba(0, 0, 0, 1) 98%, transparent 100%);
 
     }
 

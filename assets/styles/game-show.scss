@@ -1,6 +1,6 @@
 @import "_variables";
 
-ul.carousel {
+ul.carousel#game-show-carousel {
 
     #detailed-game-one {
 
@@ -387,7 +387,7 @@ div.dialog-comment {
 
 @media screen and (min-width: $desktopWidth) {
 
-    ul.carousel {
+    ul.carousel#game-show-carousel {
         display: flex;
         flex-direction: column;
         gap: 50px;

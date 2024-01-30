@@ -2,9 +2,15 @@
 
 {% block title %}{{ parent() }} • {{ game.title }}{% endblock %}
 
+{% block javascript %}
+    {{ encore_entry_script_tags('pictureModal') }}
+    {{ encore_entry_script_tags('commentModal') }}
+    {{ encore_entry_script_tags('carouselDetailedGame') }}
+{% endblock %}
+
 {% block content %}
 
-    <ul class="carousel">
+    <ul class="carousel" id="game-show-carousel">
         <li id="detailed-game-one" class="grid">
             <section class="card cell-resume">
                 <div class="content">
@@ -174,10 +180,4 @@
         </div>
     </div>
 
-{% endblock %}
-
-{% block javascript %}
-    {{ encore_entry_script_tags('pictureModal') }}
-    {{ encore_entry_script_tags('commentModal') }}
-    {{ encore_entry_script_tags('carouselDetailedGame') }}
 {% endblock %}

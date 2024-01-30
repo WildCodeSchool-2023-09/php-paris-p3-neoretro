@@ -10,10 +10,6 @@
 
 {% block content %}
 
-    <div id="dump">
-        {# {{ dump(games) }} #}
-    </div>
-
     {% include 'components/_searchbar.html.twig' %}
 
     {% if games is not empty %}
@@ -22,33 +18,72 @@
             {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
                 <li class="games grid full-size">
                     {% for y in 0..5 %}
-                        {% if games[y + (6*i)] is defined %}
+                        {% if games[y + 6*i][0] is defined %}
                             <section class="card">
                                 <div class="content">
-                                    <a href="{{ path('game_show', {slug: games[y + 6*i].slug}) }}">
-                                        <img class="game-poster" src="{{ games[y + (6*i)].poster }}" alt="">
-                                        <h2>{{ games[y + (6*i)].title }}</h2>
+                                    <a href="{{ path('game_show', {slug: games[y + 6*i][0].slug}) }}">
+                                        <img class="game-poster" src="{{ games[y + 6*i][0].poster }}" alt="">
+                                        <h2>{{ games[y + 6*i][0].title }}</h2>
                                     </a>
 
                                     <div class="game-infos">
                                         <div class="game-category-container">
-                                            {% for category in games[y + 6*i].categories %}
+                                            {% for category in games[y + 6*i][0].categories %}
                                                 <p class="game-category">
                                                     {{category.label}}
                                                 </p>
                                             {% endfor %}
                                         </div>
 
-                                        <div class="game-stats">
-                                            <div class="game-highest-score">
-                                                <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
-                                                <p>1 276 378</p>
+                                            <div class="game-stats">
+                                                <div class="game-highest-score">
+                                                    {% if is_granted('ROLE_USER') %}
+                                                        {% if games[y + 6*i]['userRanking'] == 1 %}
+                                                            <img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy">
+                                                        {% elseif games[y + 6*i]['userRanking'] == 2 %}
+                                                            <img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy">
+                                                        {% elseif games[y + 6*i]['userRanking'] == 3 %}
+                                                            <img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy">
+                                                        {% else %}
+                                                            <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
+                                                    {% endif %}
+                                                    <p>
+                                                        {% if is_granted('ROLE_USER') %}
+                                                            {{ games[y + 6*i]['userRanking'] }}
+                                                        {% else %}
+                                                            —
+                                                        {% endif %}
+                                                    </p>
+                                                </div>
+                                                <div class="game-time-spent">
+                                                    <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
+                                                    <p>
+                                                        {% if is_granted('ROLE_USER') %}
+                                                            {# {% if ((games[y + 6*i]['totalTimePlayed']) / 60) < 10 %}0{% endif %}{{ ((games[y + 6*i]['totalTimePlayed']) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((games[y + 6*i]['totalTimePlayed']) % 60) < 10 %}0{% endif %}{{ ((games[y + 6*i]['totalTimePlayed']) % 60) }}" #}
+                                                            {% set totalTime = games[y + 6*i]['totalTimePlayed'] %}
+                                                            {% set hours = totalTime // 3600 %}
+                                                            {% set minutes = (totalTime % 3600) // 60 %}
+                                                            {% set seconds = totalTime % 60 %}
+
+                                                            {% if hours > 0 %}
+                                                                {{ hours }}h
+                                                            {% endif %}
+
+                                                            {% if minutes < 10 %}
+                                                                0{{ minutes }}"
+                                                            {% else %}
+                                                                {{ minutes }}"
+                                                            {% endif %}
+
+                                                        {% else %}
+                                                            —
+                                                        {% endif %}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div class="game-time-spent">
-                                                <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
-                                                <p>0:34</p>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </section>

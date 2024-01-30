@@ -5,60 +5,52 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Factory;
 use Faker\Generator as FakerGenerator;
 
 class UserFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $userPasswordHasher;
     private FakerGenerator $faker;
-    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+    public function __construct()
     {
-        $this->userPasswordHasher = $userPasswordHasher;
         $this->faker = Factory::create();
     }
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $user = new User();
 
-            $user->setUsername($this->faker->userName);
-            $user->setFirstname($this->faker->firstName);
-            $user->setLastname($this->faker->lastName);
-            $user->setEmail($this->faker->text(20));
-            $user->setPhoneNumber($this->faker->text(10));
-            $user->setRoles([]);
-            $user->setToken($this->faker->numberBetween(1000, 9999));
-            $zipcode = $this->faker->regexify('[0-9]{5}');
-            $user->setZipcode($zipcode);
-            $user->setAdress($this->faker->streetAddress);
-            $user->setCity($this->faker->city);
-            $user->setExperience($this->faker->numberBetween(0, 500));
-            $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password1234'));
+            if ($i === 1) {
+                $user
+                    ->setUsername('admin')
+                    ->setPassword('admin')
+                    ->setRoles(['ROLE_ADMIN'])
+                    ->setToken($this->faker->numberBetween(1000, 9999));
+            } else {
+                $user
+                    ->setUsername($this->faker->userName())
+                    ->setPassword('pass1234')
+                    ->setRoles(['ROLE_USER'])
+                    ->setToken($this->faker->numberBetween(0, 200));
+            }
+
+            $user
+                ->setFirstname($this->faker->firstName())
+                ->setLastname($this->faker->lastName())
+
+                ->setEmail($this->faker->email())
+                ->setPhoneNumber($this->faker->e164PhoneNumber())
+
+                ->setZipcode($this->faker->regexify('[0-9]{5}'))
+                ->setAdress($this->faker->streetAddress())
+                ->setCity($this->faker->city())
+
+                ->setExperience($this->faker->numberBetween(0, 500));
 
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
-
-        $admin = new User();
-
-        $admin->setUsername($this->faker->userName);
-        $admin->setFirstname($this->faker->firstName);
-        $admin->setLastname($this->faker->lastName);
-        $admin->setEmail($this->faker->text(20));
-        $admin->setPhonenumber($this->faker->text(10));
-        $admin->setRoles(['ROLE_ADMIN']);
-        $admin->setToken($this->faker->numberBetween(1000, 9999));
-        $zipcode = $this->faker->regexify('[0-9]{5}');
-        $admin->setZipcode($zipcode);
-        $admin->setAdress($this->faker->streetAddress);
-        $admin->setCity($this->faker->city);
-        $admin->setExperience($this->faker->numberBetween(1, 10));
-        $admin->setPassword($this->userPasswordHasher->hashPassword($admin, 'admin1234'));
-
-        $manager->persist($admin);
 
         $manager->flush();
     }

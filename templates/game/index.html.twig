@@ -20,17 +20,15 @@
     <div class="container-toggle">
         <div class="toggle-flex">
             <input checked="true" type="checkbox" class="switch">
-            <p>All Games / Only is visible</p>
+            <p>In-Stock / Arcades room</p>
         </div>
     </div>
-
-    <section>
-        <div class="add-game-index">
-            <div class="card card-add-game">
-                <a href="{{ path('new_game') }}"><h1>New Game</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
-            </div>
-        </div>
-    </section>
+<section>
+    <div class="add-game-index">
+            <a href="{{ path('new_game') }}" class="card card-add-game"><h1>New Game</h1>
+            <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+    </div>
+</section>
 {% endif %}
 
     {% if games is not empty %}

@@ -21,8 +21,10 @@
             {% if is_granted('ROLE_ADMIN') %}
             {% if app.user %}
                 <div class="admin-logout">
-                        <h2>Connected as: {{ last_username }}</h2>
-                        <p class="admin-logout logout"><a href="{{ path('logout') }}">Logout</a></p>
+                        <h2>Logged as: {{ last_username }}</h2>
+                    <div>
+                        <p class="logout"><a href="{{ path('logout') }}">Logout<img class="logout" src="{{ asset('build/images/icons/logout.svg') }}" alt=""></a></p>
+                    </div>
                 </div>
             {% endif %}
             <section>

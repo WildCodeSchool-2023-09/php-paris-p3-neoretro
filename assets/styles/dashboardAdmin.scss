@@ -19,7 +19,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 25%;
         flex-direction: column;
 
         a {
@@ -45,50 +45,47 @@
         h1:hover {
             color: #008eab;
         }
-
     }
 
-
-.game-played-admin {
-    
-    ul {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(1, 1fr);
-        gap: 10px;
-        width: 100%;
-        }
-
-    li {
+    .admin-logout {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        padding: 10px;
+        flex-direction: column;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 1.2rem;
+
+        .logout {
+            font-size: 2rem;
+        }
     }
 
-    li .img-resize {
-        width: 8.61875rem;
-        height: 7.5rem;
-        border-radius: 0.625rem;
-        border: 1px solid var($colorGradient2);
+    .add-game-index {
+
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10%;
+        margin-bottom: 10%;
+
+        .card-add-game {
+            min-height: 100px;
+            width: 200px;
+            height: 100px;
+            background: $colorGradient3;
+            top: 10%;
+        }
+        
+    a {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color: #fff;
     }
 
-    .scrollable-list {
-        height: 300px;
-        overflow-y: scroll;
-        scrollbar-color: var($colorGradient2);
+    a:hover {
+        color: #66e6ff;
     }
-
-    .scrollable-list li {
-        margin-bottom: 10px;
-    }
-
-    .fixed-title {
-        color: #a8a5daa9;
-        top: 0;
-        z-index: 100;
-    }
-    
 }
 
 @media screen and (min-width: $desktopWidth) {
@@ -97,43 +94,11 @@
         grid-template-columns: repeat(9, 120px);
         grid-template-rows: repeat(4, 190px);
 
-        .cell-sign-in, .cell-profile, .cell-admin {
-            grid-area: 1 / 1 / span 2 / span 3;
-        }
-
         .cell-played-admin {
             grid-area: 1 / 1 / span 3 / 10;
         }
         
-        .cell-high-score {
-            grid-area: 2 / 4 / span 1 / span 2;
-        }
-
-        .cell-this-week {
-            grid-area: 2 / 6 / span 1 / span 4;
-        }
-
-        .cell-the-room, .cell-your-friends {
-            grid-area: 3 / 1 / span 1 / span 4;
-        }
-
-        .cell-newest-game {
-            grid-area: 4 / 1 / span 1 / span 2;
-        }
-
-        .cell-mini-games {
-            grid-area: 4 / 3 / span 1 / span 2;
-        }
-
-        .cell-scores {
-            grid-area: 3 / 5 / span 2 / span 2;
-        }
-
-        .cell-arcade-games {
-            grid-area: 3 / 7 / span 2 / span 3;
-        }
     }
-
         .add-new-game-title {
             display: flex;
             flex-direction: row;
@@ -186,61 +151,34 @@
 
         }
 
+        .logout {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+        }
+
         .add-game-index {
 
-            .card-add-game {
-                min-height: 100px;
-                width: 200px;
-                height: 100px;
-                background: $colorGradient3;
-                position: absolute;
-                left: 10%;
-            }
+                .card-add-game {
+                    min-height: 100px;
+                    width: 200px;
+                    height: 100px;
+                    background: $colorGradient3;
+                    position: absolute;
+                    top: 48%;
+                    left: 10%;
+                }
 
             a {
+                display: flex;
+                align-items: center;
                 color: #fff;
             }
-        }
 
-    .game-played-admin {
-        
-        ul {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(1, 1fr);
-            gap: 10px;
-            width: 100%;
+            a:hover {
+                color: #66e6ff;
             }
-
-        li {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
         }
-
-        li .img-resize {
-            width: 8.61875rem;
-            height: 7.5rem;
-            border-radius: 0.625rem;
-            border: 1px solid var($colorGradient2);
-        }
-
-        .scrollable-list {
-            height: 300px;
-            overflow-y: scroll;
-            scrollbar-color: var($colorGradient2);
-        }
-
-        .scrollable-list li {
-            margin-bottom: 10px;
-        }
-
-        .fixed-title {
-            color: #a8a5daa9;
-            top: 0;
-            z-index: 100;
-        }
-        
     }
-}

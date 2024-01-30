@@ -21,11 +21,17 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function search(array $params, int $userId = null): array
+    public function search(array $params): array
     {
         $query = $this->createQueryBuilder('g')
             ->join('g.categories', 'c')
             ->join('g.gamesPlayed', 'gp');
+        if (empty($params['visibility'])) {
+            $query->where('g.isVisible = 1');
+        } else {
+            $query->where('g.isVisible = :visibility');
+            $query->setParameter('visibility', $params['visibility']);
+        }
 
         if (!empty($params['title'])) {
             $query
@@ -51,10 +57,10 @@ class GameRepository extends ServiceEntityRepository
         $query
             ->addSelect('SUM(gp.duration) AS totalTimePlayed');
 
-        if ($userId !== null) {
+        if (!empty($params['userId'])) {
             $query
                 ->andWhere('gp.player = :userId')
-                ->setParameter('userId', $userId)
+                ->setParameter('userId', $params['userId'])
                 ->groupBy('gp.player.id');
         }
 

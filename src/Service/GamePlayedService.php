@@ -14,7 +14,7 @@ class GamePlayedService
     public const TOKEN_PER_LEVEL = 10;
     private int $nextLevel = 0;
 
-    public function generate(Game $game, User $user): GamePlayed
+    public function generate(Game $game, User $user, string $uuid): GamePlayed
     {
         $gamePlayed = new GamePlayed();
         $faker = Factory::create();
@@ -24,6 +24,7 @@ class GamePlayedService
         $gamePlayed->setScore(rand(0, 500));
         $gamePlayed->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')));
         $gamePlayed->setDuration(rand(120, 1800));
+        $gamePlayed->setUuid($uuid);
 
         return $gamePlayed;
     }

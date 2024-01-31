@@ -35,7 +35,7 @@ class GameController extends AbstractController
             $params = $searchForm->getData();
         }
 
-        $user = null;
+        // $user = null;
         if ($this->isGranted('ROLE_USER')) {
             $params['userId'] = $security->getUser()->getId();
         }

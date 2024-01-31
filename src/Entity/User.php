@@ -37,8 +37,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $lastname = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $token = null;
+    #[ORM\Column]
+    private ?int $token = 0;
 
     #[ORM\Column(length: 16, nullable: true)]
     private ?string $phonenumber = null;
@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $adress = null;
 
-    #[ORM\Column(length: 30, nullable: true)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $city = null;
 
     #[ORM\Column(length: 5, nullable: true)]
@@ -55,11 +55,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 40)]
     private ?string $email = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $experience = null;
+    #[ORM\Column]
+    private ?int $experience = 0;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: GamePlayed::class)]
     private Collection $gamesPlayed;
+
+    #[ORM\Column]
+    private ?int $level = 0;
 
     public function __construct()
     {
@@ -265,6 +268,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $gamesPlayed->setPlayer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLevel(): ?int
+    {
+        return $this->level;
+    }
+
+    public function setLevel(int $level): static
+    {
+        $this->level = $level;
 
         return $this;
     }

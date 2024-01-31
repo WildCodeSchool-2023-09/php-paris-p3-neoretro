@@ -383,7 +383,13 @@ div.dialog-comment {
     to {transform:scale(1)}
 }
 
-//
+
+/*
+**
+** Media queries for desktop
+**
+*/
+
 
 @media screen and (min-width: $desktopWidth) {
 
@@ -392,7 +398,8 @@ div.dialog-comment {
         flex-direction: column;
         gap: 50px;
         width: 1240px;
-        height: 820px;
+        height: 900px;
+        padding: 40px 0;
         list-style: none;
         overflow: scroll;   //hidden
         scroll-behavior: smooth;
@@ -401,6 +408,7 @@ div.dialog-comment {
         &::-webkit-scrollbar {
             display: none;
         }
+        mask-image: linear-gradient(180deg, transparent 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 95%, transparent 100%);
 
         #detailed-game-one {
             grid-template-columns: repeat(2, 610px);
@@ -573,7 +581,7 @@ div.dialog-comment {
                 grid-area: 1 / 2 / 1 / 2;
 
                 div.comment-carousel {
-                    height: 699px;
+                    height: 697px;
                     margin-bottom: 16px;
 
                     div.comment {

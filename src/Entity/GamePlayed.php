@@ -33,6 +33,9 @@ class GamePlayed
     #[ORM\JoinColumn(nullable: false)]
     private ?User $player = null;
 
+    #[ORM\Column]
+    private ?string $uuid = null;
+
     public function __construct()
     {
     }
@@ -66,7 +69,6 @@ class GamePlayed
         return $this;
     }
 
-
     public function getDate(): ?\DateTimeImmutable
     {
         return $this->date;
@@ -99,6 +101,18 @@ class GamePlayed
     public function setPlayer(?User $player): static
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): static
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }

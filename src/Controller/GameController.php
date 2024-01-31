@@ -35,6 +35,7 @@ class GameController extends AbstractController
             $params = $searchForm->getData();
         }
 
+        $user = null;
         if ($this->isGranted('ROLE_USER')) {
             $params['userId'] = $security->getUser()->getId();
         }
@@ -69,7 +70,6 @@ class GameController extends AbstractController
         $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId());
 
         $userRanking = null;
-        $userGamePlayed = null;
         if ($this->isGranted('ROLE_USER')) {
             foreach ($gamesPlayed as $rank => $gamePlayed) {
                 if ($gamePlayed->getPlayer()->getId() === $user->getId()) {

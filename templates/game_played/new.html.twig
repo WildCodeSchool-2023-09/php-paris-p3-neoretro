@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} • {{ pageTitle }}{% endblock %}
+
+{% block content %}
+
+<div id="game-played" class="card full-size">
+    <div class="content">
+        <h2>{{ gamePlayed.game.title }}</h2>
+        <div id="game-played-poster">
+            <img src="{{ gamePlayed.game.poster }}">
+        </div>
+        <div id="players">
+            <p>{{ gamePlayed.player.username }}</p>
+            <p class="player-score">{{ gamePlayed.score }}</p>
+        </div>
+        <div id="player-time">
+            <img src="{{ asset('build/images/icons/clock-1.svg') }}">
+            <p>{% if (gamePlayed.duration/60)<10 %}0{% endif %}{{ (gamePlayed.duration/60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}:{% if (gamePlayed.duration%60) < 10 %}0{% endif %}{{ (gamePlayed.duration%60) }}</p>
+        </div>
+        <div id="player-experience">
+            <p>+ {{ experienceGained }} XP</p>
+        </div>
+        <p id="player-date">Le {{gamePlayed.date|date('d-m-Y à H:i')}}</p>
+        <a id="button-played-game" href="{{ path('dashboard') }}">HOME</a>
+    </div>
+</div>
+
+{% endblock %}

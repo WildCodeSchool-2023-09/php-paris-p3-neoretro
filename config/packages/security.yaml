@@ -20,6 +20,7 @@ security:
                 login_path: dashboard
                 check_path: dashboard
                 default_target_path: dashboard
+                always_use_default_target_path: false
             logout:
                 path: logout
             # https://symfony.com/doc/current/security/impersonating_user.html

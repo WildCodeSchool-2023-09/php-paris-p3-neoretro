@@ -43,6 +43,12 @@ header {
         top: 20px;
         left: 20px;
         height: 40px;
+
+        transition: transform 100ms ease-in-out;
+    
+        &:hover {
+            transform: scale(110%);
+        }
     }
 
     h1#site-name,
@@ -52,6 +58,14 @@ header {
 
     #page-title {
         font-size: 1.8rem;
+    }
+
+    h1#page-title {
+        transition: transform 200ms ease-in-out;
+    
+        &:hover {
+            transform: scale(105%);
+        }
     }
 }
 

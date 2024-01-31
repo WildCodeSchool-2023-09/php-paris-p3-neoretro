@@ -102,15 +102,6 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard/gameslist', name: 'games_list', methods: ['GET'])]
-    public function gameslist(GameRepository $gameRepository): Response
-    {
-        return $this->render('dashboard/gameslist.html.twig', [
-            'games' => $gameRepository->findAll(),
-            'pageTitle' => 'Admin Games List',
-        ]);
-    }
-
     #[Route('/newgame', name: 'new_game')]
     public function game(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
@@ -127,15 +118,14 @@ class DashboardController extends AbstractController
             $entityManager->persist($game);
             $entityManager->flush();
 
-            // $this->addFlash("Success", "The game has been added");
+            $this->addFlash("Success", "The game has been added");
 
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
-            $games = $entityManager->getRepository(Game::class)->findAll();
+            // $games = $entityManager->getRepository(Game::class)->findAll();
             return $this->render('admin/new_game.html.twig', [
                 'registrationGameForm' => $form->createView(),
                 'pageTitle' => 'Admin Add Game',
-                'games' => $games,
             ]);
     }
 

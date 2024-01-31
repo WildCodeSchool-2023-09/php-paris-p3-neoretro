@@ -5,29 +5,19 @@
 {% block content %}
 
 <div id="dashboard" class="grid">
-        
-    {# <section class="card cell-admin">
-        <div class="content">
-        {% if app.user %}
-        <h2>{{ last_username }}</h2>
-        <p><a href="{{ path('logout') }}">Logout</a>
-    {% endif %}
-
-        </div>
-    </section> #}
 
     <section class="card cell-played-admin">
         <div class="content">
             {% if is_granted('ROLE_ADMIN') %}
             {% if app.user %}
-                <div class="admin-logout">
-                        <h2>Logged as: {{ last_username }}</h2>
-                    <div>
-                        <p class="logout"><a href="{{ path('logout') }}">Logout<img class="logout" src="{{ asset('build/images/icons/logout.svg') }}" alt=""></a></p>
-                    </div>
+
+                <div class="container-logout">
+                    <h2>Logged as: {{ last_username }}</h2>
+                    <a href="{{ path('logout') }}">Logout</a>
                 </div>
+
             {% endif %}
-            <section>
+
                 <div class="nav-admin">
                         <a href="{{ path('new_game') }}"><h1>New Game</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
             
@@ -35,62 +25,10 @@
             
                         <a href="{{ path('new_game') }}"><h1>Prize's List</h1><img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon"></a>
                 </div>
-            </section>
+
             {% endif %}
-            
-</div>
-</section>
-{# 
 
-    {# <section class="card cell-high-score">
-        <div class="content">
-            <h2>High Score</h2>
-
-        </div>
-    </section> #}
-    
-    {# <section class="card cell-this-week">
-        <div class="content">
-            <h2>This week</h2>
-
-        </div>
-    </section> #}
-{# 
-    <section class="card cell-the-room">
-        <div class="content">
-            <h2>The Room</h2>
-
-        </div>
     </section>
-
-    <section class="card cell-newest-game">
-        <div class="content">
-            <h2>Newest game</h2>
-
-        </div>
-    </section>
-
-    <section class="card cell-mini-games">
-        <div class="content">
-            <h2>Mini-Games</h2>
-
-        </div>
-    </section>
-
-    <section class="card cell-scores">
-        <div class="content">
-            <h2>Scores</h2>
-
-        </div>
-    </section>
-
-    <section class="card cell-arcade-games">
-        <div class="content">
-            <h2>Arcade Games</h2>
-
-        </div>
-    </section> #}
-
 </div>
 
 {% endblock %}

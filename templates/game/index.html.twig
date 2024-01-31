@@ -29,7 +29,6 @@
             <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
         </div>
     </section>
-
 {% endif %}
 
     {% if games is not empty %}
@@ -45,7 +44,7 @@
                                         <img class="game-poster" src="{{ games[y + 6*i][0].poster }}" alt="">
                                         <h2>{{ games[y + 6*i][0].title }}</h2>
                                     </a>
-
+                                    
                                     <div class="game-infos">
                                         <div class="game-category-container">
                                             {% for category in games[y + 6*i][0].categories %}

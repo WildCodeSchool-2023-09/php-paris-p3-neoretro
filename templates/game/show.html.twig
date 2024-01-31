@@ -113,6 +113,30 @@
                                         {% elseif i == 2 %}
                                             <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
                                         {% else %}
+                                            <td class="text score-ranking">{{ i + 1 }}.</td>
+                                        {% endif %}
+                                        {% if gamesPlayed[i] is defined %}
+                                            <td class="text score-point">{{ gamesPlayed[i].score }}</td>
+                                            <td class="text player"><a href="">{{ gamesPlayed[i].player.username }}</a></td>
+                                        {% else %}
+                                            <td colspan="2">No scores available</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>  
+                                              
+                        {# <table class="first-scores">
+                            <tbody>
+                                {% for i in 0..4 %}
+                                    <tr>
+                                        {% if i == 0 %}
+                                            <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy"></td>
+                                        {% elseif i == 1 %}
+                                            <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy"></td>
+                                        {% elseif i == 2 %}
+                                            <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
+                                        {% else %}
                                             <td class="text score-ranking">{{i+1}}.</td>
                                         {% endif %}
                                         <td class="text score-point">{{ gamesPlayed[i].score }}</td>
@@ -120,7 +144,8 @@
                                     </tr>
                                 {% endfor %}
                             </tbody>
-                        </table>
+                        </table> #}
+
                         <p class="link-scores"><a href="{{ path('game_scores', {slug: game.slug}) }}">All scores</a></p>
                     </div>
                 </div>

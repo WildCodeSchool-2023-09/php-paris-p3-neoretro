@@ -6,6 +6,6 @@ vich_uploader:
 
     mappings:
        poster_file:
-            uri_prefix: /uploads/images/posters
+            uri_prefix: /images/game-posters
             upload_destination: "%upload_directory%"
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

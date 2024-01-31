@@ -28,11 +28,9 @@ class GameController extends AbstractController
         $searchForm = $this->createForm(GameSearchType::class);
 
         $searchForm->handleRequest($request);
-        
         $params = [
             'isVisible' => 1
         ];
-        
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
         }
@@ -96,7 +94,6 @@ class GameController extends AbstractController
         Security $security,
         GamePlayedRepository $gamePlayedRepository
     ): Response {
-        $user = $security->getUser();
         $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId(), 50);
 
         return $this->render('game/scores.html.twig', [

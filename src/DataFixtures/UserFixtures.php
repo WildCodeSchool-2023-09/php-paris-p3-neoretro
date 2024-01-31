@@ -5,17 +5,14 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Factory;
 use Faker\Generator as FakerGenerator;
 
 class UserFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $userPasswordHasher;
     private FakerGenerator $faker;
-    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+    public function __construct()
     {
-        $this->userPasswordHasher = $userPasswordHasher;
         $this->faker = Factory::create();
     }
 
@@ -52,9 +49,7 @@ class UserFixtures extends Fixture
 
                 ->setEmail($this->faker->email())
                 ->setPhoneNumber($this->faker->e164PhoneNumber())
-
                 ->setToken($this->faker->numberBetween(0, 200))
-
                 ->setZipcode($this->faker->regexify('[0-9]{5}'))
                 ->setAdress($this->faker->streetAddress())
                 ->setCity($this->faker->city())

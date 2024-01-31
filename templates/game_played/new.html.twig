@@ -18,7 +18,9 @@
             <img src="{{ asset('build/images/icons/clock-1.svg') }}">
             <p>{% if (gamePlayed.duration/60)<10 %}0{% endif %}{{ (gamePlayed.duration/60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}:{% if (gamePlayed.duration%60) < 10 %}0{% endif %}{{ (gamePlayed.duration%60) }}</p>
         </div>
-        
+        <div id="player-experience">
+            <p>+ {{ experienceGained }} XP</p>
+        </div>
         <p id="player-date">Le {{gamePlayed.date|date('d-m-Y à H:i')}}</p>
         <a id="button-played-game" href="{{ path('dashboard') }}">HOME</a>
     </div>

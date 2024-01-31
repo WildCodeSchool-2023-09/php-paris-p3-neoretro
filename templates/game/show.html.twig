@@ -14,35 +14,55 @@
         <li id="detailed-game-one" class="grid">
             <section class="card cell-resume">
                 <div class="content">
-                    <div class="information">
-                        <h1 class="text">{{ game.title }}</h1>
 
-                        <div class="rating">
+                    <h2 class="neon">{{ game.title }}</h2>
+                    <div class="rating">
+                        <div class="stars">
                             {% for i in 1..4 %}
                                 <img src="{{ asset('build/images/icons/star-solid.svg') }}">
                             {% endfor %}
                             <img src="{{ asset('build/images/icons/star-half-stroke-regular-1.svg') }}">
-                            <p>4.5</p>
+                        </div>
+                        <p>4.5</p>
+                    </div>
+
+                    <div class="game-show-grid">
+                        <div class="poster">
+                            <img src="{{ game.poster }}" alt="Image aléatoire">
                         </div>
 
                         <div class="category">
-
                             {% for category in game.categories %}
                                 <p>{{ category.label }}</p>
                             {% endfor %}
 
                             <div class="game-time">
                                 <img src="{{ asset('build/images/icons/clock-1.svg') }}">
-                                <p>0:34</p>
+                                <p>32:05
+                                    {# {% if is_granted('ROLE_USER') %}
+                                        {% set totalTime = game['totalTimePlayed'] %}
+                                        {% set hours = totalTime // 3600 %}
+                                        {% set minutes = (totalTime % 3600) // 60 %}
+                                        {% set seconds = totalTime % 60 %}
+
+                                        {% if hours > 0 %}
+                                            {{ hours }}h
+                                        {% endif %}
+
+                                        {% if minutes < 10 %}
+                                            0{{ minutes }}"
+                                        {% else %}
+                                            {{ minutes }}"
+                                        {% endif %}
+                                    {% else %}
+                                        —
+                                    {% endif %} #}
+                                </p>
                             </div>
                         </div>
 
                         <div class="resume">
                             <p>{{ game.description }}</p>
-                        </div>
-
-                        <div class="poster">
-                            <img src="{{ game.poster }}" alt="Image aléatoire">
                         </div>
                     </div>
                 </div>

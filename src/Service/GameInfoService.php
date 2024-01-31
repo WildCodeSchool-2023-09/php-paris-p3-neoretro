@@ -2,9 +2,10 @@
 
 namespace App\Service;
 
+use App\Entity\Game;
 use App\Repository\GamePlayedRepository;
 
-class ScoreService
+class GameInfoService
 {
     private GamePlayedRepository $gamePlayedRepository;
 
@@ -28,4 +29,10 @@ class ScoreService
 
         return $games;
     }
+
+    // public function addUserTotalTimePlayed(Game $game, int $userId): Game
+    // {
+
+    //     return $game;
+    // }
 }

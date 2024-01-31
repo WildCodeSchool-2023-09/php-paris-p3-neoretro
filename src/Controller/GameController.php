@@ -7,7 +7,7 @@ use App\Form\GameSearchType;
 use App\Repository\CategoryRepository;
 use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
-use App\Service\ScoreService;
+use App\Service\GameInfoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +24,7 @@ class GameController extends AbstractController
         Request $request,
         Security $security,
         GamePlayedRepository $gamePlayedRepository,
-        ScoreService $scoreService
+        GameInfoService $gameInfoService
     ): Response {
         $searchForm = $this->createForm(GameSearchType::class);
         $searchForm->handleRequest($request);
@@ -39,7 +39,7 @@ class GameController extends AbstractController
         }
 
         $games = $gameRepository->search($params, $userId);
-        $games = $scoreService->addUserRakings($games, $userId);
+        $games = $gameInfoService->addUserRakings($games, $userId);
 
         return $this->render('game/index.html.twig', [
             'games' => $games,

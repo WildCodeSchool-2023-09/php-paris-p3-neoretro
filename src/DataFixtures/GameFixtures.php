@@ -14,16 +14,19 @@ use function Symfony\Component\String\u;
 class GameFixtures extends Fixture implements DependentFixtureInterface
 {
     public const DATA = [
-        'SuperMetroid',
-        'Metroid',
+        'Super Metroid',
+        'Metroid 3',
         'Out Run',
         'Midnight Race',
-        'Tower Defonce',
+        'Tower Defense',
         'Pacman',
+        'Duke Nukem',
         'Renegade',
         'Tetris',
         'Space Invaders',
         'Kung-fu Master',
+        'Zombie Killers',
+        'Shooter Master',
     ];
 
     public const POSTERS = [

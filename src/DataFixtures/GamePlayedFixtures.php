@@ -31,7 +31,7 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
 
                 $gamePlayed
                     ->setPlayer($player)
-                    ->setScore(rand(10, 10000));
+                    ->setScore(rand(10, 100000));
 
                 $gamePlayed
                     ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))

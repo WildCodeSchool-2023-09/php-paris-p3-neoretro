@@ -114,6 +114,11 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    // public function findTotalGamePlayed(int $gameId, int $userId): int
+    // {
+    //     return;
+    // }
+
 //    /**
 //     * @return GamePlayed[] Returns an array of GamePlayed objects
 //     */

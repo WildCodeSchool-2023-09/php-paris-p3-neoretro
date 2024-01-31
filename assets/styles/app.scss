@@ -122,17 +122,39 @@ h1, h2, h3, p {
     text-align: center;
 }
 
-h1 {
+h1, h2, h3 {
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    &.neon {
+        background: $colorGradient4;
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
 }
 
 #site-name,
 #page-title,
-a {
+a, a h3, a h2 {
     &:hover {
         background: $colorGradient4;
         -webkit-background-clip: text;
         background-clip: text;
+    }
+}
+
+h1#page-title {
+    transition: transform 200ms ease-in-out;
+
+    &:hover {
+        transform: scale(105%);
+    }
+}
+
+img#main-logo {
+    transition: transform 100ms ease-in-out;
+
+    &:hover {
+        transform: scale(110%);
     }
 }
 

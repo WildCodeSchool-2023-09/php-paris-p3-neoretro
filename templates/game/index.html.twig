@@ -62,7 +62,6 @@
                                                     <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
                                                     <p>
                                                         {% if is_granted('ROLE_USER') %}
-                                                            {# {% if ((games[y + 6*i]['totalTimePlayed']) / 60) < 10 %}0{% endif %}{{ ((games[y + 6*i]['totalTimePlayed']) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((games[y + 6*i]['totalTimePlayed']) % 60) < 10 %}0{% endif %}{{ ((games[y + 6*i]['totalTimePlayed']) % 60) }}" #}
                                                             {% set totalTime = games[y + 6*i]['totalTimePlayed'] %}
                                                             {% set hours = totalTime // 3600 %}
                                                             {% set minutes = (totalTime % 3600) // 60 %}

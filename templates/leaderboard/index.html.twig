@@ -89,7 +89,7 @@
                 <table>
                     <tbody>
                         {% for i in 1..10 %}
-                            <tr>
+                                <tr>
                                 {% if i == 1 %}
                                     <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy"></td>
                                 {% elseif i == 2 %}
@@ -97,12 +97,14 @@
                                 {% elseif i == 3 %}
                                     <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
                                 {% else %}
-                                    <td class="text score-ranking">{{i}}.</td>
+                                    <td class="text score-ranking">{{ i }}.</td>
                                 {% endif %}
 
-                                <td class="td-player"><a href="">Jackos</a></td>
-                                <td>24'30"</td>
-                                <td class="td-score">14539</td>
+                                <td class="td-player"><a href="">{{ globalGamesPlayed[i+15].player.username }}</a></td>
+                                <td>
+                                    {% if ((globalGamesPlayed[i+15].duration) / 60) < 10 %}0{% endif %}{{ ((globalGamesPlayed[i+15].duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((globalGamesPlayed[i+15].duration) % 60) < 10 %}0{% endif %}{{ ((globalGamesPlayed[i+15].duration) % 60) }}"
+                                </td>
+                                <td class="td-score">{{ globalGamesPlayed[i+15].score - 1500 }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

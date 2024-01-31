@@ -18,11 +18,7 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create();
 
         for ($i = 1; $i <= 50; $i++) {
-            if ($i === 1) {
-                $player = $this->getReference('user_test');
-            } else {
-                $player = $this->getReference('user_' . $i);
-            }
+            $player = $this->getReference('user_' . $i);
 
             for ($j = 0; $j < rand(30, 60); $j++) {
                 $gamePlayed = new GamePlayed();
@@ -40,6 +36,8 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
                 $gamePlayed
                     ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))
                     ->setDuration(rand(120, 1200));
+
+                $gamePlayed->setUuid($faker->uuid());
 
                 $manager->persist($gamePlayed);
             }

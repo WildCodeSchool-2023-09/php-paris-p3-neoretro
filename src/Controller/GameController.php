@@ -33,7 +33,6 @@ class GameController extends AbstractController
             'isVisible' => 1
         ];
 
-        $userId = null;
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
         }
@@ -42,7 +41,7 @@ class GameController extends AbstractController
         }
 
         $games = $gameRepository->search($params);
-        $games = $scoreService->addUserRakings($games, $userId);
+        $games = $scoreService->addUserRankings($games);
 
         return $this->render('game/index.html.twig', [
             'games' => $games,

@@ -12,9 +12,13 @@ use Symfony\Component\Security\Core\Security;
 #[Route('/user', name: 'user_')]
 class UserController extends AbstractController
 {
-    #[Route('/', name: 'index')]
-    public function index(): Response
+    #[Route('/', name: 'profile')]
+    public function profile(): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('dashboard');
+        }
+
         return $this->render('user/index.html.twig', [
             'pageTitle' => 'My profile'
         ]);

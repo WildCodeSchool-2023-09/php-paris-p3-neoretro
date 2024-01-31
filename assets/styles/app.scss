@@ -139,6 +139,18 @@ a, a h3, a h2 {
         background: $colorGradient4;
         -webkit-background-clip: text;
         background-clip: text;
+
+        transform: scale(102%);
+    }
+
+    transition: ease-in-out 100ms;
+}
+
+button {
+    transition: ease-in-out 100ms;
+
+    &:hover {
+        transform: scale(102%);
     }
 }
 

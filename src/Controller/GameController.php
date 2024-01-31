@@ -7,6 +7,7 @@ use App\Form\GameSearchType;
 use App\Repository\CategoryRepository;
 use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
+use App\Service\ScoreService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,41 +24,29 @@ class GameController extends AbstractController
         CategoryRepository $categoryRepository,
         Request $request,
         Security $security,
-        GamePlayedRepository $gamePlayedRepository
+        GamePlayedRepository $gamePlayedRepository,
+        ScoreService $scoreService
     ): Response {
         $searchForm = $this->createForm(GameSearchType::class);
-
         $searchForm->handleRequest($request);
         $params = [
             'isVisible' => 1
         ];
+
+        $userId = null;
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
         }
-
-        // $user = null;
         if ($this->isGranted('ROLE_USER')) {
             $params['userId'] = $security->getUser()->getId();
         }
 
         $games = $gameRepository->search($params);
-
-        if ($this->isGranted('ROLE_USER')) {
-            foreach ($games as $gameIndex => $game) {
-                $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game[0]->getId());
-
-                foreach ($gamesPlayed as $rank => $gamePlayed) {
-                    if ($gamePlayed->getPlayer()->getId() === $params['userId']) {
-                        $games[$gameIndex]['userRanking'] = $rank + 1;
-                    }
-                }
-            }
-        }
+        $games = $scoreService->addUserRakings($games, $userId);
 
         return $this->render('game/index.html.twig', [
             'games' => $games,
             'pageTitle' => 'Games',
-            'params' => $params,
             'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
         ]);
@@ -70,6 +59,8 @@ class GameController extends AbstractController
         $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId());
 
         $userRanking = null;
+        $userGamePlayed = null;
+
         if ($this->isGranted('ROLE_USER')) {
             foreach ($gamesPlayed as $rank => $gamePlayed) {
                 if ($gamePlayed->getPlayer()->getId() === $user->getId()) {

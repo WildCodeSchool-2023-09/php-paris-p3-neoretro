@@ -39,6 +39,7 @@ Encore
     .addEntry('carouselDetailedGame', './assets/scripts/carouselDetailedGame.js')
     .addEntry('carouselGames', './assets/scripts/carouselGames.js')
     .addEntry('toggleGame', './assets/scripts/toggleGame.js')
+    .addEntry('login', './assets/scripts/login.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

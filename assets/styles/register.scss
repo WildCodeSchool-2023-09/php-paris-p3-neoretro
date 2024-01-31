@@ -1,10 +1,5 @@
 @import "_variables";
 
-.button-parent-register {
-	display: flex;
-	justify-content: center;
-}
-
 #register_button_submit {
     border-radius: $borderRadiusMedium;
     border: 0.5px $colorGradient1;
@@ -124,6 +119,13 @@ form {
 
 				color: white;
 				font-size: large;
+
+				&:hover {
+					border: 1px solid #06CCF8;
+				}
+				&:focus-visible {
+					outline: none;
+				}
 			}
 		}
 		.button-parent-register {

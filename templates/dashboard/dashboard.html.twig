@@ -2,6 +2,11 @@
 
 {% block title %}{{ parent() }} • Dashboard{% endblock %}
 
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('login') }}
+{% endblock javascript %}
+
 {% block content %}
 
     <div id="dashboard" class="grid">
@@ -57,16 +62,18 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        <div id="no-games-played">
+                        <div id="no-game-played">
                             <p>
                                 Come and play our amazing games !
                             </p>
                         </div>
                     {% endif %}
                 {% else %}
-                    <p>
-                        Come and play our amazing games !
-                    </p>
+                    <div id="no-game-played">
+                        <p>
+                            Come and play our amazing games !
+                        </p>
+                    </div>
                 {% endif %}
             </div>
         </section>
@@ -107,7 +114,8 @@
                 {% else %}
                     <div class="container">
                         <p>
-                            Come and play our amazing arcade games!
+                            ACCESS DENIED...<br>
+                            //$>??#!//
                         </p>
                     </div>
                 {% endif %}
@@ -222,7 +230,6 @@
                 </div>
             </div>
         </section>
-
     </div>
 
 {% endblock %}

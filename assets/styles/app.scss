@@ -51,7 +51,6 @@ table {
 
 .card {
     min-height: 160px;
-    overflow: hidden;
 
     position: relative;
 
@@ -63,6 +62,8 @@ table {
 
     background: $colorGradient1;
     box-shadow: $shadow;
+
+    transition: 200ms ease-in-out;
 
     // Adding gradient to top and bottom borders
     &::before {
@@ -79,6 +80,11 @@ table {
         border-width: 2px;
         border-style: solid none solid none;
         border-image: $colorGradient4 1;
+    }
+
+    &:hover {
+        background-color: #0982cd;
+        transform: scale(102%);
     }
 
     .content {
@@ -120,6 +126,22 @@ h1 {
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+#site-name,
+#page-title,
+a {
+    &:hover {
+        background: $colorGradient4;
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+}
+
+h2:hover {
+    background: $colorGradient6;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
 .michroma {
     background: $colorGradient6;
     -webkit-background-clip: text;
@@ -127,4 +149,8 @@ h1 {
     color: transparent;
     
     font-family: 'Michroma';
+}
+
+form input:hover {
+    border: 1px solid #0982cd;
 }

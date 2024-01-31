@@ -64,6 +64,8 @@ class GameRepository extends ServiceEntityRepository
             ->groupBy('g.id')
             ->addOrderBy('g.id', 'DESC');
 
-        return $query->getQuery()->getResult();
+        $games = $query->getQuery()->getResult();
+
+        return $games;
     }
 }

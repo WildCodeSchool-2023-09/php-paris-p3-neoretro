@@ -1,6 +1,6 @@
 @import "_variables";
 
-ul.carousel {
+ul.carousel#game-show-carousel {
 
     #detailed-game-one {
 
@@ -383,40 +383,17 @@ div.dialog-comment {
     to {transform:scale(1)}
 }
 
-
-/*
-**
-** Media queries for desktop
-**
-*/
-
+//
 
 @media screen and (min-width: $desktopWidth) {
 
-    ul.carousel {
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        width: 1240px;
-        height: 900px;
-        padding: 40px 0;
-        list-style: none;
-        overflow: scroll;   //hidden
-        scroll-behavior: smooth;
-        scroll-snap-type: y mandatory;
-        scrollbar-width: none;
-        &::-webkit-scrollbar {
-            display: none;
-        }
-        mask-image: linear-gradient(180deg, transparent 0%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 95%, transparent 100%);
+    ul.carousel#game-show-carousel {
 
         #detailed-game-one {
             grid-template-columns: repeat(2, 610px);
             grid-template-rows: repeat(2, 400px);
             flex: 1 0 100%;
             scroll-snap-align: center;
-
-            // grid-area : y / x / y / x
 
             .cell-resume {
                 grid-area: 1 / 1 / span 1 / 3;

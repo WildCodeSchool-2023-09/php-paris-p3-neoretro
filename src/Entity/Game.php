@@ -2,12 +2,19 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
+use App\Entity\Category;
 use App\Repository\GameRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 class Game
 {
@@ -19,8 +26,18 @@ class Game
     #[ORM\Column(length: 100)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
+
+    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
+    #[Assert\File(
+        maxSize: '2M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    )]
+    private ?File $posterFile = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?DateTimeInterface $updateAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
@@ -28,10 +45,13 @@ class Game
     #[ORM\Column]
     private ?bool $isVirtual = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isVisible = null;
+
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Picture::class, orphanRemoval: true)]
     private Collection $pictures;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'games')]
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'games')]
     private Collection $categories;
 
     #[ORM\Column(length: 255)]
@@ -69,7 +89,7 @@ class Game
         return $this->poster;
     }
 
-    public function setPoster(string $poster): static
+    public function setPoster(?string $poster): static
     {
         $this->poster = $poster;
 
@@ -96,6 +116,18 @@ class Game
     public function setIsVirtual(bool $isVirtual): static
     {
         $this->isVirtual = $isVirtual;
+
+        return $this;
+    }
+
+    public function isIsVisible(): ?bool
+    {
+        return $this->isVisible;
+    }
+
+    public function setIsVisible(bool $isVisible): static
+    {
+        $this->isVisible = $isVisible;
 
         return $this;
     }
@@ -165,6 +197,32 @@ class Game
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
+    }
+
+    public function setPosterFile(File $image = null): Game
+    {
+        $this->posterFile = $image;
+        if ($image) {
+            $this->updateAt = new DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdateAt(): ?DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?DateTimeInterface $updateAt): static
+    {
+        $this->updateAt = $updateAt;
 
         return $this;
     }

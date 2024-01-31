@@ -1,0 +1,184 @@
+@import "_variables";
+
+    .add-new-game-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        font-size: 1.625rem;
+    }
+    .add-new-game-icon {
+        display: flex; 
+        align-items: center;
+    }
+
+    .add-new-game-icon img {
+        padding-left: 10px;
+    }
+
+    .nav-admin {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 25%;
+        flex-direction: column;
+
+        a {
+            text-align: center;
+            border: 2px solid #06CCF8;
+            border-radius: $borderRadiusLarge;
+            background: $colorGradient1;
+
+            min-width: 95%;
+            margin: 0 10px 10px;
+            padding: 10px 14px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        h1, img {
+            padding-left: 20px;
+        }
+
+        h1:hover {
+            color: #008eab;
+        }
+    }
+
+    .admin-logout {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 1.2rem;
+
+        .logout {
+            font-size: 2rem;
+        }
+    }
+
+    .add-game-index {
+
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10%;
+        margin-bottom: 10%;
+
+        .card-add-game {
+            min-height: 100px;
+            width: 200px;
+            height: 100px;
+            background: $colorGradient3;
+            top: 10%;
+        }
+        
+    a {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color: #fff;
+    }
+
+    a:hover {
+        color: #66e6ff;
+    }
+}
+
+@media screen and (min-width: $desktopWidth) {
+
+    #dashboard {
+        grid-template-columns: repeat(9, 120px);
+        grid-template-rows: repeat(4, 190px);
+
+        .cell-played-admin {
+            grid-area: 1 / 1 / span 3 / 10;
+        }
+        
+    }
+        .add-new-game-title {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            font-size: 1.625rem;
+
+            .add-new-game-icon {
+                display: flex; 
+                align-items: center;
+            }
+
+            .add-new-game-icon img {
+                padding-left: 10px;
+            }
+        }
+
+        .nav-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            margin-top: 10rem;
+
+            a {
+                display: flex;
+                border: 2px solid #06CCF8;
+                border-radius: $borderRadiusLarge;
+                background: $colorGradient1;
+                padding: 10px;
+                margin: 0;
+                min-width: 150px;
+                min-height: 50px;
+
+                margin: 0 10px 10px;
+                padding: 10px 14px;
+            }
+
+            h1 {
+                font-size: 2rem;
+                color: #fff;
+            }
+
+            h1, img {
+                padding-left: 20px;
+            }
+
+            h1:hover {
+                color: #008eab;
+            }
+
+        }
+
+        .logout {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+        }
+
+        .add-game-index {
+
+                .card-add-game {
+                    min-height: 100px;
+                    width: 200px;
+                    height: 100px;
+                    background: $colorGradient3;
+                    position: absolute;
+                    top: 48%;
+                    left: 10%;
+                }
+
+            a {
+                display: flex;
+                align-items: center;
+                color: #fff;
+            }
+
+            a:hover {
+                color: #66e6ff;
+            }
+        }
+    }

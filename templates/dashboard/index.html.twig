@@ -1,0 +1,7 @@
+{% if is_granted('ROLE_USER') %}
+    {% include 'dashboard/user.html.twig' %}
+{% elseif is_granted('ROLE_ADMIN') %}
+    {% include 'dashboard/admin.html.twig' %}
+{% else %}
+    {% include 'dashboard/guest.html.twig' %}
+{% endif %}

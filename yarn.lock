@@ -1138,6 +1138,9 @@
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
 
+"@symfony/ux-dropzone@file:vendor/symfony/ux-dropzone/assets":
+  version "1.1.0"
+
 "@symfony/ux-turbo@file:vendor/symfony/ux-turbo/assets":
   version "0.1.0"
 

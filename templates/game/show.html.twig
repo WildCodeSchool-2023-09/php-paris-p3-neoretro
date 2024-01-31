@@ -16,7 +16,9 @@
                 <div class="content">
                     <div class="information">
                         <h1 class="text">{{ game.title }}</h1>
-
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path("edit_game", { slug: game.slug }) }}"><img src="{{ asset('build/images/icons/edit-icon.png') }}"></a>
+                        {% endif %}
                         <div class="rating">
                             {% for i in 1..4 %}
                                 <img src="{{ asset('build/images/icons/star-solid.svg') }}">
@@ -42,7 +44,7 @@
                         </div>
 
                         <div class="poster">
-                            <img src="{{ game.poster }}" alt="Image aléatoire">
+                            <img src="{{ vich_uploader_asset(game) }}" alt="Image aléatoire" poster>
                         </div>
                     </div>
                 </div>
@@ -56,11 +58,23 @@
                             {% if game.pictures[i*4] is defined %}
                                 <li class="pictures">
 
-                                    {% for y in 0..3 %}
+                                    {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                                        {% if game.pictures[i*4] is defined %}
+                                            <li class="pictures">
+                                                {% for y in 0..3 %}
+                                                    {% if game.pictures[y + (4*i)] is defined %}
+                                                        <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {# {% for y in 0..3 %}
                                         {% if game.pictures[y + (4*i)] is defined %}
                                             <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
                                         {% endif %}
-                                    {% endfor %}
+                                    {% endfor %} #}
 
                                 </li>
                             {% endif %}
@@ -105,6 +119,30 @@
                                         {% elseif i == 2 %}
                                             <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
                                         {% else %}
+                                            <td class="text score-ranking">{{ i + 1 }}.</td>
+                                        {% endif %}
+                                        {% if gamesPlayed[i] is defined %}
+                                            <td class="text score-point">{{ gamesPlayed[i].score }}</td>
+                                            <td class="text player"><a href="">{{ gamesPlayed[i].player.username }}</a></td>
+                                        {% else %}
+                                            <td colspan="2">No scores available</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>  
+                                              
+                        {# <table class="first-scores">
+                            <tbody>
+                                {% for i in 0..4 %}
+                                    <tr>
+                                        {% if i == 0 %}
+                                            <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy"></td>
+                                        {% elseif i == 1 %}
+                                            <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy"></td>
+                                        {% elseif i == 2 %}
+                                            <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
+                                        {% else %}
                                             <td class="text score-ranking">{{i+1}}.</td>
                                         {% endif %}
                                         <td class="text score-point">{{ gamesPlayed[i].score }}</td>
@@ -112,7 +150,8 @@
                                     </tr>
                                 {% endfor %}
                             </tbody>
-                        </table>
+                        </table> #}
+
                         <p class="link-scores"><a href="{{ path('game_scores', {slug: game.slug}) }}">All scores</a></p>
                     </div>
                 </div>

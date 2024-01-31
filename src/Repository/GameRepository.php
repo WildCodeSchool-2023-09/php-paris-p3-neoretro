@@ -21,16 +21,16 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function search(array $params, int $userId = null): array
+    public function search(array $params): array
     {
         $query = $this->createQueryBuilder('g')
-            ->join('g.categories', 'c')
-            ->join('g.gamesPlayed', 'gp');
+            ->leftJoin('g.gamesPlayed', 'gp')
+            ->where('g.isVisible = :isVisible')
+            ->setParameter('isVisible', $params['isVisible']);
 
         if (!empty($params['title'])) {
-            $query
-                ->where('g.title LIKE :title')
-                ->setParameter('title', '%' . $params['title'] . '%');
+            $query->where('g.title LIKE :title')
+                  ->setParameter('title', '%' . $params['title'] . '%');
         }
 
         if (!empty($params['categories']) && !$params['categories']->isEmpty()) {
@@ -41,6 +41,8 @@ class GameRepository extends ServiceEntityRepository
             }
 
             $categoryQuery = implode(' OR ', $categoryQueries);
+
+            $query->join('g.categories', 'c');
             $query->andWhere($categoryQuery);
         }
 
@@ -51,16 +53,16 @@ class GameRepository extends ServiceEntityRepository
         $query
             ->addSelect('SUM(gp.duration) AS totalTimePlayed');
 
-        if ($userId !== null) {
+        if (!empty($params['userId'])) {
             $query
                 ->andWhere('gp.player = :userId')
-                ->setParameter('userId', $userId)
+                ->setParameter('userId', $params['userId'])
                 ->groupBy('gp.player.id');
         }
 
         $query
             ->groupBy('g.id')
-            ->addOrderBy('g.id', 'ASC');
+            ->addOrderBy('g.id', 'DESC');
 
         $games = $query->getQuery()->getResult();
 

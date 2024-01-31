@@ -1,0 +1,24 @@
+
+    <div class="form-add-game">
+        {{ form_errors(registrationGameForm) }}
+        {{ form_start(registrationGameForm) }}
+        {{ form_row(registrationGameForm.title) }}
+        {{ form_row(registrationGameForm.posterFile, {'attr': {'class': 'custom-file-upload'}}) }}
+        {{ form_row(registrationGameForm.categories) }}
+        {{ form_row(registrationGameForm.description, {'attr': {'class': 'description'}}) }}
+    </div>
+<div class="form-add-game-suite">
+    <div class="checked-flex">
+        <p>Is this game virtual? {{ form_row(registrationGameForm.isVirtual, {'attr': {'class': 'switch'}}) }}</p>
+    </div>
+    <div class="checked-flex">
+        <p>Do you want to make this game visible?{{ form_row(registrationGameForm.isVisible, {'attr': {'class': 'switch'}}) }}</p>
+    </div>
+        <div class="btn-savegame-flex">
+            <button type="submit" class="btn-savegame">Save Game</button>
+        </div>        
+    </div>
+</div>
+    {{ form_end(registrationGameForm) }}
+
+

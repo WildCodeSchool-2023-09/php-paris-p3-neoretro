@@ -13,7 +13,7 @@ class ScoreService
         $this->gamePlayedRepository = $gamePlayedRepository;
     }
 
-    public function addUserRakings(array $games, int $userId = null): array
+    public function addUserRankings(array $games, int $userId = null): array
     {
         if (!is_null($userId)) {
             foreach ($games as $gameIndex => $game) {

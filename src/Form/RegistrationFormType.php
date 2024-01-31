@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Game;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\AbstractType;
@@ -19,16 +20,17 @@ class RegistrationFormType extends AbstractType
     {
         $builder
         ->add('firstname', TextType::class, [
+            'attr' => ['placeholder' => 'firstname'],
             'constraints' => [
                 new NotBlank([
-                    'message' => 'Please enter your first name',
-                ]),
+                    'message' => 'Please enter your first name',]),
                 new Length([
                     'min' => 2,
                     'max' => 100,
                     'minMessage' => 'Your first name should be at least {{ limit }} characters',
                     'maxMessage' => 'Your first name should not be longer than {{ limit }} characters',]),],])
         ->add('lastname', TextType::class, [
+            'attr' => ['placeholder' => 'lastname'],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your last name',
@@ -39,6 +41,7 @@ class RegistrationFormType extends AbstractType
                     'minMessage' => 'Your last name should be at least {{ limit }} characters',
                     'maxMessage' => 'Your last name should not be longer than {{ limit }} characters',]),],])
         ->add('email', EmailType::class, [
+            'attr' => ['placeholder' => 'email'],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter your email address',
@@ -46,10 +49,9 @@ class RegistrationFormType extends AbstractType
                 new Email([
                     'message' => 'Please enter a valid email address',]),],])
         ->add('username', TextType::class, [
+            'attr' => ['placeholder' => 'username'],
             'constraints' => [
-                new NotBlank([
-                    'message' => 'Please enter a username',
-                ]),
+                new NotBlank(['message' => 'Please enter a username',]),
                 new Length([
                     'min' => 3,
                     'max' => 180,
@@ -74,7 +76,7 @@ class RegistrationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => User::class, Game::class
         ]);
     }
 }

@@ -6,11 +6,30 @@
     {{ parent() }}
     {{ encore_entry_script_tags('carouselGames') }}
     {{ encore_entry_script_tags('searchbar') }}
+    
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ encore_entry_script_tags('toggleGame') }}
+    {% endif %}
 {% endblock javascript %}
 
 {% block content %}
 
-    {% include 'components/_searchbar.html.twig' %}
+{% include 'components/_searchbar.html.twig' %}
+
+{% if is_granted('ROLE_ADMIN') %}
+    <div class="container-toggle">
+        <div class="toggle-flex">
+            <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
+            <p>In-Stock / Arcades room</p>
+        </div>
+    </div>
+    <section>
+        <div class="add-game-index">
+            <a href="{{ path('new_game') }}" class="card card-add-game"><h1>New Game</h1>
+            <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+        </div>
+    </section>
+{% endif %}
 
     {% if games is not empty %}
 
@@ -25,7 +44,7 @@
                                         <img class="game-poster" src="{{ games[y + 6*i][0].poster }}" alt="">
                                         <h2>{{ games[y + 6*i][0].title }}</h2>
                                     </a>
-
+                                    
                                     <div class="game-infos">
                                         <div class="game-category-container">
                                             {% for category in games[y + 6*i][0].categories %}

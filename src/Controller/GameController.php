@@ -9,6 +9,7 @@ use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
 use App\Service\ScoreService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,18 +29,19 @@ class GameController extends AbstractController
     ): Response {
         $searchForm = $this->createForm(GameSearchType::class);
         $searchForm->handleRequest($request);
+        $params = [
+            'isVisible' => 1
+        ];
 
-        $params = [];
-        $userId = null;
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
         }
         if ($this->isGranted('ROLE_USER')) {
-            $userId = $security->getUser()->getId();
+            $params['userId'] = $security->getUser()->getId();
         }
 
-        $games = $gameRepository->search($params, $userId);
-        $games = $scoreService->addUserRakings($games, $userId);
+        $games = $gameRepository->search($params);
+        $games = $scoreService->addUserRankings($games);
 
         return $this->render('game/index.html.twig', [
             'games' => $games,

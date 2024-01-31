@@ -18,10 +18,16 @@
         width: 100%;
         justify-content: space-between;
         padding: 0 1rem;
-
+        
         background-color: #DEE8F4CC;
         border: 1px solid #020051;
         border-radius: 1.5rem;
+
+        transition: ease-in-out 200ms;
+        
+        &:hover {
+            transform: scale(105%);
+        }
     }
 
     #search-primary {

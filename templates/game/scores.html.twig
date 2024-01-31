@@ -27,7 +27,7 @@
                                 <td>
                                     {% if ((gamePlayed.duration) / 60) < 10 %}0{% endif %}{{ ((gamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((gamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((gamePlayed.duration) % 60) }}"
                                 </td>
-                                <td>{{ gamePlayed.date|date('Y m d') }}</td>
+                                <td class="game-played-date">{{ gamePlayed.date|date('Y m d') }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

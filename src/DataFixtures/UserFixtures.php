@@ -21,18 +21,26 @@ class UserFixtures extends Fixture
         for ($i = 1; $i <= 50; $i++) {
             $user = new User();
 
-            if ($i === 1) {
-                $user
-                    ->setUsername('admin')
-                    ->setPassword('admin')
-                    ->setRoles(['ROLE_ADMIN'])
-                    ->setToken($this->faker->numberBetween(1000, 9999));
-            } else {
-                $user
-                    ->setUsername($this->faker->userName())
-                    ->setPassword('pass1234')
-                    ->setRoles(['ROLE_USER'])
-                    ->setToken($this->faker->numberBetween(0, 200));
+            switch ($i) {
+                case 1:
+                    $user
+                        ->setUsername('admin')
+                        ->setPassword($this->userPasswordHasher->hashPassword($user, 'admin'))
+                        ->setRoles(['ROLE_ADMIN']);
+                    break;
+                case 2:
+                    $user
+                        ->setUsername('user')
+                        ->setPassword($this->userPasswordHasher->hashPassword($user, 'user'))
+                        ->setRoles(['ROLE_USER']);
+                    break;
+                default:
+                    $user
+                        ->setUsername($this->faker->userName())
+                        // ->setPassword($this->userPasswordHasher->hashPassword($user, 'pass1234'))
+                        ->setPassword('pass1234')
+                        ->setRoles(['ROLE_USER']);
+                    break;
             }
 
             $user
@@ -41,7 +49,7 @@ class UserFixtures extends Fixture
 
                 ->setEmail($this->faker->email())
                 ->setPhoneNumber($this->faker->e164PhoneNumber())
-
+                ->setToken($this->faker->numberBetween(0, 200))
                 ->setZipcode($this->faker->regexify('[0-9]{5}'))
                 ->setAdress($this->faker->streetAddress())
                 ->setCity($this->faker->city())

@@ -66,9 +66,8 @@ nav#main-nav {
         border-style: none solid none none;
         border-radius: 0 0 20px 0;
     
-        background:
-            $colorGradientNavDesktop;
-            
+        background: $colorGradientNavDesktop;
+
         // Adding gradient to right border
         &::before {
             height: calc(100% - 20px);
@@ -83,12 +82,12 @@ nav#main-nav {
         
         ul {
             height: clamp(300px, 50%, 1000px);
-            margin-top: 10vh;
+            margin-top: 16vh;
 
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            gap: 64px;
+            gap: 4rem;
         }
     }
 }

@@ -10,7 +10,7 @@
                 <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
             {% endfor %}
             {{ form_errors(registrationForm) }}
-            {{ form_start(registrationForm) }}
+            {{ form_start(registrationForm, {'attr': {'id': 'registerForm'}}) }}
                 {{ form_row(registrationForm.firstname) }}
                 {{ form_row(registrationForm.lastname) }}
                 {{ form_row(registrationForm.username) }}

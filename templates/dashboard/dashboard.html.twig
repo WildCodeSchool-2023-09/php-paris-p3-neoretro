@@ -1,0 +1,235 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} • Dashboard{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('login') }}
+{% endblock javascript %}
+
+{% block content %}
+
+    <div id="dashboard" class="grid">
+
+        {% if is_granted('ROLE_USER') %}
+            <section class="card cell-profile">
+                <div class="content">
+                    <h2>{{ last_username }}</h2>
+                    <div class="container">
+                        <a href=""><img src="{{ asset('build/images/icons/user-xp.svg') }}" alt="{{ last_username }}"></a>
+                        <ul>
+                            <li>LVL 12</li>
+                            <li>148 XP</li>
+                        </ul>
+                        <a id="log-out" href="{{ path('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </section>
+        {% else %}
+            <section class="card cell-sign-in">
+                <div class="content">
+                    <h2>Sign In</h2>
+                    <div class="container">
+                        {% include 'login/login.html.twig' %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    
+        <section class="card cell-played">
+            <div class="content">
+                <h2>Recently Played</h2>
+
+                {% if is_granted('ROLE_USER') %}
+                    {% if lastGamesPlayed is not empty %}
+                        <div class="container">
+                            {% for lastGamePlayed in lastGamesPlayed %}
+                                <div class="recently-played-game">
+                                    <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">
+                                        <img class="game-poster" src="{{ lastGamePlayed.game.poster }}" alt="Game poster">
+                                    </a>
+
+                                    <ul>
+                                        <li>
+                                        <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">{{ lastGamePlayed.game.title }}</a>
+                                        </li>
+                                        <li>{{ lastGamePlayed.score }}</li>
+                                        <li>
+                                            {% if ((lastGamePlayed.duration)/60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((lastGamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) % 60) }}"
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div id="no-game-played">
+                            <p>
+                                Come and play our amazing games !
+                            </p>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div id="no-game-played">
+                        <p>
+                            Come and play our amazing games !
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    
+        <section class="card cell-high-score">
+            <div class="content">
+                <h2>High Score</h2>
+
+                {% if is_granted('ROLE_USER') %}
+                    {% if bestGamesPlayed is not empty %}
+                        <div class="container">
+                            <h3>
+                                <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}">
+                                    {{ bestGamesPlayed[0].game.title }}
+                                </a>
+                            </h3>
+
+                            <div>
+                                <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}"><img class="game-poster" src="{{ bestGamesPlayed[0].game.poster }}" alt="Game poster"></a>
+                                <ul>
+                                    <li>
+                                        {{ bestGamesPlayed[0].score }}
+                                    </li>
+                                    
+                                    <li>
+                                        {% if ((bestGamesPlayed[0].duration)/60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((bestGamesPlayed[0].duration) % 60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) % 60) }}"
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="container">
+                            <p>
+                                No high score yet!
+                            </p>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="container">
+                        <p>
+                            ACCESS DENIED...<br>
+                            //$>??#!//
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+        
+        <section class="card cell-this-week">
+            <div class="content">
+                <h2>This week</h2>
+
+                <ul>
+                    <li>
+                        Out Run  game got updated with new levels!
+                    </li>
+                    <li>
+                        New goodies available in the store!
+                    </li>
+                    <li>
+                        Today is Metroid's 34 anniversary!
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card cell-the-room">
+            <div class="content">
+                <h2>The Room</h2>
+                    <div class="container">
+                        <div class="room-info">
+                            <img src="{{ asset('build/images/icons/joystick.svg') }}" alt="joystick icon">
+                            <p>
+                                8 classic games revisited 24 NeoRetro™ stations
+                            </p>
+                        </div>
+                        <div class="room-info">
+                            <p class="text-end">
+                                Connect with your QR code!
+                            </p>
+                            <img src="{{ asset('build/images/icons/qr-code.svg') }}" alt="qr code icon">
+                        </div>
+                        <div class="room-info">
+                            <img src="{{ asset('build/images/icons/portal-enter.svg') }}" alt="portal enter icon">
+                            <p>
+                                42 rue du Salusava 93666 Saint-2ni
+                            </p>
+                        </div>
+                        <div class="room-info" id="more-details">
+                            <a href="">More details...</a>
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+        {# <section class="card cell-your-friends">
+            <div class="content">
+                <h2>Your friends</h2>
+
+            </div>
+        </section> #}
+
+        <section class="card cell-newest-game">
+            <div class="content">
+                <h2>Newest game</h2>
+
+                <a href="{{ path('game_show', {slug: games[0].slug}) }}">
+                    <img class="game-poster" src="{{ games[0].poster }}" alt="{{ games[0].title }}">
+                    <h3>{{ games[0].title }}</h3>
+                </a>
+            </div>
+        </section>
+
+        <section class="card cell-mini-games">
+            <div class="content">
+                <h2>Mini-Games</h2>
+                <div class="container">
+                    <p>
+                        Coming soon...
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card cell-scores">
+            <div class="content">
+                <h2>Scores</h2>
+
+                    <table>
+                        <tbody>
+                            {% for bestGamePlayed in bestGamesPlayed %}
+                                <tr>
+                                    <td class="text">{{ loop.index }}.</td>
+                                    <td class="text"><a href="{{ path('game_show', {slug: bestGamePlayed.game.slug}) }}">{{ bestGamePlayed.game.title }}</a></td>
+                                    <td class="text">{{ bestGamePlayed.score }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </section>
+
+        <section class="card cell-arcade-games">
+            <div class="content">
+                <h2>Arcade Games</h2>
+
+                <div id="games-grid">
+                    {% for i in 1..4 %}
+                        <a href="{{ path('game_show', {slug: games[i].slug}) }}">
+                            <img class="game-poster" src="{{ games[i].poster }}" alt="{{ games[i].title }}">
+                            <h3>{{ games[i].title }}</h3>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

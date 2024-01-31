@@ -1,0 +1,80 @@
+@import "_variables";
+
+#carousel-games {
+    .games {
+    
+        h2 {
+            font-size: 1.75rem;
+        }
+    
+        .game-poster {
+            display: block;
+            width: 15rem;
+            height: 13.125rem;
+            margin: 8px auto 12px;
+            border: 1px solid #06CCF8;
+            border-radius: 0.6rem;
+        }
+    
+        .game-infos {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 1rem;
+    
+            .game-category-container, .game-stats {
+                margin-top: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+    
+                .game-highest-score, .game-time-spent {
+                    display: flex;
+                    height: 25px;
+                }
+    
+                img {
+                    height: 25px;
+                    position: relative;
+                    left: -10%;
+                }
+                p {
+                    display: inline-block;
+                    width: 100%;
+                    margin: auto 0;
+                    height: fit-content;
+                    text-align: center;
+                }
+    
+                .game-category {
+                    text-align: center;
+                    font-size: 1.25rem;
+                }
+            }
+    
+            .game-stats {
+                flex-basis: 40%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $desktopWidth) {
+
+    #carousel-games {
+        margin-top: 50px;
+
+        .games {
+            grid-template-columns: repeat(3, 400px);
+            grid-template-rows: repeat(2, 400px);
+    
+            flex: 1 0 100%;
+            scroll-snap-align: center;
+        }
+    }
+
+    #slider-games {
+        margin-top: 50px;
+    }
+}

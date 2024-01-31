@@ -54,13 +54,16 @@ class GameRepository extends ServiceEntityRepository
         if ($userId !== null) {
             $query
                 ->andWhere('gp.player = :userId')
-                ->setParameter('userId', $userId);
+                ->setParameter('userId', $userId)
+                ->groupBy('gp.player.id');
         }
 
         $query
             ->groupBy('g.id')
             ->addOrderBy('g.id', 'ASC');
 
-        return $query->getQuery()->getResult();
+        $games = $query->getQuery()->getResult();
+
+        return $games;
     }
 }

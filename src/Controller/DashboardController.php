@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\RegistrationFormType;
 use App\Repository\GamePlayedRepository;
+use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,29 +22,33 @@ class DashboardController extends AbstractController
     public function index(
         AuthenticationUtils $authenticationUtils,
         Security $security,
-        GamePlayedRepository $gamePlayedRepository
+        GamePlayedRepository $gamePlayedRepository,
+        GameRepository $gameRepository
     ): Response {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
         $user = $security->getUser();
 
-        $bestGamesPlayed = [];
-        $lastGamesPlayed = [];
+        $games = $gameRepository->findBy([], ['id' => 'DESC'], 5);
+
         if ($this->isGranted('ROLE_USER')) {
-            $bestGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());
+            $bestGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 8);
             $lastGamesPlayed = $gamePlayedRepository->findBy(
                 ['player' => $user->getId()],
                 ['id' => 'DESC'],
                 3
             );
+        } else {
+            $lastGamesPlayed = [];
+            $bestGamesPlayed = $gamePlayedRepository->findGlobalBestGameScores();
         }
 
-        return $this->render('dashboard/index.html.twig', [
+        return $this->render('dashboard/dashboard.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
-            'user' => $user,
             'bestGamesPlayed' => $bestGamesPlayed,
             'lastGamesPlayed' => $lastGamesPlayed,
+            'games' => $games
         ]);
     }
 

@@ -46,6 +46,7 @@
 
     .scroll {
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     
         &::-webkit-scrollbar {
             width: 10px;
@@ -66,13 +67,14 @@
         height: 400px;
     }
 
-    ul#carousel {
+    ul.carousel {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 50px;
 
-        width: 1240px;
-        height: calc(820px + 80px);
+        width: calc(1240px + 16px);
+        height: calc(820px + 2*40px);
         padding: 40px 0;
 
         list-style: none;
@@ -86,7 +88,7 @@
             display: none;
         }
 
-        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 95%, transparent 100%);
+        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 2%, rgba(0, 0, 0, 1) 98%, transparent 100%);
 
     }
 

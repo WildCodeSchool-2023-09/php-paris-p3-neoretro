@@ -14,7 +14,7 @@
 
     {% if games is not empty %}
 
-        <ul id="carousel" class="carousel-games">
+        <ul class="carousel" id="carousel-games">
             {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
                 <li class="games grid full-size">
                     {% for y in 0..5 %}
@@ -37,7 +37,7 @@
 
                                             <div class="game-stats">
                                                 <div class="game-highest-score">
-                                                    {% if is_granted('ROLE_USER') %}
+                                                    {% if is_granted('ROLE_USER') and games[y + 6*i]['userRanking'] is defined %}
                                                         {% if games[y + 6*i]['userRanking'] == 1 %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy">
                                                         {% elseif games[y + 6*i]['userRanking'] == 2 %}
@@ -51,7 +51,7 @@
                                                         <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
                                                     {% endif %}
                                                     <p>
-                                                        {% if is_granted('ROLE_USER') %}
+                                                        {% if is_granted('ROLE_USER') and games[y + 6*i]['userRanking'] is defined %}
                                                             {{ games[y + 6*i]['userRanking'] }}
                                                         {% else %}
                                                             —

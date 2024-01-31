@@ -1,6 +1,5 @@
 @import "_variables";
 
-
 #register_button_submit {
 	margin-left: 12.5rem;
     border-radius: $borderRadiusMedium;
@@ -62,6 +61,13 @@
 
 				color: white;
 				font-size: large;
+
+				&:hover {
+					border: 1px solid #06CCF8;
+				}
+				&:focus-visible {
+					outline: none;
+				}
 			}
 		}
 	}

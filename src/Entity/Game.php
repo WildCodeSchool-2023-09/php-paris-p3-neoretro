@@ -60,15 +60,11 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: GamePlayed::class)]
     private Collection $gamesPlayed;
 
-    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Event::class)]
-    private Collection $events;
-
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->gamesPlayed = new ArrayCollection();
-        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -255,36 +251,6 @@ class Game
             // set the owning side to null (unless already changed)
             if ($gamesPlayed->getGame() === $this) {
                 $gamesPlayed->setGame(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Event>
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): static
-    {
-        if (!$this->events->contains($event)) {
-            $this->events->add($event);
-            $event->setGame($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): static
-    {
-        if ($this->events->removeElement($event)) {
-            // set the owning side to null (unless already changed)
-            if ($event->getGame() === $this) {
-                $event->setGame(null);
             }
         }
 

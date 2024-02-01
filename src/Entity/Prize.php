@@ -28,14 +28,6 @@ class Prize
     #[ORM\Column]
     private ?int $quantity = null;
 
-    #[ORM\OneToMany(mappedBy: 'firstPrize', targetEntity: Event::class)]
-    private Collection $events;
-
-    public function __construct()
-    {
-        $this->events = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -85,58 +77,6 @@ class Prize
     public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Event>
-     */
-    public function getevents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addevents(Event $events): static
-    {
-        if (!$this->events->contains($events)) {
-            $this->events->add($events);
-            $events->setFirstPrize($this);
-        }
-
-        return $this;
-    }
-
-    public function removeevents(Event $events): static
-    {
-        if ($this->events->removeElement($events)) {
-            // set the owning side to null (unless already changed)
-            if ($events->getFirstPrize() === $this) {
-                $events->setFirstPrize(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function addEvent(Event $event): static
-    {
-        if (!$this->events->contains($event)) {
-            $this->events->add($event);
-            $event->setSecondPrize($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): static
-    {
-        if ($this->events->removeElement($event)) {
-            // set the owning side to null (unless already changed)
-            if ($event->getSecondPrize() === $this) {
-                $event->setSecondPrize(null);
-            }
-        }
 
         return $this;
     }

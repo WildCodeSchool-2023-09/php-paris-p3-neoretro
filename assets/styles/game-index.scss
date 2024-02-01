@@ -1,8 +1,39 @@
 @import "_variables";
 
+.card#add-game-btn {
+    width: fit-content;
+    height: fit-content;
+    min-height: fit-content;
+
+    margin: 10px auto;
+
+    background: $colorGradient3;
+
+    .content a {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+
+        h2 {
+            margin: 0;
+        }
+        img {
+            display: inline-block;
+        }
+    }
+}
+
 #carousel-games {
-    .games {
+    li.games {
     
+        a {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            color: #fff;
+        }
+
         h2 {
             font-size: 1.75rem;
         }
@@ -62,10 +93,16 @@
 
 @media screen and (min-width: $desktopWidth) {
 
+    .card#add-game-btn {
+        position: absolute;
+        left: 6rem;
+        top: 1rem;
+    }
+
     #carousel-games {
         margin-top: 50px;
 
-        .games {
+        li.games {
             grid-template-columns: repeat(3, 400px);
             grid-template-rows: repeat(2, 400px);
     

@@ -17,7 +17,9 @@
                     <div class="information">
                         <h1 class="text">{{ game.title }}</h1>
                         {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path("edit_game", { slug: game.slug }) }}"><img src="{{ asset('build/images/icons/edit-icon.png') }}"></a>
+                            <a href="{{ path("edit_game", { slug: game.slug }) }}">
+                                <img src="{{ asset('build/images/icons/edit-icon.png') }}">
+                            </a>
                         {% endif %}
                         <div class="rating">
                             {% for i in 1..4 %}
@@ -58,15 +60,9 @@
                             {% if game.pictures[i*4] is defined %}
                                 <li class="pictures">
 
-                                    {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
-                                        {% if game.pictures[i*4] is defined %}
-                                            <li class="pictures">
-                                                {% for y in 0..3 %}
-                                                    {% if game.pictures[y + (4*i)] is defined %}
-                                                        <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </li>
+                                    {% for y in 0..3 %}
+                                        {% if game.pictures[y + (4*i)] is defined %}
+                                            <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
                                         {% endif %}
                                     {% endfor %}
 

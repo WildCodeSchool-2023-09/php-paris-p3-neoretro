@@ -8,7 +8,6 @@
 
     <section class="card cell-played-admin">
         <div class="content">
-            {% if is_granted('ROLE_ADMIN') %}
             {% if app.user %}
 
                 <div class="container-logout">
@@ -18,16 +17,23 @@
 
             {% endif %}
 
-                <div class="nav-admin">
-                        <a href="{{ path('new_game') }}"><h1>New Game</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+            <div class="nav-admin">
+                <a href="{{ path('game_new') }}">
+                    <h1>New Game</h1>
+                    <img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
+                </a>
             
-                        <a href="{{ path('new_game') }}"><h1>New Prize</h1><img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+                <a href="">
+                    <h1>New Prize</h1>
+                    <img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
+                </a>
             
-                        <a href="{{ path('new_game') }}"><h1>Prize's List</h1><img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon"></a>
-                </div>
-
-            {% endif %}
-
+                <a href="">
+                    <h1>Prize's List</h1>
+                    <img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon">
+                </a>
+            </div>
+        </div>
     </section>
 </div>
 

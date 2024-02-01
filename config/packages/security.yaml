@@ -30,8 +30,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/newgame, roles: ROLE_ADMIN }
-        - { path: ^/edit, roles: ROLE_ADMIN }
         - { path: ^/dashboard/gameslist, roles: 'ROLE_ADMIN' }
+        - { path: ^/[a-z0-9-]+/editgame, roles: ROLE_ADMIN }
 
 when@test:
     security:

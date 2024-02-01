@@ -18,18 +18,19 @@
 
 {% if is_granted('ROLE_ADMIN') %}
 
-<div class="container-toggle">
-    <div class="toggle-flex">
-        <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch" {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
-        <p>In-Stock / Arcades room</p>
+    <div id="game-visibility-toggle">
+        <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
+        <p>Active / Inactive</p>
     </div>
-</div>
-<section>
-    <div class="add-game-index">
-        <a href="{{ path('new_game') }}" class="card card-add-game"><h1>New Game</h1>
-        <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+
+    <div class="card" id="add-game-btn">
+        <div class="content">
+            <a href="{{ path('game_new') }}">
+                <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
+                <h2>New Game</h2>
+            </a>
+        </div>
     </div>
-</section>
 
 {% endif %}
 

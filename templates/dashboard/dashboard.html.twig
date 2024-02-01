@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} • Dashboard{% endblock %}
-
 {% block javascript %}
     {{ parent() }}
     {{ encore_entry_script_tags('login') }}
@@ -11,7 +9,7 @@
 
     <div id="dashboard" class="grid">
 
-        {% if is_granted('ROLE_USER') %}
+        {% if app.user %}
             <section class="card cell-profile">
                 <div class="content">
                     <h2>{{ last_username }}</h2>
@@ -40,7 +38,7 @@
             <div class="content">
                 <h2>Recently Played</h2>
 
-                {% if is_granted('ROLE_USER') %}
+                {% if app.user %}
                     {% if lastGamesPlayed is not empty %}
                         <div class="container">
                             {% for lastGamePlayed in lastGamesPlayed %}
@@ -55,7 +53,7 @@
                                         </li>
                                         <li>{{ lastGamePlayed.score }}</li>
                                         <li>
-                                            {% if ((lastGamePlayed.duration)/60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((lastGamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) % 60) }}"
+                                            {{ lastGamesDuration[loop.index - 1] }}
                                         </li>
                                     </ul>
                                 </div>
@@ -82,7 +80,7 @@
             <div class="content">
                 <h2>High Score</h2>
 
-                {% if is_granted('ROLE_USER') %}
+                {% if app.user %}
                     {% if bestGamesPlayed is not empty %}
                         <div class="container">
                             <h3>
@@ -99,7 +97,7 @@
                                     </li>
                                     
                                     <li>
-                                        {% if ((bestGamesPlayed[0].duration)/60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((bestGamesPlayed[0].duration) % 60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) % 60) }}"
+                                        {{ bestGameDuration }}
                                     </li>
                                 </ul>
                             </div>
@@ -127,6 +125,9 @@
                 <h2>This week</h2>
 
                 <ul>
+                    <li>
+                        <a href="{{ path('event_index') }}">Check out NEW EVENTS!</a>
+                    </li>
                     <li>
                         Out Run  game got updated with new levels!
                     </li>

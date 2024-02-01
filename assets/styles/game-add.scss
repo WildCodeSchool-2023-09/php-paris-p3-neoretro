@@ -8,7 +8,6 @@
 }
 
 .form-add-game {
-        
         form {
             width: 100%;
             margin: 0 auto;
@@ -109,51 +108,51 @@
             margin: 0 auto;
             margin-top: 4rem;
 
-        input {
-            display: block;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            cursor: pointer;
-        }
+            input {
+                display: block;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                cursor: pointer;
+            }
 
-        label {
-            display: none;
-        }
+            label {
+                display: none;
+            }
 
-        input {
-            border-radius: $borderRadiusSmall;
-            border: 1px solid #C10BEE;
-            padding: .25rem 1.25rem;
-            color: var($colorGradient2);
-        }
+            input {
+                border-radius: $borderRadiusSmall;
+                border: 1px solid #C10BEE;
+                padding: .25rem 1.25rem;
+                color: var($colorGradient2);
+            }
 
-        input[type="file"] {
-            font-size: 1.2rem;
-        }
-     
-        select {
-            border-radius: $borderRadiusSmall;
-            border: 1px solid #C10BEE;
-            padding: .25rem 1.25rem;
-            color: var($colorGradient2);
-            font-size: 1.2rem;
-            width: 30%;
-            color: #5755ce;
-            margin-bottom: 1rem;
-        }
+            input[type="file"] {
+                font-size: 1.2rem;
+            }
+        
+            select {
+                border-radius: $borderRadiusSmall;
+                border: 1px solid #C10BEE;
+                padding: .25rem 1.25rem;
+                color: var($colorGradient2);
+                font-size: 1.2rem;
+                width: 30%;
+                color: #5755ce;
+                margin-bottom: 1rem;
+            }
 
-        textarea {
-            width: 100%;
-            min-height: 12vw;
-            border-radius: $borderRadiusSmall;
-            border: 1px solid #C10BEE;
-            padding: .25rem 1.25rem;
-            background: none;
-            color: #fff;
-            font-size: 1.5rem;
+            textarea {
+                width: 100%;
+                min-height: 12vw;
+                border-radius: $borderRadiusSmall;
+                border: 1px solid #C10BEE;
+                padding: .25rem 1.25rem;
+                background: none;
+                color: #fff;
+                font-size: 1.5rem;
+            }
         }
     }
-}
 
     .form-add-game-suite {
 

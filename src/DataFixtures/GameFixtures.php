@@ -14,22 +14,28 @@ use function Symfony\Component\String\u;
 class GameFixtures extends Fixture implements DependentFixtureInterface
 {
     public const DATA = [
-        'SuperMetroid',
-        'Metroid',
+        'Super Metroid',
         'Out Run',
         'Midnight Race',
-        'Tower Defonce',
+        'Tower Defense',
         'Pacman',
+        'Duke Nukem',
         'Renegade',
         'Tetris',
         'Space Invaders',
         'Kung-fu Master',
+        'Zombie Killers',
+        'Shooter Master',
+        'Factory Madness',
+        'Metal Slug',
     ];
 
     public const POSTERS = [
         '/images/game-posters/metroid.jpeg',
         '/images/game-posters/racecar.jpeg',
         '/images/game-posters/space-invaders.png',
+        '/images/game-posters/duke-nukem.jpg',
+        '/images/game-posters/metal-slug.jpg',
     ];
 
     private SluggerInterface $slugger;

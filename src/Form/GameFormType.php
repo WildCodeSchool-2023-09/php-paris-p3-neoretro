@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
-class RegistrationGameFormType extends AbstractType
+class GameFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

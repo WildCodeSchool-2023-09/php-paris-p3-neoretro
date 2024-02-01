@@ -1,11 +1,11 @@
 
-    <div class="form-add-game">
+<div class="form-add-game">
         {{ form_errors(registrationGameForm) }}
         {{ form_start(registrationGameForm) }}
         {{ form_row(registrationGameForm.title) }}
-        {{ form_row(registrationGameForm.posterFile, {'attr': {'class': 'custom-file-upload'}}) }}
+        {{ form_row(registrationGameForm.posterFile) }}
         {{ form_row(registrationGameForm.categories) }}
-        {{ form_row(registrationGameForm.description, {'attr': {'class': 'description'}}) }}
+        {{ form_row(registrationGameForm.description) }}
     </div>
 <div class="form-add-game-suite">
     <div class="checked-flex">

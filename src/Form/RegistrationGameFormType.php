@@ -44,11 +44,10 @@ class RegistrationGameFormType extends AbstractType
                 'required' => true,
             ])
             ->add('categories', EntityType::class, [
-                'mapped' => false,
                 'class' => Category::class,
                 'choice_label' => 'label',
-                'multiple' => false,
-                'by_reference' => true,
+                'multiple' => true,
+                'required' => true,
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [

@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -53,6 +54,7 @@ class Game
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'games')]
     private Collection $categories;
+    #[ORM\JoinTable(name: 'game_category')]
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
@@ -169,6 +171,7 @@ class Game
     {
         return $this->categories;
     }
+
 
     public function addCategory(Category $category): static
     {

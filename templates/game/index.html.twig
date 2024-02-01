@@ -17,22 +17,23 @@
 {% include 'components/_searchbar.html.twig' %}
 
 {% if is_granted('ROLE_ADMIN') %}
-    <div class="container-toggle">
-        <div class="toggle-flex">
-            <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
-            <p>In-Stock / Arcades room</p>
-        </div>
+
+<div class="container-toggle">
+    <div class="toggle-flex">
+        <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch" {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
+        <p>In-Stock / Arcades room</p>
     </div>
-    <section>
-        <div class="add-game-index">
-            <a href="{{ path('new_game') }}" class="card card-add-game"><h1>New Game</h1>
-            <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
-        </div>
-    </section>
+</div>
+<section>
+    <div class="add-game-index">
+        <a href="{{ path('new_game') }}" class="card card-add-game"><h1>New Game</h1>
+        <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon"></a>
+    </div>
+</section>
+
 {% endif %}
 
     {% if games is not empty %}
-
         <ul class="carousel" id="carousel-games">
             {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
                 <li class="games grid full-size">

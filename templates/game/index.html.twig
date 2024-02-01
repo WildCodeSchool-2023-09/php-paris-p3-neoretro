@@ -12,6 +12,10 @@
 
 {% block content %}
 
+    {# <div id="dump">
+        {{ dump((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) }}
+    </div> #}
+
     {% include 'components/_searchbar.html.twig' %}
 
     {% if is_granted('ROLE_ADMIN') %}
@@ -32,21 +36,24 @@
 
     {% if games is not empty %}
 
+        {% set nbSlides = (games|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
+
         <ul class="carousel" id="carousel-games">
-            {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+            {% for i in 0..nbSlides - 1 %}
                 <li class="games grid full-size">
                     {% for y in 0..5 %}
-                        {% if games[y + 6*i] is defined %}
+                        {% if (y + 6*i) < games|length %}
+                            {% set game = games[y + 6*i] %}
                             <section class="card">
                                 <div class="content">
-                                    <a href="{{ path('game_show', {slug: games[y + 6*i].slug}) }}">
-                                        <img class="game-poster" src="{{ games[y + 6*i].poster }}" alt="">
-                                        <h2>{{ games[y + 6*i].title }}</h2>
+                                    <a href="{{ path('game_show', {slug: game.slug}) }}">
+                                        <img class="game-poster" src="{{ game.poster }}" alt="">
+                                        <h2>{{ game.title }}</h2>
                                     </a>
-                                    
+
                                     <div class="game-infos">
                                         <div class="game-category-container">
-                                            {% for category in games[y + 6*i].categories %}
+                                            {% for category in game.categories %}
                                                 <p class="game-category">
                                                     {{category.label}}
                                                 </p>
@@ -55,12 +62,12 @@
 
                                             <div class="game-stats">
                                                 <div class="game-highest-score">
-                                                    {% if app.user and gamesStats[y + 6*i]['userRanking'] is defined %}
-                                                        {% if gamesStats[y + 6*i]['userRanking'] == 1 %}
+                                                    {% if app.user and gamesStats[game.id]['userRanking'] is defined %}
+                                                        {% if gamesStats[game.id]['userRanking'] == 1 %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy">
-                                                        {% elseif gamesStats[y + 6*i]['userRanking'] == 2 %}
+                                                        {% elseif gamesStats[game.id]['userRanking'] == 2 %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy">
-                                                        {% elseif gamesStats[y + 6*i]['userRanking'] == 3 %}
+                                                        {% elseif gamesStats[game.id]['userRanking'] == 3 %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy">
                                                         {% else %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
@@ -69,8 +76,8 @@
                                                         <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
                                                     {% endif %}
                                                     <p>
-                                                        {% if app.user and gamesStats[y + 6*i]['userRanking'] is defined %}
-                                                            {{ gamesStats[y + 6*i]['userRanking'] }}
+                                                        {% if app.user and gamesStats[game.id]['userRanking'] is defined %}
+                                                            {{ gamesStats[game.id]['userRanking'] }}
                                                         {% else %}
                                                             —
                                                         {% endif %}
@@ -79,8 +86,8 @@
                                                 <div class="game-time-spent">
                                                     <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
                                                     <p>
-                                                        {% if app.user and gamesStats[y + 6*i]['totalTimePlayed'] is defined %}
-                                                            {{ gamesStats[y + 6*i]['totalTimePlayed'] }}
+                                                        {% if app.user and gamesStats[game.id]['totalTimePlayed'] is defined %}
+                                                            {{ gamesStats[game.id]['totalTimePlayed'] }}
                                                         {% else %}
                                                             —
                                                         {% endif %}
@@ -97,7 +104,7 @@
         </ul>
 
         <nav class="slider" id="slider-games">
-            {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+            {% for i in 0..nbSlides - 1 %}
                 {% if i == 0 %}
                     <div class="slider-btn current-slide"></div>
                 {% else %}

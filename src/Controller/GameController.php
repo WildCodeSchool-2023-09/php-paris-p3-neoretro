@@ -37,18 +37,20 @@ class GameController extends AbstractController
             $params = $searchForm->getData();
         }
 
+        // dump($params);die();
         $games = $gameRepository->search($params ?? []);
 
         if ($this->isGranted('ROLE_USER')) {
-            $gamesStats = $gameInfoService->getUserGamesStats($games, $security->getUser()->getId());
+            $gamesStats = $gameInfoService->getUserGamesStats($games, $security->getUser());
         }
 
         return $this->render('game/index.html.twig', [
             'games' => $games,
-            'gamesStats' => $gamesStats ?? null,
+            'gamesStats' => $gamesStats ?? [],
             'pageTitle' => 'Games',
             'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
+            'params' => $params ?? [],
         ]);
     }
 
@@ -63,12 +65,13 @@ class GameController extends AbstractController
         $gamesPlayed = $gamePlayedRepository->findGlobalBestScoresByGame($game->getId());
 
         if ($this->isGranted('ROLE_USER')) {
-            $gameStats = $gameInfoService->getUserGamesStats([$game], $user->getId())[0];
+            $gameStats = $gameInfoService->getUserGamesStats([$game], $user)[$game->getId()];
         }
+
         return $this->render('game/show.html.twig', [
             'pageTitle' => 'Game',
             'game' => $game,
-            'gameStats' => $gameStats ?? null,
+            'gameStats' => $gameStats ?? [],
             'gamesPlayed' => $gamesPlayed,
         ]);
     }

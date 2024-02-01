@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Game;
+use App\Entity\User;
 use App\Repository\GamePlayedRepository;
 
 class GameInfoService
@@ -14,43 +15,42 @@ class GameInfoService
         $this->gamePlayedRepository = $gamePlayedRepository;
     }
 
-    public function getUserGamesStats(array $games, int $userId): array
+    public function getUserGamesStats(array $games, User $user): array
     {
         $gamesStats = [];
-        foreach ($games as $gameIndex => $game) {
-            if (
-                !$this->gamePlayedRepository->findBy(
-                    [
-                        'game' => $game->getId(),
-                        'player' => $userId
-                    ],
-                    null,
-                    1
-                )
-            ) {
-                $gamesStats[$gameIndex] = null;
-            } else {
-                $gamesStats[$gameIndex]['totalTimePlayed'] = $this
+
+        foreach ($games as $game) {
+            $gamesPlayed = $this->gamePlayedRepository->findBy([
+                'game' => $game,
+                'player' => $user,
+            ]);
+
+            $gamesStats[$game->getId()] = [];
+
+            if (!empty($gamesPlayed)) {
+                $gamesStats[$game->getId()]['totalTimePlayed'] = $this
                     ->formatTime($this->gamePlayedRepository->findTotalTimePlayed(
                         $game->getId(),
-                        $userId
+                        $user->getId()
                     )['totalTimePlayed']);
 
                 $gamesPlayed = $this->gamePlayedRepository->findGlobalBestScoresByGame($game->getId());
+
                 foreach ($gamesPlayed as $rank => $gamePlayed) {
-                    if ($gamePlayed->getPlayer()->getId() === $userId) {
-                        $gamesStats[$gameIndex]['userRanking'] = $rank + 1;
+                    if ($gamePlayed->getPlayer()->getId() === $user->getId()) {
+                        $gamesStats[$game->getId()]['userRanking'] = $rank + 1;
                     }
                 }
 
-                $gamesStats[$gameIndex]['personalBestScore'] = $this
+                $gamesStats[$game->getId()]['personalBestScore'] = $this
                     ->gamePlayedRepository->findPersonalBestScoreByGame(
                         $game->getId(),
-                        $userId
+                        $user->getId()
                     )['score'];
             }
         }
 
+        // dump($gamesStats);die();
         return $gamesStats;
     }
 

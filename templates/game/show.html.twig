@@ -45,7 +45,7 @@
                             <div class="game-time">
                                 <img src="{{ asset('build/images/icons/clock-1.svg') }}">
                                 <p>
-                                    {% if app.user and gameStats is not null %}
+                                    {% if app.user and gameStats is not empty %}
                                         {{ gameStats['totalTimePlayed'] }}
                                     {% else %}
                                         —
@@ -64,36 +64,23 @@
             <section class="card cell-pictures">
                 <div class="content">
                     <h2>Pictures</h2>
+
+                    {% set nbSlides = (game.pictures|length / 4)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
+                    
                     <ul id="carousel-pictures">
-                        {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
-                            {% if game.pictures[i*4] is defined %}
-                                <li class="pictures">
-
-                                    {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
-                                        {% if game.pictures[i*4] is defined %}
-                                            <li class="pictures">
-                                                {% for y in 0..3 %}
-                                                    {% if game.pictures[y + (4*i)] is defined %}
-                                                        <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-
-                                    {# {% for y in 0..3 %}
-                                        {% if game.pictures[y + (4*i)] is defined %}
-                                            <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
-                                        {% endif %}
-                                    {% endfor %} #}
-
-                                </li>
-                            {% endif %}
+                        {% for i in 0..nbSlides - 1 %}
+                            <li class="pictures">
+                                {% for y in 0..3 %}
+                                    {% if game.pictures[y + i*4] is defined %}
+                                        <img src="{{ game.pictures[y + i*4].fileName }}" alt="Game Picture">
+                                    {% endif %}
+                                {% endfor %}
+                            </li>
                         {% endfor %}
                     </ul>
 
                     <nav id="slider-pictures">
-                        {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                        {% for i in 0..nbSlides - 1 %}
                             {% if i == 0 %}
                                 <div class="slider-picture-btn current-slide-picture"></div>
                             {% else %}
@@ -109,7 +96,7 @@
                     <h2>Scores</h2>
 
                     <div class="container">
-                        {% if app.user and gameStats is not null %}
+                        {% if app.user and gameStats is not empty %}
                             <div class="own-score">
                                 <p>{{ gameStats['userRanking'] }}.</p>
                                 <img src="{{ asset('build/images/icons/user2.svg') }}" alt="user-icon">

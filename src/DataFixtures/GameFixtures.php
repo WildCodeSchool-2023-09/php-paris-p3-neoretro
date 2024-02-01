@@ -15,7 +15,6 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
 {
     public const DATA = [
         'Super Metroid',
-        'Metroid 3',
         'Out Run',
         'Midnight Race',
         'Tower Defense',
@@ -27,12 +26,16 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
         'Kung-fu Master',
         'Zombie Killers',
         'Shooter Master',
+        'Factory Madness',
+        'Metal Slug',
     ];
 
     public const POSTERS = [
         '/images/game-posters/metroid.jpeg',
         '/images/game-posters/racecar.jpeg',
         '/images/game-posters/space-invaders.png',
+        '/images/game-posters/duke-nukem.jpg',
+        '/images/game-posters/metal-slug.jpg',
     ];
 
     private SluggerInterface $slugger;

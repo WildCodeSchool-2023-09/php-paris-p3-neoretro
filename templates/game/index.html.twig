@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} • Games{% endblock %}
-
 {% block javascript %}
     {{ parent() }}
     {{ encore_entry_script_tags('carouselGames') }}
@@ -29,7 +27,7 @@
                     <h2>New Game</h2>
                 </a>
             </div>
-        </div>[]
+        </div>
     {% endif %}
 
     {% if games is not empty %}
@@ -81,7 +79,7 @@
                                                 <div class="game-time-spent">
                                                     <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
                                                     <p>
-                                                        {% if app.user and gamesStats[y + 6*i] is not null %}
+                                                        {% if app.user and gamesStats[y + 6*i]['totalTimePlayed'] is defined %}
                                                             {{ gamesStats[y + 6*i]['totalTimePlayed'] }}
                                                         {% else %}
                                                             —

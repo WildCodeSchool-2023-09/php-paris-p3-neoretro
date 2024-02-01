@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} • {{ pageTitle }}{% endblock %}
-
 {% block content %}
 
 <div id="scores-page" class="grid">
-    {% if is_granted('ROLE_USER') %}
+    {% if app.user %}
     <section class="card cell-global-scores">
     {% else %}
     <section class="card cell-global-scores full-size">
@@ -37,7 +35,7 @@
         </div>
     </section>
 
-    {% if is_granted('ROLE_USER') %}
+    {% if app.user %}
         <section class="card cell-my-best">
             <div class="content scroll">
                 <h2>My best</h2>

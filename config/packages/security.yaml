@@ -32,6 +32,9 @@ security:
         - { path: ^/game/new, roles: ROLE_ADMIN }
         - { path: ^/game/edit, roles: ROLE_ADMIN }
 
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+
 when@test:
     security:
         password_hashers:

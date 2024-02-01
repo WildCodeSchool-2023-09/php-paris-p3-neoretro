@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Event{% endblock %}
-
 {% block content %}
 
 <div class="card full-size">
@@ -43,7 +41,7 @@
 
         <a href="{{ path('event_index') }}">back to list</a>
 
-        <a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
+        <a href="{{ path('event_edit', {'slug': event.slug}) }}">edit</a>
 
         {{ include('event/_delete_form.html.twig') }}
     </div>

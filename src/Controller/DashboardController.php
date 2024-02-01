@@ -45,6 +45,7 @@ class DashboardController extends AbstractController
             return $this->render('dashboard/admin.html.twig', [
                 'last_username' => $lastUsername,
                 'error' => $error,
+                'pageTitle' => 'Admin',
             ]);
         }
 
@@ -107,7 +108,7 @@ class DashboardController extends AbstractController
         }
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            'pageTitle' => 'NeoRetro',
+            'pageTitle' => 'Sign Up',
         ]);
     }
 }

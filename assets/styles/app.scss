@@ -105,7 +105,7 @@ table {
 
 // TEXT
 
-h2, h3, h4, h5, h6, span, td, a,
+h2, h3, h4, h5, h6, span, td, th, a,
 p, ul, label, input, input::placeholder, select, button, img[alt],
 .text
 {
@@ -144,7 +144,7 @@ label {
         transform: scale(102%);
     }
 
-    transition: background-color ease-in-out 100ms;
+    transition: ease-in-out 100ms;
 }
 
 button {

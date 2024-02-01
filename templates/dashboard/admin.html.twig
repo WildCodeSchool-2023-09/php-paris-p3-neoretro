@@ -1,19 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}• Admin Dashboard{% endblock %}
-
 {% block content %}
 
 <div id="dashboard" class="grid">
 
     <section class="card cell-played-admin">
         <div class="content">
-            {% if app.user %}
-                <div class="container-logout">
-                    <h2>Logged as: {{ last_username }}</h2>
-                    <a href="{{ path('logout') }}">Logout</a>
-                </div>
-            {% endif %}
+            <div class="logout">
+                <h2>Logged as: {{ last_username }}</h2>
+                <a href="{{ path('logout') }}">Logout</a>
+            </div>
 
             <div class="nav-admin">
                 <a href="{{ path('game_new') }}">
@@ -27,6 +23,14 @@
                 <a href="">
                     <h1>Prize's List</h1>
                     <img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon">
+                </a>
+                <a href="{{ path('event_index') }}">
+                    <h1>Events List</h1>
+                    <img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon">
+                </a>
+                <a href="{{ path('event_new') }}">
+                    <h1>New Event</h1>
+                    <img class="icon" src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
                 </a>
             </div>
         </div>

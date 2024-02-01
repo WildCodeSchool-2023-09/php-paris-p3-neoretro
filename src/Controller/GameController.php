@@ -65,9 +65,6 @@ class GameController extends AbstractController
         if ($this->isGranted('ROLE_USER')) {
             $gameStats = $gameInfoService->getUserGamesStats([$game], $user->getId())[0];
         }
-
-        // dump($gameStats);die();
-
         return $this->render('game/show.html.twig', [
             'pageTitle' => 'Game',
             'game' => $game,

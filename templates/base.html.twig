@@ -6,7 +6,9 @@
         <link rel="icon" type="image/png" href="{{ asset('build/images/icons/icon.png') }}"/>
         
         <title>
-            {% block title %}NeoRetro{% endblock %}
+            {% block title %}
+                NeoRetro{{ pageTitle is defined ? ' • ' ~ pageTitle : '' }}
+            {% endblock %}
         </title>
 
         {% block stylesheets %}

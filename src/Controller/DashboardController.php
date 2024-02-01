@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\RegistrationFormType;
 use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
+use App\Service\GameInfoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,11 +24,20 @@ class DashboardController extends AbstractController
         AuthenticationUtils $authenticationUtils,
         Security $security,
         GamePlayedRepository $gamePlayedRepository,
-        GameRepository $gameRepository
+        GameRepository $gameRepository,
+        GameInfoService $gameInfoService
     ): Response {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
         $user = $security->getUser();
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->render('dashboard/admin.html.twig', [
+                'last_username' => $lastUsername,
+                'error' => $error,
+                'pageTitle' => 'Admin',
+            ]);
+        }
 
         $games = $gameRepository->findBy([], ['id' => 'DESC'], 5);
 
@@ -38,24 +48,25 @@ class DashboardController extends AbstractController
                 ['id' => 'DESC'],
                 3
             );
+
+            $lastGamesDuration = [];
+            foreach ($lastGamesPlayed as $lastGamePlayed) {
+                $lastGamesDuration[] = $gameInfoService->formatTime($lastGamePlayed->getDuration(), 'short');
+            }
         } else {
-            $lastGamesPlayed = [];
             $bestGamesPlayed = $gamePlayedRepository->findGlobalBestGameScores();
         }
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->render('dashboard/admin.html.twig', [
-                'last_username' => $lastUsername,
-                'error' => $error,
-            ]);
-        }
+        $bestGameDuration = $gameInfoService->formatTime($bestGamesPlayed[0]->getDuration(), 'short');
 
         return $this->render('dashboard/dashboard.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
+            'games' => $games,
             'bestGamesPlayed' => $bestGamesPlayed,
-            'lastGamesPlayed' => $lastGamesPlayed,
-            'games' => $games
+            'bestGameDuration' => $bestGameDuration,
+            'lastGamesPlayed' => $lastGamesPlayed ?? null,
+            'lastGamesDuration' => $lastGamesDuration ?? null,
         ]);
     }
 
@@ -87,7 +98,7 @@ class DashboardController extends AbstractController
         }
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            'pageTitle' => 'NeoRetro',
+            'pageTitle' => 'Sign Up',
         ]);
     }
 }

@@ -6,31 +6,32 @@ ul.carousel#game-show-carousel {
 
         .cell-resume {
 
-            .information {
+            h2.neon {
+                text-align: center;
+                font-size: 2.5rem;
+                margin-top: 18px;
+            }
+
+            #game-edit {
+                position: absolute;
+                top: 0;
+                left: 1rem;
+            }
+
+            div.rating {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                font-size: 1.5rem;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            .game-show-grid {
                 display: flex;
                 flex-direction: column;
-
-                h1 {
-                    text-align: center;
-                    font-size: 2.5rem;
-                    margin-top: 18px;
-                }
-
-                #game-edit {
-                    position: absolute;
-                    top: 0;
-                    left: 1rem;
-                }
-
-                div.rating {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 10px;
-                    font-size: 1.5rem;
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                }
+                gap: 1rem;
 
                 div.category {
                     display: flex;
@@ -38,14 +39,13 @@ ul.carousel#game-show-carousel {
                     justify-content: center;
                     align-items: center;
                     font-size: 1.25rem;
-                    gap: 10px;
+                    gap: .5rem;
 
                     div.game-time {
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        gap: 25px;
-                        margin-bottom: 18px;
+                        gap: 1.5rem;
                     }
                 }
 
@@ -69,7 +69,6 @@ ul.carousel#game-show-carousel {
                 }
 
                 div.poster {
-                    order: -1;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -402,29 +401,38 @@ div.dialog-comment {
             scroll-snap-align: center;
 
             .cell-resume {
-                grid-area: 1 / 1 / span 1 / 3;
+                grid-area: 1 / 1 / 1 / span 2;
 
-                .information {
+                h2 {
+                    margin: 1rem 0 2rem;
+                    font-size: 2.5rem;
+                }
+
+                div.rating {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+
+                    position: absolute;
+                    right: 2.5rem;
+                    top: .5rem;
+
+                    .stars {
+                        display: flex;
+                        gap: .5rem;
+
+                        img {
+                            height: 1.8rem;
+                        }
+                    }
+                }
+
+                .game-show-grid {
                     display: grid;
                     grid-template-columns: 1fr 1fr 1fr;
-                    grid-template-rows: 70px 298px;
-
-                    h1 {
-                        grid-row: 1 / 2;
-                        grid-column: 2 / 3;
-                        margin-top: 20px;
-                    }
-
-                    div.rating {
-                        grid-row: 1 / 2;
-                        grid-column: 3 / 4;
-                        margin-top: 20px;
-                        margin-bottom: 0;
-                    }
 
                     div.category {
-                        grid-row: 2 / 3;
-                        grid-column: 1 / 2;
                         font-size: 1.75rem;
 
                         p {
@@ -439,21 +447,17 @@ div.dialog-comment {
                     }
 
                     div.resume {
-                        grid-row: 2 / 3;
-                        grid-column: 2 / 3;
-
                         p {
                             width: 500px;
                             height: 240px;
-                            padding: 25px;
-                            font-size: 1.125rem;
+                            padding: 2.5rem;
+                            font-size: 1.2rem;
+                            text-align: justify;
                         }
                     }
 
                     div.poster {
-                        order: 0;
-                        grid-row: 2 / 3;
-                        grid-column: 3 / 4;
+                        order: 1;
 
                         img {
                             max-width: 365px;
@@ -541,8 +545,6 @@ div.dialog-comment {
             flex: 1 0 100%;
             scroll-snap-align: center;
 
-            // grid-area : y / x / y / x
-
             .cell-achievements {
                 grid-area: 1 / 1 / 1 / 1;
 
@@ -584,7 +586,6 @@ div.dialog-comment {
     }
 
     .modal {
-
         .modal-content {
             max-height: 90%;
             max-width: 90%;
@@ -593,7 +594,6 @@ div.dialog-comment {
     }
 
     div.dialog-comment {
-
         div.comment-box {
             max-width: 1040px;
             height: 620px;

@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} • {{ game.title }}{% endblock %}
-
 {% block javascript %}
     {{ encore_entry_script_tags('pictureModal') }}
     {{ encore_entry_script_tags('commentModal') }}
@@ -14,39 +12,50 @@
         <li id="detailed-game-one" class="grid">
             <section class="card cell-resume">
                 <div class="content">
-                    <div class="information">
-                        <h1 class="text">{{ game.title }}</h1>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path("game_edit", { slug: game.slug }) }}">
-                                <img src="{{ asset('build/images/icons/edit-icon.png') }}">
-                            </a>
-                        {% endif %}
-                        <div class="rating">
+
+                    <h2 class="neon">{{ game.title }}</h2>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a id="game-edit" href="{{ path("game_edit", { slug: game.slug }) }}">
+                            <img src="{{ asset('build/images/icons/edit-icon.png') }}">
+                        </a>
+                    {% endif %}
+
+                    <div class="rating">
+                        <div class="stars">
                             {% for i in 1..4 %}
                                 <img src="{{ asset('build/images/icons/star-solid.svg') }}">
                             {% endfor %}
                             <img src="{{ asset('build/images/icons/star-half-stroke-regular-1.svg') }}">
-                            <p>4.5</p>
+                        </div>
+                        <p>4.5</p>
+                    </div>
+
+                    <div class="game-show-grid">
+                        <div class="poster">
+                            <img src="{{ game.poster }}" alt="Image aléatoire">
+                            {# <img src="{{ vich_uploader_asset(game) }}" alt="Image aléatoire" poster> #}
                         </div>
 
                         <div class="category">
-
                             {% for category in game.categories %}
                                 <p>{{ category.label }}</p>
                             {% endfor %}
 
                             <div class="game-time">
                                 <img src="{{ asset('build/images/icons/clock-1.svg') }}">
-                                <p>0:34</p>
+                                <p>
+                                    {% if app.user and gameStats is not empty %}
+                                        {{ gameStats['totalTimePlayed'] }}
+                                    {% else %}
+                                        —
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
 
                         <div class="resume">
                             <p>{{ game.description }}</p>
-                        </div>
-
-                        <div class="poster">
-                            <img src="{{ vich_uploader_asset(game) }}" alt="Image aléatoire" poster>
                         </div>
                     </div>
                 </div>
@@ -55,30 +64,23 @@
             <section class="card cell-pictures">
                 <div class="content">
                     <h2>Pictures</h2>
+
+                    {% set nbSlides = (game.pictures|length / 4)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
+                    
                     <ul id="carousel-pictures">
-                        {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
-                            {% if game.pictures[i*4] is defined %}
-                                <li class="pictures">
-
-                                    {% for y in 0..3 %}
-                                        {% if game.pictures[y + (4*i)] is defined %}
-                                            <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
-                                        {% endif %}
-                                    {% endfor %}
-
-                                    {# {% for y in 0..3 %}
-                                        {% if game.pictures[y + (4*i)] is defined %}
-                                            <img src="{{ game.pictures[y + (4*i)].fileName }}" alt="Game Picture">
-                                        {% endif %}
-                                    {% endfor %} #}
-
-                                </li>
-                            {% endif %}
+                        {% for i in 0..nbSlides - 1 %}
+                            <li class="pictures">
+                                {% for y in 0..3 %}
+                                    {% if game.pictures[y + i*4] is defined %}
+                                        <img src="{{ game.pictures[y + i*4].fileName }}" alt="Game Picture">
+                                    {% endif %}
+                                {% endfor %}
+                            </li>
                         {% endfor %}
                     </ul>
 
                     <nav id="slider-pictures">
-                        {% for i in 0..((game.pictures|length / 4)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+                        {% for i in 0..nbSlides - 1 %}
                             {% if i == 0 %}
                                 <div class="slider-picture-btn current-slide-picture"></div>
                             {% else %}
@@ -94,12 +96,12 @@
                     <h2>Scores</h2>
 
                     <div class="container">
-                        {% if app.user and userGamePlayed is not empty %}
+                        {% if app.user and gameStats is not empty %}
                             <div class="own-score">
-                                <p>{{ userRanking }}.</p>
+                                <p>{{ gameStats['userRanking'] }}.</p>
                                 <img src="{{ asset('build/images/icons/user2.svg') }}" alt="user-icon">
-                                <p><a href="">{{ userGamePlayed.player.username }}</a></p>
-                                <p>{{ userGamePlayed.score }}</p>
+                                <p><a href="">{{ app.user.username }}</a></p>
+                                <p>{{ gameStats['personalBestScore'] }}</p>
                             </div>
                         {% else %}
                             <p>Come and try this game!</p>

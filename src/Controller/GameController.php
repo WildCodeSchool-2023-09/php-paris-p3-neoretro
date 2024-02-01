@@ -32,23 +32,20 @@ class GameController extends AbstractController
     ): Response {
         $searchForm = $this->createForm(GameSearchType::class);
         $searchForm->handleRequest($request);
-        $params = [
-            'isVisible' => 1,
-            'userId' => null,
-        ];
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
         }
-        if ($this->isGranted('ROLE_USER')) {
-            $params['userId'] = $security->getUser()->getId();
-        }
 
-        $games = $gameRepository->search($params);
-        $games = $gameInfoService->addUserRankings($games, $params['userId']);
+        $games = $gameRepository->search($params ?? []);
+
+        if ($this->isGranted('ROLE_USER')) {
+            $gamesStats = $gameInfoService->getUserGamesStats($games, $security->getUser()->getId());
+        }
 
         return $this->render('game/index.html.twig', [
             'games' => $games,
+            'gamesStats' => $gamesStats ?? null,
             'pageTitle' => 'Games',
             'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
@@ -56,49 +53,53 @@ class GameController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'show')]
-    public function show(Game $game, GamePlayedRepository $gamePlayedRepository, Security $security): Response
-    {
+    public function show(
+        Game $game,
+        GamePlayedRepository $gamePlayedRepository,
+        Security $security,
+        GameInfoService $gameInfoService
+    ): Response {
         $user = $security->getUser();
-        $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId());
-
-        $userRanking = null;
-        $userGamePlayed = null;
+        $gamesPlayed = $gamePlayedRepository->findGlobalBestScoresByGame($game->getId());
 
         if ($this->isGranted('ROLE_USER')) {
-            foreach ($gamesPlayed as $rank => $gamePlayed) {
-                if ($gamePlayed->getPlayer()->getId() === $user->getId()) {
-                    $userRanking = $rank + 1;
-                }
-            }
-            $userGamePlayed = $gamePlayedRepository->findPersonalBestByGame($user->getId(), $game->getId());
+            $gameStats = $gameInfoService->getUserGamesStats([$game], $user->getId())[0];
         }
+
+        // dump($gameStats);die();
 
         return $this->render('game/show.html.twig', [
             'pageTitle' => 'Game',
             'game' => $game,
+            'gameStats' => $gameStats ?? null,
             'gamesPlayed' => $gamesPlayed,
-            'userGamePlayed' => $userGamePlayed,
-            'userRanking' => $userRanking,
         ]);
     }
 
-    #[Route('/{slug}/scores', name:'scores')]
+    #[Route('/{slug}/scores', name: 'scores')]
     public function showScores(
         Game $game,
         Security $security,
-        GamePlayedRepository $gamePlayedRepository
+        GamePlayedRepository $gamePlayedRepository,
+        GameInfoService $gameInfoService
     ): Response {
-        $gamesPlayed = $gamePlayedRepository->findBestScoresByGame($game->getId(), 50);
+        $gamesPlayed = $gamePlayedRepository->findGlobalBestScoresByGame($game->getId(), 50);
+
+        $gamesStats = [];
+        foreach ($gamesPlayed as $gamePlayed) {
+            $gamesStats[] = $gameInfoService->formatTime($gamePlayed->getDuration(), 'short');
+        }
 
         return $this->render('game/scores.html.twig', [
             'pageTitle' => 'Scores',
             'game' => $game,
             'gamesPlayed' => $gamesPlayed,
+            'gamesStats' => $gamesStats,
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/new', name: 'new')]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(
         Request $request,
         EntityManagerInterface $entityManager,
@@ -129,8 +130,8 @@ class GameController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Game $game, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(GameFormType::class, $game);

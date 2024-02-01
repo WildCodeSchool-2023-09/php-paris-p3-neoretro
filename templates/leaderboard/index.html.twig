@@ -64,7 +64,7 @@
                                     </td>
 
                                     <td>
-                                        {% if ((gamePlayed.duration) / 60) < 10 %}0{% endif %}{{ ((gamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((gamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((gamePlayed.duration) % 60) }}"
+                                        {{ userGamesStats[loop.index - 1] }}
                                     </td>
                                     
                                     <td class="td-score">{{ gamePlayed.score }}</td>
@@ -102,7 +102,7 @@
 
                                 <td class="td-player"><a href="">{{ globalGamesPlayed[i+15].player.username }}</a></td>
                                 <td>
-                                    {% if ((globalGamesPlayed[i+15].duration) / 60) < 10 %}0{% endif %}{{ ((globalGamesPlayed[i+15].duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((globalGamesPlayed[i+15].duration) % 60) < 10 %}0{% endif %}{{ ((globalGamesPlayed[i+15].duration) % 60) }}"
+                                    {{ globalGamesStats[i + 15] }}
                                 </td>
                                 <td class="td-score">{{ globalGamesPlayed[i+15].score - 1500 }}</td>
                             </tr>

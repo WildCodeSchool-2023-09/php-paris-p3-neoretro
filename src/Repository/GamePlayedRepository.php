@@ -22,7 +22,7 @@ class GamePlayedRepository extends ServiceEntityRepository
         parent::__construct($registry, GamePlayed::class);
     }
 
-    public function findBestScoresByGame(int $gameId, int $limit = null): array
+    public function findGlobalBestScoresByGame(int $gameId, int $limit = null): array
     {
         $subQuery = $this
             ->createQueryBuilder('sub')
@@ -76,10 +76,11 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findPersonalBestByGame(int $userId, int $gameId): ?GamePlayed
+    public function findPersonalBestScoreByGame(int $gameId, int $userId): ?array
     {
         return $this
             ->createQueryBuilder('gp')
+            ->select('gp.score')
             ->andWhere('gp.player = :userId')
             ->andWhere('gp.game = :gameId')
             ->setParameter('userId', $userId)
@@ -114,10 +115,20 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    // public function findTotalGamePlayed(int $gameId, int $userId): int
-    // {
-    //     return;
-    // }
+    public function findTotalTimePlayed(int $gameId, int $userId): ?array
+    {
+        return $this
+            ->createQueryBuilder('gp')
+            ->select('SUM(gp.duration) AS totalTimePlayed')
+
+            ->andWhere('gp.game = :game')
+            ->andWhere('gp.player = :user')
+            ->setParameter('game', $gameId)
+            ->setParameter('user', $userId)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
 //    /**
 //     * @return GamePlayed[] Returns an array of GamePlayed objects

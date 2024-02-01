@@ -14,25 +14,64 @@ class GameInfoService
         $this->gamePlayedRepository = $gamePlayedRepository;
     }
 
-    public function addUserRankings(array $games, int $userId = null): array
+    public function getUserGamesStats(array $games, int $userId): array
     {
-        if (!is_null($userId)) {
-            foreach ($games as $gameIndex => $game) {
-                $gamesPlayed = $this->gamePlayedRepository->findBestScoresByGame($game[0]->getId());
+        $gamesStats = [];
+        foreach ($games as $gameIndex => $game) {
+            if (
+                !$this->gamePlayedRepository->findBy(
+                    [
+                        'game' => $game->getId(),
+                        'player' => $userId
+                    ],
+                    null,
+                    1
+                )
+            ) {
+                $gamesStats[$gameIndex] = null;
+            } else {
+                $gamesStats[$gameIndex]['totalTimePlayed'] = $this
+                    ->formatTime($this->gamePlayedRepository->findTotalTimePlayed(
+                        $game->getId(),
+                        $userId
+                    )['totalTimePlayed']);
+
+                $gamesPlayed = $this->gamePlayedRepository->findGlobalBestScoresByGame($game->getId());
                 foreach ($gamesPlayed as $rank => $gamePlayed) {
                     if ($gamePlayed->getPlayer()->getId() === $userId) {
-                        $games[$gameIndex]['userRanking'] = $rank + 1;
+                        $gamesStats[$gameIndex]['userRanking'] = $rank + 1;
                     }
                 }
+
+                $gamesStats[$gameIndex]['personalBestScore'] = $this
+                    ->gamePlayedRepository->findPersonalBestScoreByGame(
+                        $game->getId(),
+                        $userId
+                    )['score'];
             }
         }
 
-        return $games;
+        return $gamesStats;
     }
 
-    // public function addUserTotalTimePlayed(Game $game, int $userId): Game
-    // {
+    public function formatTime(int $seconds, string $format = 'long'): string
+    {
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds % 3600) / 60);
+        $secondsLeft = $seconds % 60;
 
-    //     return $game;
-    // }
+        if ($format === 'short') {
+            return sprintf("%02d'%02d\"", $minutes, $secondsLeft);
+        }
+
+        $timeString = '';
+        if ($hours > 0) {
+            $timeString .= $hours . 'h';
+        }
+        if ($minutes > 0 || $hours == 0) {
+            $timeString .= sprintf("%02dmin", $minutes);
+        }
+
+        return $timeString;
+    }
 }

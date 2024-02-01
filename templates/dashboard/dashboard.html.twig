@@ -40,7 +40,7 @@
             <div class="content">
                 <h2>Recently Played</h2>
 
-                {% if is_granted('ROLE_USER') %}
+                {% if app.user %}
                     {% if lastGamesPlayed is not empty %}
                         <div class="container">
                             {% for lastGamePlayed in lastGamesPlayed %}
@@ -55,7 +55,7 @@
                                         </li>
                                         <li>{{ lastGamePlayed.score }}</li>
                                         <li>
-                                            {% if ((lastGamePlayed.duration)/60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((lastGamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((lastGamePlayed.duration) % 60) }}"
+                                            {{ lastGamesDuration[loop.index - 1] }}
                                         </li>
                                     </ul>
                                 </div>
@@ -99,7 +99,7 @@
                                     </li>
                                     
                                     <li>
-                                        {% if ((bestGamesPlayed[0].duration)/60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((bestGamesPlayed[0].duration) % 60) < 10 %}0{% endif %}{{ ((bestGamesPlayed[0].duration) % 60) }}"
+                                        {{ bestGameDuration }}
                                     </li>
                                 </ul>
                             </div>

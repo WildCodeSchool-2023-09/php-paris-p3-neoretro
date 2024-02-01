@@ -23,10 +23,14 @@ class GameRepository extends ServiceEntityRepository
 
     public function search(array $params): array
     {
-        $query = $this->createQueryBuilder('g')
-            ->leftJoin('g.gamesPlayed', 'gp')
-            ->where('g.isVisible = :isVisible')
-            ->setParameter('isVisible', $params['isVisible']);
+        $query = $this->createQueryBuilder('g');
+
+        if (!isset($params['isVisible'])) {
+            $query->where('g.isVisible = 1');
+        } else {
+            $query->where('g.isVisible = :isVisible');
+            $query->setParameter('isVisible', $params['isVisible']);
+        }
 
         if (!empty($params['title'])) {
             $query->where('g.title LIKE :title')
@@ -48,16 +52,6 @@ class GameRepository extends ServiceEntityRepository
 
         if (!empty($params['sort_by']) && !empty($params['sort_order'])) {
             $query->orderBy('g.' . $params['sort_by'], $params['sort_order']);
-        }
-
-        $query
-            ->addSelect('SUM(gp.duration) AS totalTimePlayed');
-
-        if (!empty($params['userId'])) {
-            $query
-                ->andWhere('gp.player = :userId')
-                ->setParameter('userId', $params['userId'])
-                ->groupBy('gp.player.id');
         }
 
         $query

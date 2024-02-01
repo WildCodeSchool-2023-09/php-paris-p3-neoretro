@@ -47,25 +47,11 @@
                             <div class="game-time">
                                 <img src="{{ asset('build/images/icons/clock-1.svg') }}">
                                 <p>
-                                    32:05
-                                    {# {% if is_granted('ROLE_USER') %}
-                                        {% set totalTime = game['totalTimePlayed'] %}
-                                        {% set hours = totalTime // 3600 %}
-                                        {% set minutes = (totalTime % 3600) // 60 %}
-                                        {% set seconds = totalTime % 60 %}
-
-                                        {% if hours > 0 %}
-                                            {{ hours }}h
-                                        {% endif %}
-
-                                        {% if minutes < 10 %}
-                                            0{{ minutes }}"
-                                        {% else %}
-                                            {{ minutes }}"
-                                        {% endif %}
+                                    {% if app.user and gameStats is not null %}
+                                        {{ gameStats['totalTimePlayed'] }}
                                     {% else %}
                                         —
-                                    {% endif %} #}
+                                    {% endif %}
                                 </p>
                             </div>
                         </div>
@@ -125,12 +111,12 @@
                     <h2>Scores</h2>
 
                     <div class="container">
-                        {% if app.user and userGamePlayed is not empty %}
+                        {% if app.user and gameStats is not null %}
                             <div class="own-score">
-                                <p>{{ userRanking }}.</p>
+                                <p>{{ gameStats['userRanking'] }}.</p>
                                 <img src="{{ asset('build/images/icons/user2.svg') }}" alt="user-icon">
-                                <p><a href="">{{ userGamePlayed.player.username }}</a></p>
-                                <p>{{ userGamePlayed.score }}</p>
+                                <p><a href="">{{ app.user.username }}</a></p>
+                                <p>{{ gameStats['personalBestScore'] }}</p>
                             </div>
                         {% else %}
                             <p>Come and try this game!</p>

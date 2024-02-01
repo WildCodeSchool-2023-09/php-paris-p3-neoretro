@@ -31,8 +31,7 @@ security:
     access_control:
         - { path: ^/newgame, roles: ROLE_ADMIN }
         - { path: ^/edit, roles: ROLE_ADMIN }
-        - { path: ^/dashboard/gameslist, roles: 'ROLE_ADMIN' }
-
+        
 when@test:
     security:
         password_hashers:

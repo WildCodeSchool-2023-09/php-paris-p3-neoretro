@@ -37,10 +37,6 @@ class RegistrationGameFormType extends AbstractType
                 ],
             ])
             ->add('posterFile', VichFileType::class, [
-                'attr' => [
-                    'data-controller' => 'mydropzone',
-                    'placeholder' => 'Drag & Drop picture',
-                ],
                 'required' => true,
             ])
             ->add('categories', EntityType::class, [

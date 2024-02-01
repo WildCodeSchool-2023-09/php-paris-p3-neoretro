@@ -122,7 +122,6 @@ class DashboardController extends AbstractController
 
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
-            // $games = $entityManager->getRepository(Game::class)->findAll();
             return $this->render('admin/new_game.html.twig', [
                 'registrationGameForm' => $form->createView(),
                 'pageTitle' => 'Admin Add Game',
@@ -130,7 +129,7 @@ class DashboardController extends AbstractController
     }
 
 
-    #[IsGranted('ROLE_ADMIN')]
+    // #[IsGranted('ROLE_ADMIN')]
     #[Route('/{slug}/editgame', name: 'edit_game', methods: ['GET', 'POST'])]
     public function edit(Request $request, Game $game, EntityManagerInterface $entityManager): Response
     {

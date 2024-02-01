@@ -20,10 +20,11 @@
 
 <div class="container-toggle">
     <div class="toggle-flex">
-        <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch" {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
+        <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
         <p>In-Stock / Arcades room</p>
     </div>
 </div>
+
 <section>
     <div class="add-game-index">
         <a href="{{ path('new_game') }}" class="card card-add-game"><h1>New Game</h1>
@@ -83,7 +84,7 @@
                                                     <p>
                                                         {% if is_granted('ROLE_USER') %}
                                                             {# {% if ((games[y + 6*i]['totalTimePlayed']) / 60) < 10 %}0{% endif %}{{ ((games[y + 6*i]['totalTimePlayed']) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((games[y + 6*i]['totalTimePlayed']) % 60) < 10 %}0{% endif %}{{ ((games[y + 6*i]['totalTimePlayed']) % 60) }}" #}
-                                                            {% set totalTime = games[y + 6*i]['totalTimePlayed'] %}
+                                                           {% set totalTime = games[y + 6*i]['totalTimePlayed'] %}
                                                             {% set hours = totalTime // 3600 %}
                                                             {% set minutes = (totalTime % 3600) // 60 %}
                                                             {% set seconds = totalTime % 60 %}

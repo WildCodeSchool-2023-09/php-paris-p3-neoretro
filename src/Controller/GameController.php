@@ -29,9 +29,9 @@ class GameController extends AbstractController
     ): Response {
         $searchForm = $this->createForm(GameSearchType::class);
         $searchForm->handleRequest($request);
-        $params = [
-            'isVisible' => 1
-        ];
+
+        $params = ['isVisible' => 1];
+        
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
@@ -48,6 +48,7 @@ class GameController extends AbstractController
             'pageTitle' => 'Games',
             'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
+            'params' => $params,
         ]);
     }
 

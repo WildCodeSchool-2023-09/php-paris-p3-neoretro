@@ -2,11 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
-use App\Form\CategoryFormType;
-use App\Form\GameSearchType;
 use App\Form\RegistrationFormType;
-use App\Form\RegistrationGameFormType;
 use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
 use App\Service\GameInfoService;
@@ -17,14 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\User;
-use App\Entity\Game;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Core\Security;
 
 class DashboardController extends AbstractController

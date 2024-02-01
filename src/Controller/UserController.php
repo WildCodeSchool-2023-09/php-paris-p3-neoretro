@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\GamePlayedRepository;
-use App\Repository\GameRepository;
 use App\Service\GameInfoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

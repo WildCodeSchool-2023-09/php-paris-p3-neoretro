@@ -31,7 +31,6 @@ class GameController extends AbstractController
         $searchForm->handleRequest($request);
 
         $params = ['isVisible' => 1];
-        
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();

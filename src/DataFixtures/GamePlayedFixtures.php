@@ -37,6 +37,8 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
                     ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))
                     ->setDuration(rand(120, 1200));
 
+                $gamePlayed->setUuid($faker->uuid());
+
                 $manager->persist($gamePlayed);
             }
         }

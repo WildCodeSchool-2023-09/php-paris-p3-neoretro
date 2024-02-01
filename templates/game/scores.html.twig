@@ -6,7 +6,6 @@
 
     <div class="card full-size" id="game-scores">
         <div class="content scroll">
-            {% if is_granted('ROLE_USER') %}
                 <h2><a href="{{ path('game_show', {slug: game.slug}) }}">{{ game.title }}</a></h2>
 
                 <table>
@@ -32,8 +31,6 @@
                         {% endfor %}
                     </tbody>
                 </table>
-
-            {% endif %}
         </div>
     </div>
 

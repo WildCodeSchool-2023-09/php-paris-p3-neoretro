@@ -12,6 +12,12 @@ ul.carousel#game-show-carousel {
                 margin-top: 18px;
             }
 
+            #game-edit {
+                position: absolute;
+                top: 0;
+                left: 1rem;
+            }
+
             div.rating {
                 display: flex;
                 justify-content: center;
@@ -560,7 +566,7 @@ div.dialog-comment {
                 grid-area: 1 / 2 / 1 / 2;
 
                 div.comment-carousel {
-                    height: 699px;
+                    height: 697px;
                     margin-bottom: 16px;
 
                     div.comment {
@@ -580,7 +586,6 @@ div.dialog-comment {
     }
 
     .modal {
-
         .modal-content {
             max-height: 90%;
             max-width: 90%;
@@ -589,7 +594,6 @@ div.dialog-comment {
     }
 
     div.dialog-comment {
-
         div.comment-box {
             max-width: 1040px;
             height: 620px;

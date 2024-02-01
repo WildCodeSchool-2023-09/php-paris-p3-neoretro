@@ -6,11 +6,31 @@
     {{ parent() }}
     {{ encore_entry_script_tags('carouselGames') }}
     {{ encore_entry_script_tags('searchbar') }}
+    
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ encore_entry_script_tags('toggleGame') }}
+    {% endif %}
 {% endblock javascript %}
 
 {% block content %}
 
     {% include 'components/_searchbar.html.twig' %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div id="game-visibility-toggle">
+            <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
+            <p>Active / Inactive</p>
+        </div>
+
+        <div class="card" id="add-game-btn">
+            <div class="content">
+                <a href="{{ path('game_new') }}">
+                    <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
+                    <h2>New Game</h2>
+                </a>
+            </div>
+        </div>
+    {% endif %}
 
     {% if games is not empty %}
 
@@ -25,7 +45,7 @@
                                         <img class="game-poster" src="{{ games[y + 6*i][0].poster }}" alt="">
                                         <h2>{{ games[y + 6*i][0].title }}</h2>
                                     </a>
-
+                                    
                                     <div class="game-infos">
                                         <div class="game-category-container">
                                             {% for category in games[y + 6*i][0].categories %}
@@ -101,9 +121,7 @@
                 {% endif %}
             {% endfor %}
         </nav>
-
     {% else %}
-
         <ul class="flex full-size">
             <li>
                 <section class="card small-card">
@@ -114,7 +132,6 @@
                 </section>
             </li>
         </ul>
-
     {% endif %}
 
 {% endblock %}

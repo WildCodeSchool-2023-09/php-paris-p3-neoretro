@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} • {{ pageTitle }}
+{% endblock %}
+
+{% block content %}
+
+<div class="card full-size">
+    <div class="content">
+
+        <h2>Add New Game</h2>
+
+        {{ include('admin/_form.html.twig') }}
+    </div>
+</div>
+
+{% endblock %}

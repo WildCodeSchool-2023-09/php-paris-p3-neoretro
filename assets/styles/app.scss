@@ -134,7 +134,8 @@ h1, h2, h3 {
 
 #site-name,
 #page-title,
-a, a h3, a h2 {
+a, a h2, a h3,
+label {
     &:hover {
         background: $colorGradient4;
         -webkit-background-clip: text;
@@ -143,7 +144,7 @@ a, a h3, a h2 {
         transform: scale(102%);
     }
 
-    transition: ease-in-out 100ms;
+    transition: background-color ease-in-out 100ms;
 }
 
 button {

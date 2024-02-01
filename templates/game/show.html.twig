@@ -17,7 +17,7 @@
                     <div class="information">
                         <h1 class="text">{{ game.title }}</h1>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path("edit_game", { slug: game.slug }) }}">
+                            <a href="{{ path("game_edit", { slug: game.slug }) }}">
                                 <img src="{{ asset('build/images/icons/edit-icon.png') }}">
                             </a>
                         {% endif %}

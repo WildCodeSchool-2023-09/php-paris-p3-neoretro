@@ -6,13 +6,16 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Generator as FakerGenerator;
 
 class UserFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $userPasswordHasher;
     private FakerGenerator $faker;
-    public function __construct()
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
     {
+        $this->userPasswordHasher = $userPasswordHasher;
         $this->faker = Factory::create();
     }
 
@@ -24,13 +27,13 @@ class UserFixtures extends Fixture
             if ($i === 1) {
                 $user
                     ->setUsername('admin')
-                    ->setPassword('admin')
+                    ->setPassword($this->userPasswordHasher->hashPassword($user, 'admin'))
                     ->setRoles(['ROLE_ADMIN'])
                     ->setToken($this->faker->numberBetween(1000, 9999));
             } else {
                 $user
                     ->setUsername($this->faker->userName())
-                    ->setPassword('pass1234')
+                    ->setPassword($this->userPasswordHasher->hashPassword($user, 'pass1234'))
                     ->setRoles(['ROLE_USER'])
                     ->setToken($this->faker->numberBetween(0, 200));
             }

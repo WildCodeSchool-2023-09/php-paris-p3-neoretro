@@ -21,6 +21,7 @@ import './styles/register.scss';
 import './styles/scores.scss';
 import './styles/game-scores.scss';
 import './styles/gamePlayed.scss';
+import './styles/profile.scss';
 
 // start the Stimulus application
 import './bootstrap';

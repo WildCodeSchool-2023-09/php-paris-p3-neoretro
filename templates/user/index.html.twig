@@ -5,8 +5,48 @@
 {% block content %}
 
     <div class="card full-size">
-        <div class="content">
-            
+        <div id="profile" class="content">
+            <div id="level-info">
+                <h2>{{ user.username }}</h2>
+                <img src="{{ asset('build/images/icons/user-xp.svg') }}">
+                <div id="level-experience">
+                    <p>LVL {{ user.level }}</p>
+                    <p>{{ user.experience }} XP</p>
+                </div>
+                <div id="token">
+                    <img src="{{ asset('build/images/icons/tokens-active.svg') }}">
+                    <p>{{ user.token }}</p>
+                </div>
+            </div>
+            <div id="personal-info">
+                <h2>Personal information</h2>
+                {{ form_start(profileForm) }}
+                    <div id="profile-container-input">
+                        <div class="profile-input">
+                            {{ form_row(profileForm.firstname) }}
+                            {{ form_row(profileForm.lastname) }}
+                        </div>
+                        <div class="profile-input">
+                            {{ form_row(profileForm.username) }}
+                            {{ form_row(profileForm.phonenumber) }}
+                        </div>
+                        <div class="profile-input-one-line">
+                            {{ form_row(profileForm.email) }}
+                        </div>
+                        <div class="profile-input-one-line">
+                            {{ form_row(profileForm.password) }}
+                        </div>
+                        <div class="profile-input-one-line">
+                            {{ form_row(profileForm.adress) }}
+                        </div>
+                        <div class="profile-input">
+                            {{ form_row(profileForm.city) }}
+                            {{ form_row(profileForm.zipcode) }}
+                        </div>
+                    </div>
+                    <button id="update-profile">UPDATE</button>
+                {{ form_end(profileForm) }}
+            </div>
         </div>
     </div>
 

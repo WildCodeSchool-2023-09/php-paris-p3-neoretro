@@ -3,8 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use App\Validator\EventValidator;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -16,9 +20,6 @@ class Event
 
     #[ORM\Column(length: 255)]
     private ?string $label = null;
-
-    #[ORM\ManyToOne(inversedBy: 'events')]
-    private ?Game $game = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
@@ -32,17 +33,19 @@ class Event
     #[ORM\Column]
     private ?bool $isVisible = null;
 
-    #[ORM\ManyToOne(inversedBy: 'secondPrize')]
-    private ?Prize $firstPrize = null;
-
-    #[ORM\ManyToOne(inversedBy: 'events')]
-    private ?Prize $secondPrize = null;
-
-    #[ORM\ManyToOne(inversedBy: 'events')]
-    private ?Prize $thirdPrize = null;
-
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
+
+    #[ORM\ManyToOne(inversedBy: 'events')]
+    private ?Game $game = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events')]
+    private Collection $participants;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -57,18 +60,6 @@ class Event
     public function setLabel(string $label): static
     {
         $this->label = $label;
-
-        return $this;
-    }
-
-    public function getGame(): ?Game
-    {
-        return $this->game;
-    }
-
-    public function setGame(?Game $game): static
-    {
-        $this->game = $game;
 
         return $this;
     }
@@ -121,42 +112,6 @@ class Event
         return $this;
     }
 
-    public function getFirstPrize(): ?Prize
-    {
-        return $this->firstPrize;
-    }
-
-    public function setFirstPrize(?Prize $firstPrize): static
-    {
-        $this->firstPrize = $firstPrize;
-
-        return $this;
-    }
-
-    public function getSecondPrize(): ?Prize
-    {
-        return $this->secondPrize;
-    }
-
-    public function setSecondPrize(?Prize $secondPrize): static
-    {
-        $this->secondPrize = $secondPrize;
-
-        return $this;
-    }
-
-    public function getThirdPrize(): ?Prize
-    {
-        return $this->thirdPrize;
-    }
-
-    public function setThirdPrize(?Prize $thirdPrize): static
-    {
-        $this->thirdPrize = $thirdPrize;
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -165,6 +120,42 @@ class Event
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): static
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(User $participant): static
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(User $participant): static
+    {
+        $this->participants->removeElement($participant);
 
         return $this;
     }

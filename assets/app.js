@@ -29,7 +29,10 @@ import './styles/leaderboard.scss';
 import './styles/gamePlayed.scss';
 
 import './styles/dashboard-admin.scss';
-import './styles/register.scss';
+
+import './styles/forms/global.scss';
+import './styles/forms/register.scss';
+import './styles/forms/event-add.scss';
 
 // start the Stimulus application
 import './bootstrap';

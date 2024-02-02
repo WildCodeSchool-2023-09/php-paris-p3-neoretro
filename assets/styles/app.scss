@@ -105,8 +105,12 @@ table {
 
 // TEXT
 
-h2, h3, h4, h5, h6, span, td, th, a,
-p, ul, label, input, input::placeholder, select, button, img[alt],
+h2, h3, h4, h5, h6,
+span, a,
+td, th,
+p, ul,
+input, input::placeholder, textarea, textarea::placeholder, label,
+button, img[alt],
 .text
 {
     background: $colorGradient5;
@@ -170,6 +174,19 @@ h2:hover {
     font-family: 'Michroma';
 }
 
-form input:hover {
-    border: 1px solid #0982cd;
+select {
+    background: transparent;
+    color: rgb(177, 177, 177);
+    font-family: 'Orbitron';
+
+    option {
+        background: $colorGradient5;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+        background: transparent;
+        color: rgb(177, 177, 177);
+    }
 }

@@ -1,18 +1,20 @@
-@import "_variables";
+@import "../_variables";
 
-#register {
+form input:hover,
+form textarea:hover {
+    border: 1px solid #0982cd;
+}
+
+.card {
 	.container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
 
 		form {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
+			// display: flex;
+			// flex-direction: column;
+			// align-items: center;
 
 			& > div {
-				width: 100%;
+				// width: 50%;
 		
 				label, input {
 					cursor: pointer;
@@ -28,10 +30,16 @@
 				}
 
 				input {
+					height: 3rem;
+				}
+				textarea {
+					resize: none;
+				}
+
+				input, textarea {
 					display: block;
 
 					width: 100%;
-					height: 4rem;
 
 					border-radius: $borderRadiusSmall;
 					border: 1px solid #C10BEE;
@@ -50,6 +58,7 @@
 			
 					&:focus-visible {
 						outline: none;
+						border: 1px solid #06CCF8;
 					}
 				}
 			}
@@ -75,14 +84,14 @@
 
 @media screen and (min-width: $desktopWidth) {
 
-	#register {
+	.card {
 		.container {
 			form {
 				width: 70%;
 			
 				& > div {
-					input {
-						font-size: 1rem;
+					input, textarea {
+						font-size: 1.1rem;
 
 						&::placeholder {
 							opacity: 0;

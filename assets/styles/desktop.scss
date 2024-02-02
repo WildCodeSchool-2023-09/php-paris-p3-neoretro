@@ -82,7 +82,8 @@
         align-items: center;
         gap: 50px;
 
-        width: calc(1240px + 16px);
+        // width: calc(1240px + 16px);
+        width: 100%;
         height: calc(820px + 2*40px);
         padding: 40px 0;
 
@@ -98,7 +99,6 @@
         }
 
         mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 2%, rgba(0, 0, 0, 1) 98%, transparent 100%);
-
     }
 
     .slider {

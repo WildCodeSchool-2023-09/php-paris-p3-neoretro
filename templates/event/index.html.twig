@@ -9,26 +9,22 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Label</th>
                         <th>Description</th>
                         <th>StartDate</th>
                         <th>EndDate</th>
                         <th>IsVisible</th>
-                        <th>Slug</th>
                         <th>actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for event in events %}
                         <tr>
-                            <td>{{ event.id }}</td>
                             <td>{{ event.label }}</td>
                             <td>{{ event.description }}</td>
                             <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
                             <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
                             <td>{{ event.isVisible ? 'Yes' : 'No' }}</td>
-                            <td>{{ event.slug }}</td>
                             <td>
                                 <a href="{{ path('event_show', {'slug': event.slug}) }}">show</a>
                                 <a href="{{ path('event_edit', {'slug': event.slug}) }}">edit</a>

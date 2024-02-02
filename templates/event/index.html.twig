@@ -1,62 +1,81 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<div class="card full-size">
+<div class="card full-size" id="events">
     <div class="content">
         <h2>All Events</h2>
 
-        {% if is_granted('ROLE_ADMIN') %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Label</th>
-                        <th>Description</th>
-                        <th>StartDate</th>
-                        <th>EndDate</th>
-                        <th>IsVisible</th>
-                        <th>actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for event in events %}
-                        <tr>
-                            <td>{{ event.label }}</td>
-                            <td>{{ event.description }}</td>
-                            <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                            <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
-                            <td>{{ event.isVisible ? 'Yes' : 'No' }}</td>
-                            <td>
-                                <a href="{{ path('event_show', {'slug': event.slug}) }}">show</a>
-                                <a href="{{ path('event_edit', {'slug': event.slug}) }}">edit</a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="8">no records found</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="container">
+            {% if is_granted('ROLE_ADMIN') %}
 
-            <a href="{{ path('event_new') }}">Create new</a>
-        {% else %}
-            {% set visibleEvents = events|filter(event => event.isVisible) %}
-            {% for event in visibleEvents %}
-                <ul>
-                    <td>
-                        <a href="{{ path('event_show', {'slug': event.slug}) }}">{{ event.label }}</a>
-                    </td>
-                    <td>{{ event.description }}</td>
-                    <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>
-                        <a href="{{ path('event_show', {'slug': event.slug}) }}">show</a>
-                    </td>
-                </ul>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Label</th>
+                            <th>Description</th>
+                            <th>StartDate</th>
+                            <th>EndDate</th>
+                            <th>IsVisible</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ul>
+                            {% for event in events %}
+                                <li>
+                                    <tr>
+                                        <td>{{ event.label }}</td>
+                                        <td>{{ event.description }}</td>
+                                        <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td>{{ event.isVisible ? 'Yes' : 'No' }}</td>
+                                        <td>
+                                            <a href="{{ path('event_show', {'slug': event.slug}) }}">show</a>
+                                            <a href="{{ path('event_edit', {'slug': event.slug}) }}">edit</a>
+                                        </td>
+                                    </tr>
+                                </li>
+                            {% else %}
+                                <tr>
+                                    <td colspan="8">no records found</td>
+                                </tr>
+                            {% endfor %}
+                        </ul>
+                    </tbody>
+                </table>
+
+                <a href="{{ path('event_new') }}">Create new</a>
+
             {% else %}
-                <p>No events found. Come back later!</p>
-            {% endfor %}
-        {% endif %}
+
+                {% set visibleEvents = events|filter(event => event.isVisible) %}
+                <ul id="event-list">
+                    {% for event in visibleEvents %}
+                        <li>
+                            <div class="event-card">
+                                <h3><a href="{{ path('event_show', {'slug': event.slug}) }}">{{ event.label|upper }}</a></h3>
+                                <div class="event-grid">
+                                    <img src="{{ event.game.poster }}" alt="">
+                                    <p>{{ event.description }}</p>
+                                    <ul class="event-infos">
+                                        <li>FROM: {{ event.startDate ? event.startDate|date('d m Y H:i') : '' }}</li>
+                                        <li>TO: {{ event.endDate ? event.endDate|date('d m Y H:i') : '' }}</li>
+                                        <li>
+                                            <a href="">
+                                                <button class="big-btn">ENROLL</button>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li>No events found. Come back later!</li>
+                    {% endfor %}
+                </ul>
+
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

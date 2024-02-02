@@ -103,6 +103,22 @@ table {
     }
 }
 
+.big-btn {
+	margin-top: 1rem;
+	border-radius: 1.25rem;
+	border: 0.5px solid black;
+	background: $colorGradient5;
+	box-shadow: $shadow;
+
+	color: #020051;
+	
+	height: 2.8rem;
+	width: 100%;
+	font-size: 1.125rem;
+
+	cursor: pointer;
+}
+
 // TEXT
 
 h2, h3, h4, h5, h6,
@@ -136,7 +152,7 @@ h1, h2, h3 {
     }
 }
 
-#site-name,
+#site-name h1,
 #page-title,
 a, a h2, a h3,
 label {

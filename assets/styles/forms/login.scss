@@ -1,0 +1,62 @@
+@import "../main/_variables";
+
+#dashboard .card.cell-sign-in .content .container {
+    form#login {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        width: 80%;
+
+        #password, #username {
+            width: 100%;
+            height: 2.8rem;
+            border: 1px solid #C10BEE;
+            border-radius: 0.75rem;
+            text-align: center;
+            opacity: 66%;
+            font-size: 1.1rem;
+
+            &::placeholder {
+                text-align: center;
+            }
+            &:focus-visible, &:hover {
+                outline: none;
+                border: 1px solid #06CCF8;
+            }
+        }
+
+        #lost-password {
+            margin-right: 0;
+            margin-left: auto;
+            opacity: 66%;
+            font-size: .87rem;
+        }
+    }
+
+    #sign-up {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+
+        a {
+            padding: .25rem 0;
+            font-size: 14px;
+        }
+
+        a:last-child {
+            border-radius: 0.5rem;
+            border: 1px solid #C10BEE;
+            box-shadow: $shadow;
+            padding: .25rem 1.25rem;
+        }
+    }
+}
+
+//
+
+@media screen and (min-width: $desktopWidth) {
+
+}

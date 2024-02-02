@@ -10,6 +10,8 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			height: 100%;
+			width: 70%;
 
 			& > div {
 				width: 100%;
@@ -31,6 +33,10 @@
 					margin-top: .5rem;
 				}
 			}
+
+			button {
+				max-width: 300px;
+			}
 		}
 	}
 }
@@ -42,12 +48,17 @@
 	#register {
 		.container {
 			form {
-				width: 70%;
+				position: relative;
 			
 				& > div {
 					input {
 						font-size: 1rem;
 					}
+				}
+
+				button {
+					position: absolute;
+					bottom: 2rem;
 				}
 			}
 		}

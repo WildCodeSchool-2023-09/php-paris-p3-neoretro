@@ -15,12 +15,13 @@ import './styles/components/toggle.scss';
 import './styles/dashboard/dashboard.scss';
 import './styles/dashboard/dashboard-admin.scss';
 
-import './styles/event/event-add.scss';
 import './styles/event/event-index.scss';
+import './styles/event/event-new.scss';
 
 import './styles/forms/event-add.scss';
 import './styles/forms/global.scss';
 import './styles/forms/register.scss';
+import './styles/forms/login.scss';
 
 import './styles/game/game-add.scss';
 import './styles/game/game-index.scss';

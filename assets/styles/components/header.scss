@@ -38,24 +38,22 @@ header {
         border-image: $colorGradient4 1;
     }
 
-    a:first-of-type {
+    a#main-logo {
         position: absolute;
         top: 20px;
         left: 20px;
 
-        img#main-logo {
-            height: 40px;
+        img {
+            height: 50px;
             transition: transform 100ms ease-in-out;
         
             &:hover {
                 transform: scale(110%);
             }
         }
-
     }
 
-    h1#site-name,
-    h2#admin {
+    a#site-name h1 {
         display: none;
     }
 
@@ -71,12 +69,22 @@ header {
         }
     }
 
-    a#user {
+    #user-links {
         position: absolute;
-        right: 30px;
+        top: 30px;
+        right: 32px;
 
-        img {
-            height: 50px;
+        display: flex;
+        gap: 1.2rem;
+
+        a {
+            &:hover {
+                transform: scale(110%);
+            }
+            height: 40px;
+            img {
+                height: 40px;
+            }
         }
     }
 }
@@ -87,17 +95,12 @@ header {
 
     header {
         height: 100px;
-
         border-radius: 0px 0px 20px 0;
 
-        a:first-of-type {
+        a#main-logo {
             position: absolute;
             top: 24px;
             left: 35px;
-
-            img#main-logo {
-                height: 48px;
-            }
         }
 
         #page-title {
@@ -106,11 +109,11 @@ header {
             font-size: 2.5rem;
         }
 
-        a:nth-of-type(2) {
+        a#site-name {
             position: absolute;
             left: 120px;
 
-            h1#site-name {
+            h1 {
                 display: inline-block;
             }
         }

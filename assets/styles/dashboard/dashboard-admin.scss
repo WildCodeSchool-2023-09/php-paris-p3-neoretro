@@ -1,31 +1,35 @@
 @import "../main/_variables";
 
-#dashboard {
-    .cell-played-admin {
-        .content {
+#dashboard .cell-played-admin {
+    .content {
 
-            .nav-admin {
+        .nav-admin {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem;
+            
+            margin-top: 2rem;
+            
+            a.btn-admin {
                 display: flex;
-                flex-direction: column;
-            
-                a {
-                    text-align: center;
-                    border: 2px solid #06CCF8;
-                    border-radius: $borderRadiusLarge;
-                    background: $colorGradient1;
-            
-                    min-width: 95%;
-                    margin: 0 10px 10px;
-                    padding: 10px 14px;
-                }
-            
-                h1 {
-                    font-size: 2rem;
-                    color: #fff;
-                }
-            
-                h1, img {
-                    padding-left: 20px;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+    
+                border: 2px solid #06CCF8;
+                border-radius: $borderRadiusLarge;
+                background: $colorGradient1;
+    
+                // width: 80%;
+                // max-width: 800px;
+                padding: .5rem 1rem;
+    
+                font-size: 1.8rem;
+                color: #fff;
+    
+                img {
+                    height: 40px;
                 }
             }
         }
@@ -38,17 +42,17 @@
 
     #dashboard {
         .cell-played-admin {
-            grid-area: 1 / 1 / 4 / 9;
+            grid-area: 1 / 1 / span 4 / span 9;
 
             .content {
-                
+
                 .nav-admin {
                     flex-direction: row;
-                    gap: 1rem;
                     flex-wrap: wrap;
-                    margin-top: 10rem;
-        
-                    a {
+                    gap: 1rem;
+                    margin-top: 4rem;
+
+                    a.btn-admin {
                         display: flex;
                         padding: 10px;
                         min-width: 150px;

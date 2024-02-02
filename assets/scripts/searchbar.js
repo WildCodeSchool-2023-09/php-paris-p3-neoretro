@@ -47,17 +47,6 @@ toggleSorting('.sort.title', '.sort.title img', 'title');
 toggleSorting('.sort.score', '.sort.score img', 'score');
 toggleSorting('.sort.time', '.sort.time img', 'time');
 
-// HIDE PLACEHOLDER ON INPUT FOCUS
-
-const searchField = document.querySelector("input#game_search_title");
-
-searchField.addEventListener('focusin', function() {
-    searchField.setAttribute('placeholder', '//');
-});
-searchField.addEventListener('focusout', function(){
-    searchField.setAttribute('placeholder', 'Search');
-});
-
 // SUBMIT FORM ON CLICK
 
 document.querySelector('.btn.search').addEventListener('click', function() {

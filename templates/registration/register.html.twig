@@ -4,7 +4,7 @@
     <div id="register" class="card full-size">
         <div class="content">
 
-            <h2>Sign Up</h2>
+            <h2>Fill the fields</h2>
 
             <div class="container">
                 {% for flash_error in app.flashes('verify_email_error') %}
@@ -22,7 +22,7 @@
                                 label: 'Password'
                     }) }}
 
-                    <button id="submit" type="submit">CREATE ACCOUNT</button>
+                    <button class="big-btn" id="submit" type="submit">CREATE ACCOUNT</button>
 
                 {{ form_end(registrationForm) }}
             </div>

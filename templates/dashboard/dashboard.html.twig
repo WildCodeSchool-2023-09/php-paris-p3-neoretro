@@ -3,7 +3,7 @@
 {% block javascript %}
     {{ parent() }}
     {% if not app.user %}
-        {{ encore_entry_script_tags('login') }}
+        {{ encore_entry_script_tags('inputs') }}
     {% endif %}
 {% endblock javascript %}
 

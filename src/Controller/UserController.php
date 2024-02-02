@@ -16,6 +16,10 @@ class UserController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
+        if (!$this->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('dashboard', []);
+        }
+
         return $this->render('user/index.html.twig', [
             'pageTitle' => 'My profile'
         ]);

@@ -48,7 +48,6 @@ class GameController extends AbstractController
             'games' => $games,
             'gamesStats' => $gamesStats ?? [],
             'pageTitle' => 'Games',
-            'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
             'params' => $params ?? [],
         ]);

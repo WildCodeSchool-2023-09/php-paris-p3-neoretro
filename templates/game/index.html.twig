@@ -4,6 +4,7 @@
     {{ parent() }}
     {{ encore_entry_script_tags('carouselGames') }}
     {{ encore_entry_script_tags('searchbar') }}
+    {{ encore_entry_script_tags('inputs') }}
     
     {% if is_granted('ROLE_ADMIN') %}
         {{ encore_entry_script_tags('toggleGame') }}

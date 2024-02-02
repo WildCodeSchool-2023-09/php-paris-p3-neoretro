@@ -30,7 +30,7 @@
 
 @media screen and (min-width: $desktopWidth) {
 
-	form#registerForm {
+	form {
 		width: 730px;
 		margin: 0 auto;
 		margin-top: 4rem;
@@ -50,11 +50,12 @@
 				font-style: normal;
 				font-weight: 400;
 				line-height: normal;
+				margin: 19px 0 5px 0;
 			}
 	
 			input {
 				width: 100%;
-				height: 60px;
+				height: 46px;
 				border-radius: $borderRadiusSmall;
 				border: 1px solid #C10BEE;
 				box-shadow: $shadow;

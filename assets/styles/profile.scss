@@ -77,6 +77,14 @@ div#profile {
                 font-size: large;
             }
 
+            label.label-error {
+                color: red;
+            }
+
+            input.input-error {
+                border-color: red;
+            }
+
             button#update-profile {
                 border-radius: $borderRadiusMedium;
                 border: 0.5px $colorGradient1;

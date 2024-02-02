@@ -70,6 +70,15 @@ header {
             transform: scale(105%);
         }
     }
+
+    a#user {
+        position: absolute;
+        right: 30px;
+
+        img {
+            height: 50px;
+        }
+    }
 }
 
 // DESKTOP

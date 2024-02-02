@@ -12,7 +12,8 @@
         <h1 id="page-title" class="michroma">NeoRetro</h1>
     {% endif %}
 
-    {% if admin is defined and true %}
-        <h2 id="admin" class="michroma">Admin</h2>
-    {% endif %}
+    <a id="user" href="{{ path('user_index') }}">
+        <img class="inactive" src="{{ asset('build/images/icons/user.svg') }}" alt="User">
+        {# <img class="active" src="{{ asset('build/images/icons/user-active.svg') }}" alt="User"> #}
+    </a>
 </header>

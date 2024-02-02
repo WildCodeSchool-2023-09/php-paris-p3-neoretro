@@ -7,32 +7,32 @@ import './bootstrap.js';
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/reset.scss';
+import './styles/components/header.scss';
+import './styles/components/navbar.scss';
+import './styles/components/searchbar.scss';
+import './styles/components/toggle.scss';
 
-import './styles/app.scss';
-import './styles/desktop.scss';
+import './styles/dashboard/dashboard.scss';
+import './styles/dashboard/dashboard-admin.scss';
 
-import './styles/header.scss';
-import './styles/navbar.scss';
+import './styles/event/event-add.scss';
+import './styles/event/event-index.scss';
 
-import './styles/searchbar.scss';
-import './styles/toggle.scss';
-
-import './styles/dashboard.scss';
-
-import './styles/game-index.scss';
-import './styles/game-show.scss';
-import './styles/game-scores.scss';
-import './styles/game-add.scss';
-
-import './styles/leaderboard.scss';
-import './styles/gamePlayed.scss';
-
-import './styles/dashboard-admin.scss';
-
+import './styles/forms/event-add.scss';
 import './styles/forms/global.scss';
 import './styles/forms/register.scss';
-import './styles/forms/event-add.scss';
+
+import './styles/game/game-add.scss';
+import './styles/game/game-index.scss';
+import './styles/game/game-scores.scss';
+import './styles/game/game-show.scss';
+
+import './styles/main/app.scss';
+import './styles/main/desktop.scss';
+import './styles/main/reset.scss';
+
+import './styles/gamePlayed.scss';
+import './styles/leaderboard.scss';
 
 // start the Stimulus application
 import './bootstrap';

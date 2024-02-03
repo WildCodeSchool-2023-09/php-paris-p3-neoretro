@@ -36,7 +36,6 @@ class GameController extends AbstractController
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $params = $searchForm->getData();
-
         }
         // dump($params);die();
         $games = $gameRepository->search($params ?? []);

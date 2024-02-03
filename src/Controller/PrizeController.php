@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/prize')]
+#[Route('/prize', 'prize_')]
 class PrizeController extends AbstractController
 {
-    #[Route('/', name: 'prize_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(PrizeRepository $prizeRepository): Response
     {
         return $this->render('prize/index.html.twig', [
@@ -24,7 +24,7 @@ class PrizeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'prize_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $prize = new Prize();
@@ -44,7 +44,7 @@ class PrizeController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'prize_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Prize $prize): Response
     {
         return $this->render('prize/show.html.twig', [
@@ -53,7 +53,7 @@ class PrizeController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}/edit', name: 'prize_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
         Prize $prize,
@@ -64,7 +64,7 @@ class PrizeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $slug = $slugger->slug($prize->getPrizeLabel());
+            $slug = $slugger->slug($prize->getLabel());
             $prize->setSlug($slug);
             $entityManager->flush();
 
@@ -78,7 +78,7 @@ class PrizeController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'prize_delete', methods: ['POST'])]
+    #[Route('/{slug}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Prize $prize, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $prize->getId(), $request->request->get('_token'))) {

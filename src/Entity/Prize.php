@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\PrizeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
+use DateTimeInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: PrizeRepository::class)]
 class Prize
 {
@@ -24,14 +26,19 @@ class Prize
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $picture = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $poster = null;
 
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
     #[Assert\File(
         maxSize: '2M',
         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
     )]
+
+    private ?File $posterFile = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?DateTimeInterface $updateAt = null;
 
     #[ORM\Column]
     private ?int $value = null;
@@ -71,15 +78,29 @@ class Prize
         return $this;
     }
 
-    public function getPicture(): ?string
+    public function getPoster(): ?string
     {
-        return $this->picture;
+        return $this->poster;
     }
 
-    public function setPicture(string $picture): static
+    public function setPoster(string $picture): static
     {
         $this->picture = $picture;
 
+        return $this;
+    }
+
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
+    }
+
+    public function setPosterFile(File $image = null): Prize
+    {
+        $this->posterFile = $image;
+        if ($image) {
+            $this->updateAt = new DateTime('now');
+        }
         return $this;
     }
 

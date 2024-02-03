@@ -24,7 +24,7 @@ class PrizeFixtures extends Fixture implements DependentFixtureInterface
         'Carte Cadeaux',
     ];
 
-    public const PICTURES = [
+    public const POSTERS = [
         'metroid.jpeg',
         'racecar.jpeg',
         'space-invaders.png',
@@ -48,7 +48,7 @@ class PrizeFixtures extends Fixture implements DependentFixtureInterface
             $prize = new Prize();
             $prize->setLabel($data);
             $prize->setDescription($faker->text());
-            $prize->setPicture(self::PICTURES[array_rand(self::PICTURES)]);
+            $prize->setPoster(self::POSTERS[array_rand(self::POSTERS)]);
             $prize->setValue(100);
             $prize->setQuantity(10);
             $prize->setSlug($this->slugger->slug($prize->getLabel()));

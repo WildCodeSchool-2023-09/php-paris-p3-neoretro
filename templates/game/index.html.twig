@@ -47,7 +47,7 @@
                             <section class="card">
                                 <div class="content">
                                     <a href="{{ path('game_show', {slug: game.slug}) }}">
-                                        <img class="game-poster" src="{{ game.poster }}" alt="">
+                                        <img class="game-poster" src="{{ vich_uploader_asset(game) }}" alt="">
                                         <h2>{{ game.title }}</h2>
                                     </a>
 

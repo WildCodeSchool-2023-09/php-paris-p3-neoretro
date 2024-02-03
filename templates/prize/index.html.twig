@@ -12,34 +12,64 @@
     </div>
 </div>
 {% endif %}
-    <ul id="carousel">
-        {% for i in 0..(prizes|length /6)| format_number({ rounding_mode: 'floor' , fraction_digit: 0 }) %}
-        <li class="prizes grid full-size">
-            {% for y in 0..5 %}
-                {% if prizes[y+(6*i)] is defined %}
-                    <section class="card">
-                        <div class="content">
-                            <h2>{{ prizes[y+(6*i)].prizeLabel }}</h2>
-                            <img src="{{ prizes[y+(6*i)].picture }}" alt="Image aléatoire">
-                            <div class="price">
-                                <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
-                                <p>{{ prizes[y+(6*i)].value }}</p>
-                            </div>
-                            <a href="" class="buy-button">BUY</a>
-                        </div>
-                    </section>
+
+{% if is_granted('ROLE_ADMIN') %}
+
+<div class="card" id="add-game-btn">
+    <div class="content">
+        <a href="{{ path('prize_new') }}">
+            <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
+            <h2>New Prize</h2>
+        </a>
+    </div>
+</div>
+
+{% endif %}
+
+    {% if prizes is not empty %}
+
+        {% set nbSlides = (prizes|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
+
+        <ul class="carousel" id="carousel-games">
+            {% for i in 0..nbSlides - 1 %}
+                <li class="games grid full-size">
+                    {% for y in 0..5 %}
+                        {% if (y + 6*i) < prizes|length %}
+                            {% set prize = prizes[y + 6*i] %}
+                            <section class="card">
+                                <div class="content">
+                                    <a href="{{ path('prize_show', {slug: prize.slug}) }}">
+                                        <img class="game-poster" src="{{ vich_uploader_asset(prize) }} alt="">
+                                        <h2>{{ prize.label }}</h2>
+                                    </a>
+                                </div>
+                            </section>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <nav class="slider" id="slider-games">
+            {% for i in 0..nbSlides - 1 %}
+                {% if i == 0 %}
+                    <div class="slider-btn current-slide"></div>
+                {% else %}
+                    <div class="slider-btn"></div>
                 {% endif %}
             {% endfor %}
-        </li>
-        {% endfor %}
-    </ul>
-    <nav id="slider">
-        {% for i in 0..(prizes|length /6)| format_number({ rounding_mode: 'floor' , fraction_digit: 0 }) %}
-            {% if i==0 %}
-                <div class="slider-btn current-slide"></div>
-            {% else %}
-                <div class="slider-btn"></div>
-            {% endif %}
-        {% endfor %}
-    </nav>
+        </nav>
+    {% else %}
+        <ul class="flex full-size">
+            <li>
+                <section class="card small-card">
+                    <div class="content">
+                        <h2>No results...</h2>
+                        <p>🔍 Try something else!</p>
+                    </div>
+                </section>
+            </li>
+        </ul>
+    {% endif %}
+
 {% endblock %}

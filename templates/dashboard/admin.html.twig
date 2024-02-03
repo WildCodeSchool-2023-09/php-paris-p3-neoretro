@@ -10,10 +10,10 @@
                 <h2>Logged as: {{ last_username }}</h2>
                 <a href="{{ path('logout') }}">Logout</a>
             </div>
-            <div class="success-block">
+            <div class="messages-success-block">
                 {% for game, messages in app.flashes %}
                     {% for message in messages %}
-                        <div class="success-messages">
+                        <div class="messages-success">
                             <p>{{ message }}</p>
                             <div class="img-block">
                                 <img src="{{ asset('build/images/icons/valide.png')}}" alt="valide icons">

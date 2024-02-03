@@ -2,10 +2,11 @@
 
 #dashboard {
     .cell-played-admin {
-        .success-block {
+        .messages-success-block {
 
             display: flex;
             justify-content: center;
+        }
         
             .img-block {
 
@@ -14,15 +15,30 @@
                 height: 80px;
                 padding-top: 25px;
             }
-            .success-messages {
+
+            .messages-success {
                 
                 color: #fefefe;
                 font-size: 1.5rem;
                 padding-bottom: 10px;
-                opacity: 1;
-                transition: opacity 0.5s ease;
+            }
+
+                @keyframes fadeOut {
+                    0% {
+                        opacity: 1;
+                    }
+                    100% {
+                        opacity: 0;
+                    }
+                }
+                
+                .messages-success {
+                    animation: fadeOut 5s ease; /* Définir l'animation */
+                    opacity: 0;
+                }
             }
         }
+        
         .content {
 
             .nav-admin {
@@ -50,8 +66,7 @@
                 }
             }
         }
-    }
-}
+
 
 
 //

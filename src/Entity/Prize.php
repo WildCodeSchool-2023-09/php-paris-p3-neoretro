@@ -106,7 +106,7 @@ class Prize
 
         return $this;
     }
-    
+
     public function getSlug(): ?string
     {
         return $this->slug;

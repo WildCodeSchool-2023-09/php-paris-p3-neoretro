@@ -3,7 +3,8 @@
 {% block title %}Prizes{% endblock %}
 
 {% block content %}
-{% if is_granted('ROLE_USER') %}
+
+{% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
 <div class="card card-balance">
     <h2>Balance</h2>
     <div class="token-balance-value">
@@ -14,7 +15,6 @@
 {% endif %}
 
 {% if is_granted('ROLE_ADMIN') %}
-
 <div class="card" id="add-game-btn">
     <div class="content">
         <a href="{{ path('prize_new') }}">
@@ -23,25 +23,40 @@
         </a>
     </div>
 </div>
-
 {% endif %}
 
     {% if prizes is not empty %}
 
         {% set nbSlides = (prizes|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
 
-        <ul class="carousel" id="carousel-games">
+        <ul class="carousel" id="carousel-prizes">
             {% for i in 0..nbSlides - 1 %}
-                <li class="games grid full-size">
+                <li class="prizes grid full-size">
                     {% for y in 0..5 %}
                         {% if (y + 6*i) < prizes|length %}
                             {% set prize = prizes[y + 6*i] %}
                             <section class="card">
-                                <div class="content">
-                                    <a href="{{ path('prize_show', {slug: prize.slug}) }}">
-                                        <img class="game-poster" src="{{ vich_uploader_asset(prize) }} alt="">
+                                <div>
+                                    <div class="flex-edit-icon">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <img src="{{ asset('build/images/icons/deleteprize.png') }}" alt="delete prize icon">
+                                        <img src="{{ asset('build/images/icons/edit-icon.png') }}" alt="">
+                                    {% endif %}
+                                        
+                                    </div>
+                                    {# <a href="{{ path('prize_show', {slug: prize.slug}) }}"> #}
+                                        <img class="prize-poster" src="{{ vich_uploader_asset(prize) }}" alt="">
+                                        
+                                    <div class="flex-coin">
                                         <h2>{{ prize.label }}</h2>
-                                    </a>
+  
+                                    </div>
+                                    <div class="buy-flex">
+                                        <p>Stock: x{{ prize.quantity }}</p>
+                                        <a href="" class="buy-button">BUY</a>
+                                        <img src="{{ asset('build/images/icons/coins.png') }}" alt="">
+                                        <p>{{ prize.value }}</p>
+                                    </div>
                                 </div>
                             </section>
                         {% endif %}
@@ -50,7 +65,7 @@
             {% endfor %}
         </ul>
 
-        <nav class="slider" id="slider-games">
+        <nav class="slider" id="slider-prizes">
             {% for i in 0..nbSlides - 1 %}
                 {% if i == 0 %}
                     <div class="slider-btn current-slide"></div>

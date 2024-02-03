@@ -14,8 +14,8 @@ use function Symfony\Component\String\u;
 class PrizeFixtures extends Fixture implements DependentFixtureInterface
 {
     public const DATAS = [
-        'Peluche',
-        'Clé USB',
+        'Plush',
+        'USB Key',
         'Porte Clé',
         'Sac à dos',
         'Mug',
@@ -25,11 +25,13 @@ class PrizeFixtures extends Fixture implements DependentFixtureInterface
     ];
 
     public const POSTERS = [
-        'metroid.jpeg',
-        'racecar.jpeg',
-        'space-invaders.png',
-        'duke-nukem.jpg',
-        'metal-slug.jpg',
+        'plush.png',
+        'usbkey.png',
+        'mousse.png',
+        'headphone.png',
+        'console.png',
+        'keyboard.png',
+        'tshirt.png',
     ];
 
 
@@ -46,7 +48,7 @@ class PrizeFixtures extends Fixture implements DependentFixtureInterface
 
         foreach (self::DATAS as $data) {
             $prize = new Prize();
-            $prize->setLabel($data);
+            $prize->setLabel($faker->word());
             $prize->setDescription($faker->text());
             $prize->setPoster(self::POSTERS[array_rand(self::POSTERS)]);
             $prize->setValue(100);

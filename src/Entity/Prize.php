@@ -83,9 +83,9 @@ class Prize
         return $this->poster;
     }
 
-    public function setPoster(string $picture): static
+    public function setPoster(string $poster): static
     {
-        $this->picture = $picture;
+        $this->poster = $poster;
 
         return $this;
     }

@@ -56,10 +56,15 @@
                                 <h3><a href="{{ path('event_show', {'slug': event.slug}) }}">{{ event.label|upper }}</a></h3>
                                 <div class="event-grid">
                                     <img src="{{ event.game.poster }}" alt="">
-                                    <p>{{ event.description }}</p>
+                                    <div>
+                                        <p>{{ event.description }}</p>
+                                        <a href="{{ path('event_show', {'slug': event.slug}) }}">
+                                            <button class="big-btn">DETAILS</button>
+                                        </a>
+                                    </div>
                                     <ul class="event-infos">
-                                        <li>FROM: {{ event.startDate ? event.startDate|date('d m Y H:i') : '' }}</li>
-                                        <li>TO: {{ event.endDate ? event.endDate|date('d m Y H:i') : '' }}</li>
+                                        <li>FROM:<br>{{ event.startDate ? event.startDate|date('d m Y H:i') : '' }}</li>
+                                        <li>TO:<br>{{ event.endDate ? event.endDate|date('d m Y H:i') : '' }}</li>
                                         <li>
                                             <a href="">
                                                 <button class="big-btn">ENROLL</button>

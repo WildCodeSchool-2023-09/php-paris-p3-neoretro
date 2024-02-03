@@ -29,10 +29,15 @@
 
             .event-grid {
                 display: grid;
-                grid-template-columns: 2fr 2fr 2fr;
+                grid-template-columns: 2fr 3fr 3fr;
                 gap: 1rem;
                 width: 100%;
-                place-items: center;
+
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                }
 
                 img {
                     height: 8rem;

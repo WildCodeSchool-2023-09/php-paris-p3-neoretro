@@ -16,7 +16,7 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker::create();
 
-        foreach (GameFixtures::DATAS as $game) {
+        foreach (GameFixtures::DATA as $game) {
             for ($i = 0; $i < 6; $i++) {
                 $picture = new Picture();
                 $picture->setFileName($faker->imageUrl(787, 740, 'nightlife'));

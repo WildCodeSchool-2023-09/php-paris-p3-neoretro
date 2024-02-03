@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\PrizeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,14 +18,20 @@ class Prize
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $prizeLabel = null;
+    #[ORM\Column(length: 255)]
+    private ?string $label = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
+
+    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
+    #[Assert\File(
+        maxSize: '2M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    )]
 
     #[ORM\Column]
     private ?int $value = null;
@@ -31,30 +39,22 @@ class Prize
     #[ORM\Column]
     private ?int $quantity = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'prizes')]
-    private Collection $winners;
-
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
-
-    public function __construct()
-    {
-        $this->winners = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPrizeLabel(): ?string
+    public function getLabel(): ?string
     {
-        return $this->prizeLabel;
+        return $this->label;
     }
 
-    public function setPrizeLabel(string $prizeLabel): static
+    public function setLabel(string $label): static
     {
-        $this->prizeLabel = $prizeLabel;
+        $this->label = $label;
 
         return $this;
     }
@@ -64,7 +64,7 @@ class Prize
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 
@@ -106,31 +106,7 @@ class Prize
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getWinners(): Collection
-    {
-        return $this->winners;
-    }
-
-    public function addWinner(User $user): static
-    {
-        if (!$this->winners->contains($user)) {
-            $this->winners->add($user);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        $this->winners->removeElement($user);
-
-        return $this;
-    }
-
+    
     public function getSlug(): ?string
     {
         return $this->slug;

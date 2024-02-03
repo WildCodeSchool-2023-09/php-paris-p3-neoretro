@@ -20,6 +20,7 @@ security:
                 login_path: dashboard
                 check_path: dashboard
                 default_target_path: dashboard
+                always_use_default_target_path: false
             logout:
                 path: logout
             # https://symfony.com/doc/current/security/impersonating_user.html
@@ -28,8 +29,11 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/game/new, roles: ROLE_ADMIN }
+        - { path: ^/game/edit, roles: ROLE_ADMIN }
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
 
 when@test:
     security:

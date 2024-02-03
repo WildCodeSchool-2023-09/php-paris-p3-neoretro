@@ -18,10 +18,16 @@
         width: 100%;
         justify-content: space-between;
         padding: 0 1rem;
-
-        background-color: #DEE8F4CC;
+        
+        background-color: #dee8f486;
         border: 1px solid #020051;
         border-radius: 1.5rem;
+
+        transition: ease-in-out 200ms;
+        
+        &:hover {
+            transform: scale(105%);
+        }
     }
 
     #search-primary {
@@ -50,18 +56,17 @@
             }
         }
 
-        #search-field,
         #game_search_title {
             border: none;
             text-align: center;
             font-size: 1.25rem;
+            width: 80%;
 
             &:focus-visible {
                 outline: none;
             }
         }
 
-        #search-field, #search-field::placeholder,
         #game_search_title, #game_search_title::placeholder {
             background: $colorGradient1;
             -webkit-background-clip: text;
@@ -108,8 +113,13 @@
             .params {
                 position: absolute;
                 top: 60px;
+                left: 0;
                 width: 150px;
                 height: fit-content;
+
+                label, input {
+                    cursor: pointer;
+                }
             }
         }
     

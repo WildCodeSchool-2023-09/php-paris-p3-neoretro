@@ -35,6 +35,18 @@ body {
     transform: scaleY(-1);
 }
 
+table {
+    border-collapse: collapse;
+
+    tr {
+        // border-bottom: 1px cyan solid;
+
+        border-width: 2px;
+        border-style: none none solid none;
+        border-image: $colorGradient3 1;
+    }
+}
+
 // COMPONENTS
 
 .card {
@@ -51,15 +63,7 @@ body {
     background: $colorGradient1;
     box-shadow: $shadow;
 
-    h2 {
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .content {
-        position: relative;
-        z-index: 1;
-    }
+    transition: 200ms ease-in-out;
 
     // Adding gradient to top and bottom borders
     &::before {
@@ -77,12 +81,32 @@ body {
         border-style: solid none solid none;
         border-image: $colorGradient4 1;
     }
+
+    &:hover {
+        background-color: #0982cd;
+        transform: scale(102%);
+    }
+
+    .content {
+        height: 100%;
+        position: relative;
+        z-index: 1;
+
+        .container {
+            height: calc(100% - 40px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    }
 }
 
 // TEXT
 
-h2, h3, h4, h5, h6, span,
-p, ul, label, input, input::placeholder, select, a, button, img[alt],
+h2, h3, h4, h5, h6, span, td, th, a,
+p, ul, label, input, input::placeholder, select, button, img[alt],
 .text
 {
     background: $colorGradient5;
@@ -94,8 +118,47 @@ p, ul, label, input, input::placeholder, select, a, button, img[alt],
     text-decoration: none;
 }
 
-h1 {
+h1, h2, h3, p {
+    text-align: center;
+}
+
+h1, h2, h3 {
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    &.neon {
+        background: $colorGradient4;
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+}
+
+#site-name,
+#page-title,
+a, a h2, a h3,
+label {
+    &:hover {
+        background: $colorGradient4;
+        -webkit-background-clip: text;
+        background-clip: text;
+
+        transform: scale(102%);
+    }
+
+    transition: ease-in-out 100ms;
+}
+
+button {
+    transition: ease-in-out 100ms;
+
+    &:hover {
+        transform: scale(102%);
+    }
+}
+
+h2:hover {
+    background: $colorGradient6;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .michroma {
@@ -105,4 +168,8 @@ h1 {
     color: transparent;
     
     font-family: 'Michroma';
+}
+
+form input:hover {
+    border: 1px solid #0982cd;
 }

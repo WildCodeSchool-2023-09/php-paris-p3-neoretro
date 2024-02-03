@@ -13,17 +13,29 @@ use function Symfony\Component\String\u;
 
 class GameFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const DATAS = [
-        'SuperMetroid',
-        'Metroid',
+    public const DATA = [
+        'Super Metroid',
         'Out Run',
         'Midnight Race',
-        'Tower Defonce',
+        'Tower Defense',
         'Pacman',
+        'Duke Nukem',
         'Renegade',
         'Tetris',
         'Space Invaders',
         'Kung-fu Master',
+        'Zombie Killers',
+        'Shooter Master',
+        'Factory Madness',
+        'Metal Slug',
+    ];
+
+    public const POSTERS = [
+        'metroid.jpeg',
+        'racecar.jpeg',
+        'space-invaders.png',
+        'duke-nukem.jpg',
+        'metal-slug.jpg',
     ];
 
     private SluggerInterface $slugger;
@@ -37,18 +49,21 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker::create();
 
-        foreach (self::DATAS as $data) {
+        foreach (self::DATA as $data) {
             $game = new Game();
             $game->setTitle($data);
             $game->setDescription($faker->text());
-            $game->setPoster($faker->imageUrl(365, 240, 'nightlife'));
+            $game->setPoster(self::POSTERS[array_rand(self::POSTERS)]);
             $game->setIsVirtual(false);
+            $game->setIsVisible(true);
             $game->setSlug($this->slugger->slug($game->getTitle()));
+
             for ($i = 0; $i < 2; $i++) {
                 $game->addCategory(
-                    $this->getReference('category_' . u(CategoryFixtures::DATAS[rand(0, 8)])->replace(' ', '_'))
+                    $this->getReference('category_' . u(CategoryFixtures::DATA[rand(0, 8)])->replace(' ', '_'))
                 );
             }
+
             $manager->persist($game);
             $this->addReference('game_' . u($data)->replace(' ', '_'), $game);
         }

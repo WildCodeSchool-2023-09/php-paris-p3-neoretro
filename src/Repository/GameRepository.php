@@ -23,30 +23,41 @@ class GameRepository extends ServiceEntityRepository
 
     public function search(array $params): array
     {
-        $query = $this->createQueryBuilder('g')
-            ->join('g.categories', 'category');
+        $query = $this->createQueryBuilder('g');
 
-        if (!empty($params['title'])) {
+        if (!empty($params)) {
             $query
-                ->where('g.title LIKE :title')
-                ->setParameter('title', '%' . $params['title'] . '%');
-        }
+                ->andWhere('g.isVisible = :isVisible')
+                ->setParameter('isVisible', $params['isVisible']);
 
-        if (!empty($params['categories'])) {
-            $categoryQueries = [];
-            foreach ($params['categories'] as $category) {
-                $categoryQueries[] = "(category.label = '" . $category . "')";
+            if (isset($params['title'])) {
+                $query
+                    ->andWhere('g.title LIKE :title')
+                    ->setParameter('title', '%' . $params['title'] . '%');
             }
-            $categoryQuery = implode(' OR ', $categoryQueries);
-            $query->andWhere($categoryQuery);
+
+            if (!empty($params['categories']) && !$params['categories']->isEmpty()) {
+                $categoryQueries = [];
+
+                foreach ($params['categories'] as $category) {
+                    $categoryQueries[] = "(c.label = '" . $category->getLabel() . "')";
+                }
+
+                $categoryQuery = implode(' OR ', $categoryQueries);
+
+                $query->join('g.categories', 'c');
+                $query->andWhere($categoryQuery);
+            }
+
+            if (isset($params['sort_by']) && isset($params['sort_order'])) {
+                $query->orderBy('g.' . $params['sort_by'], $params['sort_order']);
+            }
+        } else {
+            $query->andWhere('g.isVisible = 1');
         }
 
-        if (!empty($params['sort'])) {
-            $query->orderBy('g.' . $params['sort']['by'], $params['sort']['order']);
-        }
-        $query->addOrderBy('g.id', 'ASC');
+        $query->addOrderBy('g.id', 'DESC');
 
-        $query = $query->getQuery();
-        return $query->getResult();
+        return $query->getQuery()->getResult();
     }
 }

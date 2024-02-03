@@ -1,0 +1,45 @@
+@import "_variables";
+
+#scores-page {
+    .card {
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 0 auto;
+
+            tr {
+                height: 50px;
+
+                td {
+                    &.td-score {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        &.cell-my-best .content {
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $desktopWidth) {
+
+    #scores-page {
+        grid-template-columns: repeat(2, 610px);
+        grid-template-rows: repeat(2, 400px);
+
+        .card {
+            &.cell-global-scores {
+                grid-area: 1 / 1 / span 2 / span 1;
+            }
+        }
+    }
+}

@@ -24,6 +24,15 @@ class PrizeFixtures extends Fixture implements DependentFixtureInterface
         'Carte Cadeaux',
     ];
 
+    public const PICTURES = [
+        'metroid.jpeg',
+        'racecar.jpeg',
+        'space-invaders.png',
+        'duke-nukem.jpg',
+        'metal-slug.jpg',
+    ];
+
+
     private SluggerInterface $slugger;
 
     public function __construct(SluggerInterface $slugger)
@@ -37,12 +46,12 @@ class PrizeFixtures extends Fixture implements DependentFixtureInterface
 
         foreach (self::DATAS as $data) {
             $prize = new Prize();
-            $prize->setPrizeLabel($data);
+            $prize->setLabel($data);
             $prize->setDescription($faker->text());
-            $prize->setPicture($faker->imageUrl(160, 160, 'nightlife'));
+            $prize->setPicture(self::PICTURES[array_rand(self::PICTURES)]);
             $prize->setValue(100);
             $prize->setQuantity(10);
-            $prize->setSlug($this->slugger->slug($prize->getPrizeLabel()));
+            $prize->setSlug($this->slugger->slug($prize->getLabel()));
             $manager->persist($prize);
         }
 

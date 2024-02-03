@@ -37,36 +37,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $lastname = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $token = null;
+    #[ORM\Column]
+    private ?int $token = 0;
 
-    #[ORM\Column(length: 10, nullable: true)]
+    #[ORM\Column(length: 16, nullable: true)]
     private ?string $phonenumber = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $adress = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $city = null;
 
     #[ORM\Column(length: 5, nullable: true)]
     private ?string $zipcode = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 40)]
     private ?string $email = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $experience = null;
-    public const ROLE_USER = 'ROLE_USER';
-    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    #[ORM\Column]
+    private ?int $experience = 0;
 
-    #[ORM\ManyToMany(targetEntity: Prize::class, mappedBy: 'winners')]
-    private Collection $prizes;
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: GamePlayed::class)]
+    private Collection $gamesPlayed;
+
+    #[ORM\Column]
+    private ?int $level = 0;
 
     public function __construct()
     {
-        $this->prizes = new ArrayCollection();
+        $this->gamesPlayed = new ArrayCollection();
     }
+    public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
 
     public function getId(): ?int
     {
@@ -100,19 +103,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = self::ROLE_USER;
-
-        return array_unique($roles);
+        return $this->roles;
     }
-
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
-
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -246,28 +243,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Prize>
+     * @return Collection<int, GamePlayed>
      */
-    public function getPrizes(): Collection
+    public function getGamesPlayed(): Collection
     {
-        return $this->prizes;
+        return $this->gamesPlayed;
     }
 
-    public function addPrize(Prize $prize): static
+    public function addGamesPlayed(GamePlayed $gamesPlayed): static
     {
-        if (!$this->prizes->contains($prize)) {
-            $this->prizes->add($prize);
-            $prize->addWinner($this);
+        if (!$this->gamesPlayed->contains($gamesPlayed)) {
+            $this->gamesPlayed->add($gamesPlayed);
+            $gamesPlayed->setPlayer($this);
         }
 
         return $this;
     }
 
-    public function removePrize(Prize $prize): static
+    public function removeGamesPlayed(GamePlayed $gamesPlayed): static
     {
-        if ($this->prizes->removeElement($prize)) {
-            $prize->removeUser($this);
+        if ($this->gamesPlayed->removeElement($gamesPlayed)) {
+            // set the owning side to null (unless already changed)
+            if ($gamesPlayed->getPlayer() === $this) {
+                $gamesPlayed->setPlayer(null);
+            }
         }
+
+        return $this;
+    }
+
+    public function getLevel(): ?int
+    {
+        return $this->level;
+    }
+
+    public function setLevel(int $level): static
+    {
+        $this->level = $level;
 
         return $this;
     }

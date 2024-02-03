@@ -1,13 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const isVisibleToggle = document.querySelector('.toggle-flex input.switch');
+    const isVisibleToggle = document.querySelector('input.switch');
     const isVisibleInput = document.querySelector('input#game_search_isVisible');
-    // const form = document.querySelector('#toggle-form');
-
-    if (isVisibleInput.value === '1') {
-        isVisibleToggle.classList.add('checked');
-    } else {
-        isVisibleToggle.classList.remove('checked');
-    }
 
     isVisibleToggle.addEventListener('click', function() {
         isVisibleToggle.classList.toggle('checked');
@@ -17,9 +9,5 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             isVisibleInput.setAttribute('value', 0);
         }
-
-        form.submit();
-    });
-});
-
-
+        document.querySelector('form#searchbar').submit();
+    });    

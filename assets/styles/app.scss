@@ -105,7 +105,7 @@ table {
 
 // TEXT
 
-h2, h3, h4, h5, h6, span, td, a,
+h2, h3, h4, h5, h6, span, td, th, a,
 p, ul, label, input, input::placeholder, select, button, img[alt],
 .text
 {
@@ -122,18 +122,39 @@ h1, h2, h3, p {
     text-align: center;
 }
 
-h1 {
+h1, h2, h3 {
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
 
-#site-name,
-#page-title,
-a {
-    &:hover {
+    &.neon {
         background: $colorGradient4;
         -webkit-background-clip: text;
         background-clip: text;
     }
+}
+
+#site-name,
+#page-title,
+a, a h2, a h3,
+label {
+    &:hover {
+        background: $colorGradient4;
+        -webkit-background-clip: text;
+        background-clip: text;
+
+        transform: scale(102%);
+    }
+
+    transition: ease-in-out 100ms;
+}
+
+button {
+    transition: ease-in-out 100ms;
+
+    &:hover {
+        transform: scale(102%);
+    }
+
+    transition: background-color ease-in-out 100ms;
 }
 
 h2:hover {

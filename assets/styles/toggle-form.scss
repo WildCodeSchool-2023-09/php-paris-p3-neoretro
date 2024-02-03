@@ -1,12 +1,12 @@
 @import "_variables";
 
-#game-visibility-toggle {
+#toggle-form {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: 1rem;
 
-	margin: 1rem 0;
+	margin: 0.5rem 0;
 
 	input.switch {
 		position: relative;
@@ -70,8 +70,7 @@
 //
 
 @media screen and (min-width: $desktopWidth) {
-	#game-visibility-toggle {
-		position: absolute;
+	#toggle-form {
 		top: 1rem;
 		right: 6rem;
 	}

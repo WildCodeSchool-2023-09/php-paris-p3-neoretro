@@ -21,16 +21,6 @@
                         </div>
                     {% endfor %}
                 {% endfor %}
-                {% for prize, messages in app.flashes %}
-                    {% for message in messages %}
-                        <div class="messages-success">
-                            <p>{{ message }}</p>
-                            <div class="img-block">
-                                <img src="{{ asset('build/images/icons/valide.png')}}" alt="valide icons">
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
             </div>
             <div class="nav-admin">
                 <a href="{{ path('game_new') }}">

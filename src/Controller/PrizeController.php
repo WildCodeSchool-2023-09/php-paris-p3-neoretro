@@ -75,7 +75,6 @@ class PrizeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $this->addFlash("Success", "The prize has been added");
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
@@ -96,7 +95,7 @@ class PrizeController extends AbstractController
             $entityManager->remove($prize);
             $entityManager->flush();
         }
-
+        $this->addFlash("Success", "The prize has been deleted");
         return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
     }
 }

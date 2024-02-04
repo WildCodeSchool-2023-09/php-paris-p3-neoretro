@@ -140,7 +140,7 @@ class GameController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            // $this->addFlash("Success", "The game has been edited");
+            $this->addFlash("Success", "The game has been edited");
 
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }

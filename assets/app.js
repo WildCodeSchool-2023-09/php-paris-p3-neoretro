@@ -25,6 +25,8 @@ import './styles/game-show.scss';
 import './styles/game-scores.scss';
 import './styles/game-add.scss';
 
+import './styles/prizes-index.scss';
+
 import './styles/leaderboard.scss';
 import './styles/gamePlayed.scss';
 

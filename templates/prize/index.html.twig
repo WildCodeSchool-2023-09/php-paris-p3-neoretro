@@ -11,22 +11,13 @@
 {% block content %}
 
 {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
-<div class="card card-balance">
-    <h2>Balance</h2>
-    <div class="token-balance-value">
-        <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
-        <p class="token-value">30</p>
-    </div>
-</div>
-{% endif %}
-
-{% if is_granted('ROLE_ADMIN') %}
-<div class="card" id="add-game-btn">
-    <div class="content">
-        <a href="{{ path('prize_new') }}">
-            <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
-            <h2>New Prize</h2>
-        </a>
+<div class="card-balance">
+    <div class="balance">
+        <h2>Balance</h2>
+        <div class="token-balance-value">
+            <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
+            <p class="token-value">30</p>
+        </div>
     </div>
 </div>
 {% endif %}
@@ -43,12 +34,6 @@
                             {% set prize = prizes[y + 6*i] %}
                             <section class="card">
                                 <div>
-                                    <div class="flex-edit-icon">
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <img src="{{ asset('build/images/icons/edit-icon.png') }}" alt="">
-                                        <img src="{{ asset('build/images/icons/deleteprize.png') }}" alt="delete prize icon"> 
-                                    {% endif %}
-                                    </div>
                                     
                                     <div class="flex-coin">
                                         <h2>{{ prize.label }}</h2>

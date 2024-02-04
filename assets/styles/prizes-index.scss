@@ -1,5 +1,43 @@
 @import "_variables";
 
+.card-balance {
+    
+    display: flex;
+    justify-content: center;
+
+    .balance {
+        width: 220px;
+        min-height: 30px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 2px solid #06CCF8;
+        border-radius: $borderRadiusLarge;
+    
+        background: $colorGradient3;
+        box-shadow: $shadow;
+    
+        transition: 200ms ease-in-out;
+    
+        .token-balance-value {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            align-items: center;
+            padding: 10px 10px 10px 10px;
+        }
+        .token-value {
+            font-size: 1.5rem;
+        }
+        h2 {
+            font-size: 1.5rem;
+            padding: 10px;
+        }
+        img {
+            width: 35px;
+            height: 35px;
+        }
+}
+}
 .card#add-prize-btn {
     width: fit-content;
     height: fit-content;
@@ -22,11 +60,6 @@
             display: inline-block;
         }
     }
-}
-
-.flex-edit-icon {
-    display: flex;
-    justify-content: space-between;
 }
 
 .flex-coin {
@@ -103,6 +136,15 @@
 }
 
 @media screen and (min-width: $desktopWidth) {
+
+.card-balance {
+
+    .balance {
+        position: absolute;
+        top: 45%;
+        left: 10%;
+    }
+}
 
     .card#add-prize-btn {
         position: absolute;

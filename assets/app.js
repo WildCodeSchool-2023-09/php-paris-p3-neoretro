@@ -17,6 +17,7 @@ import './styles/dashboard/dashboard-admin.scss';
 
 import './styles/event/event-index.scss';
 import './styles/event/event-new.scss';
+import './styles/event/event-show.scss';
 
 import './styles/forms/event-add.scss';
 import './styles/forms/global.scss';

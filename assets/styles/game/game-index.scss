@@ -27,18 +27,25 @@
 #carousel-games {
 
     li.games {
-            
+
         a {
             display: flex;
             align-items: center;
             flex-direction: column;
             color: #fff;
         }
-    
+
         h2 {
             font-size: 1.75rem;
         }
-    
+
+        .edit-btn {
+            position: absolute;
+            top: .5rem;
+            left: .5rem;
+            z-index: 1;
+        }
+
         .game-poster {
             display: block;
             width: 15rem;
@@ -47,7 +54,7 @@
             border: 1px solid #06CCF8;
             border-radius: 0.6rem;
         }
-    
+
         .game-infos {
             display: flex;
             justify-content: space-between;

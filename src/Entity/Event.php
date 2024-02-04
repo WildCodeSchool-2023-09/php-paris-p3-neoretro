@@ -100,7 +100,7 @@ class Event
         return $this;
     }
 
-    public function isIsVisible(): ?bool
+    public function isVisible(): ?bool
     {
         return $this->isVisible;
     }

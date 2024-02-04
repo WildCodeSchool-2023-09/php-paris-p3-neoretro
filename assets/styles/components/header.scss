@@ -12,9 +12,7 @@ header {
     border-style: none none solid;
     border-radius: 0px 0px 20px 20px;
 
-    background:
-        $colorGradient3;
-    
+    background: $colorGradient3;
     box-shadow: $shadow;
 
     display: flex;
@@ -44,7 +42,7 @@ header {
         left: 20px;
 
         img {
-            height: 50px;
+            width: 36px;
             transition: transform 100ms ease-in-out;
         
             &:hover {
@@ -71,19 +69,20 @@ header {
 
     #user-links {
         position: absolute;
-        top: 30px;
-        right: 32px;
+        top: 25px;
+        right: 20px;
 
         display: flex;
-        gap: 1.2rem;
+        gap: .8rem;
 
         a {
+
             &:hover {
                 transform: scale(110%);
             }
-            height: 40px;
+            
             img {
-                height: 40px;
+                width: 30px;
             }
         }
     }
@@ -101,6 +100,9 @@ header {
             position: absolute;
             top: 24px;
             left: 35px;
+            img {
+                width: 50px;
+            }
         }
 
         #page-title {
@@ -122,6 +124,21 @@ header {
             display: inline-block;
             position: absolute;
             right: 50px;
+        }
+
+        #user-links {
+            top: 30px;
+            right: 32px;
+
+            gap: 1.2rem;
+    
+            a {
+                width: 40px;
+                
+                img {
+                    width: 40px;
+                }
+            }
         }
     }
 }

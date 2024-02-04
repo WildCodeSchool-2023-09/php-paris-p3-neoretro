@@ -4,23 +4,14 @@
 
 <div id="add-event" class="card full-size">
     <div class="content">
-        <h2>Create new event</h2>
+        <h2>New event</h2>
+
+        {# <a href="{{ path('event_index') }}">Back to list</a> #}
 
         <div class="container">
 
-            {# <a href="{{ path('event_index') }}">Back to list</a> #}
+            {% include 'event/_form.html.twig' %}
 
-            {{ form_start(form) }}
-                {# {{ form_widget(form) }} #}
-                {{ form_row(form.label) }}
-                {{ form_row(form.description) }}
-                {{ form_row(form.startDate) }}
-                {{ form_row(form.endDate) }}
-                {{ form_row(form.isVisible) }}
-                {{ form_row(form.game) }}
-
-                <button id="submit">{{ button_label|default('Save') }}</button>
-            {{ form_end(form) }}
         </div>
     </div>
 </div>

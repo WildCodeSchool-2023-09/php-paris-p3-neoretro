@@ -65,7 +65,7 @@ class EventController extends AbstractController
     {
         return $this->render('event/show.html.twig', [
             'event' => $event,
-            'pageTitle' => $event->getLabel(),
+            'pageTitle' => 'Event details',
         ]);
     }
 
@@ -99,5 +99,39 @@ class EventController extends AbstractController
         }
 
         return $this->redirectToRoute('event_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{slug}/enroll', name: 'enroll', methods: ['GET'])]
+    public function enroll(Event $event, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $user = $this->getUser();
+        $referer = $request->headers->get('referer');
+
+        if (!$user) {
+            $this->addFlash('warning', 'You need to be logged in to enroll in an event.');
+            return $this->redirect($referer ?: $this->generateUrl('event_index'));
+        }
+
+        if (!$event->isVisible()) {
+            $this->addFlash('warning', 'This event is not currently ready for enrollment.');
+            return $this->redirect($referer ?: $this->generateUrl('event_index'));
+        }
+
+        if ($event->getParticipants()->contains($user)) {
+            $this->addFlash('warning', 'You are already enrolled in this event.');
+            return $this->redirect($referer ?: $this->generateUrl('event_show', ['slug' => $event->getSlug()]));
+        }
+
+        $event->addParticipant($user);
+        $entityManager->persist($event);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'Your participation in ' . $event->getLabel() . ' is registered.' . "\n" .
+            'See you on ' . $event->getStartDate()->format('d m Y H:i') . '!'
+        );
+
+        return $this->redirect($referer ?: $this->generateUrl('event_show', ['slug' => $event->getSlug()]));
     }
 }

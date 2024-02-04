@@ -7,16 +7,15 @@ ul.carousel#game-show-carousel {
         .cell-resume {
 
             h2.neon {
-                text-align: center;
-                font-size: 2.5rem;
-                margin-top: 18px;
+                font-size: 2rem;
+                margin: .5rem 0;
             }
 
-            #game-edit {
-                position: absolute;
-                top: 0;
-                left: 1rem;
-            }
+            // .edit-btn {
+            //     position: absolute;
+            //     top: 0;
+            //     left: 0;
+            // }
 
             div.rating {
                 display: flex;
@@ -403,8 +402,8 @@ div.dialog-comment {
             .cell-resume {
                 grid-area: 1 / 1 / 1 / span 2;
 
-                h2 {
-                    margin: 1rem 0 2rem;
+                h2.neon {
+                    margin: .5rem 0 1rem;
                     font-size: 2.5rem;
                 }
 

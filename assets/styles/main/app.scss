@@ -31,15 +31,29 @@ body {
 .hidden {
     display: none;
 }
+
 .reversed {
     transform: scaleY(-1);
+}
+
+#flash-stack {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+
+    width: fit-content;
+    height: fit-content;
+    min-height: 0;
+
+    padding: 2rem;
+    background: $colorGradient1-opaque;
 }
 
 table {
     border-collapse: collapse;
 
     tr {
-        // border-bottom: 1px cyan solid;
+        border-bottom: .5px rgba(0, 216, 216, 0.5) solid;
 
         border-width: 2px;
         border-style: none none solid none;
@@ -105,6 +119,7 @@ table {
 
 .big-btn {
 	margin-top: 1rem;
+    padding: 0 2rem;
 	border-radius: 1.25rem;
 	border: 0.5px solid black;
 	background: $colorGradient5;
@@ -117,6 +132,13 @@ table {
 	font-size: 1.125rem;
 
 	cursor: pointer;
+}
+
+.edit-btn {
+    position: absolute;
+    top: .5rem;
+    left: 1rem;
+    z-index: 1;
 }
 
 // TEXT

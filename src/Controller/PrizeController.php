@@ -25,14 +25,13 @@ class PrizeController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]    
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(
-        Request $request, 
+        Request $request,
         EntityManagerInterface $entityManager,
         SluggerInterface $slugger
-        ): Response
-    {
+    ): Response {
         $prize = new Prize();
         $form = $this->createForm(PrizeType::class, $prize);
         $form->handleRequest($request);
@@ -76,7 +75,6 @@ class PrizeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -88,11 +86,10 @@ class PrizeController extends AbstractController
 
     #[Route('/{slug}', name: 'delete', methods: ['POST'])]
     public function delete(
-        Request $request, 
-        Prize $prize, 
+        Request $request,
+        Prize $prize,
         EntityManagerInterface $entityManager
-        ): Response
-    {
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $prize->getId(), $request->request->get('_token'))) {
             $entityManager->remove($prize);
             $entityManager->flush();

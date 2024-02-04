@@ -60,13 +60,13 @@ class PrizeType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Value',
                     'required' => true,
-                ]  
+                ]
             ])
             ->add('quantity', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Stock',
                     'required' => false,
-                ]  
+                ]
             ])
         ;
     }

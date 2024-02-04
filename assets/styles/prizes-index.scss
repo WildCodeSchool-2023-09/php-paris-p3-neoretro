@@ -21,9 +21,6 @@
         img {
             display: inline-block;
         }
-        p {
-            font-size: 2rem;
-        }
     }
 }
 
@@ -43,32 +40,41 @@
         height: 30px;
         margin: 0 10px 0 10px;
     }
+    h2:first-of-type {
+        margin: 0;
+    }
 }
 
 .buy-flex {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-direction: row;
     align-items: center;
 
+    p {
+        font-size: 1.5rem;
+    }
     .buy-button {
         font-size: 24px;
             border-radius: 1.25rem;
             border: 0.5px solid black;
             background: $colorGradient5;
             box-shadow: $shadow;
-
+    
             color: #020051;
             
             width: 124px;
             font-size: 1.125rem;
             padding: 5px 0;
-
-            text-align: center;
-
+    
+            text-align: center;  
+            
             cursor: pointer;
-    }
+    } 
 }
+
+
+
 
 #carousel-prizes {
 

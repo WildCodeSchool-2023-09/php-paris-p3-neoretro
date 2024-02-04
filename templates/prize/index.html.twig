@@ -2,6 +2,12 @@
 
 {% block title %}Prizes{% endblock %}
 
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('carouselGames') }}
+
+{% endblock javascript %}
+
 {% block content %}
 
 {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
@@ -39,23 +45,26 @@
                                 <div>
                                     <div class="flex-edit-icon">
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        <img src="{{ asset('build/images/icons/deleteprize.png') }}" alt="delete prize icon">
                                         <img src="{{ asset('build/images/icons/edit-icon.png') }}" alt="">
+                                        <img src="{{ asset('build/images/icons/deleteprize.png') }}" alt="delete prize icon"> 
                                     {% endif %}
-                                        
+                                    </div>
+                                    
+                                    <div class="flex-coin">
+                                        <h2>{{ prize.label }}</h2>
                                     </div>
                                     {# <a href="{{ path('prize_show', {slug: prize.slug}) }}"> #}
                                         <img class="prize-poster" src="{{ vich_uploader_asset(prize) }}" alt="">
                                         
-                                    <div class="flex-coin">
-                                        <h2>{{ prize.label }}</h2>
-  
+                                    <div class="buy-flex">
+                                            <img src="{{ asset('build/images/icons/coins.png') }}" alt="">
+
+                                            <p>{{ prize.value }}</p>
                                     </div>
                                     <div class="buy-flex">
-                                        <p>Stock: x{{ prize.quantity }}</p>
-                                        <a href="" class="buy-button">BUY</a>
-                                        <img src="{{ asset('build/images/icons/coins.png') }}" alt="">
-                                        <p>{{ prize.value }}</p>
+                                            <p>Stock: x{{ prize.quantity }}</p>
+                                    
+                                        <a href="#" class="buy-button">BUY</a>
                                     </div>
                                 </div>
                             </section>

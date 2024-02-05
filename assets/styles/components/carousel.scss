@@ -1,0 +1,111 @@
+@import "../main/_variables";
+
+ul.carousel.carousel-big {
+    li.slide {
+        .poster {
+            display: block;
+            width: 10rem;
+            aspect-ratio: 24/21;
+
+            margin: 8px auto 12px;
+            border: 1px solid #06CCF8;
+            border-radius: 0.6rem;
+        }
+    }
+}
+
+@media screen and (min-width: $desktopWidth) {
+
+    ul.carousel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+    
+        // width: calc(1240px + 16px);
+        width: 100%;
+        height: calc(820px + 2*40px);
+        padding: 40px 0;
+    
+        list-style: none;
+    
+        overflow: scroll;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+        scrollbar-width: none;
+    
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    
+        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 2%, rgba(0, 0, 0, 1) 98%, transparent 100%);
+    
+        &.carousel-big {
+            margin-top: 50px;
+    
+            li.slide {
+                grid-template-columns: repeat(3, 400px);
+                grid-template-rows: repeat(2, 400px);
+    
+                flex: 1 0 100%;
+                scroll-snap-align: center;
+    
+                .poster {
+                    width: 15rem;
+                }
+    
+                a {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    color: #fff;
+                }
+    
+                h2 {
+                    font-size: 1.75rem;
+                }
+    
+                .edit-btn {
+                    position: absolute;
+                    top: .5rem;
+                    left: .5rem;
+                    z-index: 1;
+                }
+            }
+        }
+    }
+    
+    .slider {
+        position: absolute;
+        right: 2vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+    
+        transition: ease-in-out 150ms;
+    
+        &:hover {
+            transform: scale(105%);
+        }
+    }
+    
+    .slider-btn {
+        border-radius: 24px;
+        background: $colorGradient1;
+        box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25);
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    
+        transition: ease-in-out 100ms;
+    
+        &:hover {
+            transform: scale(115%);
+        }
+    }
+    
+    .current-slide {
+        background: $colorGradient5;
+    }
+}

@@ -37,16 +37,42 @@ body {
 }
 
 #flash-stack {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    position: fixed;
+    bottom: 6.5rem;
+    left: 0;
+    right: 0;
 
-    width: fit-content;
-    height: fit-content;
-    min-height: 0;
+    z-index: 1;
 
-    padding: 2rem;
-    background: $colorGradient1-opaque;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    .flash {
+        border-radius: $borderRadiusMedium;
+        background: $colorGradient1-opaque;
+
+        width: 95%;
+        min-height: 0;
+    
+        padding: 1rem .75rem;
+        margin: 0 auto;
+
+        .alert::before {
+            font-family :Arial, Helvetica, sans-serif;
+            background: none;
+            color: black;
+        }
+        .alert-warning::before {
+            content: '⚠️ ';
+        }
+        .alert-success::before {
+            content: '✅ ';
+        }
+        .alert-error::before {
+            content: '⛔️ ';
+        }
+    }
 }
 
 table {

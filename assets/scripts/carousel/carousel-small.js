@@ -1,4 +1,4 @@
-import { setVerticalCarousel, setHorizontalCarousel } from "./carousel";
+import { setVerticalCarousel, setHorizontalCarousel } from "./carousel-functions";
 
 // SLIDER BTN DETAILED GAME
 

@@ -2,7 +2,7 @@
 
 {% block javascript %}
     {{ parent() }}
-    {{ encore_entry_script_tags('carouselGames') }}
+    {{ encore_entry_script_tags('carousel-big') }}
     {{ encore_entry_script_tags('searchbar') }}
     {{ encore_entry_script_tags('inputs') }}
     
@@ -39,9 +39,9 @@
 
         {% set nbSlides = (games|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
 
-        <ul class="carousel" id="carousel-games">
+        <ul class="carousel carousel-big" id="carousel-games">
             {% for i in 0..nbSlides - 1 %}
-                <li class="games grid full-size">
+                <li class="slide grid full-size">
                     {% for y in 0..5 %}
                         {% if (y + 6*i) < games|length %}
                             {% set game = games[y + 6*i] %}
@@ -54,7 +54,7 @@
                                     {% endif %}
 
                                     <a href="{{ path('game_show', {slug: game.slug}) }}">
-                                        <img class="game-poster" src="{{ game.poster }}" alt="">
+                                        <img class="poster" src="{{ game.poster }}" alt="">
                                         <h2>{{ game.title }}</h2>
                                     </a>
 

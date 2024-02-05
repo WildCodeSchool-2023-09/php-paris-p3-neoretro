@@ -9,9 +9,17 @@
         <div class="container">
             <img class="game-poster" src="{{ event.game.poster }}" alt="">
             <p id="event-description">{{ event.description }}</p>
-            <ul id="event-infos">
-                <li>FROM:<br>{{ event.startDate ? event.startDate|date('d m Y H:i') : '' }}</li>
-                <li>TO:<br>{{ event.endDate ? event.endDate|date('d m Y H:i') : '' }}</li>
+            <ul class="event-dates">
+                <li>
+                    <div>{{ event.startDate ? event.startDate|date('D') : '' }}</div>
+                    <div>{{ event.startDate ? event.startDate|date('d M Y') : '' }}</div>
+                    <div>{{ event.startDate ? event.startDate|date('H:i') : '' }}</div>
+                </li>
+                <li>
+                    <div>{{ event.endDate ? event.endDate|date('D') : '' }}</div>
+                    <div>{{ event.endDate ? event.endDate|date('d M Y') : '' }}</div>
+                    <div>{{ event.endDate ? event.endDate|date('H:i') : '' }}</div>
+                </li>
             </ul>
 
             {# <a href="{{ path('event_index') }}">back to list</a> #}

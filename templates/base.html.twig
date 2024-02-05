@@ -27,14 +27,16 @@
 
             {% set flashStack = app.session.flashbag.all %}
             {% if flashStack is not empty %}
-                <div id="flash-stack" class="card">
-                    <div class="content">
+                <div id="flash-stack">
                         {% for type, messages in flashStack %}
                             {% for message in messages %}
-                                <p class="alert alert-{{ type }}">{{ message }}</p>
+                                <div class="flash card">
+                                    <div class="content">
+                                        <p class="alert alert-{{ type }}">{{ message }}</p>
+                                    </div>
+                                </div>
                             {% endfor %}
                         {% endfor %}
-                    </div>
                 </div>
             {% endif %}
         </div>

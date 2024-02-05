@@ -109,7 +109,7 @@ class EventController extends AbstractController
 
         if (!$user) {
             $this->addFlash('warning', 'You need to be logged in to enroll in an event.');
-            return $this->redirect($referer ?: $this->generateUrl('event_index'));
+            return $this->redirectToRoute('dashboard');
         }
 
         if (!$event->isVisible()) {
@@ -119,7 +119,7 @@ class EventController extends AbstractController
 
         if ($event->getParticipants()->contains($user)) {
             $this->addFlash('warning', 'You are already enrolled in this event.');
-            return $this->redirect($referer ?: $this->generateUrl('event_show', ['slug' => $event->getSlug()]));
+            return $this->redirect($referer ?: $this->generateUrl('event_index'));
         }
 
         $event->addParticipant($user);
@@ -128,8 +128,8 @@ class EventController extends AbstractController
 
         $this->addFlash(
             'success',
-            'Your participation in ' . $event->getLabel() . ' is registered.' . "\n" .
-            'See you on ' . $event->getStartDate()->format('d m Y H:i') . '!'
+            'Your participation in ' . strtoupper($event->getLabel()) . ' is registered.' . "\n" .
+            'See you on ' . $event->getStartDate()->format('d•m•Y \a\t H:i') . '!'
         );
 
         return $this->redirect($referer ?: $this->generateUrl('event_show', ['slug' => $event->getSlug()]));

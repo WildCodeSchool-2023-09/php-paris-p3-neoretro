@@ -32,12 +32,15 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+
     .addEntry('pictureModal', './assets/scripts/pictureModal.js')
     .addEntry('commentModal', './assets/scripts/commentModal.js')
-    .addEntry('carousel', './assets/scripts/carousel.js')
+
     .addEntry('searchbar', './assets/scripts/searchbar.js')
-    .addEntry('carouselDetailedGame', './assets/scripts/carouselDetailedGame.js')
-    .addEntry('carouselGames', './assets/scripts/carouselGames.js')
+
+    .addEntry('carousel-small', './assets/scripts/carousel/carousel-small.js')
+    .addEntry('carousel-big', './assets/scripts/carousel/carousel-big.js')
+
     .addEntry('toggleGame', './assets/scripts/toggleGame.js')
     .addEntry('inputs', './assets/scripts/inputs.js')
 

@@ -58,13 +58,13 @@
                                     <p class="event-description">{{ event.description }}</p>
                                     <ul class="event-dates">
                                         <li>
-                                            <div>{{ event.startDate ? event.startDate|date('D') : '' }}</div>
-                                            <div>{{ event.startDate ? event.startDate|date('d M Y') : '' }}</div>
+                                            <div>FROM:</div>
+                                            <div>{{ event.startDate ? event.startDate|date('d•M•Y') : '' }}</div>
                                             <div>{{ event.startDate ? event.startDate|date('H:i') : '' }}</div>
                                         </li>
                                         <li>
-                                            <div>{{ event.endDate ? event.endDate|date('D') : '' }}</div>
-                                            <div>{{ event.endDate ? event.endDate|date('d M Y') : '' }}</div>
+                                            <div>TO:</div>
+                                            <div>{{ event.endDate ? event.endDate|date('d•m•Y') : '' }}</div>
                                             <div>{{ event.endDate ? event.endDate|date('H:i') : '' }}</div>
                                         </li>
                                     </ul>

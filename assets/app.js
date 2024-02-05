@@ -7,6 +7,7 @@ import './bootstrap.js';
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+import './styles/components/carousel.scss';
 import './styles/components/header.scss';
 import './styles/components/navbar.scss';
 import './styles/components/searchbar.scss';

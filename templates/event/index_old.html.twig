@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<div class="card full-size" id="events">
+    <div class="content">
+        <h2>All Events</h2>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('event_new') }}" class="btn-container">
+                <button class="big-btn">NEW EVENT</button>
+            </a>
+        {% endif %}
+
+        <div class="container">
+            <ul id="event-list">
+
+                {% set visibleEvents = events|filter(event => event.isVisible) %}
+                {% for event in visibleEvents %}
+                    <li>
+                        <div class="event-card">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="edit-btn" href="{{ path("event_edit", { slug: event.slug }) }}">
+                                    <img src="{{ asset('build/images/icons/edit2.svg') }}">
+                                </a>
+                            {% endif %}
+                            <h3><a href="{{ path('event_show', {'slug': event.slug}) }}">{{ event.label|upper }}</a></h3>
+                            <div class="event-grid">
+                                <img src="{{ event.game.poster }}" alt="Game poster">
+                                <div>
+                                    <p>{{ event.description }}</p>
+                                    <ul class="event-infos">
+                                        <li>FROM:<br>{{ event.startDate ? event.startDate|date('d m Y H:i') : '' }}</li>
+                                        <li>TO:<br>{{ event.endDate ? event.endDate|date('d m Y H:i') : '' }}</li>
+                                    </ul>
+                                    <div class="btns-container">
+                                        <a href="{{ path('event_show', {'slug': event.slug}) }}">
+                                            <button class="big-btn">DETAILS</button>
+                                        </a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a href="{{ path("event_edit", { slug: event.slug }) }}">
+                                                <button class="big-btn">EDIT</button>
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ path('event_enroll', {slug: event.slug}) }}">
+                                                <button class="big-btn">ENROLL</button>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% else %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li>Create your first event!</li>
+                    {% else %}
+                        <li>No events found. Come back later!</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

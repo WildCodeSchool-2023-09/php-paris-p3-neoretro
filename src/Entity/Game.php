@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
+//use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -52,9 +52,9 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Picture::class, orphanRemoval: true)]
     private Collection $pictures;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'games')]
-    private Collection $categories;
-    #[ORM\JoinTable(name: 'game_category')]
+    //#[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'games')]
+    //private Collection $categories;
+    //#[ORM\JoinTable(name: 'game_category')]
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
@@ -62,10 +62,17 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: GamePlayed::class)]
     private Collection $gamesPlayed;
 
+    #[ORM\ManyToOne(inversedBy: 'games')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $mainCategory = null;
+
+    #[ORM\ManyToOne]
+    private ?Category $optionalCategory = null;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+        //$this->categories = new ArrayCollection();
         $this->gamesPlayed = new ArrayCollection();
     }
 
@@ -165,9 +172,9 @@ class Game
     }
 
     /**
-     * @return Collection<int, Category>
+     * return Collection<int, Category>
      */
-    public function getCategories(): Collection
+    /*public function getCategories(): Collection
     {
         return $this->categories;
     }
@@ -190,7 +197,7 @@ class Game
         }
 
         return $this;
-    }
+    }*/
 
     public function getSlug(): ?string
     {
@@ -256,6 +263,30 @@ class Game
                 $gamesPlayed->setGame(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMainCategory(): ?Category
+    {
+        return $this->mainCategory;
+    }
+
+    public function setMainCategory(?Category $mainCategory): static
+    {
+        $this->mainCategory = $mainCategory;
+
+        return $this;
+    }
+
+    public function getOptionalCategory(): ?Category
+    {
+        return $this->optionalCategory;
+    }
+
+    public function setOptionalCategory(?Category $optionalCategory): static
+    {
+        $this->optionalCategory = $optionalCategory;
 
         return $this;
     }

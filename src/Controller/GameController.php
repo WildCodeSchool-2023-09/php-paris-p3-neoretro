@@ -49,9 +49,9 @@ class GameController extends AbstractController
             'games' => $games,
             'gamesStats' => $gamesStats ?? [],
             'pageTitle' => 'Games',
-            'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
+            //'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
-            'params' => $params ?? [],
+            'params' => $params ?? ['isVisible' => 1],
         ]);
     }
 
@@ -111,6 +111,12 @@ class GameController extends AbstractController
         $form = $this->createForm(GameFormType::class, $game);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors(true, true) as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             if ($game->getTitle()) {
                 $slug = $slugger->slug($game->getTitle());
@@ -138,10 +144,16 @@ class GameController extends AbstractController
         $form = $this->createForm(GameFormType::class, $game);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors(true, true) as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            // $this->addFlash("Success", "The game has been edited");
+            $this->addFlash("Success", "The game has been edited");
 
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }

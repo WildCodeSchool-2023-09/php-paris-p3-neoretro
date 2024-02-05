@@ -40,9 +40,13 @@ class ProfileType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 8,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        'max' => 4096,
+                        'max' => 255,
+                    ]),
+                    new Regex([
+                        'pattern' => '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)$/',
+                        'message' => 'Password must contain at least 1 uppercase, 1 lowercase and 1 digit',
                     ]),],])
             ->add('firstname', TextType::class, [
                 'constraints' => [
@@ -70,10 +74,6 @@ class ProfileType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your phone number',
-                    ]),
-                    new Regex([
-                        'pattern' => '/^[0-9]{10}$/',
-                        'message' => 'Please enter a valid phone number (10 digits)',
                     ]),],])
             ->add('adress', TextType::class, [
                 'constraints' => [
@@ -82,7 +82,7 @@ class ProfileType extends AbstractType
                     ]),
                     new Length([
                         'min' => 2,
-                        'max' => 20,
+                        'max' => 100,
                         'minMessage' => 'Your address should be at least {{ limit }} characters',
                         'maxMessage' => 'Your address should not be longer than {{ limit }} characters',
                     ]),],])
@@ -93,7 +93,7 @@ class ProfileType extends AbstractType
                     ]),
                     new Length([
                         'min' => 2,
-                        'max' => 5,
+                        'max' => 100,
                         'minMessage' => 'Your city name should be at least {{ limit }} characters',
                         'maxMessage' => 'Your city name should not be longer than {{ limit }} characters',
                     ]),],])

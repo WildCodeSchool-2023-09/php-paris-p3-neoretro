@@ -27,6 +27,12 @@ class UserController extends AbstractController
         $form = $this->createForm(ProfileType::class, $this->getUser());
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors(true, true) as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 

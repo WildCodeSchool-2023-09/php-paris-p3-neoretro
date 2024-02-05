@@ -47,14 +47,24 @@
 
 .buy-flex {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-direction: row;
     align-items: center;
+    gap: 30px;
 
     p {
         font-size: 1.5rem;
-    }
-    .buy-button {
+    } 
+}
+
+.buy-flex-button {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+
+    #buy-button {
         font-size: 24px;
             border-radius: 1.25rem;
             border: 0.5px solid black;
@@ -70,11 +80,8 @@
             text-align: center;  
             
             cursor: pointer;
-    } 
+    }
 }
-
-
-
 
 #carousel-prizes {
 

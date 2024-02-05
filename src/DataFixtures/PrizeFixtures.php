@@ -48,7 +48,7 @@ class PrizeFixtures extends Fixture implements DependentFixtureInterface
 
         foreach (self::DATAS as $data) {
             $prize = new Prize();
-            $prize->setLabel($data);
+            $prize->setLabel($faker->word());
             $prize->setDescription($faker->text());
             $prize->setPoster(self::POSTERS[array_rand(self::POSTERS)]);
             $prize->setValue(100);

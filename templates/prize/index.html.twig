@@ -60,13 +60,11 @@
                                         
                                     <div class="buy-flex">
                                             <img src="{{ asset('build/images/icons/coins.png') }}" alt="">
-
-                                            <p>{{ prize.value }}</p>
+                                            <p>{{ prize.value }}</p>  
                                     </div>
-                                    <div class="buy-flex">
-                                            <p>Stock: x{{ prize.quantity }}</p>
-                                    
-                                        <a href="#" class="buy-button">BUY</a>
+                                    <div class="buy-flex-button">
+                                        <p>Stock: x{{ prize.quantity }}</p>   
+                                        <a href="#" id="buy-button">BUY</a> 
                                     </div>
                                 </div>
                             </section>

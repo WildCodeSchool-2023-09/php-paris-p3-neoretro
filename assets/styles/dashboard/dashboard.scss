@@ -233,6 +233,14 @@
                     justify-content: center;
                     align-items: center;
 
+                    h3 {
+                        overflow: hidden;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 1;
+                        white-space: pre-wrap;
+                    }
+
                     img {
                         border-radius: $borderRadiusSmall;
                         width: 8rem;

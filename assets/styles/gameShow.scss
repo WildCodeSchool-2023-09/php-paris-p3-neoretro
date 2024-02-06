@@ -229,19 +229,19 @@ ul.carousel {
             }
         }
 
-        .cell-comments {
+        .cell-reviews {
 
             h1 {
                 text-align: center;
                 margin: 20px 0 30px 0;
             }
 
-            div.comment-carousel {
+            div.review-carousel {
                 display: flex;
                 flex-direction: column;
                 row-gap: 16px;
 
-                div.comment {
+                div.review {
                     border-radius: 10px;
                     border: 1px solid;
                     border-color: #06CCF8;
@@ -255,7 +255,7 @@ ul.carousel {
                         border-bottom: 1px solid rgba(183, 128, 217, 0.86);
                     }
 
-                    div.comment-rating {
+                    div.review-rating {
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -263,20 +263,20 @@ ul.carousel {
                         width: fit-content;
                     }
 
-                    p.comment-title {
+                    p.review-title {
                         width: fit-content;
                         font-size: 1.25rem;
                         font-weight: 800;
                         margin: 16px 0 5px 0;
                     }
 
-                    p.comment-text {
+                    p.review-text {
                         -webkit-hyphens: auto;
                         hyphens: auto;
                         font-size: 0.8rem;
                     }
 
-                    p.comment-date {
+                    p.review-date {
                         margin-top: 10px;
                         text-align: end;
                         font-size: 0.8rem;
@@ -524,10 +524,10 @@ ul.carousel {
                 }
             }
 
-            .cell-comments {
+            .cell-reviews {
                 grid-area: 1 / 2 / 1 / 2;
 
-                div.comment-carousel {
+                div.review-carousel {
                     max-height: 697px;
                     height: fit-content;
                     margin-bottom: 16px;
@@ -543,14 +543,14 @@ ul.carousel {
                         border-radius: 10px;
                     }
 
-                    div.comment {
+                    div.review {
                         flex: 1 0;
 
-                        p.comment-text {
+                        p.review-text {
                             font-size: 1rem;
                         }
 
-                        p.comment-date {
+                        p.review-date {
                             font-size: 1rem;
                         }
                     }

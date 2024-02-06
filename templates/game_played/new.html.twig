@@ -22,19 +22,19 @@
             <p>+ {{ experienceGained }} XP</p>
         </div>
         <p id="player-date">Le {{gamePlayed.date|date('d-m-Y à H:i')}}</p>
-        <div id="container-add-review" aria-haspopup="dialog" aria-controls="modal-comment">
+        <div id="container-add-review" aria-haspopup="dialog" aria-controls="modal-review">
             <p>Add/update your review</p>
-            <img class="add-comment" src="{{ asset('build/images/icons/comment-add-solid.svg') }}">
+            <img class="image-add-review" src="{{ asset('build/images/icons/comment-add-solid.svg') }}">
         </div>
         <a id="button-played-game" href="{{ path('dashboard') }}">Home</a>
     </div>
 </div>
 
-<div id="modal-comment" role="dialog" aria-labelledby="comment-title" aria-modal="true" aria-hidden="true" class="dialog-comment">
-    <span aria-label="Close" title="Close comment modal" data-dismiss="modal-comment" class="close">&times;</span>
-    <div role="document" class="card comment-box">
+<div id="modal-review" role="dialog" aria-labelledby="add-review-title" aria-modal="true" aria-hidden="true" class="dialog-review">
+    <span aria-label="Close" title="Close comment modal" data-dismiss="modal-review" class="close">&times;</span>
+    <div role="document" class="card review-box">
         <div class="content">
-            <h2 id="comment-title">Add/update your review</h2>
+            <h2 id="add-review-title">Add/update your review</h2>
             {% include('game_played/_reviewForm.html.twig') %}
         </div>
     </div>

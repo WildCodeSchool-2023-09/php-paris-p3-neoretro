@@ -69,7 +69,7 @@ div#game-played {
 
             cursor: pointer;
 
-            img.add-comment {
+            img.image-add-review {
                 width: 35px;
                 height: 35px;
             }
@@ -94,7 +94,7 @@ div#game-played {
     }
 }
 
-div.dialog-comment {
+div.dialog-review {
     position: fixed;
     z-index: 3;
     top: 0;
@@ -117,7 +117,7 @@ div.dialog-comment {
     background-color: rgba(0,0,0,0.7);
     transition: .2s;
 
-    div.comment-box {
+    div.review-box {
         flex: 1;
         max-width: calc(100% - 10px);
         height: fit-content;
@@ -184,7 +184,7 @@ div.dialog-comment {
 }
 
 /* Hidden comment */
-.dialog-comment[aria-hidden="true"] {
+.dialog-review[aria-hidden="true"] {
     visibility: hidden;
     opacity: 0;
 }
@@ -246,9 +246,9 @@ div.dialog-comment {
         }
     }
 
-    div.dialog-comment {
+    div.dialog-review {
 
-        div.comment-box {
+        div.review-box {
             max-width: 1040px;
             height: 620px;
 

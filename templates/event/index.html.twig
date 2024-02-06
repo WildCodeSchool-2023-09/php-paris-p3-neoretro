@@ -28,10 +28,6 @@
         </div>
     {% endif %}
 
-    {% if not is_granted('ROLE_ADMIN') %}
-        {% set events = events|filter(event => event.isVisible) %}
-    {% endif %}
-    
     {% if events is not empty %}
 
         {% set nbSlides = (events|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}

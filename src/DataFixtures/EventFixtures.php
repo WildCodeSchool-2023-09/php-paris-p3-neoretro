@@ -24,7 +24,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             $event = new Event();
 
             $event
@@ -34,11 +34,22 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
                     'game_' . u(GameFixtures::DATA[array_rand(GameFixtures::DATA)])->replace(' ', '_')
                 ))
                 ->setIsVisible(rand(0, 1) ? true : false)
+                ->setStartDate(\DateTimeImmutable::createFromMutable($faker->dateTimeInInterval('today', '+1 week')))
+                ->setEndDate(\DateTimeImmutable::createFromMutable(
+                    $faker->dateTimeInInterval($event->getStartDate()->format('Y-m-d H:i:s'), '+ 3 days')
+                ))
                 ->setSlug($this->slugger->slug($event->getLabel()));
-        }
 
-        // $product = new Product();
-        // $manager->persist($product);
+            for ($user = 1; $user <= 50; $user++) {
+                for ($nbParticipants = 0; $nbParticipants < rand(0, 2); $nbParticipants++) {
+                    $event->addParticipant($this->getReference(
+                        'user_' . $user
+                    ));
+                }
+            }
+
+            $manager->persist($event);
+        }
 
         $manager->flush();
     }

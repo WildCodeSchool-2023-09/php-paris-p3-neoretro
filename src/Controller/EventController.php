@@ -19,9 +19,17 @@ class EventController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(EventRepository $eventRepository): Response
     {
-        $events = $eventRepository->findBy([], [
-            'startDate' => 'DESC',
-        ]);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $events = $eventRepository->findBy(
+                [],
+                ['startDate' => 'DESC']
+            );
+        } else {
+            $events = $eventRepository->findBy(
+                ['isVisible' => '1'],
+                ['startDate' => 'DESC',]
+            );
+        }
 
         return $this->render('event/index.html.twig', [
             'events' => $events,

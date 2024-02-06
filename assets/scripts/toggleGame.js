@@ -1,4 +1,4 @@
-const isVisibleToggle = document.querySelector('.toggle-flex input.switch');
+const isVisibleToggle = document.querySelector('input.switch');
 const isVisibleInput = document.querySelector('input#game_search_isVisible');
 
 isVisibleToggle.addEventListener('click', function() {
@@ -10,4 +10,6 @@ isVisibleToggle.addEventListener('click', function() {
     else {
         isVisibleInput.setAttribute('value', 0);
     }
+
+    document.querySelector('form#searchbar').submit();
 })

@@ -2,6 +2,43 @@
 
 #dashboard {
     .cell-played-admin {
+        .messages-success-block {
+
+            display: flex;
+            justify-content: center;
+        }
+        
+            .img-block {
+
+                display: flex;
+                justify-content: center;
+                height: 80px;
+                padding-top: 25px;
+            }
+
+            .messages-success {
+                
+                color: #fefefe;
+                font-size: 1.5rem;
+                padding-bottom: 10px;
+            }
+
+                @keyframes fadeOut {
+                    0% {
+                        opacity: 1;
+                    }
+                    100% {
+                        opacity: 0;
+                    }
+                }
+                
+                .messages-success {
+                    animation: fadeOut 5s ease; /* Définir l'animation */
+                    opacity: 0;
+                }
+            }
+        }
+        
         .content {
 
             .nav-admin {
@@ -29,8 +66,8 @@
                 }
             }
         }
-    }
-}
+
+
 
 //
 

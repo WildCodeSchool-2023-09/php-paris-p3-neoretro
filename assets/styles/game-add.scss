@@ -1,200 +1,96 @@
 @import "_variables";
 
-.container-logout {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    font-size: 1.2rem;
-}
-
-.form-add-game {
-        form {
-            width: 100%;
-            margin: 0 auto;
-            margin-top: 4rem;
-
-        input {
+div#game-add {
+    form {
+        label, input, select, textarea {
             display: block;
-            margin-top: 0.5rem;
             cursor: pointer;
         }
 
         label {
-            display: none;
+            text-align: center;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            margin: 19px 0 5px 0;
         }
 
-        input {
+        input, select, option, textarea {
             width: 100%;
-            min-height: 50px;
             border-radius: $borderRadiusSmall;
             border: 1px solid #C10BEE;
+            box-shadow: $shadow;
             padding: .25rem 1.25rem;
-            color: var($colorGradient2);
+
+            color: white;
+            font-size: large;
+        }
+
+        input, select {
+            height: 46px;
         }
 
         select {
-            border-radius: $borderRadiusSmall;
-            border: 1px solid #C10BEE;
-            padding: .25rem 1.25rem;
-            color: var($colorGradient2);
-            width: 50%;
-            margin-top: 0.5rem;
-            color: #5755ce;
+            option {
+                color: #5755ce;
+            }
         }
 
         textarea {
-            margin-top: 10px;
-            width: 100%;
-            min-height: 20vw;
-            border-radius: $borderRadiusSmall;
-            border: 1px solid #C10BEE;
-            padding: .25rem 1.25rem;
             background: none;
-            color: #fff;
         }
-    }
-}
-  
-  
 
-.form-add-game-suite {
+        textarea {
+            min-height: 92px;
+        }
 
-    label {
-        display: none;
-    }
+        label.label-error {
+            color: red;
+        }
 
-    .checked-flex {
-        margin-top: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+        input.input-error, select.input-error, textarea.input-error {
+            border-color: red;
+        }
 
-    .btn-savegame-flex {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        div.checked-flex {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .btn-savegame {
-        margin-top: 1rem;
-        border: 0.5px solid black;
-        border-radius: 1.25rem;
-        box-shadow: $shadow;
-        background: $colorGradient5;
-        color: #020051;
-        width: 18.875rem;
-        height: 2.8rem;
-        font-size: 1.125rem;
-        cursor: pointer;
+        button#add-edit-game {
+            border-radius: $borderRadiusMedium;
+            border: 0.5px $colorGradient1;
+            background: $colorGradient5;
+            color : #020051;
+            width: 288px;
+            height: 50px;
+            text-align: center;
+            font-size: 18px;
+            margin-left: calc(50% - 144px);
+            margin-top: 24px;
+
+            cursor: pointer;
+        }
     }
 }
 
 @media screen and (min-width: $desktopWidth) {
 
-    .container-logout {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        margin-top: 10px;
-        font-size: 1.4rem;
-    }
-
-    .form-add-game {
-        
+    div#game-add {
         form {
-            width: 60%;
-            margin: 0 auto;
-            margin-top: 4rem;
-
-            input {
-                display: block;
-                margin-top: 1rem;
-                margin-bottom: 1rem;
-                cursor: pointer;
+            div.game-input, div.game-input-category {
+                margin: 0 10% 0 10%;
             }
 
-            label {
-                display: none;
+            div.game-input-category {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10%;
             }
-
-            input {
-                border-radius: $borderRadiusSmall;
-                border: 1px solid #C10BEE;
-                padding: .25rem 1.25rem;
-                color: var($colorGradient2);
-            }
-
-            input[type="file"] {
-                font-size: 1.2rem;
-            }
-        
-            select {
-                border-radius: $borderRadiusSmall;
-                border: 1px solid #C10BEE;
-                padding: .25rem 1.25rem;
-                color: var($colorGradient2);
-                font-size: 1.2rem;
-                width: 30%;
-                color: #5755ce;
-                margin-bottom: 1rem;
-            }
-
-            textarea {
-                width: 100%;
-                min-height: 12vw;
-                border-radius: $borderRadiusSmall;
-                border: 1px solid #C10BEE;
-                padding: .25rem 1.25rem;
-                background: none;
-                color: #fff;
-                font-size: 1.5rem;
-            }
-        }
-    }
-
-    .form-add-game-suite {
-
-        label {
-            display: none;
-        }
-
-        .checked-flex {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .description {
-            min-height: 250px;
-            color: var($colorGradient6);
-            width: 100%;
-            border-radius: $borderRadiusSmall;
-            border: 1px solid #C10BEE;
-            padding: .25rem 1.25rem;
-            color: var($colorGradient2);
-        }
-
-        .btn-savegame-flex {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .btn-savegame {
-            margin-top: 1rem;
-            border: 0.5px solid black;
-            border-radius: 1.25rem;
-            box-shadow: $shadow;
-            background: $colorGradient5;
-            color: #020051;
-            width: 18.875rem;
-            height: 2.8rem;
-            font-size: 1.125rem;
-            cursor: pointer;
         }
     }
 }

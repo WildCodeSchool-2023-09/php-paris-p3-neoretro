@@ -236,20 +236,6 @@ ul.carousel {
                 margin: 20px 0 30px 0;
             }
 
-            img.add-comment {
-                width: 45px;
-                height: 45px;
-                position: absolute;
-                right: 0px;
-                top: 0px;
-                z-index: 2;
-                cursor: pointer;
-            }
-
-            img.add-comment:hover {
-                opacity: 0.7;
-            }
-
             div.comment-carousel {
                 display: flex;
                 flex-direction: column;
@@ -325,72 +311,6 @@ ul.carousel {
         animation-name: zoom;
         animation-duration: 0.6s;
     }
-}
-
-div.dialog-comment {
-    position: fixed;
-    z-index: 3;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    padding: 1rem;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        width: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: $colorGradient5;
-        border-radius: 10px;
-    }
-    -webkit-overflow-scrolling: touch;
-    background-color: rgba(0,0,0,0.7);
-    transition: .2s;
-
-    div.comment-box {
-        flex: 1;
-        max-width: calc(100% - 10px);
-        height: calc(100% - 120px);
-        margin: auto;
-    }
-}
-
-/* Hidden comment */
-.dialog-comment[aria-hidden="true"] {
-    visibility: hidden;
-    opacity: 0;
-}
-
-/* The Close Button */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Add Animation - Zoom in the Modal */
-.animation-zoom {
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
 }
 
 
@@ -608,7 +528,8 @@ div.dialog-comment {
                 grid-area: 1 / 2 / 1 / 2;
 
                 div.comment-carousel {
-                    height: 697px;
+                    max-height: 697px;
+                    height: fit-content;
                     margin-bottom: 16px;
                     overflow: scroll;
                     overflow-x: hidden;
@@ -644,14 +565,6 @@ div.dialog-comment {
             max-height: 90%;
             max-width: 90%;
             width: auto;
-        }
-    }
-
-    div.dialog-comment {
-
-        div.comment-box {
-            max-width: 1040px;
-            height: 620px;
         }
     }
 }

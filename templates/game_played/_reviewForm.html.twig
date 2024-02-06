@@ -1,0 +1,32 @@
+<div id="review-add">
+    {{ form_start(reviewForm) }}
+        <div class="review-input">
+            {% if form_errors(reviewForm.title) %}
+                {{ form_label(reviewForm.title, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                {{ form_widget(reviewForm.title, { 'attr': { 'class': 'input-error'}}) }}
+            {% else %}
+                {{ form_label(reviewForm.title) }}
+                {{ form_widget(reviewForm.title) }}
+            {% endif %}
+        </div>
+        <div class="review-input">
+            {% if form_errors(reviewForm.opinion) %}
+                {{ form_label(reviewForm.opinion, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                {{ form_widget(reviewForm.opinion, { 'attr': { 'class': 'input-error'}}) }}
+            {% else %}
+                {{ form_label(reviewForm.opinion) }}
+                {{ form_widget(reviewForm.opinion) }}
+            {% endif %}
+        </div>
+        <div class="review-input">
+            {% if form_errors(reviewForm.note) %}
+                {{ form_label(reviewForm.note, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                {{ form_widget(reviewForm.note, { 'attr': { 'class': 'input-error'}}) }}
+            {% else %}
+                {{ form_label(reviewForm.note) }}
+                {{ form_widget(reviewForm.note) }}
+            {% endif %}
+        </div>
+        <button type="submit" id="submit-review">Submit</button>
+    {{ form_end(reviewForm) }}
+</div>

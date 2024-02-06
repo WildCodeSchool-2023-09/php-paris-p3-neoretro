@@ -57,21 +57,36 @@ class GamePlayedController extends AbstractController
             $entityManager->flush();
         }
 
-        /*if (!$review = $reviewRepository->findOneBy(['author' => $this->getUser(), 'game' => $game])) {
+        if (!$reviewRepository->findOneBy(['author' => $this->getUser(), 'game' => $game])) {
             $review = new Review();
+        } else {
+            $review = $reviewRepository->findOneBy(['author' => $this->getUser(), 'game' => $game]);
         }
 
-        $form = $this->createForm(ReviewType::class, $review);
-        $form->handleRequest($request);
+        $reviewForm = $this->createForm(ReviewType::class, $review);
+        $reviewForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-        }*/
+        if ($reviewForm->isSubmitted() && !$reviewForm->isValid()) {
+            foreach ($reviewForm->getErrors(true, true) as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+        }
+
+        if ($reviewForm->isSubmitted() && $reviewForm->isValid()) {
+            $review->setAuthor($this->getUser());
+            $review->setGame($game);
+            $review->setDate(date_create());
+            $entityManager->persist($review);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('game_show', ['slug' => $game->getSlug()]);
+        }
 
         return $this->render('game_played/new.html.twig', [
             'gamePlayed' => $gamePlayed,
             'pageTitle' => 'Your last game',
             'experienceGained' => (int)floor($gamePlayed->getScore() * GamePlayedService::EXPERIENCE_COEFFICIENT),
-            /*'form' => $form,*/
+            'reviewForm' => $reviewForm,
         ]);
     }
 }

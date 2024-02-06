@@ -14,12 +14,20 @@
                         <h1 class="text">{{ game.title }}</h1>
 
                         <div class="rating">
-                            <img src="{{ asset('build/images/icons/star-solid.svg') }}">
-                            <img src="{{ asset('build/images/icons/star-solid.svg') }}">
-                            <img src="{{ asset('build/images/icons/star-solid.svg') }}">
-                            <img src="{{ asset('build/images/icons/star-solid.svg') }}">
-                            <img src="{{ asset('build/images/icons/star-half-stroke-regular-1.svg') }}">
-                            <p>4.5</p>
+                            {% for i in 1..5 %}
+                                {% if globalNote >= i %}
+                                    <img src="{{ asset('build/images/icons/star-solid.svg') }}">
+                                {% elseif globalNote < i and globalNote > (i - 1) %}
+                                    <img src="{{ asset('build/images/icons/star-half-stroke-regular-1.svg') }}">
+                                {% else %}
+                                    <img src="{{ asset('build/images/icons/star-regular-empty.svg') }}">
+                                {% endif %}
+                            {% endfor %}
+                            {% if globalNote >= 0 %}
+                                <p>{{ globalNote }}</p>
+                            {% else %}
+                                <p>Not rated</p>
+                            {% endif %}
                         </div>
 
                         <div class="category">
@@ -164,25 +172,26 @@
 
             <section class="card cell-comments">
                 <div class="content">
-                    <h1 class="text">Comments</h1>
-                    <img class="add-comment" aria-haspopup="dialog" aria-controls="modal-comment" src="{{ asset('build/images/icons/comment-add-solid.svg') }}">
+                    <h1 class="text">Reviews</h1>
                     <div class="comment-carousel">
 
-                    {% for i in 1..6 %}
+                    {% for review in reviews %}
 
                         <div class="comment">
-                            <h2>Micheldu75020</h2>
+                            <h2>{{ review.author.username }}</h2>
                             <div class="comment-rating">
-                                <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
-                                <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
-                                <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
-                                <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
-                                <img src="{{ asset('build/images/icons/star-half-stroke-regular-mini.svg') }}">
-                                <p>4.5</p>
+                                {% for i in 1..5 %}
+                                    {% if review.note >= i %}
+                                        <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
+                                    {% else %}
+                                        <img src="{{ asset('build/images/icons/star-regular-empty-mini.svg') }}">
+                                    {% endif %}
+                                {% endfor %}
+                                <p>{{ review.note }}</p>
                             </div>
-                            <p class="comment-title">Trop bien !</p>
-                            <p class="comment-text">Super jeu, sinon j’ai besoin d’un joint d’étanchéité pour climatiseur de morgue, le mien est fissuré.</p>
-                            <p class="comment-date">16/12/2023 19:32</p>
+                            <p class="comment-title">{{ review.title }}</p>
+                            <p class="comment-text">{{ review.opinion }}</p>
+                            <p class="comment-date">{{ review.date|date('d/m/Y H:i') }}</p>
                         </div>
 
                     {% endfor %}
@@ -205,17 +214,9 @@
         <img id="img-modal" class="modal-content">
     </div>
 
-    <div id="modal-comment" role="dialog" aria-labelledby="comment-title" aria-modal="true" aria-hidden="true" class="dialog-comment">
-        <span aria-label="Close" title="Close comment modal" data-dismiss="modal-comment" class="close">&times;</span>
-        <div role="document" class="card comment-box">
-            <h2 id="comment-title">Add a comment</h2>
-        </div>
-    </div>
-
 {% endblock %}
 
 {% block javascript %}
     {{ encore_entry_script_tags('pictureModal') }}
-    {{ encore_entry_script_tags('commentModal') }}
     {{ encore_entry_script_tags('carouselDetailedGame') }}
 {% endblock %}

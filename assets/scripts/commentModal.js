@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const doc = document.querySelector('.carousel');
+    const doc = document.querySelector('#game-played');
     const trigger = document.querySelector('[aria-haspopup="dialog"]');
     const dialog = document.getElementById(trigger.getAttribute('aria-controls'));
     const dismissTrigger = dialog.querySelector('[data-dismiss]');

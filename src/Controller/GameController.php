@@ -7,6 +7,8 @@ use App\Form\GameSearchType;
 use App\Form\GameType;
 use App\Repository\CategoryRepository;
 use App\Repository\GameRepository;
+use App\Repository\ReviewRepository;
+use App\Service\GameInfoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,10 +44,15 @@ class GameController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'show', methods: ['GET'])]
-    public function show(Game $game): Response
-    {
+    public function show(
+        Game $game,
+        ReviewRepository $reviewRepository,
+        GameInfoService $gameInfoService,
+    ): Response {
         return $this->render('game/show.html.twig', [
             'game' => $game,
+            'reviews' => $reviewRepository->findBy(['game' => $game]),
+            'globalNote' => $gameInfoService->getGlobalNote($game),
             'pageTitle' => 'Game',
         ]);
     }

@@ -1,9 +1,0 @@
-{{ form_errors(gameForm) }}
-{{ form_start(gameForm) }}
-    {{ form_row(gameForm.title) }}
-    {{ form_row(gameForm.posterFile, {'attr': {'class': 'custom-file-upload'}}) }}
-    {{ form_row(gameForm.categories) }}
-    {{ form_row(gameForm.description, {'attr': {'class': 'description'}}) }}
-    {{ form_row(gameForm.isVisible, {'attr': {'class': 'switch'}}) }}
-    <button type="submit" class="big-btn">Save Game</button>
-{{ form_end(gameForm) }}

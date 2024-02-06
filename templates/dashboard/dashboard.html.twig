@@ -44,7 +44,7 @@
                             {% for lastGamePlayed in lastGamesPlayed %}
                                 <div class="recently-played-game">
                                     <a href="{{ path('game_show', {slug: lastGamePlayed.game.slug}) }}">
-                                        <img class="game-poster" src="{{ lastGamePlayed.game.poster }}" alt="Game poster">
+                                        <img class="game-poster" src="{{ vich_uploader_asset(lastGamePlayed.game) }}" alt="Game poster">
                                     </a>
 
                                     <ul>
@@ -90,7 +90,7 @@
                             </h3>
 
                             <div>
-                                <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}"><img class="game-poster" src="{{ bestGamesPlayed[0].game.poster }}" alt="Game poster"></a>
+                                <a href="{{ path('game_show', {slug: bestGamesPlayed[0].game.slug}) }}"><img class="game-poster" src="{{ vich_uploader_asset(bestGamesPlayed[0].game) }}" alt="Game poster"></a>
                                 <ul>
                                     <li>
                                         {{ bestGamesPlayed[0].score }}

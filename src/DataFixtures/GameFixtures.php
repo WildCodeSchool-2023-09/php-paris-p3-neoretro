@@ -57,12 +57,12 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
             $game->setIsVirtual(false);
             $game->setIsVisible(true);
             $game->setSlug($this->slugger->slug($game->getTitle()));
-
-            for ($i = 0; $i < 2; $i++) {
-                $game->addCategory(
-                    $this->getReference('category_' . u(CategoryFixtures::DATA[rand(0, 8)])->replace(' ', '_'))
-                );
-            }
+            $game->setMainCategory(
+                $this->getReference('category_' . u(CategoryFixtures::DATA[rand(0, 8)])->replace(' ', '_'))
+            );
+            $game->setOptionalCategory(
+                $this->getReference('category_' . u(CategoryFixtures::DATA[rand(0, 8)])->replace(' ', '_'))
+            );
 
             $manager->persist($game);
             $this->addReference('game_' . u($data)->replace(' ', '_'), $game);

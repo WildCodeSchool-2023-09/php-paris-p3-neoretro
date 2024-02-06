@@ -23,9 +23,6 @@ class GameFormType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'attr' => [
-                    'placeholder' => 'Title',
-                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter the title',
@@ -39,17 +36,21 @@ class GameFormType extends AbstractType
             ->add('posterFile', VichFileType::class, [
                 'required' => true,
             ])
-            ->add('categories', EntityType::class, [
-                'mapped' => false,
+            ->add('mainCategory', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'label',
                 'multiple' => false,
                 'by_reference' => true,
             ])
+            ->add('optionalCategory', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'label',
+                'multiple' => false,
+                'by_reference' => true,
+                'required' => false,
+                'empty_data' => null,
+            ])
             ->add('description', TextareaType::class, [
-                'attr' => [
-                    'placeholder' => 'Description',
-                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter the description',

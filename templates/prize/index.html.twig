@@ -51,6 +51,11 @@
                                     
                                         <a href="#" class="buy-button">BUY</a>
                                     </div>
+                                    {% if not is_granted ('ROLE_USER') %}
+                                        <div class="guest-message">
+                                            <p>Win tokens to buy a prize!</p>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </section>
                         {% endif %}

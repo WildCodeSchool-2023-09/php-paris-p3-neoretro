@@ -2,9 +2,6 @@
 
 #dashboard .card.cell-sign-in .content .container {
     form#login {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         gap: 10px;
 
         width: 80%;
@@ -25,6 +22,10 @@
                 outline: none;
                 border: 1px solid #06CCF8;
             }
+        }
+
+        .big-btn {
+	        margin-top: 1rem;
         }
 
         #lost-password {

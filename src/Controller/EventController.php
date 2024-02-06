@@ -134,4 +134,38 @@ class EventController extends AbstractController
 
         return $this->redirect($referer ?: $this->generateUrl('event_show', ['slug' => $event->getSlug()]));
     }
+
+    #[Route('/{slug}/cancel', name: 'cancel', methods: ['GET'])]
+    public function cancell(Event $event, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $user = $this->getUser();
+        $referer = $request->headers->get('referer');
+
+        if (!$user) {
+            $this->addFlash('warning', 'You need to be logged in to cancel your participation in an event.');
+            return $this->redirectToRoute('dashboard');
+        }
+
+        if (!$event->isVisible()) {
+            $this->addFlash('warning', 'This event is not currently available.');
+            return $this->redirect($referer ?: $this->generateUrl('event_index'));
+        }
+
+        if (!$event->getParticipants()->contains($user)) {
+            $this->addFlash('warning', 'You are not enrolled in this event.');
+            return $this->redirect($referer ?: $this->generateUrl('event_index'));
+        }
+
+        $event->removeParticipant($user);
+        $entityManager->persist($event);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'Your participation in ' . strtoupper($event->getLabel()) . ' is canceled.' . "\n" .
+            'See you soon!'
+        );
+
+        return $this->redirect($referer ?: $this->generateUrl('event_show', ['slug' => $event->getSlug()]));
+    }
 }

@@ -144,7 +144,6 @@ table {
 }
 
 .big-btn {
-	margin-top: 1rem;
     padding: 0 2rem;
 	border-radius: 1.25rem;
 	border: 0.5px solid black;
@@ -158,6 +157,11 @@ table {
 	font-size: 1.125rem;
 
 	cursor: pointer;
+}
+
+.big-btn-alt {
+    background: $colorGradient3;
+    color: #bebebe;
 }
 
 .edit-btn {

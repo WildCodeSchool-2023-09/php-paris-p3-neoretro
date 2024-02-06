@@ -37,7 +37,6 @@ class GameController extends AbstractController
             $params = $searchForm->getData();
         }
 
-        // dump($params);die();
         $games = $gameRepository->search($params ?? []);
 
         if ($this->isGranted('ROLE_USER')) {
@@ -50,6 +49,38 @@ class GameController extends AbstractController
             'pageTitle' => 'Games',
             'searchForm' => $searchForm,
             'params' => $params ?? [],
+        ]);
+    }
+
+    #[Route('/new', name: 'new')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger
+    ): Response {
+        $game = new Game();
+
+        $form = $this->createForm(GameFormType::class, $game);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($game->getTitle()) {
+                $slug = $slugger->slug($game->getTitle());
+                $game->setSlug($slug);
+            }
+
+            $entityManager->persist($game);
+            $entityManager->flush();
+
+            $this->addFlash("Success", "The game has been added");
+
+            return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('game/new.html.twig', [
+            'gameForm' => $form,
+            'pageTitle' => 'Add game',
         ]);
     }
 
@@ -97,38 +128,6 @@ class GameController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'new')]
-    #[IsGranted('ROLE_ADMIN')]
-    public function new(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        SluggerInterface $slugger
-    ): Response {
-        $game = new Game();
-
-        $form = $this->createForm(GameFormType::class, $game);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($game->getTitle()) {
-                $slug = $slugger->slug($game->getTitle());
-                $game->setSlug($slug);
-            }
-
-            $entityManager->persist($game);
-            $entityManager->flush();
-
-            $this->addFlash("Success", "The game has been added");
-
-            return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('admin/new_game.html.twig', [
-            'gameForm' => $form,
-            'pageTitle' => 'Add game',
-        ]);
-    }
-
     #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Game $game, EntityManagerInterface $entityManager): Response
@@ -144,7 +143,7 @@ class GameController extends AbstractController
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin/edit.html.twig', [
+        return $this->render('game/edit.html.twig', [
             'gameForm' => $form,
             'pageTitle' => 'Edit game',
         ]);

@@ -66,12 +66,12 @@ class GameFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('isVirtual', CheckboxType::class, [
-                    'label' => 'isVirtual',
-                    'required' => false,
-                    ])
+            // ->add('isVirtual', CheckboxType::class, [
+            //         'label' => 'isVirtual',
+            //         'required' => false,
+            //         ])
             ->add('isVisible', CheckboxType::class, [
-                    'label' => 'isVisible',
+                    'label' => 'Do you want to make this game visible?',
                     'required' => false,
                     ])
             ;

@@ -1,6 +1,6 @@
 @import "../main/_variables";
 
-.card#add-event {
+#event-form {
 	.container {
         display: flex;
         flex-direction: column;
@@ -8,9 +8,6 @@
         align-items: center;
 
 		form {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
 
 			& > div {
 				width: 100%;
@@ -37,7 +34,7 @@
 
 @media screen and (min-width: $desktopWidth) {
 
-	.card {
+	#event-form {
 		.container {
 			form {
 				width: 70%;

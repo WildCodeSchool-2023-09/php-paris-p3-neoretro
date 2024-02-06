@@ -7,12 +7,14 @@
 	gap: 1rem;
 
 	margin: 1rem 0;
+}
 
 	input.switch {
 		position: relative;
 	
 		height: 1.5rem;
 		width: 3rem;
+		margin: 0;
 	
 		cursor: pointer;
 	
@@ -65,7 +67,6 @@
 			box-shadow: 0 0 0px 8px rgba(0, 0, 0, .15)
 		}
 	}
-}
 
 //
 

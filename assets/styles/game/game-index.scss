@@ -1,13 +1,14 @@
 @import "../main/_variables";
 
 .card#add-game-btn {
-    width: fit-content;
+    width: 250px;
     height: fit-content;
     min-height: fit-content;
 
     margin: 10px auto;
 
     background: $colorGradient3;
+    border-radius: calc($borderRadiusMedium * 1.1);
 
     .content a {
         display: flex;
@@ -25,9 +26,7 @@
 }
 
 #carousel-games {
-
     li {
-
         .game-infos {
             display: flex;
             justify-content: space-between;
@@ -77,21 +76,9 @@
 
     .card#add-game-btn {
         position: absolute;
-        left: 6rem;
+        left: 1rem;
         top: 1rem;
     }
-
-    // #carousel-games {
-    //     margin-top: 50px;
-
-    //     li.games {
-    //         grid-template-columns: repeat(3, 400px);
-    //         grid-template-rows: repeat(2, 400px);
-    
-    //         flex: 1 0 100%;
-    //         scroll-snap-align: center;
-    //     }
-    // }
 
     #slider-games {
         margin-top: 50px;

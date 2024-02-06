@@ -9,9 +9,9 @@ form textarea:hover {
 	.container {
 
 		form {
-			// display: flex;
-			// flex-direction: column;
-			// align-items: center;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 
 			& > div {
 				// width: 50%;
@@ -35,8 +35,11 @@ form textarea:hover {
 				textarea {
 					resize: none;
 				}
+				select {
+					font-size: 1.1rem;
+				}
 
-				input, textarea {
+				input, textarea, select {
 					display: block;
 
 					width: 100%;

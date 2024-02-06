@@ -77,12 +77,13 @@
                                                 <button class="big-btn">EDIT</button>
                                             </a>
                                         {% else %}
-                                            
                                             {% if app.user and event.isUserEnrolled(app.user) %}
-                                                <button class="big-btn">ENROLLED!</button>
+                                            <a href="{{ path('event_cancel', {slug: event.slug}) }}">
+                                                <button class="big-btn big-btn">CANCEL</button>
+                                            </a>
                                             {% else %}
                                             <a href="{{ path('event_enroll', {slug: event.slug}) }}">
-                                                <button class="big-btn">ENROLL</button>
+                                                <button class="big-btn big-btn-alt">ENROLL</button>
                                             </a>
                                             {% endif %}
                                         {% endif %}

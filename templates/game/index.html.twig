@@ -13,10 +13,6 @@
 
 {% block content %}
 
-    {# <div id="dump">
-        {{ dump((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) }}
-    </div> #}
-
     {% include 'components/_searchbar.html.twig' %}
 
     {% if is_granted('ROLE_ADMIN') %}
@@ -28,7 +24,7 @@
         <div class="card" id="add-game-btn">
             <div class="content">
                 <a href="{{ path('game_new') }}">
-                    <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
+                    <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game">
                     <h2>New Game</h2>
                 </a>
             </div>

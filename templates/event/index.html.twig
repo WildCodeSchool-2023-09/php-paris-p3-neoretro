@@ -5,18 +5,22 @@
     {{ encore_entry_script_tags('carousel-big') }}
     {{ encore_entry_script_tags('inputs') }}
     
-    {# {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') %}
         {{ encore_entry_script_tags('toggle') }}
-    {% endif %} #}
+    {% endif %}
 {% endblock javascript %}
 
 {% block content %}
 
     {% if is_granted('ROLE_ADMIN') %}
-        {# <div id="game-visibility-toggle">
-            <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
-            <p>Visible / Hidden</p>
-        </div> #}
+        <div id="toggle">
+            <input {{ isVisible is defined and isVisible == 0 ? '' : 'checked=true' }} type="checkbox" class="switch {{ isVisible is defined and isVisible == 0 ? '' : 'checked' }}">
+            <p>Hidden // Visible</p>
+        </div>
+    
+        {{ form_start(isVisibleForm) }}
+            {{ form_widget(isVisibleForm.isVisible, {'attr': {'class': 'isVisible'}}) }}
+        {{ form_end(isVisibleForm) }}
 
         <div class="card" id="add-btn">
             <div class="content">

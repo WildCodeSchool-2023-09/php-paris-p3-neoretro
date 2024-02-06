@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Form\EventIsVisibleFormType;
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,24 +17,31 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/event', name: 'event_')]
 class EventController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(EventRepository $eventRepository): Response
+    #[Route('/', name: 'index', methods: ['GET', 'POST'])]
+    public function index(EventRepository $eventRepository, Request $request): Response
     {
+        $isVisible = 1;
+
         if ($this->isGranted('ROLE_ADMIN')) {
-            $events = $eventRepository->findBy(
-                [],
-                ['startDate' => 'DESC']
-            );
-        } else {
-            $events = $eventRepository->findBy(
-                ['isVisible' => '1'],
-                ['startDate' => 'DESC',]
-            );
+            $isVisibleForm = $this->createForm(EventIsVisibleFormType::class);
+            $isVisibleForm->handleRequest($request);
+
+            if ($isVisibleForm->isSubmitted() && $isVisibleForm->isValid()) {
+                $isVisible = $isVisibleForm->getData()->isVisible();
+            }
         }
+
+        $events = $eventRepository->findBy(
+            ['isVisible' => $isVisible],
+            ['startDate' => 'DESC',]
+        );
+
 
         return $this->render('event/index.html.twig', [
             'events' => $events,
-            'pageTitle' => 'Events'
+            'pageTitle' => 'Events',
+            'isVisibleForm' => $isVisibleForm ?? '',
+            'isVisible' => $isVisible
         ]);
     }
 

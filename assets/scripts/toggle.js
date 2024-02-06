@@ -1,13 +1,22 @@
-const isVisibleToggle = document.querySelector('#toggle input.switch');
-const isVisibleInput = document.querySelector('input#game_search_isVisible');
+function toggleInput(toggleSelector, inputSelector, formSelector)
+{
+    const isVisibleToggle = document.querySelector(toggleSelector);
+    const isVisibleInput = document.querySelector(inputSelector);
+    const form = document.querySelector(formSelector);
 
-isVisibleToggle.addEventListener('click', function() {
-    isVisibleToggle.classList.toggle('checked');
-    
-    if (isVisibleToggle.classList.contains('checked')) {
-        isVisibleInput.setAttribute('value', 1);
-    }
-    else {
-        isVisibleInput.setAttribute('value', 0);
-    }
-})
+    isVisibleToggle.addEventListener('click', function() {
+        isVisibleToggle.classList.toggle('checked');
+        
+        if (isVisibleToggle.classList.contains('checked')) {
+            isVisibleInput.setAttribute('value', 1);
+        }
+        else {
+            isVisibleInput.setAttribute('value', 0);
+        }
+
+        form.submit();
+    })
+}
+
+toggleInput('#toggle input.switch', 'input.isVisible', 'form');
+toggleInput('#toggle input.switch', 'input.isVisible', 'form');

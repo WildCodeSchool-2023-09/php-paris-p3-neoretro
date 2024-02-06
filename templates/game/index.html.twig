@@ -17,8 +17,8 @@
 
     {% if is_granted('ROLE_ADMIN') %}
         <div id="toggle">
-            <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
-            <p>Active / Inactive</p>
+            <input {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked=true' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked' }}">
+            <p>Hidden // Visible</p>
         </div>
 
         <div class="card" id="add-btn">

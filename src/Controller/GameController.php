@@ -43,6 +43,7 @@ class GameController extends AbstractController
             $gamesStats = $gameInfoService->getUserGamesStats($games, $security->getUser());
         }
 
+
         return $this->render('game/index.html.twig', [
             'games' => $games,
             'gamesStats' => $gamesStats ?? [],

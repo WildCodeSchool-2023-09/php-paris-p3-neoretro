@@ -24,7 +24,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 1; $i <= 6; $i++) {
             $event = new Event();
 
             $event
@@ -40,13 +40,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
                 ))
                 ->setSlug($this->slugger->slug($event->getLabel()));
 
-            for ($user = 1; $user <= 50; $user++) {
-                for ($nbParticipants = 0; $nbParticipants < rand(0, 2); $nbParticipants++) {
-                    $event->addParticipant($this->getReference(
-                        'user_' . $user
-                    ));
-                }
-            }
+            $this->setReference('event_' . $i, $event);
 
             $manager->persist($event);
         }
@@ -57,8 +51,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            GameFixtures::class,
-            UserFixtures::class
+            GameFixtures::class
         ];
     }
 }

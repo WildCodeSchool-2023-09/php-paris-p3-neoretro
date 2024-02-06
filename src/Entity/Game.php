@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-//use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -52,10 +51,6 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Picture::class, orphanRemoval: true)]
     private Collection $pictures;
 
-    //#[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'games')]
-    //private Collection $categories;
-    //#[ORM\JoinTable(name: 'game_category')]
-
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
@@ -72,7 +67,6 @@ class Game
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
-        //$this->categories = new ArrayCollection();
         $this->gamesPlayed = new ArrayCollection();
     }
 
@@ -170,34 +164,6 @@ class Game
 
         return $this;
     }
-
-    /**
-     * return Collection<int, Category>
-     */
-    /*public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-
-    public function addCategory(Category $category): static
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-            $category->addGame($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): static
-    {
-        if ($this->categories->removeElement($category)) {
-            $category->removeGame($this);
-        }
-
-        return $this;
-    }*/
 
     public function getSlug(): ?string
     {

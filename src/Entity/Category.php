@@ -21,9 +21,6 @@ class Category
     #[ORM\OneToMany(mappedBy: 'mainCategory', targetEntity: Game::class)]
     private Collection $games;
 
-    //#[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'categories')]
-    //private Collection $games;
-
     public function __construct()
     {
         $this->games = new ArrayCollection();
@@ -45,30 +42,6 @@ class Category
 
         return $this;
     }
-
-    /**
-     * return Collection<int, Game>
-     */
-    /*public function getGames(): Collection
-    {
-        return $this->games;
-    }
-
-    public function addGame(Game $game): static
-    {
-        if (!$this->games->contains($game)) {
-            $this->games->add($game);
-        }
-
-        return $this;
-    }
-
-    public function removeGame(Game $game): static
-    {
-        $this->games->removeElement($game);
-
-        return $this;
-    }*/
 
     /**
      * @return Collection<int, Game>

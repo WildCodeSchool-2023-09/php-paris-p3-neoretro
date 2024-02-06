@@ -36,7 +36,6 @@ class EventController extends AbstractController
             ['startDate' => 'DESC',]
         );
 
-
         return $this->render('event/index.html.twig', [
             'events' => $events,
             'pageTitle' => 'Events',

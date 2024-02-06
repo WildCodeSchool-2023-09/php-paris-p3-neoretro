@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+    <div class="card full-size" id="game-scores">
+        <div class="content scroll">
+                <h2><a href="{{ path('game_show', {slug: game.slug}) }}">{{ game.title }}</a></h2>
+
+                <table>
+                    <tbody>
+                        {% for gamePlayed in gamesPlayed %}
+                            <tr>
+                                {% if loop.index == 1 %}
+                                    <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy"></td>
+                                {% elseif loop.index == 2 %}
+                                    <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy"></td>
+                                {% elseif loop.index == 3 %}
+                                    <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
+                                {% else %}
+                                    <td class="text score-ranking">{{loop.index}}.</td>
+                                {% endif %}
+                                <td><a href="">{{ gamePlayed.player.username }}</a></td>
+                                <td>{{ gamePlayed.score }}</td>
+                                <td>
+                                    {{ gamesStats[loop.index - 1] }}
+                                </td>
+                                <td class="game-played-date">{{ gamePlayed.date|date('Y m d') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+
+{% endblock content %}

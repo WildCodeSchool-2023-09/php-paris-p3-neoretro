@@ -1,0 +1,601 @@
+@import "../main/_variables";
+
+ul.carousel#game-show-carousel {
+
+    #detailed-game-one {
+
+        .cell-resume {
+
+            h2.neon {
+                font-size: 2rem;
+                margin: .5rem 0;
+            }
+
+            // .edit-btn {
+            //     position: absolute;
+            //     top: 0;
+            //     left: 0;
+            // }
+
+            div.rating {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                font-size: 1.5rem;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            .game-show-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                div.category {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 1.25rem;
+                    gap: .5rem;
+
+                    div.game-time {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 1.5rem;
+                    }
+                }
+
+                div.resume {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    p {
+                        border-radius: 10px;
+                        border: 1px solid;
+                        border-color: #06CCF8;
+                        padding: 15px;
+                        font-size: 0.8rem;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        -webkit-hyphens: auto;
+                        hyphens: auto;
+                    }
+                }
+
+                div.poster {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: 4px;
+
+                    img {
+                        border-radius: 10px;
+                        border: 1px solid;
+                        border-color: #06CCF8;
+                        width: 373px;
+                        height: auto;
+                    }
+                }
+            }
+        }
+
+        .cell-pictures {
+
+            ul#carousel-pictures {
+                display: flex;
+                gap: 24px;
+
+                margin: 0 4.7% 0 4.7%;
+                width: fit-content;
+                height: auto;
+
+                list-style: none;
+
+                overflow: scroll;
+                scroll-behavior: smooth;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                li.pictures {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: 1fr 1fr;
+                    gap: 10px;
+                    flex: 1 0 100%;
+                    scroll-snap-align: center;
+
+                    img {
+                        width: fit-content;
+                        height: auto;
+                        margin: auto;
+                        border-radius: 10px;
+                        border: 1px solid;
+                        border-color: #06CCF8;
+                        cursor: pointer;
+                    }
+
+                    img:hover {
+                        opacity: 0.7;
+                    }
+                }
+            }
+
+            nav#slider-pictures {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+
+                div.slider-picture-btn {
+                    border-radius: 24px;
+                    background: $colorGradient5;
+                    box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25);
+                    width: 18px;
+                    height: 18px;
+                    cursor: pointer;
+                }
+
+                div.current-slide-picture {
+                    background: $colorGradient3;
+                }
+            }
+        }
+
+        .cell-scores {
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            div.own-score {
+                display: none;
+            }
+
+            table.first-scores {
+                width: 80%;
+    
+                tbody tr {
+                    height: 3rem;
+    
+                    td.text {
+                        font-size: 0.8rem;
+                        text-align: center;
+                    }
+    
+                    td.score-trophy, td.score-ranking {
+                        display: flex;
+                        justify-content: flex-start;
+                        width: 100px;
+                        position: relative;
+                        top: .5rem;
+                    }
+                    td.score-ranking {
+                        padding: 6px;
+                    }
+
+                    td.player {
+                        text-align: right;
+                    }
+                }
+            }
+
+            p.link-scores {
+                text-align: center;
+                margin-top: 10px;
+    
+                a {
+                    font-size: 1.125rem;
+                }
+            }
+        }
+    }
+
+    #detailed-game-two {
+        .cell-achievements {
+            h1 {
+                text-align: center;
+                margin: 20px 0 30px 0;
+            }
+
+            div#achievements-game {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr;
+
+                div.cell-achievement-game {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    h2 {
+                        font-size: 1rem;
+                        margin-top: 38px;
+                        margin-bottom: 30px;
+                    }
+
+                    img {
+                        margin-top: 30px;
+                        width: 18vw;
+                        height: auto;
+                    }
+                }
+            }
+        }
+
+        .cell-comments {
+            h1 {
+                text-align: center;
+                margin: 20px 0 30px 0;
+            }
+
+            img.add-comment {
+                width: 45px;
+                height: 45px;
+                position: absolute;
+                right: 0px;
+                top: 0px;
+                z-index: 2;
+                cursor: pointer;
+            }
+
+            img.add-comment:hover {
+                opacity: 0.7;
+            }
+
+            div.comment-carousel {
+                display: flex;
+                flex-direction: column;
+                row-gap: 16px;
+
+                div.comment {
+                    border-radius: 10px;
+                    border: 1px solid;
+                    border-color: #06CCF8;
+                    padding: 15px;
+                    margin:0 10px 0 0;
+
+                    h2 {
+                        width: fit-content;
+                        text-align: start;
+                        font-size: 1.25rem;
+                        border-bottom: 1px solid rgba(183, 128, 217, 0.86);
+                    }
+
+                    div.comment-rating {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 5px;
+                        width: fit-content;
+                    }
+
+                    p.comment-title {
+                        width: fit-content;
+                        font-size: 1.25rem;
+                        font-weight: 800;
+                        margin: 16px 0 5px 0;
+                    }
+
+                    p.comment-text {
+                        -webkit-hyphens: auto;
+                        hyphens: auto;
+                        font-size: 0.8rem;
+                    }
+
+                    p.comment-date {
+                        margin-top: 10px;
+                        text-align: end;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 3; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 90%;
+        max-height: 90%;
+        height: auto;
+
+        /* Add Animation - Zoom in the Modal */
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+}
+
+div.dialog-comment {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    padding: 1rem;
+
+    background-color: rgba(0,0,0,0.7);
+    transition: .2s;
+
+    div.comment-box {
+        flex: 1;
+        max-width: calc(100% - 10px);
+        height: calc(100% - 120px);
+        margin: auto;
+    }
+}
+
+/* Hidden comment */
+.dialog-comment[aria-hidden="true"] {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Add Animation - Zoom in the Modal */
+.animation-zoom {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+//
+
+@media screen and (min-width: $desktopWidth) {
+
+    ul.carousel#game-show-carousel {
+
+        #detailed-game-one {
+            grid-template-columns: repeat(2, 610px);
+            grid-template-rows: repeat(2, 400px);
+            flex: 1 0 100%;
+            scroll-snap-align: center;
+
+            .cell-resume {
+                grid-area: 1 / 1 / 1 / span 2;
+
+                h2.neon {
+                    margin: .5rem 0 1rem;
+                    font-size: 2.5rem;
+                }
+
+                div.rating {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+
+                    position: absolute;
+                    right: 2.5rem;
+                    top: .5rem;
+
+                    .stars {
+                        display: flex;
+                        gap: .5rem;
+
+                        img {
+                            height: 1.8rem;
+                        }
+                    }
+                }
+
+                .game-show-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+
+                    div.category {
+                        font-size: 1.75rem;
+
+                        p {
+                            text-align: center;
+                            padding: 5px;
+                        }
+
+                        div.game-time {
+                            margin-top: 30px;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    div.resume {
+                        p {
+                            width: 500px;
+                            height: 240px;
+                            padding: 2.5rem;
+                            font-size: 1.2rem;
+                            text-align: justify;
+                        }
+                    }
+
+                    div.poster {
+                        order: 1;
+
+                        img {
+                            max-width: 365px;
+                            max-height: 240px;
+                            margin: 0 48px 0 30px;
+                        }
+                    }
+                }
+            }
+
+            .cell-pictures {
+                grid-area: 2 / 1 / 2 / 1;
+
+                ul#carousel-pictures {
+                    flex-direction: column;
+                    gap: 24px;
+
+                    width: 394px;
+                    height: 310px;
+                    margin: 20px 90px 0 90px;
+
+                    scroll-snap-type: y mandatory;
+
+                    li.pictures {
+                        gap: 30px;
+
+                        img {
+                            width: 11.688rem;
+                            height: 8.75rem;
+                        }
+                    }
+                }
+
+                nav#slider-pictures {
+                    position: absolute;
+                    right: 1vw;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+            }
+
+            .cell-scores {
+                grid-area: 2 / 2 / 2 / 2;
+
+                div.blank {
+                    height: 28px;
+                    margin-bottom: 10px;
+                }
+
+                div.own-score {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 15px;
+                    margin-bottom: 10px;
+
+                    p {
+                        font-size: 1.125rem;
+                    }
+                }
+
+                table.first-scores {
+                    tbody tr {
+                        td.text {
+                            font-size: 1.125rem;
+                        }
+                    }
+                }
+
+                p.link-scores {
+
+                    a {
+                        font-size: 1.25rem;
+                    }
+                }
+            }
+        }
+
+        #detailed-game-two {
+            grid-template-columns: repeat(2, 610px);
+            grid-template-rows: 820px;
+            flex: 1 0 100%;
+            scroll-snap-align: center;
+
+            .cell-achievements {
+                grid-area: 1 / 1 / 1 / 1;
+
+                div#achievements-game {
+
+                    div.cell-achievement-game {
+    
+                        h2 {
+                            font-size: 1.25rem;
+                        }
+                        img {
+                            width: 6vw;
+                        }
+                    }
+                }
+            }
+
+            .cell-comments {
+                grid-area: 1 / 2 / 1 / 2;
+
+                div.comment-carousel {
+                    height: 697px;
+                    margin-bottom: 16px;
+
+                    div.comment {
+                        flex: 1 0;
+
+                        p.comment-text {
+                            font-size: 1rem;
+                        }
+
+                        p.comment-date {
+                            font-size: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .modal {
+        .modal-content {
+            max-height: 90%;
+            max-width: 90%;
+            width: auto;
+        }
+    }
+
+    div.dialog-comment {
+        div.comment-box {
+            max-width: 1040px;
+            height: 620px;
+        }
+    }
+}

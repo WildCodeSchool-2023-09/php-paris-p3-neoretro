@@ -1,0 +1,27 @@
+<header>
+    <a id="main-logo" href="/">
+        <img src="{{ asset('build/images/icons/icon.png') }}" alt="NeoRetro Logo">
+    </a>
+
+    {% if pageTitle is defined %}
+        <a id="site-name" href="/">
+            <h1 class="michroma">NeoRetro</h1>
+        </a>
+        <h2 id="page-title" class="michroma">{{pageTitle}}</h2>
+    {% else %}
+        <h1 id="page-title" class="michroma">NeoRetro</h1>
+    {% endif %}
+
+    <div id="user-links">
+        {% if app.user %}
+            <a id="logout" href="{{ path('logout') }}">
+                <img src="{{ asset('build/images/icons/logout.svg') }}" alt="Logout">
+            </a>
+        {% endif %}
+
+        <a id="user-profile" href="{{ path('user_index') }}">
+            <img class="inactive" src="{{ asset('build/images/icons/user.svg') }}" alt="User">
+            {# <img class="active" src="{{ asset('build/images/icons/user-active.svg') }}" alt="User"> #}
+        </a>
+    </div>
+</header>

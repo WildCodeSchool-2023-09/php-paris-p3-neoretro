@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/prize', 'prize_')]
@@ -24,23 +25,33 @@ class PrizeController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger
+    ): Response {
         $prize = new Prize();
         $form = $this->createForm(PrizeType::class, $prize);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($prize->getLabel()) {
+                $slug = $slugger->slug($prize->getLabel());
+                $prize->setSlug($slug);
+            }
             $entityManager->persist($prize);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_prize_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash("Success", "The prize has been added");
+
+            return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('prize/new.html.twig', [
-            'prize' => $prize,
-            'form' => $form,
+            'prizeForm' => $form,
+            'pageTitle' => 'Admin Add prize',
         ]);
     }
 
@@ -54,38 +65,37 @@ class PrizeController extends AbstractController
     }
 
     #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(
         Request $request,
         Prize $prize,
         EntityManagerInterface $entityManager,
-        SluggerInterface $slugger
     ): Response {
         $form = $this->createForm(PrizeType::class, $prize);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $slug = $slugger->slug($prize->getLabel());
-            $prize->setSlug($slug);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash("Success", "The prize has been added");
+            return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('prize/edit.html.twig', [
-            'prize' => $prize,
-            'form' => $form,
-            'pageTitle' => 'Prizes'
+            'prizeForm' => $form,
+            'pageTitle' => 'Edit prize',
         ]);
     }
 
     #[Route('/{slug}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, Prize $prize, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(
+        Request $request,
+        Prize $prize,
+        EntityManagerInterface $entityManager
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $prize->getId(), $request->request->get('_token'))) {
             $entityManager->remove($prize);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('app_prize_index', [], Response::HTTP_SEE_OTHER);
+        $this->addFlash("Success", "The prize has been deleted");
+        return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
     }
 }

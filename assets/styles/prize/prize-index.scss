@@ -1,7 +1,6 @@
 @import "../main/variables";
 
 .card-balance {
-
     display: flex;
     justify-content: center;
 
@@ -107,8 +106,6 @@
             width: 15rem;
             height: 13.125rem;
             margin: 8px auto 12px;
-            border: 1px solid #06CCF8;
-            border-radius: 0.6rem;
         }
     }
 }
@@ -127,11 +124,6 @@
         margin-top: 5px;
         color: red;
         font-size: 1rem;
-    }
-    .card#add-prize-btn {
-        position: absolute;
-        left: 6rem;
-        top: 1rem;
     }
 
     #slider-prizes {

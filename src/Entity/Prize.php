@@ -83,7 +83,7 @@ class Prize
         return $this->poster;
     }
 
-    public function setPoster(string $poster): static
+    public function setPoster(?string $poster): static
     {
         $this->poster = $poster;
 
@@ -101,6 +101,18 @@ class Prize
         if ($image) {
             $this->updateAt = new DateTime('now');
         }
+        return $this;
+    }
+
+    public function getUpdateAt(): ?DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?DateTimeInterface $updateAt): static
+    {
+        $this->updateAt = $updateAt;
+
         return $this;
     }
 

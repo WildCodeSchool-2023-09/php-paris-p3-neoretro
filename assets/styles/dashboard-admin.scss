@@ -41,9 +41,18 @@
         
         .content {
 
+            div.logout {
+                a {
+                    padding: .5rem 1rem;
+                    border-radius: $borderRadiusSmall;
+                    border: 1px #C10BEE solid;
+                }
+            }
+
             .nav-admin {
                 display: flex;
                 flex-direction: column;
+                margin-top: 15px;
             
                 a {
                     text-align: center;

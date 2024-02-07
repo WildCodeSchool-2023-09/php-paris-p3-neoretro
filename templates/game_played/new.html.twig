@@ -6,7 +6,7 @@
     <div class="content">
         <h2>{{ gamePlayed.game.title }}</h2>
         <div id="game-played-poster">
-            <img src="{{ gamePlayed.game.poster }}">
+            <img src="{{ vich_uploader_asset(gamePlayed.game) }}">
         </div>
         <div id="players">
             <p>{{ gamePlayed.player.username }}</p>

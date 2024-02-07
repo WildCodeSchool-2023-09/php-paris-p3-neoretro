@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,6 +37,9 @@ class GameSearchType extends AbstractType
             ])
             ->add('sort_order', HiddenType::class, [
                 'constraints' => []
+            ])
+            ->add('isVisible', HiddenType::class, [
+                'data' => '1',
             ])
         ;
     }

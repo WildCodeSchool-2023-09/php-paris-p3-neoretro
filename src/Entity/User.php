@@ -40,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $token = 0;
 
-    #[ORM\Column(length: 10, nullable: true)]
+    #[ORM\Column(length: 16, nullable: true)]
     private ?string $phonenumber = null;
 
     #[ORM\Column(length: 100, nullable: true)]
@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 5, nullable: true)]
     private ?string $zipcode = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 40)]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -107,19 +107,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        $roles[] = self::ROLE_USER;
-
-        return array_unique($roles);
+        return $this->roles;
     }
-
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
-
     /**
      * @see PasswordAuthenticatedUserInterface
      */

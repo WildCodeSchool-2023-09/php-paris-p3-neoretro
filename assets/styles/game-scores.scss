@@ -1,0 +1,28 @@
+@import "_variables";
+
+#game-scores {
+    table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+    
+        tr {
+            border-bottom: 1px cyan solid;
+            height: 50px;
+    
+            td {
+                width: fit-content;
+                &.td-score {
+                    text-align: right;
+                }
+                &.game-played-date {
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $desktopWidth) {
+
+}

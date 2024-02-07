@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="card full-size">
+        <div id="profile" class="content">
+            <div id="level-info">
+                <h2>{{ user.username }}</h2>
+                <img src="{{ asset('build/images/icons/user-xp.svg') }}">
+                <div id="level-experience">
+                    <p>LVL {{ user.level }}</p>
+                    <p>{{ user.experience }} XP</p>
+                </div>
+                <div id="token">
+                    <img src="{{ asset('build/images/icons/tokens-active.svg') }}">
+                    <p>{{ user.token }}</p>
+                </div>
+            </div>
+            <div id="personal-info">
+                <h2>Personal information</h2>
+                {{ form_start(profileForm) }}
+                    <div id="profile-container-input">
+                        <div class="profile-input">
+                            <div>
+                                {% if form_errors(profileForm.firstname) %}
+                                    {{ form_label(profileForm.firstname, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                                    {{ form_widget(profileForm.firstname, { 'attr': { 'class': 'input-error'}}) }}
+                                {% else %}
+                                    {{ form_label(profileForm.firstname) }}
+                                    {{ form_widget(profileForm.firstname) }}
+                                {% endif %}
+                            </div>
+                            <div>
+                                {% if form_errors(profileForm.lastname) %}
+                                    {{ form_label(profileForm.lastname, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                                    {{ form_widget(profileForm.lastname, { 'attr': { 'class': 'input-error'}}) }}
+                                {% else %}
+                                    {{ form_label(profileForm.lastname) }}
+                                    {{ form_widget(profileForm.lastname) }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="profile-input">
+                            <div>
+                                {% if form_errors(profileForm.username) %}
+                                    {{ form_label(profileForm.username, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                                    {{ form_widget(profileForm.username, { 'attr': { 'class': 'input-error'}}) }}
+                                {% else %}
+                                    {{ form_label(profileForm.username) }}
+                                    {{ form_widget(profileForm.username) }}
+                                {% endif %}
+                            </div>
+                            <div>
+                                {% if form_errors(profileForm.phonenumber) %}
+                                    {{ form_label(profileForm.phonenumber, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                                    {{ form_widget(profileForm.phonenumber, { 'attr': { 'class': 'input-error'}}) }}
+                                {% else %}
+                                    {{ form_label(profileForm.phonenumber) }}
+                                    {{ form_widget(profileForm.phonenumber) }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="profile-input-one-line">
+                            {% if form_errors(profileForm.email) %}
+                                {{ form_label(profileForm.email, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                                {{ form_widget(profileForm.email, { 'attr': { 'class': 'input-error'}}) }}
+                            {% else %}
+                                {{ form_label(profileForm.email) }}
+                                {{ form_widget(profileForm.email) }}
+                            {% endif %}
+                        </div>
+                        <div class="profile-input-one-line">
+                            {% if form_errors(profileForm.password) %}
+                                {{ form_label(profileForm.password, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                                {{ form_widget(profileForm.password, { 'attr': { 'class': 'input-error'}}) }}
+                            {% else %}
+                                {{ form_label(profileForm.password) }}
+                                {{ form_widget(profileForm.password) }}
+                            {% endif %}
+                        </div>
+                        <div class="profile-input-one-line">
+                            {% if form_errors(profileForm.adress) %}
+                                {{ form_label(profileForm.adress, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                                {{ form_widget(profileForm.adress, { 'attr': { 'class': 'input-error'}}) }}
+                            {% else %}
+                                {{ form_label(profileForm.adress) }}
+                                {{ form_widget(profileForm.adress) }}
+                            {% endif %}
+                        </div>
+                        <div class="profile-input">
+                            <div>
+                                {% if form_errors(profileForm.city) %}
+                                    {{ form_label(profileForm.city, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                                    {{ form_widget(profileForm.city, { 'attr': { 'class': 'input-error'}}) }}
+                                {% else %}
+                                    {{ form_label(profileForm.city) }}
+                                    {{ form_widget(profileForm.city) }}
+                                {% endif %}
+                            </div>
+                            <div>
+                                {% if form_errors(profileForm.zipcode) %}
+                                    {{ form_label(profileForm.zipcode, null, { 'label_attr': { 'class': 'label-error'}}) }}
+                                    {{ form_widget(profileForm.zipcode, { 'attr': { 'class': 'input-error'}}) }}
+                                {% else %}
+                                    {{ form_label(profileForm.zipcode) }}
+                                    {{ form_widget(profileForm.zipcode) }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <button id="update-profile">UPDATE</button>
+                {{ form_end(profileForm) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

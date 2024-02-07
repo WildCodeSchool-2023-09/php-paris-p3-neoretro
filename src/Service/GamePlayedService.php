@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Game;
 use App\Entity\GamePlayed;
 use App\Entity\User;
-use Faker\Factory;
 
 class GamePlayedService
 {
@@ -17,12 +16,11 @@ class GamePlayedService
     public function generate(Game $game, User $user, string $uuid): GamePlayed
     {
         $gamePlayed = new GamePlayed();
-        $faker = Factory::create();
 
         $gamePlayed->setGame($game);
         $gamePlayed->setPlayer($user);
         $gamePlayed->setScore(rand(0, 500));
-        $gamePlayed->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')));
+        $gamePlayed->setDate(date_create_immutable());
         $gamePlayed->setDuration(rand(120, 1800));
         $gamePlayed->setUuid($uuid);
 

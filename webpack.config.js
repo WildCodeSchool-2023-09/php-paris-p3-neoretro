@@ -33,11 +33,12 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('pictureModal', './assets/scripts/pictureModal.js')
-    .addEntry('commentModal', './assets/scripts/commentModal.js')
+    .addEntry('reviewModal', './assets/scripts/reviewModal.js')
     .addEntry('carousel', './assets/scripts/carousel.js')
     .addEntry('searchbar', './assets/scripts/searchbar.js')
     .addEntry('carouselDetailedGame', './assets/scripts/carouselDetailedGame.js')
     .addEntry('carouselGames', './assets/scripts/carouselGames.js')
+    .addEntry('notationReview', './assets/scripts/notationReview.js')
     .addEntry('toggleGame', './assets/scripts/toggleGame.js')
     .addEntry('login', './assets/scripts/login.js')
 

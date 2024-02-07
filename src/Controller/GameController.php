@@ -8,10 +8,9 @@ use App\Form\GameFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
-use App\Service\ScoreService;
+use App\Repository\ReviewRepository;
 use App\Service\GameInfoService;
 use Doctrine\ORM\EntityManagerInterface;
-use Proxies\__CG__\App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,6 +58,7 @@ class GameController extends AbstractController
     public function show(
         Game $game,
         GamePlayedRepository $gamePlayedRepository,
+        ReviewRepository $reviewRepository,
         Security $security,
         GameInfoService $gameInfoService
     ): Response {
@@ -74,6 +74,8 @@ class GameController extends AbstractController
             'game' => $game,
             'gameStats' => $gameStats ?? [],
             'gamesPlayed' => $gamesPlayed,
+            'reviews' => $reviewRepository->findBy(['game' => $game]),
+            'globalNote' => $gameInfoService->getGlobalNote($game),
         ]);
     }
 

@@ -3,17 +3,39 @@
 namespace App\Service;
 
 use App\Entity\Game;
+use App\Repository\ReviewRepository;
 use App\Entity\User;
 use App\Repository\GamePlayedRepository;
 
 class GameInfoService
 {
+    public const NOTE_PRECISION = 0.5;
+    private ReviewRepository $reviewRepository;
     private GamePlayedRepository $gamePlayedRepository;
 
-    public function __construct(GamePlayedRepository $gamePlayedRepository)
-    {
+    public function __construct(
+        ReviewRepository $reviewRepository,
+        GamePlayedRepository $gamePlayedRepository
+    ) {
+        $this->reviewRepository = $reviewRepository;
         $this->gamePlayedRepository = $gamePlayedRepository;
     }
+
+    public function getGlobalNote(Game $game): float
+    {
+        if (empty($this->reviewRepository->findBy(['game' => $game]))) {
+            return -0.5;
+        }
+        $globalNote = 0;
+
+        foreach ($this->reviewRepository->findBy(['game' => $game]) as $review) {
+            $globalNote += $review->getNote();
+        }
+        return round(
+            $globalNote / count($this->reviewRepository->findBy(['game' => $game])) / self::NOTE_PRECISION
+        ) * self::NOTE_PRECISION;
+    }
+
 
     public function getUserGamesStats(array $games, User $user): array
     {
@@ -49,8 +71,6 @@ class GameInfoService
                     )['score'];
             }
         }
-
-        // dump($gamesStats);die();
         return $gamesStats;
     }
 

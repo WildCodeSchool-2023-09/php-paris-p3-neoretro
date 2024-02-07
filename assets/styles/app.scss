@@ -105,8 +105,8 @@ table {
 
 // TEXT
 
-h2, h3, h4, h5, h6, span, td, th, a,
-p, ul, label, input, input::placeholder, select, button, img[alt],
+h2, h3, h4, h5, h6, span,
+p, ul, label, input, input::placeholder, select, textarea, a, button, img[alt],
 .text
 {
     background: $colorGradient5;

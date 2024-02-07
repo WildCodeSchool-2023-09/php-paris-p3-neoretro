@@ -57,6 +57,8 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: GamePlayed::class)]
     private Collection $gamesPlayed;
 
+    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Review::class)]
+    private Collection $reviews;
     #[ORM\ManyToOne(inversedBy: 'games')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $mainCategory = null;
@@ -68,6 +70,7 @@ class Game
     {
         $this->pictures = new ArrayCollection();
         $this->gamesPlayed = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -227,6 +230,36 @@ class Game
             // set the owning side to null (unless already changed)
             if ($gamesPlayed->getGame() === $this) {
                 $gamesPlayed->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getGame() === $this) {
+                $review->setGame(null);
             }
         }
 

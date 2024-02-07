@@ -205,12 +205,9 @@ table {
 
 // TEXT
 
-h2, h3, h4, h5, h6,
-span, a,
+h2, h3, h4, h5, h6, span,
 td, th,
-p, ul,
-input, input::placeholder, textarea, textarea::placeholder, label,
-button, img[alt],
+p, ul, label, input, input::placeholder, select, textarea, textarea::placeholder, a, button, img[alt],
 .text
 {
     background: $colorGradient5;

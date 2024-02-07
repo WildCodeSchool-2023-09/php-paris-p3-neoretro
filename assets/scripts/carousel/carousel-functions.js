@@ -14,7 +14,7 @@ export function setVerticalCarousel(slideHeight, carousel, sliderBtns, currentSl
     carousel.addEventListener("scroll", function(e) {
         setTimeout(function() {
             for (let i = 0 ; i < sliderBtns.length ; i++) {
-                if (carousel.scrollTop >= slideHeight * i) {
+                if (carousel.scrollTop > slideHeight * i - 1 && carousel.scrollTop < slideHeight * i + 1) {
                     document.querySelector('.' + currentSlide).classList.toggle(currentSlide);
                     sliderBtns[i].classList.toggle(currentSlide);
                 }
@@ -37,7 +37,7 @@ export function setHorizontalCarousel(slideWidth, carousel, sliderBtns, currentS
     carousel.addEventListener("scroll", function(e) {
         setTimeout(function() {
             for (let i = (sliderBtns.length - 1) ; i >= 0 ; i--) {
-                if (carousel.scrollLeft <= slideWidth * i) {
+                if (carousel.scrollLeft < slideWidth * i + 1 && carousel.scrollLeft > slideWidth * i - 1) {
                     document.querySelector('.' + currentSlide).classList.toggle(currentSlide);
                     sliderBtns[i].classList.toggle(currentSlide);
                 }

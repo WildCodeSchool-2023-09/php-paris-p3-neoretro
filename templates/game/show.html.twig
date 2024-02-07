@@ -2,7 +2,7 @@
 
 {% block javascript %}
     {{ encore_entry_script_tags('pictureModal') }}
-    {{ encore_entry_script_tags('commentModal') }}
+    {{ encore_entry_script_tags('reviewModal') }}
     {{ encore_entry_script_tags('carousel-small') }}
 {% endblock %}
 
@@ -22,13 +22,20 @@
                     {% endif %}
 
                     <div class="rating">
-                        <div class="stars">
-                            {% for i in 1..4 %}
+                        {% for i in 1..5 %}
+                            {% if globalNote >= i %}
                                 <img src="{{ asset('build/images/icons/star-solid.svg') }}">
-                            {% endfor %}
-                            <img src="{{ asset('build/images/icons/star-half-stroke-regular-1.svg') }}">
-                        </div>
-                        <p>4.5</p>
+                            {% elseif globalNote < i and globalNote > (i - 1) %}
+                                <img src="{{ asset('build/images/icons/star-half-stroke-regular-1.svg') }}">
+                            {% else %}
+                                <img src="{{ asset('build/images/icons/star-regular-empty.svg') }}">
+                            {% endif %}
+                        {% endfor %}
+                        {% if globalNote >= 0 %}
+                            <p>{{ globalNote }}</p>
+                        {% else %}
+                            <p>Not rated</p>
+                        {% endif %}
                     </div>
 
                     <div class="game-show-grid">
@@ -127,28 +134,7 @@
                                     </tr>
                                 {% endfor %}
                             </tbody>
-                        </table>  
-                                              
-                        {# <table class="first-scores">
-                            <tbody>
-                                {% for i in 0..4 %}
-                                    <tr>
-                                        {% if i == 0 %}
-                                            <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy"></td>
-                                        {% elseif i == 1 %}
-                                            <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy"></td>
-                                        {% elseif i == 2 %}
-                                            <td class="score-trophy"><img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy"></td>
-                                        {% else %}
-                                            <td class="text score-ranking">{{i+1}}.</td>
-                                        {% endif %}
-                                        <td class="text score-point">{{ gamesPlayed[i].score }}</td>
-                                        <td class="text player"><a href="">{{ gamesPlayed[i].player.username }}</a></td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table> #}
-
+                        </table>
                         <p class="link-scores"><a href="{{ path('game_scores', {slug: game.slug}) }}">All scores</a></p>
                     </div>
                 </div>
@@ -172,27 +158,32 @@
                 </div>
             </section>
 
-            <section class="card cell-comments">
+            <section class="card cell-reviews">
                 <div class="content">
-                    <h1 class="text">Comments</h1>
-                    <img class="add-comment" aria-haspopup="dialog" aria-controls="modal-comment" src="{{ asset('build/images/icons/comment-add-solid.svg') }}">
+                    <h1 class="text">Reviews</h1>
+                    <div class="review-carousel">
 
-                    <div class="comment-carousel scroll">
-                        {% for i in 1..6 %}
-                            <div class="comment">
-                                <h2><a href="">Micheldu75020</a></h2>
-                                <div class="comment-rating">
-                                    {% for i in 1..4 %}
+                    {% for review in reviews %}
+
+                        <div class="review">
+                            <h2>{{ review.author.username }}</h2>
+                            <div class="review-rating">
+                                {% for i in 1..5 %}
+                                    {% if review.note >= i %}
                                         <img src="{{ asset('build/images/icons/star-solid-mini.svg') }}">
-                                    {% endfor %}
-                                    <img src="{{ asset('build/images/icons/star-half-stroke-regular-mini.svg') }}">
-                                    <p>4.5</p>
-                                </div>
-                                <p class="comment-title">Trop bien !</p>
-                                <p class="comment-text">Super jeu, sinon j’ai besoin d’un joint d’étanchéité pour climatiseur de morgue, le mien est fissuré.</p>
-                                <p class="comment-date">16/12/2023 19:32</p>
+                                    {% else %}
+                                        <img src="{{ asset('build/images/icons/star-regular-empty-mini.svg') }}">
+                                    {% endif %}
+                                {% endfor %}
+                                <p>{{ review.note }}</p>
                             </div>
-                        {% endfor %}
+                            <p class="review-title">{{ review.title }}</p>
+                            <p class="review-text">{{ review.opinion }}</p>
+                            <p class="review-date">{{ review.date|date('d/m/Y H:i') }}</p>
+                        </div>
+
+                    {% endfor %}
+
                     </div>
                 </div>
             </section>
@@ -207,13 +198,6 @@
     <div id="picture-modal" class="modal">
         <span class="close">&times;</span>
         <img id="img-modal" class="modal-content">
-    </div>
-
-    <div id="modal-comment" class="dialog-comment scroll" role="dialog" aria-labelledby="comment-title" aria-modal="true" aria-hidden="true">
-        <span aria-label="Close" title="Close comment modal" data-dismiss="modal-comment" class="close">&times;</span>
-        <div role="document" class="card comment-box">
-            <h2 id="comment-title">Add a comment</h2>
-        </div>
     </div>
 
 {% endblock %}

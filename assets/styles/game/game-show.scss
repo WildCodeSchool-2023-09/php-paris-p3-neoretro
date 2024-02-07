@@ -137,7 +137,7 @@ ul.carousel#game-show-carousel {
 
                 div.slider-picture-btn {
                     border-radius: 24px;
-                    background: $colorGradient5;
+                    background: $colorGradient3;
                     box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25);
                     width: 18px;
                     height: 18px;
@@ -145,7 +145,7 @@ ul.carousel#game-show-carousel {
                 }
 
                 div.current-slide-picture {
-                    background: $colorGradient3;
+                    background: $colorGradient5;
                 }
             }
         }
@@ -234,32 +234,18 @@ ul.carousel#game-show-carousel {
             }
         }
 
-        .cell-comments {
+        .cell-reviews {
             h1 {
                 text-align: center;
                 margin: 20px 0 30px 0;
             }
 
-            img.add-comment {
-                width: 45px;
-                height: 45px;
-                position: absolute;
-                right: 0px;
-                top: 0px;
-                z-index: 2;
-                cursor: pointer;
-            }
-
-            img.add-comment:hover {
-                opacity: 0.7;
-            }
-
-            div.comment-carousel {
+            div.review-carousel {
                 display: flex;
                 flex-direction: column;
                 row-gap: 16px;
 
-                div.comment {
+                div.review {
                     border-radius: 10px;
                     border: 1px solid;
                     border-color: #06CCF8;
@@ -273,7 +259,7 @@ ul.carousel#game-show-carousel {
                         border-bottom: 1px solid rgba(183, 128, 217, 0.86);
                     }
 
-                    div.comment-rating {
+                    div.review-rating {
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -281,20 +267,21 @@ ul.carousel#game-show-carousel {
                         width: fit-content;
                     }
 
-                    p.comment-title {
+                    p.review-title {
                         width: fit-content;
                         font-size: 1.25rem;
                         font-weight: 800;
                         margin: 16px 0 5px 0;
                     }
 
-                    p.comment-text {
+                    p.review-text {
                         -webkit-hyphens: auto;
                         hyphens: auto;
                         font-size: 0.8rem;
+                        text-align: start;
                     }
 
-                    p.comment-date {
+                    p.review-date {
                         margin-top: 10px;
                         text-align: end;
                         font-size: 0.8rem;
@@ -331,63 +318,13 @@ ul.carousel#game-show-carousel {
     }
 }
 
-div.dialog-comment {
-    position: fixed;
-    z-index: 3;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    padding: 1rem;
 
-    background-color: rgba(0,0,0,0.7);
-    transition: .2s;
+/*
+**
+** Media queries for desktop
+**
+*/
 
-    div.comment-box {
-        flex: 1;
-        max-width: calc(100% - 10px);
-        height: calc(100% - 120px);
-        margin: auto;
-    }
-}
-
-/* Hidden comment */
-.dialog-comment[aria-hidden="true"] {
-    visibility: hidden;
-    opacity: 0;
-}
-
-/* The Close Button */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Add Animation - Zoom in the Modal */
-.animation-zoom {
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
-}
-
-//
 
 @media screen and (min-width: $desktopWidth) {
 
@@ -561,21 +498,22 @@ div.dialog-comment {
                 }
             }
 
-            .cell-comments {
+            .cell-reviews {
                 grid-area: 1 / 2 / 1 / 2;
 
-                div.comment-carousel {
-                    height: 697px;
+                div.review-carousel {
+                    max-height: 697px;
+                    height: fit-content;
                     margin-bottom: 16px;
 
-                    div.comment {
+                    div.review {
                         flex: 1 0;
 
-                        p.comment-text {
+                        p.review-text {
                             font-size: 1rem;
                         }
 
-                        p.comment-date {
+                        p.review-date {
                             font-size: 1rem;
                         }
                     }
@@ -589,13 +527,6 @@ div.dialog-comment {
             max-height: 90%;
             max-width: 90%;
             width: auto;
-        }
-    }
-
-    div.dialog-comment {
-        div.comment-box {
-            max-width: 1040px;
-            height: 620px;
         }
     }
 }

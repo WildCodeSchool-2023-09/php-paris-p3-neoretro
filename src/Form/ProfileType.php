@@ -45,7 +45,7 @@ class ProfileType extends AbstractType
                         'max' => 255,
                     ]),
                     new Regex([
-                        'pattern' => '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)$/',
+                        'pattern' => '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/',
                         'message' => 'Password must contain at least 1 uppercase, 1 lowercase and 1 digit',
                     ]),],])
             ->add('firstname', TextType::class, [

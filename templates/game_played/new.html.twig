@@ -6,7 +6,7 @@
     <div class="content">
         <h2>{{ gamePlayed.game.title }}</h2>
         <div id="game-played-poster">
-            <img src="{{ gamePlayed.game.poster }}">
+            <img src="{{ vich_uploader_asset(gamePlayed.game) }}">
         </div>
         <div id="players">
             <p>{{ gamePlayed.player.username }}</p>
@@ -20,8 +20,27 @@
             <p>+ {{ experienceGained }} XP</p>
         </div>
         <p id="player-date">Le {{gamePlayed.date|date('d-m-Y à H:i')}}</p>
-        <a id="button-played-game" href="{{ path('dashboard') }}">HOME</a>
+        <div id="container-add-review" aria-haspopup="dialog" aria-controls="modal-review">
+            <p>Add/update your review</p>
+            <img class="image-add-review" src="{{ asset('build/images/icons/comment-add-solid.svg') }}">
+        </div>
+        <a id="button-played-game" href="{{ path('dashboard') }}">Home</a>
     </div>
 </div>
 
+<div id="modal-review" role="dialog" aria-labelledby="add-review-title" aria-modal="true" aria-hidden="true" class="dialog-review">
+    <span aria-label="Close" title="Close comment modal" data-dismiss="modal-review" class="close">&times;</span>
+    <div role="document" class="card review-box">
+        <div class="content">
+            <h2 id="add-review-title">Add/update your review</h2>
+            {% include('game_played/_reviewForm.html.twig') %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ encore_entry_script_tags('reviewModal') }}
+    {{ encore_entry_script_tags('notationReview') }}
 {% endblock %}

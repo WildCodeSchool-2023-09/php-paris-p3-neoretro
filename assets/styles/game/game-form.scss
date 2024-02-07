@@ -36,6 +36,12 @@
             height: 46px;
         }
 
+        .vich-file {
+            div, a {
+                display: none;
+            }
+        }
+
         select {
             option {
                 color: #5755ce;

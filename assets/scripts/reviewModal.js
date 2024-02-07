@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const doc = document.querySelector('.carousel');
+    const doc = document.querySelector('#game-played');
     const trigger = document.querySelector('[aria-haspopup="dialog"]');
     const dialog = document.getElementById(trigger.getAttribute('aria-controls'));
     const dismissTrigger = dialog.querySelector('[data-dismiss]');
-    const commentBox = document.querySelector('.comment-box');
+    const commentBox = document.querySelector('.review-box');
 
     // Function to display the modal with animation
     const open = function (dialog, box) {

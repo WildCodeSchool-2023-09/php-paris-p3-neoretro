@@ -16,10 +16,12 @@
                 <div class="content">
                     <h2>{{ last_username }}</h2>
                     <div class="container">
-                        <a href=""><img src="{{ asset('build/images/icons/user-xp.svg') }}" alt="{{ last_username }}"></a>
+                        <a href="{{ path('user_profile') }}">
+                            <img src="{{ asset('build/images/icons/user-xp.svg') }}" alt="{{ last_username }}">
+                        </a>
                         <ul>
-                            <li>LVL 12</li>
-                            <li>148 XP</li>
+                            <li>LVL {{ app.user.level }}</li>
+                            <li>{{ app.user.experience }} XP</li>
                         </ul>
                         <a id="log-out" href="{{ path('logout') }}">Logout</a>
                     </div>

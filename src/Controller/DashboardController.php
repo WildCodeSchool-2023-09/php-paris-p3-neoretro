@@ -31,13 +31,13 @@ class DashboardController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $user = $security->getUser();
 
-        if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->render('dashboard/admin.html.twig', [
-                'last_username' => $lastUsername,
-                'error' => $error,
-                'pageTitle' => 'Admin',
-            ]);
-        }
+        // if ($this->isGranted('ROLE_ADMIN')) {
+        //     return $this->render('dashboard/admin.html.twig', [
+        //         'last_username' => $lastUsername,
+        //         'error' => $error,
+        //         'pageTitle' => 'Admin',
+        //     ]);
+        // }
 
         $games = $gameRepository->findBy([], ['id' => 'DESC'], 5);
 

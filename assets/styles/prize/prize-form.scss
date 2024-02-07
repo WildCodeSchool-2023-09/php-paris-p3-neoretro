@@ -1,12 +1,11 @@
 @import "../main/_variables";
 
-#event-form {
+#prize-form {
 	.container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-		gap: .5rem;
 
 		form {
 
@@ -34,7 +33,7 @@
 
 @media screen and (min-width: $desktopWidth) {
 
-	#event-form {
+	#prize-form {
 		.container {
 			form {
 				width: 70%;

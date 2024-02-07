@@ -2,12 +2,14 @@
 
 {% block content %}
 
-<div class="card full-size">
+<div id="event-form" class="card full-size">
     <div class="content">
 
         <h2>Add New Prize</h2>
 
-        {{ include('prize/_form.html.twig') }}
+        <div class="container">
+            {{ include('prize/_form.html.twig') }}
+        </div>
     </div>
 </div>
 

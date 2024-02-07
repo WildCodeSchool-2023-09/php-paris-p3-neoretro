@@ -38,6 +38,7 @@ import './styles/main/desktop.scss';
 import './styles/main/reset.scss';
 
 import './styles/prize/prize-index.scss';
+import './styles/prize/prize-form.scss';
 
 import './styles/gameplayed.scss';
 import './styles/leaderboard.scss';

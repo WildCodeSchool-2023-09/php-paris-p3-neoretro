@@ -22,6 +22,17 @@
 </div>
 {% endif %}
 
+{% if is_granted('ROLE_ADMIN') %}
+<div class="card" id="add-game-btn">
+    <div class="content">
+        <a href="{{ path('prize_new') }}">
+            <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
+            <h2>New prize</h2>
+        </a>
+    </div>
+</div>
+{% endif %}
+
     {% if prizes is not empty %}
 
         {% set nbSlides = (prizes|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
@@ -33,9 +44,13 @@
                         {% if (y + 6*i) < prizes|length %}
                             {% set prize = prizes[y + 6*i] %}
                             <section class="card">
-                                <div>
-                                    
+                                <div class="content">
                                     <div class="flex-coin">
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a href="{{ path("prize_edit", { slug: prize.slug }) }}">
+                                                <img src="{{ asset('build/images/icons/edit-icon.png') }}">
+                                            </a>
+                                        {% endif %}
                                         <h2>{{ prize.label }}</h2>
                                     </div>
                                     {# <a href="{{ path('prize_show', {slug: prize.slug}) }}"> #}

@@ -251,6 +251,13 @@ label {
     transition: ease-in-out 100ms;
 }
 
+nav#main-nav ul li a img {
+    transition: ease-in-out 100ms;
+    &:hover {
+        transform: scale(105%);
+    }
+}
+
 button {
     transition: ease-in-out 100ms;
 

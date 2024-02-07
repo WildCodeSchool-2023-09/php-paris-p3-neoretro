@@ -1,6 +1,6 @@
-@import "_variables";
+@import "../main/_variables";
 
-div#game-add {
+#game-form {
     form {
         label, input, select, textarea {
             display: block;
@@ -80,7 +80,7 @@ div#game-add {
 
 @media screen and (min-width: $desktopWidth) {
 
-    div#game-add {
+    #game-form {
         form {
             div.game-input, div.game-input-category {
                 margin: 0 10% 0 10%;

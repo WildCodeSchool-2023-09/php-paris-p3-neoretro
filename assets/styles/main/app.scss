@@ -122,7 +122,7 @@ table {
         border-image: $colorGradient4 1;
     }
 
-    &:hover {
+    &:not(.full-size):hover {
         background-color: #0982cd;
         transform: scale(102%);
     }

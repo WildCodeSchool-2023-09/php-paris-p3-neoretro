@@ -6,7 +6,7 @@ form textarea:hover {
 }
 
 .card {
-	.container {
+	.container:not(#game-form) {
 
 		form {
 			display: flex;
@@ -74,7 +74,7 @@ form textarea:hover {
 @media screen and (min-width: $desktopWidth) {
 
 	.card {
-		.container {
+		.container:not(#game-form) {
 			form {
 				width: 70%;
 			

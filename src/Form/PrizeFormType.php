@@ -31,6 +31,9 @@ class PrizeType extends AbstractType
             ],
         ])
         ->add('description', TextareaType::class, [
+            'attr' => [
+                'rows' => 3
+            ],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter the description',

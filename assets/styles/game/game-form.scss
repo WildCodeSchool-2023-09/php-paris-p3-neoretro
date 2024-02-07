@@ -2,6 +2,12 @@
 
 #game-form .content .container {
     form {
+        .vich-file {
+            div, a {
+                display: none;
+            }
+        }
+
         input:hover,
         textarea:hover {
             border: 1px solid #0982cd;
@@ -36,12 +42,6 @@
             height: 46px;
         }
 
-        .vich-file {
-            div, a {
-                display: none;
-            }
-        }
-
         select {
             option {
                 color: #5755ce;
@@ -72,19 +72,8 @@
             align-items: center;
         }
 
-        button#add-edit-game {
-            border-radius: $borderRadiusMedium;
-            border: 0.5px $colorGradient1;
-            background: $colorGradient5;
-            color : #020051;
-            width: 288px;
-            height: 50px;
-            text-align: center;
-            font-size: 18px;
-            margin-left: calc(50% - 144px);
-            margin-top: 24px;
-
-            cursor: pointer;
+        .big-btn {
+            width: 30%;
         }
     }
 }

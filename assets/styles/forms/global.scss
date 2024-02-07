@@ -30,9 +30,14 @@ form textarea:hover {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+			gap: 1rem;
 
 			& > div {
-				// width: 50%;
+				.vich-file {
+					div, a {
+						display: none;
+					}
+				}
 
 				label, input {
 					cursor: pointer;
@@ -41,7 +46,7 @@ form textarea:hover {
 				label {
 					display: none;
 
-					margin-top: 1rem;
+					margin-bottom: .5rem;
 
 					text-align: center;
 					font-size: 1.2rem;
@@ -67,7 +72,7 @@ form textarea:hover {
 					box-shadow: $shadow;
 
 					padding: .25rem 1.25rem;
-					margin-top: .5rem;
+					// margin-top: .5rem;
 		
 					&:hover {
 						border: 1px solid #06CCF8;

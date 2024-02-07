@@ -14,9 +14,9 @@ import './styles/desktop.scss';
 
 import './styles/header.scss';
 import './styles/navbar.scss';
-
 import './styles/searchbar.scss';
 import './styles/toggle.scss';
+import './styles/toggle-form.scss';
 
 import './styles/dashboard.scss';
 

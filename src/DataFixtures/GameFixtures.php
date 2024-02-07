@@ -31,11 +31,11 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
     ];
 
     public const POSTERS = [
-        '/images/game-posters/metroid.jpeg',
-        '/images/game-posters/racecar.jpeg',
-        '/images/game-posters/space-invaders.png',
-        '/images/game-posters/duke-nukem.jpg',
-        '/images/game-posters/metal-slug.jpg',
+        'metroid.jpeg',
+        'racecar.jpeg',
+        'space-invaders.png',
+        'duke-nukem.jpg',
+        'metal-slug.jpg',
     ];
 
     private SluggerInterface $slugger;
@@ -57,12 +57,12 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
             $game->setIsVirtual(false);
             $game->setIsVisible(true);
             $game->setSlug($this->slugger->slug($game->getTitle()));
-
-            for ($i = 0; $i < 2; $i++) {
-                $game->addCategory(
-                    $this->getReference('category_' . u(CategoryFixtures::DATA[rand(0, 8)])->replace(' ', '_'))
-                );
-            }
+            $game->setMainCategory(
+                $this->getReference('category_' . u(CategoryFixtures::DATA[rand(0, 8)])->replace(' ', '_'))
+            );
+            $game->setOptionalCategory(
+                $this->getReference('category_' . u(CategoryFixtures::DATA[rand(0, 8)])->replace(' ', '_'))
+            );
 
             $manager->persist($game);
             $this->addReference('game_' . u($data)->replace(' ', '_'), $game);

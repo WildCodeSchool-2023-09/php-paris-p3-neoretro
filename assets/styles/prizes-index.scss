@@ -1,5 +1,43 @@
 @import "_variables";
 
+.card-balance {
+    
+    display: flex;
+    justify-content: center;
+
+    .balance {
+        width: 220px;
+        min-height: 30px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 2px solid #06CCF8;
+        border-radius: $borderRadiusLarge;
+    
+        background: $colorGradient3;
+        box-shadow: $shadow;
+    
+        transition: 200ms ease-in-out;
+    
+        .token-balance-value {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            align-items: center;
+            padding: 10px 10px 10px 10px;
+        }
+        .token-value {
+            font-size: 1.5rem;
+        }
+        h2 {
+            font-size: 1.5rem;
+            padding: 10px;
+        }
+        img {
+            width: 35px;
+            height: 35px;
+        }
+    }
+}
 .card#add-prize-btn {
     width: fit-content;
     height: fit-content;
@@ -24,11 +62,6 @@
     }
 }
 
-.flex-edit-icon {
-    display: flex;
-    justify-content: space-between;
-}
-
 .flex-coin {
     display: flex;
     flex-direction: row;
@@ -47,24 +80,14 @@
 
 .buy-flex {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: row;
     align-items: center;
-    gap: 30px;
 
     p {
         font-size: 1.5rem;
-    } 
-}
-
-.buy-flex-button {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    gap: 30px;
-
-    #buy-button {
+    }
+    .buy-button {
         font-size: 24px;
             border-radius: 1.25rem;
             border: 0.5px solid black;
@@ -80,7 +103,12 @@
             text-align: center;  
             
             cursor: pointer;
-    }
+    } 
+}
+
+.guest-message {
+    margin-top: 5px;
+    font-size: 1rem;
 }
 
 #carousel-prizes {
@@ -111,6 +139,20 @@
 
 @media screen and (min-width: $desktopWidth) {
 
+    .card-balance {
+
+        .balance {
+            position: absolute;
+            top: 45%;
+            left: 10%;
+        }
+    }
+
+    .guest-message {
+        margin-top: 5px;
+        color: red;
+        font-size: 1rem;
+    }
     .card#add-prize-btn {
         position: absolute;
         left: 6rem;

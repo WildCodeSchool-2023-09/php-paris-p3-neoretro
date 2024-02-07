@@ -11,11 +11,13 @@
 {% block content %}
 
 {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
-<div class="card card-balance">
-    <h2>Balance</h2>
-    <div class="token-balance-value">
-        <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
-        <p class="token-value">30</p>
+<div class="card-balance">
+    <div class="balance">
+        <h2>Balance</h2>
+        <div class="token-balance-value">
+            <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
+            <p class="token-value">30</p>
+        </div>
     </div>
 </div>
 {% endif %}
@@ -25,7 +27,7 @@
     <div class="content">
         <a href="{{ path('prize_new') }}">
             <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
-            <h2>New Prize</h2>
+            <h2>New prize</h2>
         </a>
     </div>
 </div>
@@ -42,17 +44,13 @@
                         {% if (y + 6*i) < prizes|length %}
                             {% set prize = prizes[y + 6*i] %}
                             <section class="card">
-                                <div>
-                                    <div class="flex-edit-icon">
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                    <a id="game-edit" href="{{ path("prize_edit", { slug: prize.slug }) }}">
-                                        <img src="{{ asset('build/images/icons/edit-icon.png') }}" alt="edit icon">
-                                    </a>
-                                    {{ include('prize/_delete_form.html.twig') }}
-                                    {% endif %}
-                                    </div>
-                                    
+                                <div class="content">
                                     <div class="flex-coin">
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a href="{{ path("prize_edit", { slug: prize.slug }) }}">
+                                                <img src="{{ asset('build/images/icons/edit-icon.png') }}">
+                                            </a>
+                                        {% endif %}
                                         <h2>{{ prize.label }}</h2>
                                     </div>
                                     {# <a href="{{ path('prize_show', {slug: prize.slug}) }}"> #}
@@ -60,12 +58,19 @@
                                         
                                     <div class="buy-flex">
                                             <img src="{{ asset('build/images/icons/coins.png') }}" alt="">
-                                            <p>{{ prize.value }}</p>  
+
+                                            <p>{{ prize.value }}</p>
                                     </div>
-                                    <div class="buy-flex-button">
-                                        <p>Stock: x{{ prize.quantity }}</p>   
-                                        <a href="#" id="buy-button">BUY</a> 
+                                    <div class="buy-flex">
+                                            <p>Stock: x{{ prize.quantity }}</p>
+                                    
+                                        <a href="#" class="buy-button">BUY</a>
                                     </div>
+                                    {% if not is_granted ('ROLE_USER') %}
+                                        <div class="guest-message">
+                                            <p>Win tokens to buy a prize!</p>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </section>
                         {% endif %}

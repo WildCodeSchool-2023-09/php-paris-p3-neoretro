@@ -20,9 +20,6 @@ class PrizeType extends AbstractType
     {
         $builder
         ->add('label', TextType::class, [
-            'attr' => [
-                'placeholder' => 'Label',
-            ],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter the title',
@@ -34,9 +31,6 @@ class PrizeType extends AbstractType
             ],
         ])
         ->add('description', TextareaType::class, [
-            'attr' => [
-                'placeholder' => 'Description',
-            ],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter the description',
@@ -50,21 +44,15 @@ class PrizeType extends AbstractType
             ],
         ])
             ->add('posterFile', VichFileType::class, [
-                'attr' => [
-                    'data-controller' => 'mydropzone',
-                    'placeholder' => 'Drag & Drop picture',
-                ],
                 'required' => true,
             ])
             ->add('value', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Value',
                     'required' => true,
                 ]
             ])
             ->add('quantity', TextType::class, [
                 'attr' => [
-                    'placeholder' => 'Stock',
                     'required' => false,
                 ]
             ])

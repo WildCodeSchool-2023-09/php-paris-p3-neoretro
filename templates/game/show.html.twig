@@ -33,15 +33,14 @@
 
                     <div class="game-show-grid">
                         <div class="poster">
-                            <img src="{{ game.poster }}" alt="Image aléatoire">
-                            {# <img src="{{ vich_uploader_asset(game) }}" alt="Image aléatoire" poster> #}
+                            <img src="{{ vich_uploader_asset(game) }}" alt="Image aléatoire" poster> 
                         </div>
 
                         <div class="category">
-                            {% for category in game.categories %}
-                                <p>{{ category.label }}</p>
-                            {% endfor %}
-
+                            <p>{{ game.mainCategory.label }}</p>
+                            {% if game.optionalCategory is not null %}
+                                <p>{{ game.optionalCategory.label }}</p>
+                            {% endif %}
                             <div class="game-time">
                                 <img src="{{ asset('build/images/icons/clock-1.svg') }}">
                                 <p>

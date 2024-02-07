@@ -40,7 +40,7 @@ class GameSearchType extends AbstractType
             ])
             ->add('isVisible', HiddenType::class, [
                 'data' => '1',
-            ]);
+            ])
         ;
     }
 }

@@ -51,24 +51,23 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: Picture::class, orphanRemoval: true)]
     private Collection $pictures;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'games')]
-    private Collection $categories;
-
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: GamePlayed::class)]
     private Collection $gamesPlayed;
 
-    #[ORM\OneToMany(mappedBy: 'game', targetEntity: Event::class)]
-    private Collection $events;
+    #[ORM\ManyToOne(inversedBy: 'games')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $mainCategory = null;
+
+    #[ORM\ManyToOne]
+    private ?Category $optionalCategory = null;
 
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
-        $this->categories = new ArrayCollection();
         $this->gamesPlayed = new ArrayCollection();
-        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,33 +165,6 @@ class Game
         return $this;
     }
 
-    /**
-     * @return Collection<int, Category>
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): static
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-            $category->addGame($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): static
-    {
-        if ($this->categories->removeElement($category)) {
-            $category->removeGame($this);
-        }
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -261,32 +233,26 @@ class Game
         return $this;
     }
 
-    /**
-     * @return Collection<int, Event>
-     */
-    public function getEvents(): Collection
+    public function getMainCategory(): ?Category
     {
-        return $this->events;
+        return $this->mainCategory;
     }
 
-    public function addEvent(Event $event): static
+    public function setMainCategory(?Category $mainCategory): static
     {
-        if (!$this->events->contains($event)) {
-            $this->events->add($event);
-            $event->setGame($this);
-        }
+        $this->mainCategory = $mainCategory;
 
         return $this;
     }
 
-    public function removeEvent(Event $event): static
+    public function getOptionalCategory(): ?Category
     {
-        if ($this->events->removeElement($event)) {
-            // set the owning side to null (unless already changed)
-            if ($event->getGame() === $this) {
-                $event->setGame(null);
-            }
-        }
+        return $this->optionalCategory;
+    }
+
+    public function setOptionalCategory(?Category $optionalCategory): static
+    {
+        $this->optionalCategory = $optionalCategory;
 
         return $this;
     }

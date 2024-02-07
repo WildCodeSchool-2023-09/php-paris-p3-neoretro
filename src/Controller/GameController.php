@@ -8,8 +8,10 @@ use App\Form\GameFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\GamePlayedRepository;
 use App\Repository\GameRepository;
+use App\Service\ScoreService;
 use App\Service\GameInfoService;
 use Doctrine\ORM\EntityManagerInterface;
+use Proxies\__CG__\App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,13 +45,13 @@ class GameController extends AbstractController
             $gamesStats = $gameInfoService->getUserGamesStats($games, $security->getUser());
         }
 
-
         return $this->render('game/index.html.twig', [
             'games' => $games,
             'gamesStats' => $gamesStats ?? [],
             'pageTitle' => 'Games',
+            //'categories' => $categoryRepository->findBy([], ['label' => 'ASC']),
             'searchForm' => $searchForm,
-            'params' => $params ?? [],
+            'params' => $params ?? ['isVisible' => 1],
         ]);
     }
 
@@ -65,18 +67,24 @@ class GameController extends AbstractController
         $form = $this->createForm(GameFormType::class, $game);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($game->getTitle()) {
-                $slug = $slugger->slug($game->getTitle());
-                $game->setSlug($slug);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                if ($game->getTitle()) {
+                    $slug = $slugger->slug($game->getTitle());
+                    $game->setSlug($slug);
+                }
+
+                $entityManager->persist($game);
+                $entityManager->flush();
+
+                $this->addFlash("Success", "The game has been added!");
+
+                return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
+            } else {
+                foreach ($form->getErrors(true, true) as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
             }
-
-            $entityManager->persist($game);
-            $entityManager->flush();
-
-            $this->addFlash("Success", "The game has been added");
-
-            return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('game/new.html.twig', [
@@ -131,15 +139,24 @@ class GameController extends AbstractController
 
     #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function edit(Request $request, Game $game, EntityManagerInterface $entityManager): Response
-    {
+    public function edit(
+        Game $game,
+        EntityManagerInterface $entityManager,
+        Request $request
+    ): Response {
         $form = $this->createForm(GameFormType::class, $game);
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors(true, true) as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            // $this->addFlash("Success", "The game has been edited");
+            $this->addFlash("Success", "The game has been edited");
 
             return $this->redirectToRoute('dashboard', [], Response::HTTP_SEE_OTHER);
         }

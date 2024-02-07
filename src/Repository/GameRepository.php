@@ -23,6 +23,7 @@ class GameRepository extends ServiceEntityRepository
 
     public function search(array $params): array
     {
+
         $query = $this->createQueryBuilder('g');
 
         if (!empty($params)) {
@@ -40,12 +41,15 @@ class GameRepository extends ServiceEntityRepository
                 $categoryQueries = [];
 
                 foreach ($params['categories'] as $category) {
-                    $categoryQueries[] = "(c.label = '" . $category->getLabel() . "')";
+                    $categoryQueries[] =
+                        "(mc.label = '" . $category->getLabel() . "' OR oc.label = '" . $category->getLabel() . "')"
+                    ;
                 }
 
                 $categoryQuery = implode(' OR ', $categoryQueries);
 
-                $query->join('g.categories', 'c');
+                $query->join('g.mainCategory', 'mc');
+                $query->leftJoin('g.optionalCategory', 'oc');
                 $query->andWhere($categoryQuery);
             }
 

@@ -264,6 +264,8 @@ button {
     &:hover {
         transform: scale(102%);
     }
+
+    transition: background-color ease-in-out 100ms;
 }
 
 h2:hover {

@@ -51,17 +51,16 @@
                                     {% endif %}
 
                                     <a href="{{ path('game_show', {slug: game.slug}) }}">
-                                        <img class="poster" src="{{ game.poster }}" alt="">
+                                        <img class="poster" src="{{ vich_uploader_asset(game) }}" alt="">
                                         <h2>{{ game.title }}</h2>
                                     </a>
 
                                     <div class="game-infos">
                                         <div class="game-category-container">
-                                            {% for category in game.categories %}
-                                                <p class="game-category">
-                                                    {{category.label}}
-                                                </p>
-                                            {% endfor %}
+                                            <p class="game-category">{{game.mainCategory.label}}</p>
+                                            {% if game.optionalCategory is not null %}
+                                                <p class="game-category">{{game.optionalCategory.label}}</p>
+                                            {% endif %}
                                         </div>
 
                                             <div class="game-stats">

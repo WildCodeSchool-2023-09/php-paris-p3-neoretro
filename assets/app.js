@@ -7,11 +7,13 @@ import './bootstrap.js';
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+
 import './styles/components/carousel.scss';
 import './styles/components/header.scss';
 import './styles/components/navbar.scss';
 import './styles/components/searchbar.scss';
 import './styles/components/toggle.scss';
+// import './styles/components/toggle-form.scss';
 
 import './styles/dashboard/dashboard.scss';
 import './styles/dashboard/dashboard-admin.scss';
@@ -32,6 +34,8 @@ import './styles/game/game-show.scss';
 import './styles/main/app.scss';
 import './styles/main/desktop.scss';
 import './styles/main/reset.scss';
+
+import './styles/prize/prize-index.scss';
 
 import './styles/gamePlayed.scss';
 import './styles/leaderboard.scss';

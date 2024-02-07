@@ -1,0 +1,96 @@
+@import "_variables";
+
+div#game-add {
+    form {
+        label, input, select, textarea {
+            display: block;
+            cursor: pointer;
+        }
+
+        label {
+            text-align: center;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            margin: 19px 0 5px 0;
+        }
+
+        input, select, option, textarea {
+            width: 100%;
+            border-radius: $borderRadiusSmall;
+            border: 1px solid #C10BEE;
+            box-shadow: $shadow;
+            padding: .25rem 1.25rem;
+
+            color: white;
+            font-size: large;
+        }
+
+        input, select {
+            height: 46px;
+        }
+
+        select {
+            option {
+                color: #5755ce;
+            }
+        }
+
+        textarea {
+            background: none;
+        }
+
+        textarea {
+            min-height: 92px;
+        }
+
+        label.label-error {
+            color: red;
+        }
+
+        input.input-error, select.input-error, textarea.input-error {
+            border-color: red;
+        }
+
+        div.checked-flex {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button#add-edit-game {
+            border-radius: $borderRadiusMedium;
+            border: 0.5px $colorGradient1;
+            background: $colorGradient5;
+            color : #020051;
+            width: 288px;
+            height: 50px;
+            text-align: center;
+            font-size: 18px;
+            margin-left: calc(50% - 144px);
+            margin-top: 24px;
+
+            cursor: pointer;
+        }
+    }
+}
+
+@media screen and (min-width: $desktopWidth) {
+
+    div#game-add {
+        form {
+            div.game-input, div.game-input-category {
+                margin: 0 10% 0 10%;
+            }
+
+            div.game-input-category {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10%;
+            }
+        }
+    }
+}

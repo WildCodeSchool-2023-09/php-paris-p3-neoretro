@@ -5,8 +5,26 @@ form textarea:hover {
     border: 1px solid #0982cd;
 }
 
-.card {
-	.container:not(#game-form) {
+// game, register & profile forms
+.card .container form {
+	input, textarea, select {
+		&:hover {
+			border: 1px solid #06CCF8;
+		}
+
+		&::placeholder {
+			text-align: center;
+		}
+
+		&:focus-visible {
+			outline: none;
+			border: 1px solid #06CCF8;
+		}
+	}
+}
+
+.card:not(#game-form, #profile, #register) {
+	.content {
 
 		form {
 			display: flex;
@@ -15,7 +33,7 @@ form textarea:hover {
 
 			& > div {
 				// width: 50%;
-		
+
 				label, input {
 					cursor: pointer;
 				}
@@ -73,8 +91,17 @@ form textarea:hover {
 
 @media screen and (min-width: $desktopWidth) {
 
-	.card {
-		.container:not(#game-form) {
+	// game & register & profile forms
+	.card form:not(#login) {
+		input, textarea {
+			&::placeholder {
+				opacity: 0;
+			}
+		}
+	}
+
+	.card:not(#game-form, #profile, #register) {
+		.content {
 			form {
 				width: 70%;
 			
@@ -86,7 +113,7 @@ form textarea:hover {
 							opacity: 0;
 						}
 					}
-	
+
 					label {
 						display: block;
 					}

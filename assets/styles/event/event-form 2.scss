@@ -1,0 +1,48 @@
+@import "../main/_variables";
+
+#event-form {
+	.container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+		form {
+
+			& > div {
+				width: 100%;
+
+                label {
+                    display: block;
+                }
+
+                & > div {
+                    display: flex;
+                    gap: 1rem;
+                }
+			}
+		
+			.big-btn {
+				// margin-top: 2.5rem;
+				width: 50%;
+			}
+		}
+	}
+}
+
+//
+
+@media screen and (min-width: $desktopWidth) {
+
+	#event-form {
+		.container {
+			form {
+				width: 70%;
+			
+				& > div {
+
+				}
+			}
+		}
+	}
+}

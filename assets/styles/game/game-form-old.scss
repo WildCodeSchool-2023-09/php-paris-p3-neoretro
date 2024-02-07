@@ -1,6 +1,7 @@
 @import "../main/_variables";
 
-#game-new, #game-edit {
+// #game-new, #game-edit {
+#game-form {
 	.container {
         display: flex;
         flex-direction: column;
@@ -55,7 +56,8 @@
 
 @media screen and (min-width: $desktopWidth) {
 
-	#game-new, #game-edit {
+	// #game-new, #game-edit {
+	#game-form {
 		.container {
 			form {
 				width: 70%;

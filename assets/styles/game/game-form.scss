@@ -1,7 +1,12 @@
 @import "../main/_variables";
 
-#game-form {
+#game-form .content .container {
     form {
+        input:hover,
+        textarea:hover {
+            border: 1px solid #0982cd;
+        }
+
         label, input, select, textarea {
             display: block;
             cursor: pointer;
@@ -80,7 +85,7 @@
 
 @media screen and (min-width: $desktopWidth) {
 
-    #game-form {
+    #game-form .content .container {
         form {
             div.game-input, div.game-input-category {
                 margin: 0 10% 0 10%;

@@ -1,7 +1,6 @@
 @import "main/_variables";
 
 div#game-played {
-
     div.content {
         display: flex;
         flex-direction: column;
@@ -71,16 +70,9 @@ div#game-played {
     }
 }
 
-/*
-**
-** Media queries for desktop
-**
-*/
-
+//
 
 @media screen and (min-width: $desktopWidth) {
-
-
     div#game-played {
         height: fit-content;
 
@@ -98,5 +90,4 @@ div#game-played {
             }
         }
     }
-
 }

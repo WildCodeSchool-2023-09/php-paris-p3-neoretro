@@ -7,7 +7,7 @@
         <h2>{{ event.label|upper }}</h2>
 
         <div class="container">
-            <img class="game-poster" src="{{ event.game.poster }}" alt="">
+            <img class="game-poster" src="{{ vich_uploader_asset(event.game) }}" alt="">
             <p id="event-description">{{ event.description }}</p>
             <ul class="event-dates">
                 <li>

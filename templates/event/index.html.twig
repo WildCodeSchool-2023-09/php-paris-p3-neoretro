@@ -52,7 +52,7 @@
                                     {% endif %}
 
                                     <a href="{{ path('event_show', {slug: event.slug}) }}">
-                                        <img class="poster" src="{{ event.game.poster }}" alt="">
+                                        <img class="poster" src="{{ vich_uploader_asset(event.game) }}" alt="">
                                         <h2>{{ event.label }}</h2>
                                     </a>
 

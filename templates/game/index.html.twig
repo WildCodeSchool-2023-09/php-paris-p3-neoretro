@@ -2,54 +2,56 @@
 
 {% block javascript %}
     {{ parent() }}
-    {{ encore_entry_script_tags('carouselGames') }}
+    {{ encore_entry_script_tags('carousel-big') }}
     {{ encore_entry_script_tags('searchbar') }}
+    {{ encore_entry_script_tags('inputs') }}
     
     {% if is_granted('ROLE_ADMIN') %}
-        {{ encore_entry_script_tags('toggleGame') }}
+        {{ encore_entry_script_tags('toggle') }}
     {% endif %}
 {% endblock javascript %}
 
 {% block content %}
 
-    {# <div id="dump">
-        {{ dump((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) }}
-    </div> #}
-
     {% include 'components/_searchbar.html.twig' %}
 
     {% if is_granted('ROLE_ADMIN') %}
-    <form id="form-toggle">
-        <div id="game-visibility-toggle">
-            <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
-            <p>Inactive / Active</p>
+        <div id="toggle">
+            <input {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked=true' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked' }}">
+            <p>Hidden // Visible</p>
         </div>
-    </form>
 
-        <div class="card" id="add-game-btn">
+        <div class="card" id="add-btn">
             <div class="content">
                 <a href="{{ path('game_new') }}">
-                    <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
-                    <h2>New Game</h2>
+                    <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game">
+                    <h2>New game</h2>
                 </a>
             </div>
         </div>
+
     {% endif %}
 
     {% if games is not empty %}
 
         {% set nbSlides = (games|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
 
-        <ul class="carousel" id="carousel-games">
+        <ul class="carousel carousel-big" id="carousel-games">
             {% for i in 0..nbSlides - 1 %}
-                <li class="games grid full-size">
+                <li class="slide grid full-size">
                     {% for y in 0..5 %}
                         {% if (y + 6*i) < games|length %}
                             {% set game = games[y + 6*i] %}
                             <section class="card">
                                 <div class="content">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="edit-btn" href="{{ path("game_edit", { slug: game.slug }) }}">
+                                            <img src="{{ asset('build/images/icons/edit2.svg') }}">
+                                        </a>
+                                    {% endif %}
+
                                     <a href="{{ path('game_show', {slug: game.slug}) }}">
-                                        <img class="game-poster" src="{{ vich_uploader_asset(game) }}" alt="">
+                                        <img class="poster" src="{{ vich_uploader_asset(game) }}" alt="">
                                         <h2>{{ game.title }}</h2>
                                     </a>
 

@@ -15,11 +15,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use App\Service\GameInfoService;
+use Symfony\Component\Security\Core\Security;
 
-#[Route('/game-played', 'game-played_')]
 class GamePlayedController extends AbstractController
 {
-    #[Route('/{slug}/{uuid}', name: 'new')]
+    #[Route('/game-played/{slug}/{uuid}', name: 'game-played_new')]
     public function new(
         Game $game,
         string $uuid,
@@ -89,6 +90,38 @@ class GamePlayedController extends AbstractController
             'pageTitle' => 'Your last game',
             'experienceGained' => (int)floor($gamePlayed->getScore() * GamePlayedService::EXPERIENCE_COEFFICIENT),
             'reviewForm' => $reviewForm,
+        ]);
+    }
+
+    #[Route('/leaderboard', name: 'leaderboard')]
+    public function scores(
+        Security $security,
+        GamePlayedRepository $gamePlayedRepository,
+        GameInfoService $gameInfoService
+    ): Response {
+        $user = $security->getUser();
+
+        if ($this->isGranted('ROLE_USER')) {
+            $userGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 10);
+
+            $userGamesStats = [];
+            foreach ($userGamesPlayed as $userGamePlayed) {
+                $userGamesStats[] = $gameInfoService->formatTime($userGamePlayed->getDuration(), 'short');
+            }
+        }
+
+        $globalGamesPlayed = $gamePlayedRepository->findBy([], ['score' => 'DESC'], 50);
+        $globalGamesStats = [];
+        foreach ($globalGamesPlayed as $globalGamePlayed) {
+            $globalGamesStats[] = $gameInfoService->formatTime($globalGamePlayed->getDuration(), 'short');
+        }
+
+        return $this->render('leaderboard/index.html.twig', [
+            'pageTitle' => 'Leaderboard',
+            'userGamesPlayed' => $userGamesPlayed ?? [],
+            'userGamesStats' => $userGamesStats ?? [],
+            'globalGamesPlayed' => $globalGamesPlayed,
+            'globalGamesStats' => $globalGamesStats,
         ]);
     }
 }

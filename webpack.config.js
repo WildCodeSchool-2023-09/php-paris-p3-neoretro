@@ -32,15 +32,15 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+
+    .addEntry('carousel-small', './assets/scripts/carousel/carousel-small.js')
+    .addEntry('carousel-big', './assets/scripts/carousel/carousel-big.js')
     .addEntry('pictureModal', './assets/scripts/pictureModal.js')
-    .addEntry('reviewModal', './assets/scripts/reviewModal.js')
-    .addEntry('carousel', './assets/scripts/carousel.js')
+    .addEntry('inputs', './assets/scripts/inputs.js')
     .addEntry('searchbar', './assets/scripts/searchbar.js')
-    .addEntry('carouselDetailedGame', './assets/scripts/carouselDetailedGame.js')
-    .addEntry('carouselGames', './assets/scripts/carouselGames.js')
+    .addEntry('toggle', './assets/scripts/toggle.js')
+    .addEntry('reviewModal', './assets/scripts/reviewModal.js')
     .addEntry('notationReview', './assets/scripts/notationReview.js')
-    .addEntry('toggleGame', './assets/scripts/toggleGame.js')
-    .addEntry('login', './assets/scripts/login.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

@@ -24,6 +24,21 @@
         <div id="main-container">
             {% block content %}
             {% endblock %}
+
+            {% set flashStack = app.session.flashbag.all %}
+            {% if flashStack is not empty %}
+                <div id="flash-stack">
+                        {% for type, messages in flashStack %}
+                            {% for message in messages %}
+                                <div class="flash card">
+                                    <div class="content">
+                                        <p class="alert alert-{{ type }}">{{ message }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
         {% block navbar %}

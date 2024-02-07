@@ -2,7 +2,7 @@
 
     <div id="search-primary">
         <div class="btn search" type="submit"></div>
-        {{ form_widget(searchForm.title, {'attr': {'value': params.title is defined ? params.title : ''}}) }}
+        {{ form_widget(searchForm.title) }}
         <div class="btn settings"></div>
     </div>
 
@@ -29,6 +29,6 @@
         {{ form_row(searchForm.sort_order) }}
     </div>
 
-    {# {{ form_row(searchForm.isVisible) }} #}
+    {{ form_row(searchForm.isVisible, {'attr': {'class': 'isVisible'}}) }}
 
 {{ form_end(searchForm) }}

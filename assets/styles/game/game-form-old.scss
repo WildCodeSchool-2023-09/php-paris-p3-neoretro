@@ -1,0 +1,71 @@
+@import "../main/_variables";
+
+// #game-new, #game-edit {
+#game-form {
+	.container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+		form {
+            gap: .5rem;
+
+			& > div {
+				width: 100%;
+
+                &:nth-of-type(2) {
+                    .vich-file {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        input[type="file"] {
+                            font-size: 1.2rem;;
+                            // width: 50%;
+                        }
+                    }
+                }
+
+                &:last-of-type {
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-end;
+                    gap: 2rem;
+                }
+
+                label {
+                    display: block;
+                }
+
+                .switch {
+                    height: 1.5rem;
+		            width: 3rem;
+                }
+			}
+		
+			.big-btn {
+				margin-top: 1rem;
+				width: 50%;
+			}
+		}
+	}
+}
+
+//
+
+@media screen and (min-width: $desktopWidth) {
+
+	// #game-new, #game-edit {
+	#game-form {
+		.container {
+			form {
+				width: 70%;
+                
+                .description {
+                    min-height: 12rem;
+                }
+			}
+		}
+	}
+}

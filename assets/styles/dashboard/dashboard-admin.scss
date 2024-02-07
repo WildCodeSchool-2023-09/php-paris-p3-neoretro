@@ -1,0 +1,99 @@
+@import "../main/_variables";
+
+#dashboard .cell-played-admin {
+    //
+    .messages-success-block {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .img-block {
+        display: flex;
+        justify-content: center;
+        height: 80px;
+        padding-top: 25px;
+    }
+
+    .messages-success {
+        color: #fefefe;
+        font-size: 1.5rem;
+        padding-bottom: 10px;
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+    
+    .messages-success {
+        animation: fadeOut 5s ease;
+        opacity: 0;
+    }
+    //
+
+    .content {
+
+        .nav-admin {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem;
+            
+            margin-top: 2rem;
+            
+            a.btn-admin {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+    
+                border: 2px solid #06CCF8;
+                border-radius: $borderRadiusLarge;
+                background: $colorGradient1;
+    
+                // width: 80%;
+                // max-width: 800px;
+                padding: .5rem 1rem;
+    
+                font-size: 1.8rem;
+                color: #fff;
+    
+                img {
+                    height: 40px;
+                }
+            }
+        }
+    }
+}
+
+//
+
+@media screen and (min-width: $desktopWidth) {
+
+    #dashboard {
+        .cell-played-admin {
+            grid-area: 1 / 1 / span 4 / span 9;
+
+            .content {
+
+                .nav-admin {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                    margin-top: 4rem;
+
+                    a.btn-admin {
+                        display: flex;
+                        padding: 10px;
+                        min-width: 150px;
+                        min-height: 50px;
+                    }
+                }
+            }
+        }
+    }
+}

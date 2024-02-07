@@ -6,7 +6,7 @@
     <img id="user-login-icon" src="{{ asset('build/images/icons/user-xp.svg') }}" alt="User icon">
 {% endif %}
 
-<form class="form-login" action="{{ path('dashboard') }}" method="post">
+<form id="login" action="{{ path('dashboard') }}" method="post">
     <input type="text" id="username" name="_username" placeholder="username">
     <input type="password" id="password" name="_password" placeholder="password">
 
@@ -15,7 +15,7 @@
     {# If you want to control the URL the user is redirected to on success
     <input type="hidden" name="_target_path" value="/account"> #}
 
-    <button type="submit">LOG IN</button>
+    <button class="big-btn" type="submit">LOG IN</button>
 </form>
 
 <div id="sign-up">

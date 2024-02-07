@@ -1,7 +1,6 @@
-@import "_variables";
+@import "main/_variables";
 
 div#game-played {
-
     div.content {
         display: flex;
         flex-direction: column;
@@ -234,16 +233,9 @@ div.dialog-review {
     to {transform:scale(1)}
 }
 
-/*
-**
-** Media queries for desktop
-**
-*/
-
+//
 
 @media screen and (min-width: $desktopWidth) {
-
-
     div#game-played {
         height: fit-content;
 

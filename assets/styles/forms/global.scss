@@ -1,0 +1,124 @@
+@import "../main/_variables";
+
+form input:hover,
+form textarea:hover {
+    border: 1px solid #0982cd;
+}
+
+// game, register & profile forms
+.card .container form {
+	input, textarea, select {
+		&:hover {
+			border: 1px solid #06CCF8;
+		}
+
+		&::placeholder {
+			text-align: center;
+		}
+
+		&:focus-visible {
+			outline: none;
+			border: 1px solid #06CCF8;
+		}
+	}
+}
+
+.card:not(#game-form, #profile, #register) {
+	.content {
+
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			& > div {
+				// width: 50%;
+
+				label, input {
+					cursor: pointer;
+				}
+		
+				label {
+					display: none;
+
+					margin-top: 1rem;
+
+					text-align: center;
+					font-size: 1.2rem;
+				}
+
+				input {
+					height: 3rem;
+				}
+				textarea {
+					resize: none;
+				}
+				select {
+					font-size: 1.1rem;
+				}
+
+				input, textarea, select {
+					display: block;
+
+					width: 100%;
+
+					border-radius: $borderRadiusSmall;
+					border: 1px solid #C10BEE;
+					box-shadow: $shadow;
+
+					padding: .25rem 1.25rem;
+					margin-top: .5rem;
+		
+					&:hover {
+						border: 1px solid #06CCF8;
+					}
+		
+					&::placeholder {
+						text-align: center;
+					}
+			
+					&:focus-visible {
+						outline: none;
+						border: 1px solid #06CCF8;
+					}
+				}
+			}
+		}
+	}
+}
+
+//
+
+@media screen and (min-width: $desktopWidth) {
+
+	// game & register & profile forms
+	.card form:not(#login) {
+		input, textarea {
+			&::placeholder {
+				opacity: 0;
+			}
+		}
+	}
+
+	.card:not(#game-form, #profile, #register) {
+		.content {
+			form {
+				width: 70%;
+			
+				& > div {
+					input, textarea {
+						font-size: 1.1rem;
+
+						&::placeholder {
+							opacity: 0;
+						}
+					}
+
+					label {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}

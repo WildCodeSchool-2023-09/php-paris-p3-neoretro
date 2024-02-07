@@ -3,7 +3,3 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-
-game_new:
-    path: /new
-    controller: App\Controller\GameController::new

@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ProfileType;
 use App\Repository\GamePlayedRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\GameInfoService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -43,38 +43,6 @@ class UserController extends AbstractController
             'pageTitle' => 'My profile',
             'user' => $this->getUser(),
             'profileForm' => $form,
-        ]);
-    }
-
-    #[Route('/scores', name: 'scores')]
-    public function scores(
-        Security $security,
-        GamePlayedRepository $gamePlayedRepository,
-        GameInfoService $gameInfoService
-    ): Response {
-        $user = $security->getUser();
-
-        if ($this->isGranted('ROLE_USER')) {
-            $userGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 10);
-
-            $userGamesStats = [];
-            foreach ($userGamesPlayed as $userGamePlayed) {
-                $userGamesStats[] = $gameInfoService->formatTime($userGamePlayed->getDuration(), 'short');
-            }
-        }
-
-        $globalGamesPlayed = $gamePlayedRepository->findBy([], ['score' => 'DESC'], 50);
-        $globalGamesStats = [];
-        foreach ($globalGamesPlayed as $globalGamePlayed) {
-            $globalGamesStats[] = $gameInfoService->formatTime($globalGamePlayed->getDuration(), 'short');
-        }
-
-        return $this->render('leaderboard/index.html.twig', [
-            'pageTitle' => 'Leaderboard',
-            'userGamesPlayed' => $userGamesPlayed ?? [],
-            'userGamesStats' => $userGamesStats ?? [],
-            'globalGamesPlayed' => $globalGamesPlayed,
-            'globalGamesStats' => $globalGamesStats,
         ]);
     }
 }

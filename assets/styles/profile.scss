@@ -1,6 +1,6 @@
-@import "_variables";
+@import "main/_variables";
 
-div#profile {
+.card#profile .content {
     div#level-info {
         display: flex;
         flex-direction: column;
@@ -105,7 +105,7 @@ div#profile {
 
 @media screen and (min-width: $desktopWidth) {
 
-    div#profile {
+    .card#profile .content {
         display: grid;
         grid-template-columns: 1fr 2fr;
 

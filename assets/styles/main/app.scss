@@ -1,0 +1,296 @@
+@import "_variables";
+
+// BODY
+
+body {
+    background: url('/assets/images/bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    overflow: hidden;
+}
+
+#main-container {
+    margin-top: 80px;
+    margin-bottom: 100px;
+    padding-top: 10px;
+    height: calc(100vh - 80px - 100px);
+    overflow: scroll;
+    position: relative;
+}
+
+//
+
+#dump {
+    position: fixed;
+    z-index: 3;
+    top: 1rem;
+    right: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.reversed {
+    transform: scaleY(-1);
+}
+
+#flash-stack {
+    position: fixed;
+    bottom: 6.5rem;
+    left: 0;
+    right: 0;
+
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    .flash {
+        border-radius: $borderRadiusMedium;
+        background: $colorGradient1-opaque;
+
+        width: 95%;
+        min-height: 0;
+    
+        padding: 1rem .75rem;
+        margin: 0 auto;
+
+        .alert::before {
+            font-family :Arial, Helvetica, sans-serif;
+            background: none;
+            color: black;
+        }
+        .alert-warning::before {
+            content: '⚠️ ';
+        }
+        .alert-success::before {
+            content: '✅ ';
+        }
+        .alert-error::before {
+            content: '⛔️ ';
+        }
+    }
+}
+
+table {
+    border-collapse: collapse;
+
+    tr {
+        border-bottom: .5px rgba(0, 216, 216, 0.5) solid;
+
+        border-width: 2px;
+        border-style: none none solid none;
+        border-image: $colorGradient3 1;
+    }
+}
+
+// COMPONENTS
+
+.card {
+    min-height: 160px;
+
+    position: relative;
+
+    margin: 0 10px 10px;
+    padding: 10px 14px;
+
+    border: 2px solid #06CCF8;
+    border-radius: $borderRadiusLarge;
+
+    background: $colorGradient1;
+    box-shadow: $shadow;
+
+    transition: 200ms ease-in-out;
+
+    // Adding gradient to top and bottom borders
+    &::before {
+        content: '';
+        display: block;
+
+        height: calc(100% + 2*2px);
+        width: calc(100% - 2*$borderRadiusLarge);
+
+        position: absolute;
+        top: -2px;
+        left: $borderRadiusLarge;
+
+        border-width: 2px;
+        border-style: solid none solid none;
+        border-image: $colorGradient4 1;
+    }
+
+    &:not(.full-size):hover {
+        background-color: #0982cd;
+        transform: scale(102%);
+    }
+
+    .content {
+        height: 100%;
+        position: relative;
+        z-index: 1;
+
+        .container {
+            height: calc(100% - 40px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    }
+
+    &#add-btn {
+        width: fit-content;
+        height: fit-content;
+        min-height: fit-content;
+    
+        margin: 10px auto;
+        padding: .75rem 1rem;
+    
+        background: $colorGradient3;
+        border-radius: calc($borderRadiusMedium * 1.1);
+    
+        .content a {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            
+            &:hover {
+                transform: scale(1);
+            }
+            h2 {
+                margin: 0;
+                &:hover {
+                    transform: scale(1);
+                }
+            }
+            img {
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.big-btn {
+    padding: 0 2rem;
+	border-radius: 1.25rem;
+	border: 0.5px solid black;
+	background: $colorGradient5;
+	box-shadow: $shadow;
+
+	color: #020051;
+	
+	height: 2.8rem;
+	width: 100%;
+	font-size: 1.125rem;
+
+	cursor: pointer;
+}
+
+.big-btn-alt {
+    background: $colorGradient3;
+    color: #bebebe;
+}
+
+.edit-btn {
+    position: absolute;
+    top: .5rem;
+    left: 1rem;
+    z-index: 1;
+}
+
+// TEXT
+
+h2, h3, h4, h5, h6, span,
+td, th,
+p, ul, label, input, input::placeholder, select, textarea, textarea::placeholder, a, button, img[alt],
+.text
+{
+    background: $colorGradient5;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Orbitron';
+    text-decoration: none;
+}
+
+h1, h2, h3, p {
+    text-align: center;
+}
+
+h1, h2, h3 {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    &.neon {
+        background: $colorGradient4;
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+}
+
+#site-name h1,
+#page-title,
+a, a h2, a h3,
+label {
+    &:hover {
+        background: $colorGradient4;
+        -webkit-background-clip: text;
+        background-clip: text;
+
+        transform: scale(102%);
+    }
+
+    transition: ease-in-out 100ms;
+}
+
+nav#main-nav ul li a img {
+    transition: ease-in-out 100ms;
+    &:hover {
+        transform: scale(105%);
+    }
+}
+
+button {
+    transition: ease-in-out 100ms;
+
+    &:hover {
+        transform: scale(102%);
+    }
+}
+
+h2:hover {
+    background: $colorGradient6;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.michroma {
+    background: $colorGradient6;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    
+    font-family: 'Michroma';
+}
+
+select {
+    background: transparent;
+    color: rgb(177, 177, 177);
+    font-family: 'Orbitron';
+
+    option {
+        background: $colorGradient5;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+        background: transparent;
+        color: rgb(177, 177, 177);
+    }
+}

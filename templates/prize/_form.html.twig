@@ -1,0 +1,18 @@
+{# <div id="game-add"> #}
+    {{ form_start(prizeForm) }}
+        {# <div class="game-input"> #}
+            {{ form_errors(prizeForm) }}
+
+            {{ form_row(prizeForm.label) }}
+            {{ form_row(prizeForm.description, {'attr': {'class': 'description'}}) }}
+            {{ form_row(prizeForm.posterFile) }}
+            {{ form_row(prizeForm.value) }}
+            {{ form_row(prizeForm.quantity) }}
+
+            {# <div>
+                <button type="submit" id="add-edit-game">SAVE PRIZE</button>
+            </div> #}
+            <button class="big-btn">{{ button_label|default('SAVE') }}</button>
+        {# </div> #}
+    {{ form_end(prizeForm) }}
+{# </div> #}

@@ -33,6 +33,15 @@ Encore
      */
     .addEntry('app', './assets/app.js')
 
+    .addEntry('carousel-small', './assets/scripts/carousel/carousel-small.js')
+    .addEntry('carousel-big', './assets/scripts/carousel/carousel-big.js')
+    .addEntry('pictureModal', './assets/scripts/pictureModal.js')
+    .addEntry('inputs', './assets/scripts/inputs.js')
+    .addEntry('searchbar', './assets/scripts/searchbar.js')
+    .addEntry('toggle', './assets/scripts/toggle.js')
+    .addEntry('reviewModal', './assets/scripts/reviewModal.js')
+    .addEntry('notationReview', './assets/scripts/notationReview.js')
+
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 

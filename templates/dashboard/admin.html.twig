@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<div id="dashboard" class="grid">
+
+    <section class="card full-size cell-played-admin">
+        <div class="content">
+
+            <h2>ADMIN : {{ last_username }}</h2>
+            <div class="messages-success-block">
+                {% for game, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="messages-success">
+                            <p>{{ message }}</p>
+                            <div class="img-block">
+                                <img src="{{ asset('build/images/icons/valide.png')}}" alt="valide icons">
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+
+            <div class="nav-admin">
+                <a class="btn-admin" href="{{ path('game_new') }}">
+                    New Game
+                    <img class="icon" src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">
+                </a>
+                <a class="btn-admin" href="{{ path('prize_new') }}">
+                    New Prize
+                    <img class="icon" src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">
+                </a>
+                <a class="btn-admin" href="{{ path('prize_index') }}">
+                    Prizes' List
+                    <img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon">
+                </a>
+                <a class="btn-admin" href="{{ path('event_index') }}">
+                    Events List
+                    <img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon">
+                </a>
+                <a class="btn-admin" href="{{ path('event_new') }}">
+                    New Event
+                    <img class="icon" src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">
+                </a>
+            </div>
+        </div>
+    </section> 
+</div>
+
+{% endblock %}

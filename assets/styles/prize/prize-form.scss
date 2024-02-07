@@ -1,0 +1,43 @@
+@import "../main/_variables";
+
+#prize-form {
+	.container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+		form {
+
+			& > div {
+				width: 100%;
+
+                label {
+                    display: block;
+                }
+
+                & > div {
+                    display: flex;
+                    gap: 1rem;
+                }
+			}
+		
+			.big-btn {
+				width: 50%;
+			}
+		}
+	}
+}
+
+//
+
+@media screen and (min-width: $desktopWidth) {
+
+	#prize-form {
+		.container {
+			form {
+				width: 70%;
+			}
+		}
+	}
+}

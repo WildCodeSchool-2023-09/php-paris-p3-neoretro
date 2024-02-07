@@ -1,0 +1,34 @@
+{{ form_start(searchForm, {'attr': {'id': 'searchbar'}}) }}
+
+    <div id="search-primary">
+        <div class="btn search" type="submit"></div>
+        {{ form_widget(searchForm.title) }}
+        <div class="btn settings"></div>
+    </div>
+
+    <div id="search-modal" class="hidden">
+        <div class="filter">
+            <p>Category</p>
+            <div class="card params hidden" id="category">
+                <div class="content" id="game_search_categories">
+                    {% for child in searchForm.categories %}
+                        <div>
+                            {{ form_widget(child) }}
+                            {{ form_label(child) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="sort title text">Title<img src="{{ asset('build/images/icons/sort-down.svg') }}" alt="Sort up/down"></div>
+        <div class="sort score text">Score<img src="{{ asset('build/images/icons/sort-down.svg') }}" alt="Sort updown"></div>
+        <div class="sort time text">Time<img src="{{ asset('build/images/icons/sort-down.svg') }}" alt="Sort up/down"></div>
+
+        {{ form_row(searchForm.sort_by) }}
+        {{ form_row(searchForm.sort_order) }}
+    </div>
+
+    {{ form_row(searchForm.isVisible, {'attr': {'class': 'isVisible'}}) }}
+
+{{ form_end(searchForm) }}

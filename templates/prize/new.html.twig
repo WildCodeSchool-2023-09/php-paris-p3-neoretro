@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<div id="event-form" class="card full-size">
+    <div class="content">
+
+        <h2>Add New Prize</h2>
+
+        <div class="container">
+            {{ include('prize/_form.html.twig') }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

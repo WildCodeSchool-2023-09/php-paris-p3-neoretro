@@ -1,0 +1,80 @@
+@import "../main/_variables";
+
+#toggle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+
+	margin: 1rem 0;
+	
+	input.switch {
+		position: relative;
+	
+		height: 1.5rem;
+		width: 3rem;
+		margin: 0;
+	
+		cursor: pointer;
+	
+		appearance: none;
+		-webkit-appearance: none;
+	
+		border-radius: 9999px;
+		background-color: rgba(100, 116, 139, 0.377);
+	
+		transition: all .3s ease;
+	
+		background: #fff;
+	
+		&:checked {
+			background-color: rgba(32, 151, 243, 1);
+	
+			&:hover::before {
+				box-shadow: 0 0 0px 8px rgba(32, 151, 243, .15)
+			}
+			
+			&:before {
+				transform: translateX(100%);
+				border-color: rgba(32, 151, 243, 1);
+			}
+		}
+		
+		&::before {
+			content: "";
+	
+			position: absolute;
+			left: -0.1rem;
+			top: -0.05rem;
+	
+			display: block;
+			height: 1.6rem;
+			width: 1.6rem;
+	
+			cursor: pointer;
+	
+			border: 1px solid rgba(100, 116, 139, 0.527);
+			border-radius: 9999px;
+			background-color: rgba(255, 255, 255, 1);
+	
+			box-shadow: 0 3px 10px rgba(100, 116, 139, 0.327);
+	
+			transition: all .3s ease;
+		}
+		
+		&:hover::before {
+			box-shadow: 0 0 0px 8px rgba(0, 0, 0, .15)
+		}
+	}
+}
+
+
+//
+
+@media screen and (min-width: $desktopWidth) {
+	#toggle {
+		position: absolute;
+		top: 1rem;
+		right: 6rem;
+	}
+}

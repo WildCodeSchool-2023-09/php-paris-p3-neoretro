@@ -29,6 +29,7 @@ import './styles/prizes-index.scss';
 
 import './styles/leaderboard.scss';
 import './styles/gamePlayed.scss';
+import './styles/profile.scss';
 
 import './styles/dashboard-admin.scss';
 import './styles/register.scss';

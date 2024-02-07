@@ -6,14 +6,13 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 use Faker\Factory;
-use Faker\Generator as FakerGenerator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Faker\Generator as FakerGenerator;
 
 class UserFixtures extends Fixture
 {
-    private FakerGenerator $faker;
     private UserPasswordHasherInterface $userPasswordHasher;
-
+    private FakerGenerator $faker;
     public function __construct(UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->userPasswordHasher = $userPasswordHasher;

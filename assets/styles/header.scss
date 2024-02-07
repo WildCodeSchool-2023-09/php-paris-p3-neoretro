@@ -38,11 +38,20 @@ header {
         border-image: $colorGradient4 1;
     }
 
-    img#main-logo {
+    a:first-of-type {
         position: absolute;
         top: 20px;
         left: 20px;
-        height: 40px;
+
+        img#main-logo {
+            height: 40px;
+            transition: transform 100ms ease-in-out;
+        
+            &:hover {
+                transform: scale(110%);
+            }
+        }
+
     }
 
     h1#site-name,
@@ -52,6 +61,14 @@ header {
 
     #page-title {
         font-size: 1.8rem;
+    }
+
+    h1#page-title {
+        transition: transform 200ms ease-in-out;
+    
+        &:hover {
+            transform: scale(105%);
+        }
     }
 }
 
@@ -64,11 +81,14 @@ header {
 
         border-radius: 0px 0px 20px 0;
 
-        img#main-logo {
+        a:first-of-type {
             position: absolute;
             top: 24px;
             left: 35px;
-            height: 48px;
+
+            img#main-logo {
+                height: 48px;
+            }
         }
 
         #page-title {
@@ -77,11 +97,15 @@ header {
             font-size: 2.5rem;
         }
 
-        h1#site-name {
-            display: inline-block;
+        a:nth-of-type(2) {
             position: absolute;
-            left: calc(120px);
+            left: 120px;
+
+            h1#site-name {
+                display: inline-block;
+            }
         }
+    
         h2#admin {
             display: inline-block;
             position: absolute;

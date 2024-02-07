@@ -1,12 +1,9 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{parent()}} • Game scores{% endblock title %}
-
 {% block content %}
 
     <div class="card full-size" id="game-scores">
         <div class="content scroll">
-            {% if is_granted('ROLE_USER') %}
                 <h2><a href="{{ path('game_show', {slug: game.slug}) }}">{{ game.title }}</a></h2>
 
                 <table>
@@ -25,15 +22,13 @@
                                 <td><a href="">{{ gamePlayed.player.username }}</a></td>
                                 <td>{{ gamePlayed.score }}</td>
                                 <td>
-                                    {% if ((gamePlayed.duration) / 60) < 10 %}0{% endif %}{{ ((gamePlayed.duration) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((gamePlayed.duration) % 60) < 10 %}0{% endif %}{{ ((gamePlayed.duration) % 60) }}"
+                                    {{ gamesStats[loop.index - 1] }}
                                 </td>
-                                <td>{{ gamePlayed.date|date('Y m d') }}</td>
+                                <td class="game-played-date">{{ gamePlayed.date|date('Y m d') }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-
-            {% endif %}
         </div>
     </div>
 

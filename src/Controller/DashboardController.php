@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Form\RegistrationFormType;
 use App\Repository\GamePlayedRepository;
+use App\Repository\GameRepository;
+use App\Service\GameInfoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,29 +23,50 @@ class DashboardController extends AbstractController
     public function index(
         AuthenticationUtils $authenticationUtils,
         Security $security,
-        GamePlayedRepository $gamePlayedRepository
+        GamePlayedRepository $gamePlayedRepository,
+        GameRepository $gameRepository,
+        GameInfoService $gameInfoService
     ): Response {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
         $user = $security->getUser();
 
-        $bestGamesPlayed = [];
-        $lastGamesPlayed = [];
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->render('dashboard/admin.html.twig', [
+                'last_username' => $lastUsername,
+                'error' => $error,
+                'pageTitle' => 'Admin',
+            ]);
+        }
+
+        $games = $gameRepository->findBy([], ['id' => 'DESC'], 5);
+
         if ($this->isGranted('ROLE_USER')) {
-            $bestGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId());
+            $bestGamesPlayed = $gamePlayedRepository->findBestGamesScoresByUser($user->getId(), 8);
             $lastGamesPlayed = $gamePlayedRepository->findBy(
                 ['player' => $user->getId()],
                 ['id' => 'DESC'],
                 3
             );
+
+            $lastGamesDuration = [];
+            foreach ($lastGamesPlayed as $lastGamePlayed) {
+                $lastGamesDuration[] = $gameInfoService->formatTime($lastGamePlayed->getDuration(), 'short');
+            }
+        } else {
+            $bestGamesPlayed = $gamePlayedRepository->findGlobalBestGameScores();
         }
 
-        return $this->render('dashboard/index.html.twig', [
+        $bestGameDuration = $gameInfoService->formatTime($bestGamesPlayed[0]->getDuration(), 'short');
+
+        return $this->render('dashboard/dashboard.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
-            'user' => $user,
+            'games' => $games,
             'bestGamesPlayed' => $bestGamesPlayed,
-            'lastGamesPlayed' => $lastGamesPlayed,
+            'bestGameDuration' => $bestGameDuration,
+            'lastGamesPlayed' => $lastGamesPlayed ?? null,
+            'lastGamesDuration' => $lastGamesDuration ?? null,
         ]);
     }
 
@@ -75,6 +98,7 @@ class DashboardController extends AbstractController
         }
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'pageTitle' => 'Sign Up',
         ]);
     }
 }

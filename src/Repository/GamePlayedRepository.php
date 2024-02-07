@@ -22,7 +22,7 @@ class GamePlayedRepository extends ServiceEntityRepository
         parent::__construct($registry, GamePlayed::class);
     }
 
-    public function findBestScoresByGame(int $gameId, int $limit = null): array
+    public function findGlobalBestScoresByGame(int $gameId, int $limit = null): array
     {
         $subQuery = $this
             ->createQueryBuilder('sub')
@@ -76,10 +76,11 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findPersonalBestByGame(int $userId, int $gameId): array
+    public function findPersonalBestScoreByGame(int $gameId, int $userId): ?array
     {
         return $this
             ->createQueryBuilder('gp')
+            ->select('gp.score')
             ->andWhere('gp.player = :userId')
             ->andWhere('gp.game = :gameId')
             ->setParameter('userId', $userId)
@@ -90,28 +91,42 @@ class GamePlayedRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-//    /**
-//     * @return GamePlayed[] Returns an array of GamePlayed objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('g.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findGlobalBestGameScores(int $limit = 8): array
+    {
+        $subQuery = $this
+            ->createQueryBuilder('sub')
+            ->select('MAX(sub.score)')
+            ->andWhere('sub.game = gp.game')
+            ->getDQL();
 
-//    public function findOneBySomeField($value): ?GamePlayed
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $query = $this
+            ->createQueryBuilder('gp')
+            ->innerJoin('gp.game', 'g')
+            ->groupBy('gp.game', 'gp.id', 'g.id')
+            ->having('gp.score = (' . $subQuery . ')')
+            ->orderBy('gp.score', 'DESC');
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findTotalTimePlayed(int $gameId, int $userId): ?array
+    {
+        return $this
+            ->createQueryBuilder('gp')
+            ->select('SUM(gp.duration) AS totalTimePlayed')
+
+            ->andWhere('gp.game = :game')
+            ->andWhere('gp.player = :user')
+            ->setParameter('game', $gameId)
+            ->setParameter('user', $userId)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

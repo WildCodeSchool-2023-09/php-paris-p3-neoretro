@@ -1,48 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} • Games{% endblock %}
-
 {% block javascript %}
     {{ parent() }}
     {{ encore_entry_script_tags('carouselGames') }}
     {{ encore_entry_script_tags('searchbar') }}
+    
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ encore_entry_script_tags('toggleGame') }}
+    {% endif %}
 {% endblock javascript %}
 
 {% block content %}
 
+    {# <div id="dump">
+        {{ dump((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) }}
+    </div> #}
+
     {% include 'components/_searchbar.html.twig' %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <form id="form-toggle">
+        <div id="game-visibility-toggle">
+            <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
+            <p>Inactive / Active</p>
+        </div>
+    </form>
+
+
+        <div class="card" id="add-game-btn">
+            <div class="content">
+                <a href="{{ path('game_new') }}">
+                    <img src="{{ asset('build/images/icons/add-new-game.png') }}" alt="Add new game icon">
+                    <h2>New Game</h2>
+                </a>
+            </div>
+        </div>
+    {% endif %}
 
     {% if games is not empty %}
 
-        <ul id="carousel" class="carousel-games">
-            {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+        {% set nbSlides = (games|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
+
+        <ul class="carousel" id="carousel-games">
+            {% for i in 0..nbSlides - 1 %}
                 <li class="games grid full-size">
                     {% for y in 0..5 %}
-                        {% if games[y + 6*i][0] is defined %}
+                        {% if (y + 6*i) < games|length %}
+                            {% set game = games[y + 6*i] %}
                             <section class="card">
                                 <div class="content">
-                                    <a href="{{ path('game_show', {slug: games[y + 6*i][0].slug}) }}">
-                                        <img class="game-poster" src="{{ games[y + 6*i][0].poster }}" alt="">
-                                        <h2>{{ games[y + 6*i][0].title }}</h2>
+                                    <a href="{{ path('game_show', {slug: game.slug}) }}">
+                                        <img class="game-poster" src="{{ vich_uploader_asset(game) }}" alt="">
+                                        <h2>{{ game.title }}</h2>
                                     </a>
 
                                     <div class="game-infos">
                                         <div class="game-category-container">
-                                            {% for category in games[y + 6*i][0].categories %}
-                                                <p class="game-category">
-                                                    {{category.label}}
-                                                </p>
-                                            {% endfor %}
+                                            <p class="game-category">{{game.mainCategory.label}}</p>
+                                            {% if game.optionalCategory is not null %}
+                                                <p class="game-category">{{game.optionalCategory.label}}</p>
+                                            {% endif %}
                                         </div>
 
                                             <div class="game-stats">
                                                 <div class="game-highest-score">
-                                                    {% if is_granted('ROLE_USER') %}
-                                                        {% if games[y + 6*i]['userRanking'] == 1 %}
+                                                    {% if app.user and gamesStats[game.id]['userRanking'] is defined %}
+                                                        {% if gamesStats[game.id]['userRanking'] == 1 %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy">
-                                                        {% elseif games[y + 6*i]['userRanking'] == 2 %}
+                                                        {% elseif gamesStats[game.id]['userRanking'] == 2 %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy">
-                                                        {% elseif games[y + 6*i]['userRanking'] == 3 %}
+                                                        {% elseif gamesStats[game.id]['userRanking'] == 3 %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy">
                                                         {% else %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
@@ -51,8 +78,8 @@
                                                         <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
                                                     {% endif %}
                                                     <p>
-                                                        {% if is_granted('ROLE_USER') %}
-                                                            {{ games[y + 6*i]['userRanking'] }}
+                                                        {% if app.user and gamesStats[game.id]['userRanking'] is defined %}
+                                                            {{ gamesStats[game.id]['userRanking'] }}
                                                         {% else %}
                                                             —
                                                         {% endif %}
@@ -61,23 +88,8 @@
                                                 <div class="game-time-spent">
                                                     <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
                                                     <p>
-                                                        {% if is_granted('ROLE_USER') %}
-                                                            {# {% if ((games[y + 6*i]['totalTimePlayed']) / 60) < 10 %}0{% endif %}{{ ((games[y + 6*i]['totalTimePlayed']) / 60)|format_number({rounding_mode: 'floor', fraction_digit: 0}) }}'{% if ((games[y + 6*i]['totalTimePlayed']) % 60) < 10 %}0{% endif %}{{ ((games[y + 6*i]['totalTimePlayed']) % 60) }}" #}
-                                                            {% set totalTime = games[y + 6*i]['totalTimePlayed'] %}
-                                                            {% set hours = totalTime // 3600 %}
-                                                            {% set minutes = (totalTime % 3600) // 60 %}
-                                                            {% set seconds = totalTime % 60 %}
-
-                                                            {% if hours > 0 %}
-                                                                {{ hours }}h
-                                                            {% endif %}
-
-                                                            {% if minutes < 10 %}
-                                                                0{{ minutes }}"
-                                                            {% else %}
-                                                                {{ minutes }}"
-                                                            {% endif %}
-
+                                                        {% if app.user and gamesStats[game.id]['totalTimePlayed'] is defined %}
+                                                            {{ gamesStats[game.id]['totalTimePlayed'] }}
                                                         {% else %}
                                                             —
                                                         {% endif %}
@@ -94,7 +106,7 @@
         </ul>
 
         <nav class="slider" id="slider-games">
-            {% for i in 0..((games|length / 6)|format_number({rounding_mode: 'floor', fraction_digit: 0})) %}
+            {% for i in 0..nbSlides - 1 %}
                 {% if i == 0 %}
                     <div class="slider-btn current-slide"></div>
                 {% else %}
@@ -102,9 +114,7 @@
                 {% endif %}
             {% endfor %}
         </nav>
-
     {% else %}
-
         <ul class="flex full-size">
             <li>
                 <section class="card small-card">
@@ -115,7 +125,6 @@
                 </section>
             </li>
         </ul>
-
     {% endif %}
 
 {% endblock %}

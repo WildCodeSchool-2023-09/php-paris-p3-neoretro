@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} • Sign Up{% endblock %}
-
 {% block content %}
     <div id="register" class="card full-size">
         <div class="content">
-            <h2 class="singup-title">Sign Up</h2>
+            <h2 class="signup-title">Sign Up</h2>
             {{ form_start(registrationForm) }}
                 <div>
                     {% if form_errors(registrationForm.firstname) %}

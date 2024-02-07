@@ -1,17 +1,24 @@
 @import "_variables";
 
 #dashboard {
-
     .card {
+        img.game-poster {
+            border: 1px rgb(204, 0, 255) solid;
+            &:hover {
+                border: 1px solid #06CCF8;
+            }
+        }
 
         &.cell-sign-in .content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
         
             #error-container {
-                margin: 14px auto 22px;
+                margin: 1rem 0 1.5rem;
                 height: 3rem;
                 padding: 1rem 2rem;
                 background: $colorGradient3;
@@ -20,6 +27,7 @@
             }
         
             #user-login-icon {
+                margin: 1rem 0 1.5rem;
                 height: 3rem;
             }
         
@@ -27,7 +35,6 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                margin-top: 2.5rem;
                 gap: 10px;
             
                 width: 80%;
@@ -44,10 +51,13 @@
                     &::placeholder {
                         text-align: center;
                     }
-        
                     &:focus-visible {
                         outline: none;
                     }
+                    &:hover {
+                        border: 1px solid #06CCF8;
+                    }
+                    
                 }
         
                 #lost-password {
@@ -90,23 +100,28 @@
                     border: 1px solid #C10BEE;
                     box-shadow: $shadow;
                     padding: .25rem 1.25rem;
-                    
                 }
             }
         }
 
-        &.cell-scores .content {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            table {
-                height: 100%;
+        &.cell-profile .content {
+            .container {
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: space-around;
+                align-items: center;
+
+                a#log-out {
+                    padding: .5rem 1rem;
+                    border-radius: $borderRadiusSmall;
+                    border: 1px #C10BEE solid;
+                }
+
+                ul {
+                    width: 66%;
+                    display: flex;
+                    justify-content: space-around;
+                }
             }
         }
 
@@ -128,10 +143,17 @@
                     }
     
                     img {
-                        width: 8rem;
+                        width: 6rem;
                         border-radius: $borderRadiusSmall;
                     }
                 }
+            }
+
+            #no-game-played {
+                height: calc(100% - 40px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
 
@@ -154,30 +176,120 @@
                 }
 
                 img {
-                    width: 6rem;
+                    width: 5rem;
                     border-radius: .5rem;
                     display: block;
                 }
             }
         }
 
-        #the-room {
+        &.cell-this-week .content {
+            ul {
+                height: calc(100% - 40px);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: .5rem;
+                list-style: '• ';
+
+                li {
+                    width: 80%;
+                }
+            }
+        }
+
+        &.cell-scores .content {
+            height: 100%;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            place-items: center;
-            margin: 10px;
-            padding-top: 10px;
-        
-            #the-room-flex {
+            align-items: center;
+
+            table {
+                height: 100%;
                 display: flex;
-                align-items: center;
-        
-                p {
-                    padding: 10px;
+                flex-direction: column;
+                justify-content: center;
+
+                tr {
+                    height: 2.4rem;
                 }
-                
-                #the-room-text-end {
-                    text-align: end;
+            }
+        }
+
+        &.cell-the-room .content {
+            .container {
+                display: flex;
+                flex-direction: column;
+                place-items: center;
+                margin: 10px;
+                padding-top: 10px;
+            
+                .room-info {
+                    display: flex;
+                    align-items: center;
+            
+                    p {
+                        padding: .5rem;
+                        text-align: left;
+
+                        &.text-end {
+                            text-align: end;
+                        }
+                    }
+                    
+                    &#more-details {
+                        height: 100%;
+                        width: 100%;
+                        justify-content: flex-end;
+                        align-items: flex-end;
+
+                        a {
+                            padding: .5rem 1rem;
+                            border-radius: $borderRadiusSmall;
+                            border: 1px #C10BEE solid;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.cell-mini-games .content {
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        &.cell-newest-game .content {
+            img {
+                display: block;
+                width: 5.5rem;
+                margin: .5rem auto;
+                border-radius: .5rem;
+            }
+        }
+
+        &.cell-arcade-games .content {
+            #games-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                gap: 1rem;
+                height: calc(100% - 40px);
+
+                a {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        border-radius: $borderRadiusSmall;
+                        width: 8rem;
+                    }
                 }
             }
         }
@@ -211,6 +323,17 @@
     
             &.cell-the-room, &.cell-your-friends {
                 grid-area: 3 / 1 / span 1 / span 4;
+
+                .content .container {
+                    display: grid;
+
+                    grid-template-columns: 3fr 2fr;
+                    grid-template-rows: 1fr 1fr;
+
+                    place-content: center;
+                    
+                    padding: .5rem;
+                }
             }
     
             &.cell-newest-game {
@@ -227,31 +350,6 @@
     
             &.cell-arcade-games {
                 grid-area: 3 / 7 / span 2 / span 3;
-            }
-
-            #the-room {
-                display: grid;
-                grid-template-columns: 1.5fr 1fr;
-                grid-template-rows: repeat(2, 0.5fr);
-                grid-column-gap: 10px;
-                grid-row-gap: 10px;
-                align-items: center;
-                justify-items: center;
-                margin:10px;
-                padding: 5px;
-        
-                #the-room-flex {
-                    display: flex;
-                    align-items: center;
-                    
-                    p {
-                        padding: 9px;
-                    }
-                
-                    #the-room-text-end {
-                        text-align: end;
-                    }
-                }
             }
         }
     }

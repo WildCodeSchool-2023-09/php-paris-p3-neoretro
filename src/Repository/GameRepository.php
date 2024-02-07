@@ -21,45 +21,46 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function search(array $params, int $userId = null): array
+    public function search(array $params): array
     {
-        $query = $this->createQueryBuilder('g')
-            ->join('g.categories', 'c')
-            ->join('g.gamesPlayed', 'gp');
 
-        if (!empty($params['title'])) {
+        $query = $this->createQueryBuilder('g');
+
+        if (!empty($params)) {
             $query
-                ->where('g.title LIKE :title')
-                ->setParameter('title', '%' . $params['title'] . '%');
-        }
+                ->andWhere('g.isVisible = :isVisible')
+                ->setParameter('isVisible', $params['isVisible']);
 
-        if (!empty($params['categories']) && !$params['categories']->isEmpty()) {
-            $categoryQueries = [];
-
-            foreach ($params['categories'] as $category) {
-                $categoryQueries[] = "(c.label = '" . $category->getLabel() . "')";
+            if (isset($params['title'])) {
+                $query
+                    ->andWhere('g.title LIKE :title')
+                    ->setParameter('title', '%' . $params['title'] . '%');
             }
 
-            $categoryQuery = implode(' OR ', $categoryQueries);
-            $query->andWhere($categoryQuery);
+            if (!empty($params['categories']) && !$params['categories']->isEmpty()) {
+                $categoryQueries = [];
+
+                foreach ($params['categories'] as $category) {
+                    $categoryQueries[] =
+                        "(mc.label = '" . $category->getLabel() . "' OR oc.label = '" . $category->getLabel() . "')"
+                    ;
+                }
+
+                $categoryQuery = implode(' OR ', $categoryQueries);
+
+                $query->join('g.mainCategory', 'mc');
+                $query->leftJoin('g.optionalCategory', 'oc');
+                $query->andWhere($categoryQuery);
+            }
+
+            if (isset($params['sort_by']) && isset($params['sort_order'])) {
+                $query->orderBy('g.' . $params['sort_by'], $params['sort_order']);
+            }
+        } else {
+            $query->andWhere('g.isVisible = 1');
         }
 
-        if (!empty($params['sort_by']) && !empty($params['sort_order'])) {
-            $query->orderBy('g.' . $params['sort_by'], $params['sort_order']);
-        }
-
-        $query
-            ->addSelect('SUM(gp.duration) AS totalTimePlayed');
-
-        if ($userId !== null) {
-            $query
-                ->andWhere('gp.player = :userId')
-                ->setParameter('userId', $userId);
-        }
-
-        $query
-            ->groupBy('g.id')
-            ->addOrderBy('g.id', 'ASC');
+        $query->addOrderBy('g.id', 'DESC');
 
         return $query->getQuery()->getResult();
     }

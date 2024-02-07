@@ -47,14 +47,16 @@ class GamePlayedController extends AbstractController
             return $this->redirectToRoute('dashboard');
         }
 
-        $gamePlayed = $gamePlayedService->generate($game, $this->getUser(), $uuid);
-
         if (!$gamePlayedRepository->findOneBy(['uuid' => $uuid])) {
+            $gamePlayed = $gamePlayedService->generate($game, $this->getUser(), $uuid);
+
             $entityManager->persist($gamePlayed);
             $gamePlayedService->updateExperience($gamePlayed, $this->getUser());
             $entityManager->persist($this->getUser());
 
             $entityManager->flush();
+        } else {
+            $gamePlayed = $gamePlayedRepository->findOneBy(['uuid' => $uuid]);
         }
 
         if (!$reviewRepository->findOneBy(['author' => $this->getUser(), 'game' => $game])) {

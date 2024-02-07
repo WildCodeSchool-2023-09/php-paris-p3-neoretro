@@ -164,6 +164,22 @@ div.dialog-review {
                     border-color: red;
                 }
 
+                div#container-input-notation {
+                    display: none;
+                }
+
+                div#icone-notation {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    margin-top: 10px;
+
+                    img#first-star-solid, img#second-star-solid, img#third-star-solid, img#fourth-star-solid, img#fifth-star-solid {
+                        display: none;
+                    }
+                }
+
                 button#submit-review {
                     border-radius: $borderRadiusMedium;
                     border: 0.5px $colorGradient1;

@@ -19,10 +19,13 @@
     {% include 'components/_searchbar.html.twig' %}
 
     {% if is_granted('ROLE_ADMIN') %}
+    <form id="form-toggle">
         <div id="game-visibility-toggle">
             <input {{ params.isVisible is defined and params.isVisible == 1 ? 'checked="true"' : '' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 1 ? 'checked' : '' }}">
-            <p>Active / Inactive</p>
+            <p>Inactive / Active</p>
         </div>
+    </form>
+
 
         <div class="card" id="add-game-btn">
             <div class="content">
@@ -53,11 +56,10 @@
 
                                     <div class="game-infos">
                                         <div class="game-category-container">
-                                            {% for category in game.categories %}
-                                                <p class="game-category">
-                                                    {{category.label}}
-                                                </p>
-                                            {% endfor %}
+                                            <p class="game-category">{{game.mainCategory.label}}</p>
+                                            {% if game.optionalCategory is not null %}
+                                                <p class="game-category">{{game.optionalCategory.label}}</p>
+                                            {% endif %}
                                         </div>
 
                                             <div class="game-stats">

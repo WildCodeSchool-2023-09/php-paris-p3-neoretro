@@ -10,7 +10,18 @@
                 <h2>Logged as: {{ last_username }}</h2>
                 <a href="{{ path('logout') }}">Logout</a>
             </div>
-
+            <div class="messages-success-block">
+                {% for game, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="messages-success">
+                            <p>{{ message }}</p>
+                            <div class="img-block">
+                                <img src="{{ asset('build/images/icons/valide.png')}}" alt="valide icons">
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
             <div class="nav-admin">
                 <a href="{{ path('game_new') }}">
                     <h1>New Game</h1>
@@ -34,7 +45,7 @@
                 </a>
             </div>
         </div>
-    </section>
+    </section> 
 </div>
 
 {% endblock %}

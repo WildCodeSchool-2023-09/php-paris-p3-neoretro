@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prizes{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('carouselGames') }}
+
+{% endblock javascript %}
+
+{% block content %}
+
+{% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+<div class="card-balance">
+    <div class="balance">
+        <h2>Balance</h2>
+        <div class="token-balance-value">
+            <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
+            <p class="token-value">30</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+    {% if prizes is not empty %}
+
+        {% set nbSlides = (prizes|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
+
+        <ul class="carousel" id="carousel-prizes">
+            {% for i in 0..nbSlides - 1 %}
+                <li class="prizes grid full-size">
+                    {% for y in 0..5 %}
+                        {% if (y + 6*i) < prizes|length %}
+                            {% set prize = prizes[y + 6*i] %}
+                            <section class="card">
+                                <div>
+                                    
+                                    <div class="flex-coin">
+                                        <h2>{{ prize.label }}</h2>
+                                    </div>
+                                    {# <a href="{{ path('prize_show', {slug: prize.slug}) }}"> #}
+                                        <img class="prize-poster" src="{{ vich_uploader_asset(prize) }}" alt="">
+                                        
+                                    <div class="buy-flex">
+                                            <img src="{{ asset('build/images/icons/coins.png') }}" alt="">
+
+                                            <p>{{ prize.value }}</p>
+                                    </div>
+                                    <div class="buy-flex">
+                                            <p>Stock: x{{ prize.quantity }}</p>
+                                    
+                                        <a href="#" class="buy-button">BUY</a>
+                                    </div>
+                                    {% if not is_granted ('ROLE_USER') %}
+                                        <div class="guest-message">
+                                            <p>Win tokens to buy a prize!</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </section>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <nav class="slider" id="slider-prizes">
+            {% for i in 0..nbSlides - 1 %}
+                {% if i == 0 %}
+                    <div class="slider-btn current-slide"></div>
+                {% else %}
+                    <div class="slider-btn"></div>
+                {% endif %}
+            {% endfor %}
+        </nav>
+    {% else %}
+        <ul class="flex full-size">
+            <li>
+                <section class="card small-card">
+                    <div class="content">
+                        <h2>No results...</h2>
+                        <p>🔍 Try something else!</p>
+                    </div>
+                </section>
+            </li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

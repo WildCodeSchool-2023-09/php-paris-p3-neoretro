@@ -25,7 +25,7 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
         'Space Invaders',
         'Kung-fu Master',
         'Zombie Killers',
-        'Shooter Master',
+        'Ninja Spirits',
         'Factory Madness',
         'Metal Slug',
     ];

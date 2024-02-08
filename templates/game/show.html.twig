@@ -150,7 +150,7 @@
                     {% for i in 1..6 %}
                         <div class="cell-achievement-game">
                             <a href=""><img src="{{ asset('build/images/icons/medal-solid.svg') }}"></a>
-                            <a href=""><h2>Expert Michel</h2></a>
+                            <a href=""><h2>{{achievements[i-1]}}</h2></a>
                         </div>
                     {% endfor %}
 
@@ -161,7 +161,7 @@
             <section class="card cell-reviews">
                 <div class="content">
                     <h1 class="text">Reviews</h1>
-                    <div class="review-carousel">
+                    <div class="review-carousel scroll">
 
                     {% for review in reviews %}
 

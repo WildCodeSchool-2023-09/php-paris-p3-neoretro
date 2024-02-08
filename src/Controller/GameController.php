@@ -92,6 +92,12 @@ class GameController extends AbstractController
         ]);
     }
 
+    #[Route('/mini-game/breakout', name:'mini-game')]
+    public function play(): Response
+    {
+        return $this->render('game/mini-game/breakout.html.twig');
+    }
+
     #[Route('/{slug}', name: 'show')]
     public function show(
         Game $game,

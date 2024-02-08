@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block javascript %}
+    {{ encore_entry_script_tags('breakout') }}
+{% endblock %}
+
+{% block content %}
+
+<div class="card full-size" id="breakout">
+    <div class="content">
+        {# <h2>Game details</h2>
+
+        <div class="container">
+            {{ include('game/_form.html.twig') }}
+        </div> #}
+
+        <canvas id="myCanvas" width="480" height="320">
+        </canvas>
+    </div>
+</div>
+
+{% endblock %}

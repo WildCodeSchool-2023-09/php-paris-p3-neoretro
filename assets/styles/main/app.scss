@@ -72,6 +72,21 @@ body {
         .alert-error::before {
             content: '⛔️ ';
         }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        animation: fadeOut 3s ease-in-out;
+        opacity: 0;
     }
 }
 
@@ -142,35 +157,71 @@ table {
         }
     }
 
-    &#add-btn {
-        width: fit-content;
-        height: fit-content;
+    &.add-btn {
+        width: 95%;
+        height: 50px;
         min-height: fit-content;
     
-        margin: 10px auto;
-        padding: .75rem 1rem;
+        // margin: 10px auto;
+        margin: 0 auto;
+        // padding: .75rem 14px;
+        padding: 0 0 0 1rem;
     
         background: $colorGradient3;
         border-radius: calc($borderRadiusMedium * 1.1);
     
-        .content a {
+        .content {
             display: flex;
-            gap: 1rem;
             align-items: center;
-            justify-content: center;
-            
-            &:hover {
-                transform: scale(1);
-            }
-            h2 {
-                margin: 0;
+            gap: .5rem;
+
+            a {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                width: 100%;
+                
                 &:hover {
                     transform: scale(1);
                 }
+                img {
+                    height: 1.5rem;
+                }
             }
-            img {
-                display: inline-block;
+
+            p {
+                font-size: 1.2rem;
             }
+        }
+
+    }
+}
+
+nav.mini-nav {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-bottom: 10px;
+
+    &:not(#dashboard-nav) .card.add-btn {
+        position: fixed;
+        bottom: calc(100px + 4px);
+        width: calc((98% / 2) - (1% / 2));
+        z-index: 2;
+
+        &:first-of-type {
+            left: 1%;
+        }
+        &:nth-of-type(2) {
+            right: 1%;
+        }
+    }
+
+    &#dashboard-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        .card.add-btn {
+            width: calc((98% / 2) - (1% / 2));
         }
     }
 }
@@ -198,8 +249,8 @@ table {
 
 .edit-btn {
     position: absolute;
-    top: .5rem;
-    left: 1rem;
+    top: 0;
+    left: .25rem;
     z-index: 1;
 }
 

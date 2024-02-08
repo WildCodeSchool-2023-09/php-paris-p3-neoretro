@@ -4,9 +4,9 @@
     position: relative;
     z-index: 2;
 
-    width: 90vw;
+    width: 95%;
     
-    margin: 0 auto 10px;
+    margin: 0 auto;
     
     display: flex;
     justify-content: space-between;
@@ -16,12 +16,15 @@
     #search-modal {
         height: 50px;
         width: 100%;
-        justify-content: space-between;
         padding: 0 1rem;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         
         background-color: #dee8f486;
         border: 1px solid #020051;
-        border-radius: 1.5rem;
+        border-radius: $borderRadiusMedium;
 
         transition: ease-in-out 200ms;
         
@@ -31,9 +34,6 @@
     }
 
     #search-primary {
-        display: flex;
-        align-items: center;
-
         .btn {
             height: 1.5rem;
             width: 1.5rem;
@@ -59,7 +59,7 @@
         #game_search_title {
             border: none;
             text-align: center;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             width: 80%;
 
             &:focus-visible {
@@ -80,20 +80,16 @@
 
     #search-modal {
         position: absolute;
-        top: 60px;
+        top: 55px;
         left: 0;
         right: 0;
 
         font-size: 1rem;
 
         display: none;
-
-        justify-content: space-between;
     
         margin: 0 auto;
         padding: 1rem 1rem;
-    
-        border-radius: 1.4rem;
     
         .filter {
             display: flex;
@@ -147,9 +143,7 @@
 @media screen and (min-width: $desktopWidth) {
 
     #searchbar {
-        width: 500px;
-        position: absolute;
-        top: 1rem;
+        width: calc(400px + 50px);
         margin: 0;
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Prize;
-use App\Form\PrizeType;
+use App\Form\PrizeFormType;
 use App\Repository\PrizeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +33,7 @@ class PrizeController extends AbstractController
         SluggerInterface $slugger
     ): Response {
         $prize = new Prize();
-        $form = $this->createForm(PrizeType::class, $prize);
+        $form = $this->createForm(PrizeFormType::class, $prize);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -71,7 +71,7 @@ class PrizeController extends AbstractController
         Prize $prize,
         EntityManagerInterface $entityManager,
     ): Response {
-        $form = $this->createForm(PrizeType::class, $prize);
+        $form = $this->createForm(PrizeFormType::class, $prize);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

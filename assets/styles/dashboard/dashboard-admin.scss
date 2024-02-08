@@ -1,43 +1,9 @@
 @import "../main/_variables";
 
-#dashboard .cell-played-admin {
-    //
-    .messages-success-block {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .img-block {
-        display: flex;
-        justify-content: center;
-        height: 80px;
-        padding-top: 25px;
-    }
-
-    .messages-success {
-        color: #fefefe;
-        font-size: 1.5rem;
-        padding-bottom: 10px;
-    }
-
-    @keyframes fadeOut {
-        0% {
-            opacity: 1;
-        }
-        100% {
-            opacity: 0;
-        }
-    }
-    
-    .messages-success {
-        animation: fadeOut 5s ease;
-        opacity: 0;
-    }
-    //
-
+#dashboard-admin .cell-played-admin {
     .content {
 
-        .nav-admin {
+        #nav-admin-old {
             display: flex;
             flex-direction: column;
             align-items: center;

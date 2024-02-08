@@ -12,25 +12,29 @@
 
 {% block content %}
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <div id="toggle">
-            <input {{ isVisible is defined and isVisible == 0 ? '' : 'checked=true' }} type="checkbox" class="switch {{ isVisible is defined and isVisible == 0 ? '' : 'checked' }}">
-            <p>Hidden // Visible</p>
-        </div>
-    
-        {{ form_start(isVisibleForm) }}
-            {{ form_widget(isVisibleForm.isVisible, {'attr': {'class': 'isVisible'}}) }}
-        {{ form_end(isVisibleForm) }}
-
-        <div class="card" id="add-btn">
-            <div class="content">
-                <a href="{{ path('event_new') }}">
-                    <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">
-                    <h2>New event</h2>
-                </a>
+    <nav class="mini-nav">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="card add-btn">
+                <div class="content">
+                    <a href="{{ path('event_new') }}">
+                        <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">
+                        <p>NEW EVENT</p>
+                    </a>
+                </div>
             </div>
-        </div>
-    {% endif %}
+
+            <div class="card add-btn">
+                <div class="content">
+                    <input {{ isVisible is defined and isVisible == 0 ? '' : 'checked=true' }} type="checkbox" class="switch {{ isVisible is defined and isVisible == 0 ? '' : 'checked' }}">
+                    <p>{{ isVisible is defined and isVisible == 0 ? 'HIDDEN' : 'VISIBLE' }}</p>
+                </div>
+
+                {{ form_start(isVisibleForm) }}
+                    {{ form_widget(isVisibleForm.isVisible, {'attr': {'class': 'isVisible'}}) }}
+                {{ form_end(isVisibleForm) }}
+            </div>
+        {% endif %}
+    </nav>
 
     {% if events is not empty %}
 

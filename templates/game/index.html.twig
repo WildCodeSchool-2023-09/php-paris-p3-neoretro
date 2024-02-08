@@ -13,24 +13,28 @@
 
 {% block content %}
 
-    {% include 'components/_searchbar.html.twig' %}
-
-    {% if is_granted('ROLE_ADMIN') %}
-        <div id="toggle">
-            <input {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked=true' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked' }}">
-            <p>Hidden // Visible</p>
-        </div>
-
-        <div class="card" id="add-btn">
-            <div class="content">
-                <a href="{{ path('game_new') }}">
-                    <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game">
-                    <h2>New game</h2>
-                </a>
+    <nav class="mini-nav" id="game-nav">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="card add-btn">
+                <div class="content">
+                    <a href="{{ path('game_new') }}">
+                        <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game">
+                        <p>NEW GAME</p>
+                    </a>
+                </div>
             </div>
-        </div>
 
-    {% endif %}
+            <div class="card add-btn">
+                <div class="content">
+                    <input {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked=true' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked' }}">
+                    <p>{{ isVisible is defined and isVisible == 0 ? 'HIDDEN' : 'VISIBLE' }}</p>
+                </div>
+            </div>
+        {% endif %}
+
+        {% include 'components/_searchbar.html.twig' %}
+
+    </nav>
 
     {% if games is not empty %}
 

@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<div id="dashboard" class="grid">
+<div id="dashboard-admin" class="grid">
 
     <section class="card full-size cell-played-admin">
         <div class="content">
 
             <h2>ADMIN : {{ last_username }}</h2>
 
-            <div class="nav-admin">
+            <div id="nav-admin-old">
                 <a class="btn-admin" href="{{ path('game_new') }}">
                     New Game
                     <img class="icon" src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">

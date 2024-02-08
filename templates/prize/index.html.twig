@@ -7,26 +7,26 @@
 
 {% block content %}
 
-{% if is_granted('ROLE_USER') %}
-    <div class="card" id="add-btn">
-        <div class="content">
-        {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('prize_new') }}">
-                    <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">
-                    <h2>New prize</h2>
-                </a>
-        {% else %}
-            <div class="balance">
-                <h2>Balance</h2>
-                <div class="token-balance-value">
-                    <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
-                    <p class="token-value">30</p>
+<nav class="mini-nav">
+    {% if is_granted('ROLE_USER') %}
+        <div class="card add-btn">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="content">
+                    <a href="{{ path('prize_new') }}">
+                        <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">
+                        <p>NEW PRIZE</p>
+                    </a>
                 </div>
-            </div>
-        {% endif %}
+            {% else %}
+                <div class="content balance">
+                    <p>Balance</p>
+                        <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
+                        <p class="token-value">30</p>
+                </div>
+            {% endif %}
         </div>
-    </div>
-{% endif %}
+    {% endif %}
+</nav>
 
 {% if prizes is not empty %}
 

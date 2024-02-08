@@ -23,7 +23,6 @@ class GameRepository extends ServiceEntityRepository
 
     public function search(array $params): array
     {
-
         $query = $this->createQueryBuilder('g');
 
         if (!empty($params)) {

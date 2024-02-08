@@ -161,6 +161,16 @@
 
                 tr {
                     height: 2.4rem;
+
+                    td.text:nth-of-type(2) {
+                        a {
+                            overflow: hidden;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 1;
+                            white-space: pre-wrap;
+                        }
+                    }
                 }
             }
         }

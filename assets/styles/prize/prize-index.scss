@@ -1,98 +1,56 @@
 @import "../main/variables";
 
 .balance {
-    .token-value {
-        font-size: 1.5rem;
-    }
-    h2 {
-        font-size: 1.5rem;
-        padding: 10px;
-    }
     img {
         width: 35px;
         height: 35px;
     }
 }
 
-.flex-coin {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-
-    img {
-        width: 30px;
-        height: 30px;
-        margin: 0 10px 0 10px;
-    }
-    h2:first-of-type {
-        margin: 0;
-    }
-}
-
-.buy-flex {
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: row;
-    align-items: center;
-
-    p {
-        font-size: 1.5rem;
-    }
-    .buy-button {
-        font-size: 24px;
-            border-radius: 1.25rem;
-            border: 0.5px solid black;
-            background: $colorGradient5;
-            box-shadow: $shadow;
-    
-            color: #020051;
-            
-            width: 124px;
-            font-size: 1.125rem;
-            padding: 5px 0;
-    
-            text-align: center;  
-            
-            cursor: pointer;
-    } 
-}
-
-.guest-message {
-    margin-top: 5px;
-    color: red;
-    font-size: 1rem;
-}
-
 #carousel-prizes {
-    li {
-        a {
+    li .content {
+        .container {
             display: flex;
-            align-items: center;
             flex-direction: column;
-            color: #fff;
-        }
+            justify-content: space-between;
+            align-items: center;
+        
+            .prize-poster {
+                display: block;
+                width: 12rem;
+                height: 12rem;
+                border-radius: $borderRadiusSmall;
+            }
+
+            div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+                gap: 1rem;
+                img {
+                    height: 2.5rem;
+                }
+            }
     
-        h2 {
-            font-size: 1.75rem;
-        }
-    
-        .prize-poster {
-            display: block;
-            width: 15rem;
-            height: 13.125rem;
-            margin: 8px auto 12px;
+            .stock {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+
+            .big-btn {
+                height: 2.5rem;
+                width: 7.5rem;
+                font-size: 1.2rem;
+            }
         }
     }
 }
+
+//
 
 @media screen and (min-width: $desktopWidth) {
-
-    .guest-message {
-        margin-top: 5px;
-        color: red;
-        font-size: 1rem;
-    }
 
     #slider-prizes {
         margin-top: 50px;

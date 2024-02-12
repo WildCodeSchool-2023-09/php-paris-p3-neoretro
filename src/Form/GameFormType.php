@@ -56,7 +56,7 @@ class GameFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 2,
-                        'max' => 200,
+                        'max' => 300,
                         'minMessage' => 'Your description should be at least {{ limit }} characters',
                         'maxMessage' => 'Your description should not be longer than {{ limit }} characters',
                     ]),

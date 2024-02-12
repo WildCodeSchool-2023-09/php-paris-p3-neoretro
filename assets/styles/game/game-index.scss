@@ -1,7 +1,11 @@
 @import "../main/_variables";
 
 #carousel-games {
-    li {
+    li .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
         .game-infos {
             display: flex;
             justify-content: space-between;

@@ -42,6 +42,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                     $user
                         ->setUsername($this->faker->userName())
                         ->setPassword('pass1234')
+                        // ->setPassword($this->userPasswordHasher->hashPassword($user, 'user'))
                         ->setRoles(['ROLE_USER']);
                     break;
             }

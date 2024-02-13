@@ -19,9 +19,8 @@
                 </div>
             {% else %}
                 <div class="content balance">
-                    <p>Balance</p>
-                        <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
-                        <p class="token-value">30</p>
+                    <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
+                    <p>Balance: {{app.user.token}}</p>
                 </div>
             {% endif %}
         </div>
@@ -47,16 +46,20 @@
                                 {% endif %}
 
                                 <h2>{{ prize.label }}</h2>
-                                <img class="prize-poster" src="{{ vich_uploader_asset(prize) }}" alt="">
 
-                                <div class="buy-flex">
-                                    <img src="{{ asset('build/images/icons/coins.png') }}" alt="">
-                                    <p>{{ prize.value }}</p>
-                                </div>
+                                <div class="container">
+                                    <img class="prize-poster" src="{{ vich_uploader_asset(prize) }}" alt="">
 
-                                <div class="buy-flex">
-                                    <p>Stock: x{{ prize.quantity }}</p>
-                                    <a href="#" class="buy-button">BUY</a>
+                                    <div>
+                                        <img src="{{ asset('build/images/icons/coins.svg') }}" alt="">
+                                        <p>{{ prize.value }}</p>
+                                    </div>
+
+                                    <p class="stock">Stock:<br>x{{ prize.quantity }}</p>
+
+                                    <a href="">
+                                        <button class="big-btn">BUY</button>
+                                    </a>
                                 </div>
                             </div>
                         </section>

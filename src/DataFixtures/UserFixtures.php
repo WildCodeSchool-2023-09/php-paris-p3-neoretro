@@ -42,6 +42,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                     $user
                         ->setUsername($this->faker->userName())
                         ->setPassword('pass1234')
+                        // ->setPassword($this->userPasswordHasher->hashPassword($user, 'user'))
                         ->setRoles(['ROLE_USER']);
                     break;
             }
@@ -51,7 +52,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setLastname($this->faker->lastName())
                 ->setEmail($this->faker->email())
                 ->setPhoneNumber($this->faker->e164PhoneNumber())
-                ->setToken($this->faker->numberBetween(0, 200))
+                // ->setToken($this->faker->numberBetween(0, 200))
                 ->setZipcode($this->faker->regexify('[0-9]{5}'))
                 ->setAdress($this->faker->streetAddress())
                 ->setCity($this->faker->city())

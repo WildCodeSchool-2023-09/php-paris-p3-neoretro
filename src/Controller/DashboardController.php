@@ -25,19 +25,11 @@ class DashboardController extends AbstractController
         Security $security,
         GamePlayedRepository $gamePlayedRepository,
         GameRepository $gameRepository,
-        GameInfoService $gameInfoService
+        GameInfoService $gameInfoService,
     ): Response {
         $lastUsername = $authenticationUtils->getLastUsername();
         $error = $authenticationUtils->getLastAuthenticationError();
         $user = $security->getUser();
-
-        // if ($this->isGranted('ROLE_ADMIN')) {
-        //     return $this->render('dashboard/admin.html.twig', [
-        //         'last_username' => $lastUsername,
-        //         'error' => $error,
-        //         'pageTitle' => 'Admin',
-        //     ]);
-        // }
 
         $games = $gameRepository->findBy([], ['id' => 'DESC'], 5);
 

@@ -1,7 +1,11 @@
 @import "../main/_variables";
 
 #carousel-games {
-    li {
+    li .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
         .game-infos {
             display: flex;
             justify-content: space-between;
@@ -51,7 +55,4 @@
 
 @media screen and (min-width: $desktopWidth) {
 
-    #slider-games {
-        margin-top: 50px;
-    }
 }

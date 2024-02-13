@@ -93,13 +93,13 @@ header {
 @media screen and (min-width: $desktopWidth) {
 
     header {
-        height: 100px;
+        height: 90px;
         border-radius: 0px 0px 20px 0;
 
         a#main-logo {
             position: absolute;
-            top: 24px;
-            left: 35px;
+            top: 21px;
+            left: 36px;
             img {
                 width: 50px;
             }
@@ -127,8 +127,8 @@ header {
         }
 
         #user-links {
-            top: 30px;
-            right: 32px;
+            top: 25px;
+            right: 36px;
 
             gap: 1.2rem;
     

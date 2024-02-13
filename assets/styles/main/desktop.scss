@@ -5,7 +5,7 @@
     
     #main-container {
         margin-left: 120px;
-        margin-top: 100px;
+        margin-top: 90px;
         padding-top: 0;
 
         width: calc(100vw - 120px);
@@ -15,6 +15,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        gap: .5rem;
 
         overflow: hidden;
     }
@@ -44,8 +45,8 @@
 
     nav.mini-nav,
     nav.mini-nav#dashboard-nav {
-        position: absolute;
-        top: 1rem;
+        // position: absolute;
+        // top: 0;
 
         flex-direction: row;
         justify-content: center;
@@ -118,7 +119,7 @@
         width: 1240px;
         height: 820px;
 
-        h2:first-of-type {
+        & > h2:first-of-type {
             font-size: 2rem;
             margin: .5rem 0 1rem;
         }

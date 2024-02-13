@@ -13,6 +13,12 @@ use function Symfony\Component\String\u;
 
 class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
 {
+    private GamePlayedService $gamePlayedService;
+
+    public function __construct(GamePlayedService $gamePlayedService)
+    {
+        $this->gamePlayedService = $gamePlayedService;
+    }
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
@@ -20,7 +26,7 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 1; $i <= 50; $i++) {
             $player = $this->getReference('user_' . $i);
 
-            for ($j = 0; $j < rand(30, 60); $j++) {
+            for ($j = 0; $j < rand(20, 100); $j++) {
                 $gamePlayed = new GamePlayed();
 
                 $gamePlayed->setGame(
@@ -31,13 +37,14 @@ class GamePlayedFixtures extends Fixture implements DependentFixtureInterface
 
                 $gamePlayed
                     ->setPlayer($player)
-                    ->setScore(rand(10, 100000));
+                    ->setScore(rand(10, 5000));
 
                 $gamePlayed
                     ->setDate(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-1 year')))
-                    ->setDuration(rand(120, 1200));
+                    ->setDuration(rand(120, 1800));
 
                 $gamePlayed->setUuid($faker->uuid());
+                $this->gamePlayedService->updateExperience($gamePlayed, $player);
 
                 $manager->persist($gamePlayed);
             }

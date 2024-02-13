@@ -13,98 +13,104 @@
 
 {% block content %}
 
-    {% include 'components/_searchbar.html.twig' %}
-
-    {% if is_granted('ROLE_ADMIN') %}
-        <div id="toggle">
-            <input {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked=true' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked' }}">
-            <p>Hidden // Visible</p>
-        </div>
-
-        <div class="card" id="add-btn">
-            <div class="content">
-                <a href="{{ path('game_new') }}">
-                    <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game">
-                    <h2>New game</h2>
-                </a>
+    <nav class="mini-nav" id="game-nav">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="card add-btn">
+                <div class="content">
+                    <a href="{{ path('game_new') }}">
+                        <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game">
+                        <p>NEW GAME</p>
+                    </a>
+                </div>
             </div>
-        </div>
 
-    {% endif %}
+            <div class="card add-btn">
+                <div class="content">
+                    <input {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked=true' }} type="checkbox" class="switch {{ params.isVisible is defined and params.isVisible == 0 ? '' : 'checked' }}">
+                    <p>{{ isVisible is defined and isVisible == 0 ? 'HIDDEN' : 'VISIBLE' }}</p>
+                </div>
+            </div>
+        {% endif %}
+
+        {% include 'components/_searchbar.html.twig' %}
+
+    </nav>
 
     {% if games is not empty %}
 
         {% set nbSlides = (games|length / 6)|format_number({rounding_mode: 'ceiling', fraction_digit: 0}) %}
 
-        <ul class="carousel carousel-big" id="carousel-games">
-            {% for i in 0..nbSlides - 1 %}
-                <li class="slide grid full-size">
-                    {% for y in 0..5 %}
-                        {% if (y + 6*i) < games|length %}
-                            {% set game = games[y + 6*i] %}
-                            <section class="card">
-                                <div class="content">
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <a class="edit-btn" href="{{ path("game_edit", { slug: game.slug }) }}">
-                                            <img src="{{ asset('build/images/icons/edit2.svg') }}">
+        {# <div class="full-size"> #}
+            <ul class="carousel carousel-big" id="carousel-games">
+                {% for i in 0..nbSlides - 1 %}
+                    <li class="slide grid full-size">
+                        {% for y in 0..5 %}
+                            {% if (y + 6*i) < games|length %}
+                                {% set game = games[y + 6*i] %}
+                                <section class="card">
+                                    <div class="content">
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="edit-btn" href="{{ path("game_edit", { slug: game.slug }) }}">
+                                                <img src="{{ asset('build/images/icons/edit2.svg') }}">
+                                            </a>
+                                        {% endif %}
+
+                                        <a href="{{ path('game_show', {slug: game.slug}) }}">
+                                            <img class="poster" src="{{ vich_uploader_asset(game) }}" alt="">
+                                            <h2>{{ game.title }}</h2>
                                         </a>
-                                    {% endif %}
 
-                                    <a href="{{ path('game_show', {slug: game.slug}) }}">
-                                        <img class="poster" src="{{ vich_uploader_asset(game) }}" alt="">
-                                        <h2>{{ game.title }}</h2>
-                                    </a>
+                                        <div class="game-infos">
+                                            <div class="game-category-container">
+                                                <p class="game-category">{{game.mainCategory.label}}</p>
+                                                {% if game.optionalCategory is not null %}
+                                                    <p class="game-category">{{game.optionalCategory.label}}</p>
+                                                {% endif %}
+                                            </div>
 
-                                    <div class="game-infos">
-                                        <div class="game-category-container">
-                                            <p class="game-category">{{game.mainCategory.label}}</p>
-                                            {% if game.optionalCategory is not null %}
-                                                <p class="game-category">{{game.optionalCategory.label}}</p>
-                                            {% endif %}
-                                        </div>
-
-                                            <div class="game-stats">
-                                                <div class="game-highest-score">
-                                                    {% if app.user and gamesStats[game.id]['userRanking'] is defined %}
-                                                        {% if gamesStats[game.id]['userRanking'] == 1 %}
-                                                            <img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy">
-                                                        {% elseif gamesStats[game.id]['userRanking'] == 2 %}
-                                                            <img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy">
-                                                        {% elseif gamesStats[game.id]['userRanking'] == 3 %}
-                                                            <img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy">
+                                                <div class="game-stats">
+                                                    <div class="game-highest-score">
+                                                        {% if app.user and gamesStats[game.id]['userRanking'] is defined %}
+                                                            {% if gamesStats[game.id]['userRanking'] == 1 %}
+                                                                <img src="{{ asset('build/images/icons/trophy-solid-first.svg') }}" alt="Gold trophy">
+                                                            {% elseif gamesStats[game.id]['userRanking'] == 2 %}
+                                                                <img src="{{ asset('build/images/icons/trophy-solid-second.svg') }}" alt="Silver trophy">
+                                                            {% elseif gamesStats[game.id]['userRanking'] == 3 %}
+                                                                <img src="{{ asset('build/images/icons/trophy-solid-third.svg') }}" alt="Bronze trophy">
+                                                            {% else %}
+                                                                <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
+                                                            {% endif %}
                                                         {% else %}
                                                             <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
                                                         {% endif %}
-                                                    {% else %}
-                                                        <img src="{{ asset('build/images/icons/trophy-solid.svg') }}" alt="Champion's cup">
-                                                    {% endif %}
-                                                    <p>
-                                                        {% if app.user and gamesStats[game.id]['userRanking'] is defined %}
-                                                            {{ gamesStats[game.id]['userRanking'] }}
-                                                        {% else %}
-                                                            —
-                                                        {% endif %}
-                                                    </p>
+                                                        <p>
+                                                            {% if app.user and gamesStats[game.id]['userRanking'] is defined %}
+                                                                {{ gamesStats[game.id]['userRanking'] }}
+                                                            {% else %}
+                                                                —
+                                                            {% endif %}
+                                                        </p>
+                                                    </div>
+                                                    <div class="game-time-spent">
+                                                        <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
+                                                        <p>
+                                                            {% if app.user and gamesStats[game.id]['totalTimePlayed'] is defined %}
+                                                                {{ gamesStats[game.id]['totalTimePlayed'] }}
+                                                            {% else %}
+                                                                —
+                                                            {% endif %}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div class="game-time-spent">
-                                                    <img src="{{ asset('build/images/icons/clock-1.svg') }}" alt="Clock">
-                                                    <p>
-                                                        {% if app.user and gamesStats[game.id]['totalTimePlayed'] is defined %}
-                                                            {{ gamesStats[game.id]['totalTimePlayed'] }}
-                                                        {% else %}
-                                                            —
-                                                        {% endif %}
-                                                    </p>
-                                                </div>
-                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
-                        {% endif %}
-                    {% endfor %}
-                </li>
-            {% endfor %}
-        </ul>
+                                </section>
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {# </div> #}
 
         <nav class="slider" id="slider-games">
             {% for i in 0..nbSlides - 1 %}

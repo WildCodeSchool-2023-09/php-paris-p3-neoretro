@@ -9,6 +9,44 @@
 
 {% block content %}
 
+    <nav class="mini-nav" id="dashboard-nav">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="card add-btn">
+                <div class="content">
+                    <a href="{{ path('game_new') }}">
+                        <img class="icon" src="{{ asset('build/images/icons/add.svg') }}" alt="New game link">
+                        <p>NEW GAME</p>
+                    </a>
+                </div>
+            </div>
+            <div class="card add-btn">
+                <div class="content">
+                    <a href="{{ path('prize_new') }}">
+                        <img class="icon" src="{{ asset('build/images/icons/add.svg') }}" alt="New prize link">
+                        <p>NEW PRIZE</p>
+                    </a>
+                </div>
+            </div>
+            <div class="card add-btn">
+                <div class="content">
+                    <a href="{{ path('event_new') }}">
+                        <img class="icon" src="{{ asset('build/images/icons/add.svg') }}" alt="New event link">
+                        <p>NEW EVENT</p>
+                    </a>
+                </div>
+            </div>
+            
+            {# <a class="btn-admin" href="{{ path('prize_index') }}">
+                Prizes' List
+                <img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon">
+            </a>
+            <a class="btn-admin" href="{{ path('event_index') }}">
+                Events List
+                <img class="icon" src="{{ asset('build/images/icons/eye.png') }}" alt="Eye icon">
+            </a> #}
+        {% endif %}
+    </nav>
+
     <div id="dashboard" class="grid">
 
         {% if app.user %}
@@ -16,10 +54,12 @@
                 <div class="content">
                     <h2>{{ last_username }}</h2>
                     <div class="container">
-                        <a href=""><img src="{{ asset('build/images/icons/user-xp.svg') }}" alt="{{ last_username }}"></a>
+                        <a href="{{ path('user_profile') }}">
+                            <img src="{{ asset('build/images/icons/user-xp.svg') }}" alt="{{ last_username }}">
+                        </a>
                         <ul>
-                            <li>LVL 12</li>
-                            <li>148 XP</li>
+                            <li>LVL {{ app.user.level }}</li>
+                            <li>{{ app.user.experience }} XP</li>
                         </ul>
                         <a id="log-out" href="{{ path('logout') }}">Logout</a>
                     </div>
@@ -124,6 +164,12 @@
         
         <section class="card cell-this-week">
             <div class="content">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="edit-btn" href="{{ path("game_index") }}">
+                        <img src="{{ asset('build/images/icons/edit2.svg') }}">
+                    </a>
+                {% endif %}
+                
                 <h2>This week</h2>
 
                 <ul>
@@ -142,6 +188,12 @@
 
         <section class="card cell-the-room">
             <div class="content">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="edit-btn" href="{{ path("game_index") }}">
+                        <img src="{{ asset('build/images/icons/edit2.svg') }}">
+                    </a>
+                {% endif %}
+
                 <h2>The Room</h2>
                     <div class="container">
                         <div class="room-info">
@@ -191,9 +243,10 @@
             <div class="content">
                 <h2>Mini-Games</h2>
                 <div class="container">
-                    <p>
-                        Coming soon...
-                    </p>
+                    <a href="{{ path('game_mini-game') }}">
+                        <img class="game-poster" src="{{ asset('build/images/breakout.png') }}" alt="Breakout">
+                        <h3>BREAKOUT</h3>
+                    </a>
                 </div>
             </div>
         </section>
@@ -218,6 +271,12 @@
 
         <section class="card cell-arcade-games">
             <div class="content">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="edit-btn" href="{{ path("game_index") }}">
+                        <img src="{{ asset('build/images/icons/edit2.svg') }}">
+                    </a>
+                {% endif %}
+
                 <h2>Arcade Games</h2>
 
                 <div id="games-grid">

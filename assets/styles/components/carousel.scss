@@ -24,8 +24,9 @@ ul.carousel.carousel-big {
     
         // width: calc(1240px + 16px);
         width: 100%;
-        height: calc(820px + 2*40px);
-        padding: 40px 0;
+        height: 820px;
+        // height: calc(820px + 2*40px);
+        // padding: 40px 0;
     
         list-style: none;
     
@@ -38,10 +39,8 @@ ul.carousel.carousel-big {
             display: none;
         }
     
-        mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 2%, rgba(0, 0, 0, 1) 98%, transparent 100%);
-    
         &.carousel-big {
-            margin-top: 50px;
+            // position: relative;
     
             li.slide {
                 grid-template-columns: repeat(3, 400px);
@@ -77,11 +76,12 @@ ul.carousel.carousel-big {
     
     .slider {
         position: absolute;
-        right: 2vw;
+        right: 1.5vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
         gap: 1rem;
+        margin-top: 50px;
     
         transition: ease-in-out 150ms;
     

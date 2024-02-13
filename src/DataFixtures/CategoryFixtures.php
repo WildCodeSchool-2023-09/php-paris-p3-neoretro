@@ -13,13 +13,15 @@ class CategoryFixtures extends Fixture
     public const DATA = [
         'Flipper',
         'Machine',
-        'WTF',
+        'Shooter',
         'Action',
         'Aventure',
-        'VR',
+        'Strategy',
         'Sci-Fi',
         'Fantasy',
         'Survival',
+        'Horror',
+        'Race'
     ];
 
     public function load(ObjectManager $manager): void

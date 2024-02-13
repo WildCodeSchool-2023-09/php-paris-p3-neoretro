@@ -18,4 +18,4 @@ function toggleInput(toggleSelector, inputSelector, formSelector)
     })
 }
 
-toggleInput('#toggle input.switch', 'input.isVisible', 'form');
+toggleInput('input.switch', 'input.isVisible', 'form');

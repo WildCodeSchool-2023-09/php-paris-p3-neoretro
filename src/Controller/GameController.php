@@ -92,6 +92,12 @@ class GameController extends AbstractController
         ]);
     }
 
+    #[Route('/mini-game/breakout', name:'mini-game')]
+    public function play(): Response
+    {
+        return $this->render('game/mini-game/breakout.html.twig');
+    }
+
     #[Route('/{slug}', name: 'show')]
     public function show(
         Game $game,
@@ -103,6 +109,15 @@ class GameController extends AbstractController
         $user = $security->getUser();
         $gamesPlayed = $gamePlayedRepository->findGlobalBestScoresByGame($game->getId());
 
+        $achievements = [
+            'Super Grenade',
+            'Heavy Machine Gun',
+            'Missions All Completed',
+            'Rocket Launcher',
+            'Iron Lizard',
+            'Drop Shot',
+        ];
+
         if ($this->isGranted('ROLE_USER')) {
             $gameStats = $gameInfoService->getUserGamesStats([$game], $user)[$game->getId()];
         }
@@ -112,8 +127,9 @@ class GameController extends AbstractController
             'game' => $game,
             'gameStats' => $gameStats ?? [],
             'gamesPlayed' => $gamesPlayed,
-            'reviews' => $reviewRepository->findBy(['game' => $game]),
+            'reviews' => $reviewRepository->findBy(['game' => $game], ['id' => 'DESC']),
             'globalNote' => $gameInfoService->getGlobalNote($game),
+            'achievements' => $achievements,
         ]);
     }
 

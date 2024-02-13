@@ -43,6 +43,7 @@ import './styles/prize/prize-form.scss';
 import './styles/gameplayed.scss';
 import './styles/leaderboard.scss';
 import './styles/profile.scss';
+import './styles/breakout.scss';
 
 // start the Stimulus application
 import './bootstrap';

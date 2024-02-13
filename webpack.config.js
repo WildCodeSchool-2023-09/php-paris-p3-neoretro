@@ -41,6 +41,7 @@ Encore
     .addEntry('toggle', './assets/scripts/toggle.js')
     .addEntry('reviewModal', './assets/scripts/reviewModal.js')
     .addEntry('notationReview', './assets/scripts/notationReview.js')
+    .addEntry('breakout', './assets/scripts/breakout.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

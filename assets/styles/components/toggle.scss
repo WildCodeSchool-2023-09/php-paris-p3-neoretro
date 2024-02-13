@@ -1,12 +1,11 @@
 @import "../main/_variables";
 
-#toggle {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 1rem;
+// #toggle {
+	// display: flex;
+	// justify-content: center;
+	// align-items: center;
 
-	margin: 1rem 0;
+	// margin: 1rem 0;
 	
 	input.switch {
 		position: relative;
@@ -25,7 +24,7 @@
 	
 		transition: all .3s ease;
 	
-		background: #fff;
+		background: #dcdcdc;
 	
 		&:checked {
 			background-color: rgba(32, 151, 243, 1);
@@ -55,7 +54,8 @@
 	
 			border: 1px solid rgba(100, 116, 139, 0.527);
 			border-radius: 9999px;
-			background-color: rgba(255, 255, 255, 1);
+			// background-color: rgba(255, 255, 255, 1);
+			background: $colorGradient5;
 	
 			box-shadow: 0 3px 10px rgba(100, 116, 139, 0.327);
 	
@@ -66,15 +66,14 @@
 			box-shadow: 0 0 0px 8px rgba(0, 0, 0, .15)
 		}
 	}
-}
-
+// }
 
 //
 
 @media screen and (min-width: $desktopWidth) {
-	#toggle {
-		position: absolute;
-		top: 1rem;
-		right: 6rem;
-	}
+	// #toggle {
+	// 	position: absolute;
+	// 	top: 1rem;
+	// 	right: 6rem;
+	// }
 }

@@ -1,6 +1,6 @@
 @import "../main/_variables";
 
-#event-form {
+#event-form .content {
 	.container {
         display: flex;
         flex-direction: column;
@@ -21,6 +21,12 @@
                     display: flex;
                     gap: 1rem;
                 }
+
+				input.switch#event_isVisible {
+					width: 3rem;
+					height: 1.5rem;
+					margin: 0 auto;
+				}
 			}
 		
 			.big-btn {

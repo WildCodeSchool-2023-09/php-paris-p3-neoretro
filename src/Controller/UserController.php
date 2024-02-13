@@ -6,10 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ProfileType;
-use App\Repository\GamePlayedRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Service\GameInfoService;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/user', name: 'user_')]

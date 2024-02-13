@@ -7,26 +7,25 @@
 
 {% block content %}
 
-{% if is_granted('ROLE_USER') %}
-    <div class="card" id="add-btn">
-        <div class="content">
-        {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('prize_new') }}">
-                    <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">
-                    <h2>New prize</h2>
-                </a>
-        {% else %}
-            <div class="balance">
-                <h2>Balance</h2>
-                <div class="token-balance-value">
-                    <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
-                    <p class="token-value">30</p>
+<nav class="mini-nav">
+    {% if is_granted('ROLE_USER') %}
+        <div class="card add-btn">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="content">
+                    <a href="{{ path('prize_new') }}">
+                        <img src="{{ asset('build/images/icons/add.svg') }}" alt="Add new game icon">
+                        <p>NEW PRIZE</p>
+                    </a>
                 </div>
-            </div>
-        {% endif %}
+            {% else %}
+                <div class="content balance">
+                    <img src="{{ asset('build/images/icons/money-coin-token-icon.png') }}">
+                    <p>Balance: {{app.user.token}}</p>
+                </div>
+            {% endif %}
         </div>
-    </div>
-{% endif %}
+    {% endif %}
+</nav>
 
 {% if prizes is not empty %}
 
@@ -47,16 +46,20 @@
                                 {% endif %}
 
                                 <h2>{{ prize.label }}</h2>
-                                <img class="prize-poster" src="{{ vich_uploader_asset(prize) }}" alt="">
 
-                                <div class="buy-flex">
-                                    <img src="{{ asset('build/images/icons/coins.png') }}" alt="">
-                                    <p>{{ prize.value }}</p>
-                                </div>
+                                <div class="container">
+                                    <img class="prize-poster" src="{{ vich_uploader_asset(prize) }}" alt="">
 
-                                <div class="buy-flex">
-                                    <p>Stock: x{{ prize.quantity }}</p>
-                                    <a href="#" class="buy-button">BUY</a>
+                                    <div>
+                                        <img src="{{ asset('build/images/icons/coins.svg') }}" alt="">
+                                        <p>{{ prize.value }}</p>
+                                    </div>
+
+                                    <p class="stock">Stock:<br>x{{ prize.quantity }}</p>
+
+                                    <a href="">
+                                        <button class="big-btn">BUY</button>
+                                    </a>
                                 </div>
                             </div>
                         </section>
